@@ -1,4 +1,4 @@
-package kr.co.sist.dao;
+package team3_dao;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

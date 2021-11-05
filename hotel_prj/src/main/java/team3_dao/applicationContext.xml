@@ -10,14 +10,14 @@
 <!-- DBCP설정 -->
 <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
-<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
-<property name="username" value="scott"/>
-<property name="password" value="tiger"/>
+<property name="url" value="jdbc:oracle:thin:@211.63.89.141:1521:orcl"/>
+<property name="username" value="team3"/>
+<property name="password" value="project"/>
 </bean>
 
 
 <!-- JdbcTemplate의 dataSource를 의존성 주입하여 설정 -->
-<bean id = "jt" class = "org.springframework.jdbc.core.JdbcTemplate" scope = "singleton" >
+<bean id = "jt" class = "org.springframework.jdbc.core.JdbcTemplate" scope = "singleton">
 	<constructor-arg ref = "dataSource" />
 </bean>
 

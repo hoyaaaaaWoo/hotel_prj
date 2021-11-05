@@ -3,7 +3,7 @@ package admin;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import kr.co.sist.dao.GetJdbcTemplate;
+import team3_dao.GetJdbcTemplate;
 
 public class MemberDelete {
 
