@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hotel Ritz - 관리자 로그아웃</title>
 <link rel="stylesheet" type="text/css"
-	href="http://localhost/jsp_prj/common/css/main_v20211012.css">
+	href="http://localhost/hotel_prj/common/css/main_v20211012.css">
 	
 <!-- jQuery CDN -->
 <script

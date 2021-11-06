@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hotel Ritz - 객실 /상세보기</title>
 <link rel="stylesheet" type="text/css"
-	href="http://localhost/jsp_prj/common/css/main_v20211012.css">
+	href="http://localhost/hotel_prj/common/css/main_v20211012.css">
 
 <!-- jQuery CDN -->
 <script
@@ -27,7 +27,7 @@
 	href="http://localhost/jsp_prj/project02_team03/admin/css/admin_main.css">
 <!-- viewroom CSS -->
 <link rel="stylesheet" type="text/css"
-	href="http://localhost/hotel_prj/admin/css/admin_main.css">
+	href="http://localhost/hotel_prj/admin/css/admin_room_roomview.css">
 
 	
 <style type="text/css">
@@ -72,15 +72,15 @@
 <script type="text/javascript">
 $(function(){
 	 $("td").click(function(){
-		 location.href="http://localhost/jsp_prj/project02_team03/admin/admin_room_main_roomview.jsp";
+		 location.href="http://localhost/hotel_prj/admin/admin_room_main_roomview.jsp";
 	 })//click
 	 
 	 $("#addBtn").click(function(){
-		 location.href="http://localhost/jsp_prj/project02_team03/admin/admin_room_add.jsp";
+		 location.href="http://localhost/hotel_prj/admin/admin_room_add.jsp";
 	 })//click
 	 
 	 $("#chgBtn").click(function(){
-		 location.href="http://localhost/jsp_prj/project02_team03/admin/admin_room_change.jsp";
+		 location.href="http://localhost/hotel_prj/admin/admin_room_change.jsp";
 	 })//click
 }) 
 </script>

@@ -28,7 +28,7 @@ public class GetJdbcTemplate {
 		// ac가 객체가 생성되어 있지 않았거나, ac 활성화 상태가 아니라면
 		if( ac == null || ( ac != null && !((ClassPathXmlApplicationContext)ac).isActive() ) ) {
 			// Spring Container를 생성 -> 연속성을 가지고 계속 쓰기 위해
-			ac = new ClassPathXmlApplicationContext("kr/co/sist/dao/applicationContext.xml");
+			ac = new ClassPathXmlApplicationContext("team3_dao/applicationContext.xml");
 		}//end if
 		return ac;
 	}//getAc

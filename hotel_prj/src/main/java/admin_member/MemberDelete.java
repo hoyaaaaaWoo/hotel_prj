@@ -1,4 +1,4 @@
-package admin;
+package admin_member;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

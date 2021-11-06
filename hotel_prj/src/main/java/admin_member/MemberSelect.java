@@ -1,4 +1,4 @@
-package admin;
+package admin_member;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

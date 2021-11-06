@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hotel Ritz - 객실 / 객실 추가</title>
 <link rel="stylesheet" type="text/css"
-	href="http://localhost/jsp_prj/common/css/main_v20211012.css">
+	href="http://localhost/hotel_prj/common/css/main_v20211012.css">
 
 <!-- jQuery CDN -->
 <script

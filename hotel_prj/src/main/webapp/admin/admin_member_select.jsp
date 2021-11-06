@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hotel Ritz - 회원관리</title>
 <link rel="stylesheet" type="text/css"
-	href="http://localhost/jsp_prj/common/css/main_v20211012.css">
+	href="http://localhost/hotel_prj/common/css/main_v20211012.css">
 
 <!-- jQuery CDN -->
 <script
@@ -111,8 +111,8 @@ position: absolute; top: 80px; left: 1200px;
 <body>
 
 <%
-MemberSelect ms=new MemberSelect();
-List<MemberVO> list =ms.selectMember(null);
+MemberSelect ms = new MemberSelect();
+List<MemberVO> list = ms.selectMember(null);
 pageContext.setAttribute("memberData", list);
 %>
 
@@ -126,7 +126,7 @@ pageContext.setAttribute("memberData", list);
 			<div id="naviBar2">
 				<span id="mainMenu" onclick="location.href='http://localhost/hotel_prj/admin/admin_member_select.jsp'">회원조회</span> &nbsp; 
 				<span id="mainMenu" style="text-decoration: none" onclick="location.href='http://localhost/hotel_prj/admin/admin_member_delete.jsp'">탈퇴회원</span>
-				<form name="frm_search" action="http://localhost/gp_2/admin/admin_member_specific_select.jsp" method="post">
+				<form name="frm_search" action="http://localhost/hotel_prj/admin/admin_member_specific_select.jsp" method="post">
 				<input type="text" name="search" placeholder="이름조회" id="id_search" class="form-control" maxlength="10"/>
 				<input type="submit" value="검색" name="search" class="btn btn-default" id="search"/>
 				</form>
