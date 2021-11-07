@@ -1,3 +1,4 @@
+<%@page import="admin_reservation.ReserveSelect"%>
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="예약관리 메인"%>
@@ -88,9 +89,8 @@ tr:hover td {
 
 <script type="text/javascript">
 $(function(){
-	
+	/* 날짜 검색 */
 	$("#searchBtn").click(function(){
-		
 		let year = $("#year").val();
 		let month = $("#month").val();
 		let day = $("#day").val();
@@ -102,10 +102,10 @@ $(function(){
 		}//end if
 		
 		$("#dateFrm").submit();
-		
 	})//날짜검색 click
 	
-	/* 테이블 데이터 클릭시, 페이지 이동 및 값 넘기기 */
+	
+	/* 예약 변경 */
 	$("#resList tr").click(function(){
 		//현재 선택된 tr과 td
 		let tr = $(this);
@@ -114,11 +114,15 @@ $(function(){
 		//선택된 행에서 예약번호 얻어오기
 		let resNum = td.eq(0).text();
 		
+		if(resNum != "예약번호" && resNum != null){
 		//해당 예약번호를 예약변경 페이지로 전송!
-		location.href="http://localhost/jsp_prj/project02_team03/admin/admin_reservation_change.jsp?resNum="+resNum;
+			$("#resNum").val(resNum);
+			$("#chgFrm").submit();
+		}//end if
 	})//table click
 	
-	/* 삭제 버튼 클릭시, 예약번호 get & 삭제 메시지 출력 */
+	
+	/* 예약 삭제*/
 	$(".delBtn").click(function(){
 		//선택된 버튼 할당
 		var delBtn = $(this);
@@ -128,14 +132,9 @@ $(function(){
 		//예약번호 얻기
 		let resNum = td.eq(0).text();
 		
-		if(resNum == " "){
-			alert("존재하는 예약건을 선택해주세요.");
-			return;
-		}//end if
-		
-		let flag = confirm("["+resNum+"] 예약을 삭제하시겠습니까?");
-		if(flag == true){
-			alert("예약이 삭제되었습니다.")
+		if(confirm("["+resNum+"] 예약을 삭제하시겠습니까?")){
+			$("#delResNum").val(resNum);
+			$("#delFrm").submit();
 		}else{
 			alert("예약 삭제 진행을 취소합니다.");
 		}//end else
@@ -150,21 +149,39 @@ $(function(){
 	<div id="wrap">
 		<!-- header/navibar import -->
 		<c:import url="common/admin_header_nav.jsp" /> 
-		
+
 		<div id="container" style="padding:50px">
 		<form name="dateFrm" id="dateFrm" action="http://localhost/hotel_prj/admin/admin_reservation_main.jsp" method="get" class="form-inline">
 		 <span id="mainMenu" onclick="location.href='http://localhost/hotel_prj/admin/admin_reservation_main.jsp'">체크인 날짜 검색</span><br/><br/>
+	
 		 <div id="date">
-		  	<input type="text" id="year" name="year" class="form-control" placeholder="YYYY" maxlength="4"/>년 &nbsp;
-		  	<input type="text" id="month" name="month" class="form-control" placeholder="DD" maxlength="2"/>월 &nbsp;
-		  	<input type="text" id="day" name="day" class="form-control" placeholder="YY" maxlength="2"/>일 &nbsp;
+		 <!-- 날짜 입력/선택여부에 따라 value 설정-->
+		 	<c:choose>
+		  	 <c:when test="${not empty param.year}">
+		  	  <input type="text" id="year" name="year" class="form-control" value="${param.year}" maxlength="4"/>년 &nbsp;
+		  	  <input type="text" id="month" name="month" class="form-control" value="${param.month}" maxlength="2"/>월 &nbsp;
+		  	  <input type="text" id="day" name="day" class="form-control" value="${param.day}" maxlength="2"/>일 &nbsp;
+		  	 </c:when>
+		  	 <c:otherwise>
+		  	  <input type="text" id="year" name="year" class="form-control" placeholder="YYYY" maxlength="4"/>년 &nbsp;
+		  	  <input type="text" id="month" name="month" class="form-control" placeholder="MM" maxlength="2"/>월 &nbsp;
+		  	  <input type="text" id="day" name="day" class="form-control" placeholder="DD" maxlength="2"/>일 &nbsp;
+		  	 </c:otherwise>
+		  	</c:choose>
 		  	<input type="button" id="searchBtn" name="searchBtn" class="btn btn-default" value="검색"/>
 		 </div>
 		 </form>
 		 
-		 <form name="resFrm" action="http://localhost/hotel_prj/admin/admin_reservation_main.jsp" method="get">
+		 <!-- 날짜 선택 or 오늘의 예약으로 넘어왔을 때 웹파라미터 처리 -->
+		 <jsp:useBean id="date" class="admin_reservation.ReserveDateVO" scope="page"/>
+		 <jsp:setProperty property="*" name="date"/>
+		 
+		 <%
+		 ReserveSelect rs = new ReserveSelect();
+		 pageContext.setAttribute("resData", rs.selectRes(date));
+		 %>
+		 
 		 <div id="resList">
-		 <!-- 테이블은 조회내용대로 동적으로 생성 예정 / scriptlet 활용 -->
 		 <table class="table table-bordered" id="resList">
 		 <tr>
 		 	<th>예약번호</th>
@@ -175,53 +192,35 @@ $(function(){
 		 	<th>예약관리</th>
 		 </tr>
 		 
-		 <tr>
-		 	<td>1019R01</td>
-		 	<td>김나나</td>
-		 	<td>2021.10.22-2021.10.23</td>
-		 	<td>2</td>
-		 	<td>그랜드 디럭스 룸</td>
-		 	<td onclick="event.cancelBubble=true">
-		 	<input type="button" id="delBtn" name="delBtn" class="delBtn btn btn-danger" value="예약삭제"></td>
-		 </tr>
-		 <tr>
-			<td>1019R02</td>
-			<td>한하나</td>
-		 	<td>2021.10.25-2021.10.28</td>
-		 	<td>1</td>
-		 	<td>리츠 프리미어 룸</td>
-		 	<td onclick="event.cancelBubble=true">
-		 	<input type="button" id="delBtn" name="delBtn" class="delBtn btn btn-danger" value="예약삭제"></td>
-		 </tr>
-		 <tr>
-			<td> </td>
-			<td> </td>
-		 	<td> </td>
-		 	<td> </td>
-		 	<td> </td>
-		 	<td onclick="event.cancelBubble=true">
-		 	<input type="button" id="delBtn" name="delBtn" class="delBtn btn btn-danger" value="예약삭제"></td>
-		 </tr>
-		 <tr>
-			<td> </td>
-			<td> </td>
-		 	<td> </td>
-		 	<td> </td>
-		 	<td> </td>
-		 	<td onclick="event.cancelBubble=true">
-		 	<input type="button" id="delBtn" name="delBtn" class="delBtn btn btn-danger" value="예약삭제"></td>
-		 </tr>
-		 <tr>
-			<td> </td>
-			<td> </td>
-		 	<td> </td>
-		 	<td> </td>
-		 	<td> </td>
-		 	<td onclick="event.cancelBubble=true">
-		 	<input type="button" id="delBtn" name="delBtn" class="delBtn btn btn-danger" value="예약삭제"></td>
-		 </tr>
-		 </table>
-		 </div>
+		<c:if test="${ empty resData }">
+		<tr>
+			<td onclick="event.cancelBubble=true" colspan="6" style="color:#FF0000;font-weight: bold">
+			예약 정보가 존재하지 않습니다.</td>
+		</tr>
+		</c:if>
+	
+		<c:forEach var="res" items="${ resData }">
+		  <tr>
+			<td><c:out value="${ res.resNo }"/></td>
+			<td><c:out value="${ res.kName }"/></td>
+			<td><c:out value="${ res.stayDate }"/></td>
+			<td><c:out value="${ res.guest }"/></td>
+			<td><c:out value="${ res.rName }"/></td>
+	 		<td onclick="event.cancelBubble=true">
+	 	 	<input type="button" id="delBtn" name="delBtn" class="delBtn btn btn-danger" value="예약삭제"></td>
+		  </tr>
+		</c:forEach>
+		</table>
+		</div>
+		 
+		  <!-- 테이블의 예약건(행) 클릭시 hidden값 설정 및 페이지 이동 -->
+		 <form name="chgFrm" id="chgFrm" action="admin_reservation_change.jsp">
+		 	<input type="hidden" name="resNum" id="resNum"/>
+		 </form>
+		 
+		 <!-- 삭제버튼 클릭시 hidden값 설정 및 페이지 이동 -->
+		 <form name="delFrm" id="delFrm" action="admin_reservation_del_process.jsp">
+		 	<input type="hidden" name="delResNum" id="delResNum"/>
 		 </form>
 		 
 		 <div id="page">

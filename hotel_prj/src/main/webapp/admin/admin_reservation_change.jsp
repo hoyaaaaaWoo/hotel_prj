@@ -1,3 +1,8 @@
+<%@page import="java.util.Locale"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="admin_reservation.ReserveUpdateVO"%>
+<%@page import="admin_reservation.ReserveModify"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="예약관리 - 변경페이지"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -85,13 +90,39 @@ textarea{
 <script type="text/javascript">
 $(function(){
 	
+	/* 예약변경 버튼 클릭  */
 	$("#chgBtn").click(function(){
-		alert("[" + $("#resNum").val() + "]의 예약이 변경되었습니다.");
+		
+		var name = $("#name").val();
+		var inYear = $("#inYear").val();
+		var inMonth = $("#inMonth").val();
+		var inDay = $("#inDay").val();
+		var outYear = $("#outYear").val();
+		var outMonth = $("#outMonth").val();
+		var outDay = $("#outDay").val();
+		var adult = $("select[name=adult]").val();
+		var child = $("select[name=child]").val();
+		
+		//text 형식 공란 체크
+		if(name == "" || inYear == "" || inMonth == "" || inDay == "" || outYear == ""
+				|| outMonth == "" || outDay == ""){
+			alert("수정하실 정보를 입력해주시기 바랍니다.");
+			return;
+		}//end if
+		
+		//인원수 체크
+		if( adult =="none" || child=="none"){
+			alert("인원수를 입력해주시기 바랍니다.");
+			return;
+		}//end if
+		
 		$("#chgFrm").submit();
+		
 	})//click
 
+	/* 취소 클릭 */
 	$("#resetBtn").click(function(){
-		alert("예약변경을 취소합니다.");
+		alert("예약 변경을 취소합니다.");
 		history.back();
 	})//click
 	
@@ -99,6 +130,11 @@ $(function(){
 </script>
 </head>
 <body>
+		 <!-- 예약관리 메인 페이지에서 넘어오지 않았을 경우 redirect 해주기 (예약번호 선택 필요) -->
+		 <c:if test="${empty param.resNum}">
+		 	<% response.sendRedirect("http://localhost/hotel_prj/admin/admin_reservation_main.jsp"); %>
+		 </c:if>
+		 
 	<div id="wrap">
 		
 		<!-- header/navibar import -->
@@ -106,54 +142,63 @@ $(function(){
 		
 		<div id="container" style="padding:50px">
 		<span id="mainMenu" onclick="location.href='admin_reservation_change.jsp?resNum=${param.resNum}'">예약변경</span><br/><br/>
-		<form name="chgFrm" id="chgFrm" action="http://localhost/hotel_prj/admin/admin_reservation_main.jsp" method="get" class="form-inline">
+		<form name="chgFrm" id="chgFrm" action="admin_reservation_update_process.jsp" method="get" class="form-inline">
 		 
-		 <!-- 예약관리 메인 페이지에서 넘어오지 않았을 경우 redirect 해주기 (예약번호 선택 필요) -->
-		 <c:if test="${empty param.resNum}">
-		 	<% response.sendRedirect("http://localhost/hotel_prj/admin/admin_reservation_main.jsp"); %>
-		 </c:if>
+		 <% 
+		 String resNum = request.getParameter("resNum");
+		 ReserveModify rm = new ReserveModify();
+		 ReserveUpdateVO rVO = rm.selectRes(resNum);
+		 pageContext.setAttribute("rVO", rVO); // 예약정보
 		 
+		 pageContext.setAttribute("rNameList", rm.selectAllRName()); //등록된 모든 룸 리스트
+		 %>
 		 <table>
 		 <tr>
 		   <!-- 예약 메인 페이지에서 선택된 예약번호를 받아서 설정 -->
 		   <td>	<label id="title">* 예약번호</label> </td>
-	       <td> <input type="text" name="resNum" id="resNum" class="form-control" value="${param.resNum}" readonly="readonly"/> </td>
+	       <td> <input type="text" name="resNum" id="resNum" class="form-control" value="${rVO.resNo}" readonly="readonly"/> </td>
 		 </tr>
 		 <tr>
 		   <td> <label id="title">* 예약자명</label> </td>
-		   <td> <input type="text" name="name" id="name" class="form-control" maxlength="10"/> </td>
+		   <td> <input type="text" name="name" id="name" class="form-control"  value="${rVO.kName}"  maxlength="10"/> </td>
 		 </tr>
 		 <tr>
 		   <td> <label id="title">* 투숙날짜</label> </td>
 		   <td>	<label id="subTitle">체크인</label><br/>
-					<input type="text" id="date" name="inYear" class="form-control" placeholder="YYYY" maxlength="4"/>년 &nbsp;
-		  			<input type="text" id="date" name="inMonth" class="form-control" placeholder="DD" maxlength="2"/>월 &nbsp;
-		  			<input type="text" id="date" name="inDay" class="form-control" placeholder="YY" maxlength="2"/>일 &nbsp;
+					<input type="text" id="date" name="inYear" class="form-control" value="${rVO.inYear}" maxlength="4"/>년 &nbsp;
+		  			<input type="text" id="date" name="inMonth" class="form-control" value="${rVO.inMonth}"  maxlength="2"/>월 &nbsp;
+		  			<input type="text" id="date" name="inDay" class="form-control" value="${rVO.inDay}"  maxlength="2"/>일 &nbsp;
 				<br/>
 				<label id="subTitle" style="margin-top:15px" >체크아웃</label><br/>
-					<input type="text" id="date" name="outYear" class="form-control" placeholder="YYYY" maxlength="4"/>년 &nbsp;
-		  			<input type="text" id="date" name="outMonth" class="form-control" placeholder="DD" maxlength="2"/>월 &nbsp;
-		  			<input type="text" id="date" name="outDay" class="form-control" placeholder="YY" maxlength="2"/>일 &nbsp;
+					<input type="text" id="date" name="outYear" class="form-control" value="${rVO.outYear}" maxlength="4"/>년 &nbsp;
+		  			<input type="text" id="date" name="outMonth" class="form-control" value="${rVO.outMonth}" maxlength="2"/>월 &nbsp;
+		  			<input type="text" id="date" name="outDay" class="form-control" value="${rVO.outDay}" maxlength="2"/>일 &nbsp;
 		  	</td>
 		  </tr>
 		  <tr>
 		   <td>	<label id="title">* 인원수</label> </td>
 		  <td> <label id="subTitle">성인</label>
 			<select name="adult" class="form-control" style="margin-left:50px">
-				<option value="none">--인원수 선택--</option> 
-				<option value="1">1명</option>
-				<option value="2">2명</option>
-				<option value="3">3명</option>
-				<option value="4">4명</option>
+				<option value="none">--인원수 선택--</option>
+				<c:forEach var="i" begin="1" end="4" step="1">
+				<c:set var="selected" value=""/>
+				<c:if test="${i eq rVO.adult}">
+					<c:set var="selected" value="selected='selected'"/>
+				</c:if>
+				<option value="${i}" ${selected}><c:out value="${i}"/>명</option>
+				</c:forEach>
 		  	</select>
 		  	<br/>
 			<label id="subTitle" style="margin-top:15px">어린이</label>
 			<select name="child" class="form-control" style="margin-left:32px;">
 				<option value="none">--인원수 선택--</option> 
-				<option value="0">0명</option>
-				<option value="1">1명</option>
-				<option value="2">2명</option>
-				<option value="3">3명</option>
+				<c:forEach var="i" begin="0" end="3" step="1">
+				<c:set var="selected" value=""/>
+				<c:if test="${i eq rVO.child}">
+					<c:set var="selected" value="selected='selected'"/>
+				</c:if>
+				<option value="${i}" ${selected}><c:out value="${i}"/>명</option>
+				</c:forEach>
 		  	</select>
 			<span style="font-size:12px;">&nbsp;&nbsp;어린이는 성인 동반 필수</span>
 		  </td>
@@ -162,16 +207,18 @@ $(function(){
 		  <td> <label id="title">* 객실</label> </td>
 		  <td> <select name="room" class="form-control">
 				<option value="none">--객실 선택--</option>
-				<option value="그랜드 디럭스 룸">그랜드 디럭스 룸</option>
-				<option value="리츠 프리미어 룸">리츠 프리미어 룸</option>
-				<option value="코리안 스위트 룸">코리안 스위트 룸</option>
-				<option value="프리미어 스위트 룸">프리미어 스위트 룸</option>
-				<option value="로얄 스위트 룸">로얄 스위트 룸</option>
+				<c:forEach var="rName" items="${ rNameList }">
+					<c:set var="selected" value=""/>
+					<c:if test="${rName == rVO.rName}">
+					<c:set var="selected" value="selected='selected'"/>
+					</c:if>
+					<option value="${rName}" ${selected}><c:out value="${rName}"/></option>
+				</c:forEach>
 		  	</select>
 		  </td>
 		  <tr> 
 		  <td> <label id="title">* 추가 요청</label> </td>
-		  <td> <textarea name="addReq" rows="3" cols="80"></textarea> </td>
+		  <td> <textarea name="addReq" rows="3" cols="80"><c:out value="${rVO.addReq}"/></textarea> </td>
 		  </tr>
 		</table>
 		
