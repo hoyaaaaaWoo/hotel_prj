@@ -194,7 +194,7 @@ $(function(){
 		 
 		<c:if test="${ empty resData }">
 		<tr>
-			<td onclick="event.cancelBubble=true" colspan="6" style="color:#FF0000;font-weight: bold">
+			<td onclick="event.cancelBubble=true" colspan="6" style="font-weight: bold">
 			예약 정보가 존재하지 않습니다.</td>
 		</tr>
 		</c:if>
@@ -214,12 +214,12 @@ $(function(){
 		</div>
 		 
 		  <!-- 테이블의 예약건(행) 클릭시 hidden값 설정 및 페이지 이동 -->
-		 <form name="chgFrm" id="chgFrm" action="admin_reservation_change.jsp">
+		 <form name="chgFrm" id="chgFrm" action="admin_reservation_change.jsp" method="post">
 		 	<input type="hidden" name="resNum" id="resNum"/>
 		 </form>
 		 
 		 <!-- 삭제버튼 클릭시 hidden값 설정 및 페이지 이동 -->
-		 <form name="delFrm" id="delFrm" action="admin_reservation_del_process.jsp">
+		 <form name="delFrm" id="delFrm" action="admin_reservation_del_process.jsp" method="post">
 		 	<input type="hidden" name="delResNum" id="delResNum"/>
 		 </form>
 		 

@@ -1,9 +1,7 @@
 package admin_reservation;
 
 import java.sql.ResultSet;
-
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -44,8 +42,8 @@ public class ReserveSelect {
 					.append(date.getDay()).append("'");
 				}//end if
 				
+				
 		select.append("		order by  res_date desc");
-
 		rsList = jt.query(select.toString(), new selectRes());
 		// 4. Spring Container닫기
 		gjt.closeAc();
@@ -67,14 +65,24 @@ public class ReserveSelect {
 		
 	}//selectRes
 	
-	public static void main (String[] args) {
-		ReserveSelect rs = new ReserveSelect();
-		try {
-			System.out.println(rs.selectRes(null));
-		} catch (SQLException e) {
-			e.printStackTrace();
-			
-		}//catch
-	}//main
+//	public static void main (String[] args) {
+//		ReserveSelect rs = new ReserveSelect();
+//		try {
+//			 Calendar cal = Calendar.getInstance();
+//			 int nowYear = cal.get(Calendar.YEAR);
+//			 int nowMonth = cal.get(Calendar.MONTH)+1;
+//			 int nowDay = cal.get(Calendar.DAY_OF_MONTH);
+//			 // 오늘을 체크인 일자로 투입하여 VO 생성
+//			 ReserveDateVO date = new ReserveDateVO();
+//			 date.setYear(String.valueOf(nowYear));
+//			 date.setMonth(String.valueOf(nowMonth));
+//			 date.setDay(String.format("%02d",nowDay));
+//			
+//			System.out.println(rs.selectRes(date));
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			
+//		}//catch
+//	}//main
 	
 }// class

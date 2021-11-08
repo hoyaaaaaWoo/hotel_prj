@@ -1,3 +1,6 @@
+<%@page import="admin_reservation.ReserveDateVO"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="admin_reservation.ReserveSelect"%>
 <%@page import="admin_member.MemberSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -22,49 +25,15 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
 <!-- 관리자 메인 CSS -->
 <link rel="stylesheet" type="text/css"
 	href="http://localhost/hotel_prj/admin/css/admin_main.css">
 <style type="text/css">
-/* 관리자 메인페이지 */
-/* #naviBar2{
-position: absolute;
-top: 15px;
-} */
-#nav {
-	list-style: none;
-	position: absolute;
-	top: 15px;
-}
 
-#nav li {
-	display: inline-block;
+#todayRes{
+height:300px;
 }
- 
-#nav a {
-	color: #000000;
-}
-
-.button {
-	border-radius: 10px;
-	width: 70px;
-	background-color: #454D55;
-	color: #ffffff;
-}
-
-.member_select {
-	background-color: #454D55;
-}
-
-#page {
-	margin-top: 50px;
-	padding-left: 420px;
-}
-
-.pagination>li>a {
-	color: #343A40
-}
-
 .table{
 	margin-top: 80px;
 	margin-left: 50px;
@@ -97,6 +66,11 @@ tr:hover td {
 	cursor:pointer;
 }
 
+#page{
+	margin-top : 20px;
+	padding-left:420px;
+}
+.pagination>li>a {color:#343A40}
 </style>
 
 <script type="text/javascript">
@@ -110,44 +84,68 @@ tr:hover td {
 		<c:import url="common/admin_header_nav.jsp" /> 
 		
 		<div id="container">
-			<div id="reserv">
-			<span id="mainMenu" onclick="location.href='#void'">오늘의 예약</span><br/>
-			</div>
-			<table  class="table table-bordered" id="table">
-				<tr>
-					<th>예약번호</th>
-					<th>회원명</th>
-					<th>객실</th>
-					<th>인원</th>
-				<tr>
-					<td>12345678</td>
-					<td>이기휘</td>
-					<td>그랜드 디럭스 룸</td>
-					<td>3</td>
-				</tr>
-				<tr>
-					<td>12345678</td>
-					<td>이기휘</td>
-					<td>그랜드 디럭스 룸</td>
-					<td>3</td>
-				</tr>
-				<tr>
-					<td>12345678</td>
-					<td>이기휘</td>
-					<td>그랜드 디럭스 룸</td>
-					<td>3</td>
-				</tr>
-				<tr>
-					<td>12345678</td>
-					<td>이기휘</td>
-					<td>그랜드 디럭스 룸</td>
-					<td>3</td>
-				</tr>
-			</table>
+			<span id="mainMenu" onclick="http://localhost/hotel_prj/admin/admin_main.jsp">오늘의 예약</span><br/>
+			<div id="todayRes">
+			
+		<%
+		 Calendar cal = Calendar.getInstance();
+		 int nowYear = cal.get(Calendar.YEAR);
+		 int nowMonth = cal.get(Calendar.MONTH)+1;
+		 int nowDay = cal.get(Calendar.DAY_OF_MONTH);
+		 // 오늘을 체크인 일자로 투입하여 VO 생성
+		 ReserveDateVO date = new ReserveDateVO();
+		 date.setYear(String.valueOf(nowYear));
+		 date.setMonth(String.valueOf(nowMonth));
+		 date.setDay(String.format("%02d",nowDay));
+		
+		 ReserveSelect rs = new ReserveSelect();
+		 pageContext.setAttribute("toDayData", rs.selectRes(date));
+		 %>
+		<table  class="table table-bordered" id="table">
+			<tr>
+			<th>예약번호</th>
+			<th>회원명</th>
+			<th>객실</th>
+			<th>인원</th>
+		<tr>
+				
+		<c:if test="${ empty toDayData }">
+		<tr>
+			<td onclick="event.cancelBubble=true" colspan="4" style="font-weight: bold">
+			예약 정보가 존재하지 않습니다.</td>
+		</tr>
+		</c:if>
+		
+		<c:forEach var="data" items="${ toDayData }">
+		  <tr>
+			<td><c:out value="${ data.resNo }"/></td>
+			<td><c:out value="${ data.kName }"/></td>
+			<td><c:out value="${ data.rName }"/></td>
+			<td><c:out value="${ data.guest }"/></td>
+		  </tr>
+		</c:forEach>
+		
+		</table>
+		</div>
+		
+
+ 		<div id="page">
+		  <ul class="pagination">
+    		<li>
+    		 <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    		</li>
+    		<li><a href="#">1</a></li>
+    		<li><a href="#">2</a></li>
+    		<li><a href="#">3</a></li>
+		    <li><a href="#">4</a></li>
+  		 	<li><a href="#">5</a></li>
+   		 	<li>
+     			<a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+   			</li>
+ 		  </ul>
 		</div>
 
-
-
+		</div>
 	</div>
 
 	<!-- footer import -->

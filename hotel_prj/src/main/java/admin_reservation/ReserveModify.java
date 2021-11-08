@@ -1,18 +1,17 @@
 package admin_reservation;
 
 import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-
-import admin_reservation.ReserveSelect.selectRes;
 import team3_dao.GetJdbcTemplate;
 
 /**
- * 특정 예약의 삭제/수정을 작업하는 클래스
+ * 특정 예약의 삭제/수정을 작업 시 필요한 일을 하는 클래스
  * @author user
  */
 public class ReserveModify {
@@ -38,11 +37,6 @@ public class ReserveModify {
 		return cnt;
 	}//deleteRes
 	
-	/*
-	 * public static void main (String[] args) { ReserveModify rm = new
-	 * ReserveModify(); int cnt = rm.deleteRes("1025R03"); System.out.println(cnt);
-	 * }//test
-	 */
 	
 	/**
 	 * 선택 예약건 수정 전 기존 정보를 조회하는 method
@@ -61,7 +55,7 @@ public class ReserveModify {
 		select.append("select rs.res_no, m.kname, rs.chkin_date, rs.chkout_date,")
 				.append("		rs.adult, nvl(rs.child,0) child,")
 				.append("		r.r_name, rs.add_req		")
-				.append("from   reservation rs, member m, room r	")
+				.append("from   reservation rs, member m, room r 	")
 				.append("where  (rs.id = m.id and rs.room_no = r.room_no) and res_no=?");
 		try {
 		rVO = jt.queryForObject(select.toString(), new Object[] {resNum}, 
@@ -96,7 +90,7 @@ public class ReserveModify {
 	}//selectRes
 	
 	/**
-	 * 예약수정 화면에서 사용할 모든 룸 리스트와 max 인원수 조회
+	 * 예약수정 화면에서 사용할 모든 룸 리스트
 	 * @return
 	 */
 	public List<String> selectAllRName(){
@@ -120,12 +114,56 @@ public class ReserveModify {
 		return list;
 	}//selectAllRName
 	
+	/**
+	 * 예약수정 프로세스에서 사용할 최대 객실인원 수 
+	 * @return
+	 */
+	public int selectMaxGuest(String rName){
+		int maxGuest=0;
+		
+		// 1. Spring Container 얻기
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		// 2. JdbcTemplate 얻기
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		// 3. 쿼리 실행
+		String select = "select max_Guest from room where r_name=?";
+		maxGuest = jt.queryForObject(select, new Object[] {rName},Integer.class);
+		// 4. Spring Container닫기
+		gjt.closeAc();	
+		
+		return maxGuest;
+	}//selectAllRName
 	
-	/*
-	 * if(date.getYear()==null) { // 입력 날짜가 없다면 당일로 날짜 설정 Calendar cal =
-	 * Calendar.getInstance(); date.setYear(String.valueOf(cal.get(Calendar.YEAR)));
-	 * date.setMonth(String.valueOf(cal.get(Calendar.MONTH)+1));
-	 * date.setDay(String.valueOf(cal.get(Calendar.DAY_OF_MONTH))); }//end if
-	 */	
+
+	/**
+	 * 특정 예약건 수정 요청대로 update하는 method
+	 * @param resNum 선택된 에약번호
+	 * @return update 성공 시 1반환
+	 */
+	public int updateRes(ReserveUpdateVO ruVO) {
+		int cnt = 0;
+		
+		// 1. Spring Container 얻기
+			GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		// 2. JdbcTemplate 얻기
+			JdbcTemplate jt = gjt.getJdbcTemplate();
+		// 3. 쿼리 실행
+			StringBuilder sb = new StringBuilder();
+			sb.append("update reservation		")
+			.append("set    id = (select id from member where kname=?),")
+			.append("		chkin_date = ?, chkout_date = ?,")
+			.append("		adult = ?, child = ?,")
+			.append("		room_no = (select room_no from room where r_name=?),")
+			.append("       add_req = ?		")
+			.append("where  res_no=?");
+			
+			cnt = jt.update(sb.toString(),ruVO.getkName(),ruVO.getChkInDate(),ruVO.getChkOutDate(),
+					ruVO.getAdult(),ruVO.getChild(),ruVO.getrName(),ruVO.getAddReq(),ruVO.getResNo());
+		//4. Spring Container 닫기
+			gjt.closeAc();
+			
+		return cnt;
+	}//deleteRes
+	
 	
 }//class

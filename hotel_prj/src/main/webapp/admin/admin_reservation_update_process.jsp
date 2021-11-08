@@ -1,3 +1,4 @@
+<%@page import="admin_reservation.ReserveUpdateVO"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="admin_reservation.ReserveModify"%>
@@ -17,12 +18,19 @@
 
 </head>
 <body>
+<% request.setCharacterEncoding("UTF-8"); %>
 <!-- 파라미터 없는 루트로 들어왔을 때 redirect -->
 <c:if test="${empty param.inYear}">
 	<c:redirect url="http://localhost/hotel_prj/admin/admin_reservation_main.jsp"/>
 </c:if>
+
+<!-- 웹 파라미터 받기 -->
+<jsp:useBean id="ruVO" class="admin_reservation.ReserveUpdateVO" scope="page"/>
+<jsp:setProperty property="*" name="ruVO"/>
+<jsp:setProperty property="chkInDate" name="ruVO" value="${ruVO.inYear}.${ruVO.inMonth}.${ruVO.inDay}"/>
+<jsp:setProperty property="chkOutDate" name="ruVO" value="${ruVO.outYear}.${ruVO.outMonth}.${ruVO.outDay}"/>
 <%
-//날짜 검증
+///////////////////////////////////날짜 검증//////////////////////////////////////////
 //현재일을 date 형식으로 변환
 String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 Date toDay = new SimpleDateFormat("yyyy-MM-dd").parse(date);
@@ -32,7 +40,7 @@ StringBuilder sb = new StringBuilder();
 sb.append((String)request.getParameter("inYear")).append("-")
 .append((String)request.getParameter("inMonth")).append("-")
 .append((String)request.getParameter("inDay"));
-Date chkInDate = new SimpleDateFormat("yyyy-MM-dd").parse(sb.toString());
+Date chkInDate = new SimpleDateFormat("yyyy-MM-dd").parse(sb.toString()); 
 
 //체크아웃 일자를 date 형식으로 변환
 StringBuilder sb2 = new StringBuilder();
@@ -56,13 +64,44 @@ if(chkInDate.before(toDay) || chkOutDate.before(toDay)){
 	alert("체크아웃 일자는 체크인 일자보다 커야 합니다.");
 	history.back();
 </script>
+<%}//end 
+///////////////////////////////////인원수 검증//////////////////////////////////////////
+int adult = Integer.parseInt(request.getParameter("adult"));
+int child = Integer.parseInt(request.getParameter("child"));
+
+ReserveModify rm = new ReserveModify();
+int maxGuest = rm.selectMaxGuest(ruVO.getrName());
+
+if((adult+child) > maxGuest){ 
+%>
+<script type="text/javascript">
+	alert("<%=ruVO.getrName()%> 의 최대 인원수는 <%=maxGuest%>명 입니다.");
+	history.back();
+</script>
 <%}%>
 
+<!-- 검증 통과 / update 진행 -->
 <c:catch var="e">
+<%
+int cnt = rm.updateRes(ruVO);
+//1 이라면 예약상태 N으로 변경 성공!
+if(cnt == 1){
+%>
+<script type="text/javascript">
+	alert("해당 예약 건이 정상적으로 변경되었습니다.");
+	location.href="http://localhost/hotel_prj/admin/admin_reservation_main.jsp";
+</script>
+<%} else {%>
+<script type="text/javascript">
+	alert("죄송합니다. 잠시 후 다시 시도해주십시오.");
+	location.href="http://localhost/hotel_prj/admin/admin_reservation_main.jsp";
+</script>
+<%}%>
 </c:catch>
+
 <c:if test="${not empty e}">
 	<strong>죄송합니다. 삭제 작업 중 문제가 발생했습니다.</strong><br/>
 	<strong>잠시 후 다시 시도해주세요.</strong><br/>
 	<a href="http://localhost/hotel_prj/admin/admin_reservation_main.jsp">뒤로 가기</a>
-</c:if>  
+</c:if> 
 </html>

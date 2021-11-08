@@ -16,6 +16,7 @@ public class ReserveUpdateVO {
 	public ReserveUpdateVO(String resNo, String kName, String chkInDate, String chkOutDate, String rName, String addReq,
 			String inYear, String inMonth, String inDay, String outYear, String outMonth, String outDay, int adult,
 			int child) {
+		super();
 		this.resNo = resNo;
 		this.kName = kName;
 		this.chkInDate = chkInDate;
@@ -142,6 +143,14 @@ public class ReserveUpdateVO {
 
 	public void setChild(int child) {
 		this.child = child;
+	}
+
+	@Override
+	public String toString() {
+		return "ReserveUpdateVO [resNo=" + resNo + ", kName=" + kName + ", chkInDate=" + chkInDate + ", chkOutDate="
+				+ chkOutDate + ", rName=" + rName + ", addReq=" + addReq + ", inYear=" + inYear + ", inMonth=" + inMonth
+				+ ", inDay=" + inDay + ", outYear=" + outYear + ", outMonth=" + outMonth + ", outDay=" + outDay
+				+ ", adult=" + adult + ", child=" + child + "]";
 	}
 
 }//class

@@ -1,6 +1,3 @@
-<%@page import="java.util.Locale"%>
-<%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="admin_reservation.ReserveUpdateVO"%>
 <%@page import="admin_reservation.ReserveModify"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -89,19 +86,19 @@ textarea{
 
 <script type="text/javascript">
 $(function(){
-	
 	/* 예약변경 버튼 클릭  */
 	$("#chgBtn").click(function(){
 		
-		var name = $("#name").val();
-		var inYear = $("#inYear").val();
-		var inMonth = $("#inMonth").val();
-		var inDay = $("#inDay").val();
-		var outYear = $("#outYear").val();
-		var outMonth = $("#outMonth").val();
-		var outDay = $("#outDay").val();
+		var name = $("#kName").val();
+		var inYear = $("input[name=inYear]").val();
+		var inMonth = $("input[name=inMonth]").val();
+		var inDay = $("input[name=inDay]").val();
+		var outYear = $("input[name=outYear]").val();
+		var outMonth = $("input[name=outMonth]").val();
+		var outDay = $("input[name=outDay]").val();
 		var adult = $("select[name=adult]").val();
 		var child = $("select[name=child]").val();
+		var room = $("select[name=rName]").val();
 		
 		//text 형식 공란 체크
 		if(name == "" || inYear == "" || inMonth == "" || inDay == "" || outYear == ""
@@ -112,10 +109,16 @@ $(function(){
 		
 		//인원수 체크
 		if( adult =="none" || child=="none"){
-			alert("인원수를 입력해주시기 바랍니다.");
+			alert("인원을 선택해주세요.");
 			return;
 		}//end if
-		
+
+		//객실 체크
+		if( room =="none"){
+			alert("객실을 선택해주세요.");
+			return;
+		}//end if
+		 
 		$("#chgFrm").submit();
 		
 	})//click
@@ -141,8 +144,8 @@ $(function(){
 		<c:import url="common/admin_header_nav.jsp" /> 
 		
 		<div id="container" style="padding:50px">
-		<span id="mainMenu" onclick="location.href='admin_reservation_change.jsp?resNum=${param.resNum}'">예약변경</span><br/><br/>
-		<form name="chgFrm" id="chgFrm" action="admin_reservation_update_process.jsp" method="get" class="form-inline">
+		<span id="mainMenu" onclick="location.href='admin_reservation_change.jsp">예약변경</span><br/><br/>
+		<form name="chgFrm" id="chgFrm" action="admin_reservation_update_process.jsp" method="post" class="form-inline">
 		 
 		 <% 
 		 String resNum = request.getParameter("resNum");
@@ -156,11 +159,11 @@ $(function(){
 		 <tr>
 		   <!-- 예약 메인 페이지에서 선택된 예약번호를 받아서 설정 -->
 		   <td>	<label id="title">* 예약번호</label> </td>
-	       <td> <input type="text" name="resNum" id="resNum" class="form-control" value="${rVO.resNo}" readonly="readonly"/> </td>
+	       <td> <input type="text" name="resNo" id="resNo" class="form-control" value="${rVO.resNo}" readonly="readonly"/> </td>
 		 </tr>
 		 <tr>
 		   <td> <label id="title">* 예약자명</label> </td>
-		   <td> <input type="text" name="name" id="name" class="form-control"  value="${rVO.kName}"  maxlength="10"/> </td>
+		   <td> <input type="text" name="kName" id="kName" class="form-control"  value="${rVO.kName}"  maxlength="10"/> </td>
 		 </tr>
 		 <tr>
 		   <td> <label id="title">* 투숙날짜</label> </td>
@@ -205,11 +208,11 @@ $(function(){
 		  </tr>
 		  <tr>
 		  <td> <label id="title">* 객실</label> </td>
-		  <td> <select name="room" class="form-control">
+		  <td> <select name="rName" class="form-control">
 				<option value="none">--객실 선택--</option>
 				<c:forEach var="rName" items="${ rNameList }">
 					<c:set var="selected" value=""/>
-					<c:if test="${rName == rVO.rName}">
+					<c:if test="${rName eq rVO.rName}">
 					<c:set var="selected" value="selected='selected'"/>
 					</c:if>
 					<option value="${rName}" ${selected}><c:out value="${rName}"/></option>
@@ -221,6 +224,9 @@ $(function(){
 		  <td> <textarea name="addReq" rows="3" cols="80"><c:out value="${rVO.addReq}"/></textarea> </td>
 		  </tr>
 		</table>
+		
+		<input type="hidden" id="chkInDate" name="chkInDate"/>
+		<input type="hidden" id="chkOutDate" name="chkOutDate"/>
 		
 		<div id="btnGroup">
 		<input type="button" id="chgBtn" name="chgBtn" class="btn btn-primary btn-lg" value="예약변경"/>
