@@ -1,3 +1,4 @@
+<%@page import="admin_member.MemberUpdate"%>
 <%@page import="admin_member.MemberVO"%>
 <%@page import="java.util.List"%>
 <%@page import="admin_member.MemberSelect"%>
@@ -99,24 +100,37 @@ position: absolute; top: 80px; left: 1200px;
 
 
 <script type="text/javascript">
-/* function deleteData(kname){
-	if(confirm( kname+ "회원을 삭제하시겠습니까?"  )){
-	$("#removeKname").val( kname );
-	$("#removeFrm").submit();
-	}
-	}
-} */
+$(function(){
+$("#search").click(function(){
+	$("#frm_search").submit();
+})//click
+})//ready
+
+function updateData( kname ,i){
+	if( confirm( kname + "님 회원정보를 변경하시겠습니까?") ){
+		$("#kname").val( kname );
+		$("#tel").val( $("#tel"+i).val() );
+		$("#address").val( $("#address"+i).val() );
+		$("#m_status").val( $("#m_status"+ i).val() );
+		
+	  	$("#hiddenFrm").submit();
+	}//end if
+}//updateData
+
+
 </script>
 </head>
 <body>
-
+<jsp:useBean id="ev" class="admin_member.MemberVO" scope="page"/>
+<jsp:setProperty property="*" name="ev"/>
+<c:catch var="e">
 <%
+request.setCharacterEncoding("utf-8");
 MemberSelect ms = new MemberSelect();
 List<MemberVO> list = ms.selectMember(null);
 pageContext.setAttribute("memberData", list);
 %>
-
-
+</c:catch>
 	<div id="wrap">
 		<!-- header/navibar import -->
 		 <c:import url="common/admin_header_nav.jsp" />  
@@ -128,15 +142,16 @@ pageContext.setAttribute("memberData", list);
 				<span id="mainMenu" style="text-decoration: none" onclick="location.href='http://localhost/hotel_prj/admin/admin_member_delete.jsp'">탈퇴회원</span>
 				<form name="frm_search" action="http://localhost/hotel_prj/admin/admin_member_specific_select.jsp" method="post">
 				<input type="text" name="search" placeholder="이름조회" id="id_search" class="form-control" maxlength="10"/>
-				<input type="submit" value="검색" name="search" class="btn btn-default" id="search"/>
-				</form>
+				<input type="submit" value="검색" name="search" class="btn btn-default" id="search" />
+				</form>				
+			
 			</div>
+			<table class="table table-bordered"  id="table">
 			 <c:if test="${ empty memberData }">
    			<tr> 
-     		 <td colspan="5">사원정보가 존재하지 않습니다.</td>
+     		 <td colspan="5">회원정보가 존재하지 않습니다.</td>
    			</tr>
    			</c:if>
-			<table class="table table-bordered"  id="table">
 				<tr>
 					<th>아이디</th>
 					<th>이름</th>
@@ -144,49 +159,32 @@ pageContext.setAttribute("memberData", list);
 					<th>연락처</th>
 					<th>이메일</th>
 					<th>영문이름</th>
-					<th>회원삭제</th>
+					<th>탈퇴여부</th>
 				<c:forEach var="member" items="${memberData}">
+				<c:set var="i" value="${ i+1 }"/>
 				<tr>
-					<td><input type="text" value="${member.id}"/></td>
-					<td><input type="text" value="${member.kname}"/></td>
-					<td><input type="text" value="${member.birth_year}"/></td>
-					<td><input type="text" value="${member.tel}"/></td>
-					<td><input type="text" value="${member.email}"/></td>
-					<td><input type="text" value="${member.ename_fst}${member.ename_lst }"/></td>
-					<td><input type="button" name="del" value="삭제"
-						class="btn btn-danger" id="del" onclick='deleteData("${member.kname}")'/></td>
+					<td><input type="text" value="${member.id}"size="15px;" style="text-align: center;" readonly="readonly"/ ></td>
+					<td><input type="text" value="${member.kname}"  id="kname" size="15px;" style="text-align: center;"readonly="readonly"/></td>
+					<td><input type="text" value="${member.birth_year}"style="text-align: center;"readonly="readonly"/></td>
+					<td><input type="text" id="tel${i}"value="${member.tel}" size="15px;"style="text-align: center;"/></td>
+					<td><input type="text" id="email${i}" value="${member.email}" style="text-align: center;"/></td>
+					<td><input type="text" value="${member.ename_fst}${member.ename_lst }"size="15px;"style="text-align: center;"readonly="readonly"/></td>
+					<td><input type="text" id="m_status${i}"value="${member.m_status}"  size="4px;" style="text-align: center;"/></td>
+					<td><input type="button" name="del" value="변경"  
+						class="btn btn-danger" id="del" onclick="updateData('${member.kname}',${i})"/></td>
 				</tr>
 				</c:forEach>
 			</table>
-			<!-- 
-				<form name="removeFrm" id="removeFrm" action="admin_member_select.jsp" method="post">
-				<input type="hidden" name="id" id="removeId"/>
-				<input type="hidden" name="kname" id="removeKname"/>
-				<input type="hidden" name="birth_year" id="removeBirth_year"/>
-				<input type="hidden" name="tel" id="removeTel"/>
-				<input type="hidden" name="email" id="removeEmail"/>
-				<input type="hidden" name="ename" id="removeEname"/>
-			</form> -->
-			
-			<div id="page">
-				<ul class="pagination">
-					<li><a href="#" aria-label="Previous"><span
-							aria-hidden="true">&laquo;</span></a></li>
-					<li><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-					</li>
-				</ul>
-			</div>
-
 		</div>
-
+		<form  action="admin_member_update_process.jsp"   method="post" name="hiddenFrm" id="hiddenFrm" >
+		<input type="hidden" name="kname" id="kname"/>
+		<input type="hidden" name="tel" id="tel"/>
+		<input type="hidden" name="address" id="address"/>
+		<input type="hidden"  name="m_status" id="m_status"/>
+		</form>
+		
 		<!-- footer import -->
 		<c:import url="common/admin_footer.jsp" />
-
 	</div>
 </body>
 </html>

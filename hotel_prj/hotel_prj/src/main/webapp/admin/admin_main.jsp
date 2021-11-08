@@ -1,7 +1,4 @@
-<%@page import="admin_member.MemberVO"%>
-<%@page import="java.util.List"%>
 <%@page import="admin_member.MemberSelect"%>
-<%@page import="admin_member.MemberDelete"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,7 +8,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hotel Ritz - 탈퇴회원조회</title>
+<title>Hotel Ritz - 메인</title>
 <link rel="stylesheet" type="text/css"
 	href="http://localhost/hotel_prj/common/css/main_v20211012.css">
 
@@ -29,6 +26,24 @@
 <link rel="stylesheet" type="text/css"
 	href="http://localhost/hotel_prj/admin/css/admin_main.css">
 <style type="text/css">
+/* 관리자 메인페이지 */
+/* #naviBar2{
+position: absolute;
+top: 15px;
+} */
+#nav {
+	list-style: none;
+	position: absolute;
+	top: 15px;
+}
+
+#nav li {
+	display: inline-block;
+}
+ 
+#nav a {
+	color: #000000;
+}
 
 .button {
 	border-radius: 10px;
@@ -41,34 +56,28 @@
 	background-color: #454D55;
 }
 
-#page{
-	margin-top : 50px;
-	padding-left:420px;
+#page {
+	margin-top: 50px;
+	padding-left: 420px;
 }
 
-.pagination>li>a {color:#343A40}
-
-.form-control{
-	font-size:15px;
-	color:#000000;
-	height:40px;
-	width: 180px;
-	margin:0px;
+.pagination>li>a {
+	color: #343A40
 }
 
 .table{
 	margin-top: 80px;
 	margin-left: 50px;
+	border: 1px solid #333;
 	font-size: 15px;
 	margin-bottom:0px;
-	width:1200px;
+	width:900px;
 	text-align: center;
-	
 	}
 
 th{
-	width:80px;
-	height:20px;
+	width:50px;
+	height:40px;
 	font-size: 16px;
 	text-align: center;
 	vertical-align: middle;
@@ -77,7 +86,6 @@ th{
 	
 td{
 	font-size: 16px;
-	height:20px;
 	text-align: center;
 	vertical-align: middel;
 	color:#000000;
@@ -89,15 +97,7 @@ tr:hover td {
 	cursor:pointer;
 }
 
-#id_search{
-position: absolute; top: 80px; left: 1000px;
-}
-
-#search{
-position: absolute; top: 80px; left: 1200px;
-}
 </style>
-
 
 <script type="text/javascript">
 	
@@ -105,49 +105,53 @@ position: absolute; top: 80px; left: 1200px;
 </head>
 <body>
 
-<%
-request.setCharacterEncoding("utf-8");
-MemberDelete md = new MemberDelete();
-List<MemberVO> list =md.selectDeleteMember(null);
-pageContext.setAttribute("memberData", list);
-%>
-
 	<div id="wrap">
 		<!-- header/navibar import -->
 		<c:import url="common/admin_header_nav.jsp" /> 
 		
 		<div id="container">
-
-			<div id="naviBar2">
-				<span id="mainMenu" style="text-decoration: none" onclick="location.href='http://localhost/hotel_prj/admin/admin_member_select.jsp'">회원조회</span> &nbsp;
-				<span id="mainMenu" onclick="location.href='http://localhost/hotel_prj/admin/admin_member_delete.jsp'">탈퇴회원</span>
-				<input type="text" name="search" placeholder="이름조회" id="id_search" class="form-control" maxlength="10"/>
-				<input type="button" value="검색" name="search" class="btn btn-default" id="search"
-				onclick="location.href='#void'"/>
+			<div id="reserv">
+			<span id="mainMenu" onclick="location.href='#void'">오늘의 예약</span><br/>
 			</div>
-			<table class="table table-bordered" id="table">
-			 <c:if test="${ empty memberData }">
-   			<tr> 
-     		 <td colspan="5">회원정보가 존재하지 않습니다.</td>
-   			</tr>
-   			</c:if>
+			<table  class="table table-bordered" id="table">
 				<tr>
-					<th>아이디</th>
-					<th>이름</th>
-					<th>탈퇴일자</th>
-			<c:forEach var="member"  items="${memberData}" >
+					<th>예약번호</th>
+					<th>회원명</th>
+					<th>객실</th>
+					<th>인원</th>
 				<tr>
-					<td><c:out value="${member.id }"/></td>
-					<td><c:out value="${member.kname }"/></td>
-					<td><c:out value="${member.out_date }"/></td>
+					<td>12345678</td>
+					<td>이기휘</td>
+					<td>그랜드 디럭스 룸</td>
+					<td>3</td>
 				</tr>
-			</c:forEach>
+				<tr>
+					<td>12345678</td>
+					<td>이기휘</td>
+					<td>그랜드 디럭스 룸</td>
+					<td>3</td>
+				</tr>
+				<tr>
+					<td>12345678</td>
+					<td>이기휘</td>
+					<td>그랜드 디럭스 룸</td>
+					<td>3</td>
+				</tr>
+				<tr>
+					<td>12345678</td>
+					<td>이기휘</td>
+					<td>그랜드 디럭스 룸</td>
+					<td>3</td>
+				</tr>
 			</table>
 		</div>
-	
+
+
+
+	</div>
+
 	<!-- footer import -->
 	<c:import url="common/admin_footer.jsp" />
 
-	</div>
 </body>
 </html>

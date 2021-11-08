@@ -1,3 +1,6 @@
+<%@page import="admin_member.MemberVO"%>
+<%@page import="java.util.List"%>
+<%@page import="admin_member.MemberSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -96,21 +99,11 @@ position: absolute; top: 80px; left: 1200px;
 
 
 <script type="text/javascript">
-	function del() {
-		if (confirm("정말 삭제하시겠습니까?") == true) {
-			alert("삭제되었습니다.");
-		} else {
-			return;
-		}
-
-	}
+	
 </script>
 </head>
 <body>
-<%
-request.setCharacterEncoding("utf-8");
-String name=request.getParameter("search");
-%>
+
 	<div id="wrap">
 		<!-- header/navibar import -->
 			<c:import url="common/admin_header_nav.jsp" />
@@ -118,12 +111,14 @@ String name=request.getParameter("search");
 		<div id="container">
 			<div id="naviBar2">
 				<span id="mainMenu" onclick="location.href='#void'">특정회원조회</span>
+				<form name="frm_search" action="http://localhost/hotel_prj/admin/admin_member_specific_select.jsp" method="post">
 				<input type="text" name="search" placeholder="이름조회" id="id_search" class="form-control" maxlength="10"/>
-				<input type="button" value="검색" name="search" class="btn btn-default" id="search"
-				onclick="location.href='#void'"/>
+				<input type="submit" value="검색" name="search" class="btn btn-default" id="search" />
+				</form>		
 			</div>
 
 			<table class="table table-bordered" id="table">
+			
 				<tr>
 					<th><strong>아이디</strong></th>
 					<th><strong>이름</strong></th>
@@ -131,65 +126,33 @@ String name=request.getParameter("search");
 					<th><strong>연락처</strong></th>
 					<th><strong>이메일</strong></th>
 					<th><strong>영문이름</strong></th>
-					<th><strong>회원삭제</strong></th>
+					</tr>
+					<c:catch var="e">
+					<%
+					request.setCharacterEncoding("utf-8");
+					String kname=request.getParameter("search");
+					MemberSelect ms = new MemberSelect();
+					pageContext.setAttribute("kname", ms.selectSpecificMember(kname));
+					%>
 				<tr>
-					<td>rlgnl02</td>
-					<td><%= name %></td>
-					<td>1996.04.15</td>
-					<td>010-2569-4557</td>
-					<td>rlgnl02@naver.com</td>
-					<td>Lee.KiHwi</td>
-					<td><input type="button" name="del" value="삭제"
-						class="btn btn-danger" onclick="del()"></td>
+					<td><c:out value="${kname.id}"/></td>
+					<td><c:out value="${kname.kname}"/></td>
+					<td><c:out value="${kname.birth_year}"/></td>
+					<td><c:out value="${kname.tel}"/></td>
+					<td><c:out value="${kname.email}"/></td>
+					<td><c:out value="${kname.ename_fst}${kname.ename_lst}"/></td>
 				</tr>
+					</c:catch>
+				<c:if test="${ not empty e }">
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td><input type="button" name="del" value="삭제"
-						class="btn btn-danger" onclick="del()"></td>
+				<td colspan="7">
+				<span style="color: #ff0000"><c:out value="${ param.search }"/></span>회원은 존재하지 않습니다.
+				</td>
 				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td><input type="button" name="del" value="삭제"
-						class="btn btn-danger" onclick="del()"></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td><input type="button" name="del" value="삭제"
-						class="btn btn-danger" onclick="del()"></td>
-				</tr>
+				</c:if>
 			</table>
 
-			<div id="page">
-				<ul class="pagination">
-					<li><a href="#" aria-label="Previous"><span
-							aria-hidden="true">&laquo;</span></a></li>
-					<li><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-					</li>
-				</ul>
-			</div>
-
 		</div>
-	
 	<!-- footer import -->
 	<c:import url="common/admin_footer.jsp" />
 
