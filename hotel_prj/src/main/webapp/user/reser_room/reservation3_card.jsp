@@ -355,7 +355,7 @@ function chkCard(){
 							<table id="chkSubTab">
 								<tr>
 									<td class="guide">객실</td>
-									<td class="guideTextP">${ param.room_no } ${param.addReq}<%= rv.getR_name()%></td>
+									<td class="guideTextP"><%= rv.getR_name()%></td>
 								</tr>
 								<tr>
 									<td class="guide">투숙 날짜</td>
