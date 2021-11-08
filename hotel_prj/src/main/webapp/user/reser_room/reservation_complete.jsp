@@ -70,7 +70,7 @@ p { border: 1px solid #FF00FF}
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-<link href="http://localhost/jsp_prj/common/bootstrap/carousel.css"
+<link href="http://localhost/hotel_prj/common/bootstrap/carousel.css"
 	rel="stylesheet">
 	
 
@@ -127,7 +127,7 @@ $(function(){
 <!-- NAVBAR
 ================================================== -->
 <body>
-	<div class="wrap">
+	<div class="wrapper">
 		<!-- header/navibar import -->
 		<c:import url="http://localhost/hotel_prj/main/main_header_nav.jsp" />
 		<br/><br/><br/><br/><br/>
@@ -141,7 +141,7 @@ $(function(){
 			<table class = "chkTab">
 			<tr >
 				<td style = "width: 500px">
-				<img src = "http://localhost/jsp_prj/project02_team03/main_images/01_grand01.jpg" width="480" height="330"/><br/><br/>
+				<img src = "http://localhost/hotel_prj/main/main_images/01_grand01.jpg" width="480" height="330"/><br/><br/>
 				</td>
 				
 				<td >
@@ -229,7 +229,7 @@ $(function(){
     <!-- ================================================== -->
 
 		<script
-			src="http://localhost/jsp_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
+			src="http://localhost/hotel_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
 	</div>
 </body>
 </html>

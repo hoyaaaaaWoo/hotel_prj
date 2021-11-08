@@ -116,9 +116,10 @@ p { border: 1px solid #FF00FF}
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-<link href="http://localhost/jsp_prj/common/bootstrap/carousel.css"
+<link href="http://localhost/hotel_prj/common/bootstrap/carousel.css"
 	rel="stylesheet">
 </head>
+
 
 <!-- NAVBAR
 ================================================== -->
@@ -140,7 +141,7 @@ p { border: 1px solid #FF00FF}
 			<div class="carousel-inner" role="listbox">
 				<div class="item active">
 					<img class="first-slide"
-						src="http://localhost/jsp_prj/project02_team03/main_images/main1.jpg"
+						src="http://localhost/hotel_prj/main/main_images/main1.jpg"
 						alt="First slide">
 					<div class="container">
 						<div class="carousel-caption">
@@ -151,7 +152,7 @@ p { border: 1px solid #FF00FF}
 				</div>
 				<div class="item">
 					<img class="second-slide"
-						src="http://localhost/jsp_prj/project02_team03/main_images/main2.jpg"
+						src="http://localhost/hotel_prj/main/main_images/main2.jpg"
 						alt="Second slide">
 					<div class="container">
 						<div class="carousel-caption"></div>
@@ -181,57 +182,57 @@ p { border: 1px solid #FF00FF}
 				<div class="col-lg-4">
 					<div class="roomImg">
 						<a
-							href="http://localhost/jsp_prj/project02_team03/room_intro.jsp#grandRoom">
+							href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#grandRoom">
 							<img
-							src="http://localhost/jsp_prj/project02_team03/main_images/02_premier03.jpg"
+							src="http://localhost/hotel_prj/main/main_images/02_03.jpg"
 							width="350" height="200">
 						</a>
 					</div>
 					<a
-						href="http://localhost/jsp_prj/project02_team03/room_intro.jsp#grandRoom"
+						href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#grandRoom"
 						class="roomName"><h3 class="roomName">프리미어 스위트 룸</h3></a>
 					<p>프리미어 스위트 룸 간략 설명 혹은 가격</p>
 					<p>
 						<a class="btn btn-default"
-							href="http://localhost/jsp_prj/project02_team03/room_intro.jsp#grandRoom"
+							href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#grandRoom"
 							role="button">View details &raquo;</a>
 					</p>
 				</div>
 				<div class="col-lg-4">
 					<div class="roomImg">
 						<a
-							href="http://localhost/jsp_prj/project02_team03/room_intro.jsp#koreanRoom">
+							href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#koreanRoom">
 							<img
-							src="http://localhost/jsp_prj/project02_team03/main_images/04_korean01.jpg"
+							src="http://localhost/hotel_prj/main/main_images/04_01.jpg"
 							width="350" height="200">
 						</a>
 					</div>
 					<a
-						href="http://localhost/jsp_prj/project02_team03/room_intro.jsp#koreanRoom"
+						href=http://localhost/hotel_prj/user/reser_room/room_intro.jsp#koreanRoom"
 						class="roomName"><h3 class="roomName">코리안 스위트 룸</h3></a>
 					<p>코리안 스위트 룸 간략 설명 혹은 가격</p>
 					<p>
 						<a class="btn btn-default"
-							href="http://localhost/jsp_prj/project02_team03/room_intro.jsp#koreanRoom"
+							href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#koreanRoom"
 							role="button">View details &raquo;</a>
 					</p>
 				</div>
 				<div class="col-lg-4">
 					<div class="roomImg">
 						<a
-							href="http://localhost/jsp_prj/project02_team03/room_intro.jsp#royalRoom">
+							href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#royalRoom">
 							<img
-							src="http://localhost/jsp_prj/project02_team03/main_images/05_royal01.jpg"
+							src="http://localhost/hotel_prj/main/main_images/05_01.jpg"
 							alt="Generic placeholder image" width="350" height="200">
 						</a>
 					</div>
 					<a
-						href="http://localhost/jsp_prj/project02_team03/room_intro.jsp#royalRoom"
+						href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#royalRoom"
 						class="roomName"><h3 class="roomName">로얄 스위트 룸</h3></a>
 					<p>로얄 스위트 룸 간략 설명 혹은 가격</p>
 					<p>
 						<a class="btn btn-default"
-							href="http://localhost/jsp_prj/project02_team03/room_intro.jsp#royalRoom"
+							href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#royalRoom"
 							role="button">View details &raquo;</a>
 					</p>
 				</div>
@@ -249,11 +250,11 @@ p { border: 1px solid #FF00FF}
 								<td>
 									<div class="promImg">
 										<a
-											href="http://localhost/jsp_prj/project02_team03/main/specialOffer.jsp"><img
-											src="http://localhost/jsp_prj/project02_team03/main_images/SO01.jpg"
+											href="http://localhost/hotel_prj/main/specialOffer.jsp"><img
+											src="http://localhost/hotel_prj/main//main_images/SO01.jpg"
 											width="450" height="300"></a>
 									</div> <a
-									href="http://localhost/jsp_prj/project02_team03/main/specialOffer.jsp"
+									href="http://localhost/hotel_prj/main/specialOffer.jsp"
 									class="promTitle"><h2 class="promTitle">Long and
 											Lasting Love</h2></a>
 									<p>
@@ -264,11 +265,11 @@ p { border: 1px solid #FF00FF}
 								<td>
 									<div class="promImg">
 										<a
-											href="http://localhost/jsp_prj/project02_team03/main/specialOffer.jsp"><img
-											src="http://localhost/jsp_prj/project02_team03/main_images/SO02.jpg"
+											href="http://localhost/hotel_prj/main/specialOffer.jsp"><img
+											src="http://localhost/hotel_prj/main/main_images/SO02.jpg"
 											width="450" height="300"></a>
 									</div> <a
-									href="http://localhost/jsp_prj/project02_team03/main/specialOffer.jsp"
+									href="http://localhost/hotel_prj/main/specialOffer.jsp"
 									class="promTitle"><h2 class="promTitle">Deep
 											Relaxation</h2></a>
 									<p>
@@ -281,11 +282,11 @@ p { border: 1px solid #FF00FF}
 								<td>
 									<div class="promImg">
 										<a
-											href="http://localhost/jsp_prj/project02_team03/main/specialOffer.jsp"><img
-											src="http://localhost/jsp_prj/project02_team03/main_images/SO03.jpg"
+											href="http://localhost/hotel_prj/main/specialOffer.jsp"><img
+											src="http://localhost/hotel_prj/main/main_images/SO03.jpg"
 											width="450" height="300"></a>
 									</div> <a
-									href="http://localhost/jsp_prj/project02_team03/main/specialOffer.jsp"
+									href="http://localhost/hotel_prj/main/specialOffer.jsp"
 									class="promTitle"><h2 class="promTitle">Arrive in
 											Style</h2></a>
 									<p>
@@ -296,11 +297,11 @@ p { border: 1px solid #FF00FF}
 								<td>
 									<div class="promImg">
 										<a
-											href="http://localhost/jsp_prj/project02_team03/main/specialOffer.jsp"><img
-											src="http://localhost/jsp_prj/project02_team03/main_images/SO04.jpg"
+											href="http://localhost/hotel_prj/main/specialOffer.jsp"><img
+											src="http://localhost/hotel_prj/main/main_images/SO04.jpg"
 											width="450" height="300"></a>
 									</div> <a
-									href="http://localhost/jsp_prj/project02_team03/main/specialOffer.jsp"
+									href="http://localhost/hotel_prj/main/specialOffer.jsp"
 									class="promTitle"><h2 class="promTitle">Kids at Home</h2></a>
 									<p>
 										리츠 서울에서 사랑하는 아이에게 행복한 하루를 선물하세요.<br /> <strong>객실 +
@@ -322,7 +323,7 @@ p { border: 1px solid #FF00FF}
 		<!-- ================================================== -->
 
 		<script
-			src="http://localhost/jsp_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
+			src="http://localhost/hotel_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
 	</div>
 </body>
 </html>

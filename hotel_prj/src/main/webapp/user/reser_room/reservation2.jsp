@@ -1,6 +1,10 @@
+<%@page import="user_imagesTab.ImageCount"%>
+<%@page import="user_room.RoomVO"%>
+<%@page import="user_room.RoomSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="Hotel Ritz Seoul"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>   
+<%@ taglib prefix = "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 	
 <!DOCTYPE html>
 <html lang="en">
@@ -85,13 +89,17 @@ tr { border: 1px solid #FF0000}
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-<link href="http://localhost/jsp_prj/common/bootstrap/carousel.css"
+<link href="http://localhost/hotel_prj/common/bootstrap/carousel.css"
 	rel="stylesheet">
 	
 <script type="text/javascript">
 $(function(){
 	$("#resBtn").click(function(){
-		location.href="http://localhost/hotel_prj/user/reser_room/reservation3_card.jsp";
+		 //해당 방번호를 결제 페이지로
+		/* $("#room_no").val();  */
+		
+		("#frmRes").submit();
+		
 	})//table click
 	
 }); //ready
@@ -103,13 +111,36 @@ $(function(){
 <!-- NAVBAR
 ================================================== -->
 <body>
+
+<jsp:useBean id="RoomVO" class = "user_room.RoomVO" scope = "page"></jsp:useBean>
+<jsp:setProperty property="*" name="RoomVO"/>
+
+<%
+	String paramRoomNo = request.getParameter("room_no");
+	int room_no = Integer.parseInt( paramRoomNo );
+	
+	RoomSelect rs = new RoomSelect();
+	RoomVO rv = rs.selectRoomInfo(room_no);
+	
+	//
+	String paramCount = request.getParameter("room_no");
+	int count = Integer.parseInt( paramCount );
+	
+	
+	//
+	ImageCount ic = new ImageCount();
+	int cnt = ic.selectCountImg(count);
+	pageContext.setAttribute("imgs", ic.selectImages(room_no));
+%>
+
 	<div class="wrapper">
 		<!-- header/navibar import -->
 		<c:import url="http://localhost/hotel_prj/main/main_header_nav.jsp" />
 		<br/><br/><br/><br/>
 		
 		
-		<div class ="roomName">그랜드 디럭스 룸</div><br/>
+		<%-- <div class ="roomName"><%= rv.getR_name()%></div><br/ --%>>
+		<div class ="roomName"><%= rv.getR_name()%></div><br/>
 		
 
 		<!-- Carousel
@@ -119,26 +150,35 @@ $(function(){
 			<!-- Indicators -->
 			<ol class="carousel-indicators">
 				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-				<li data-target="#myCarousel" data-slide-to="1"></li>
+				
+				<c:forEach var = "i" begin = "1" end = "<%=cnt %>" step = "1">
+				<li data-target="#myCarousel" data-slide-to= <%= cnt %>"></li>
+				
+				</c:forEach>
 			</ol>
 			<div class="carousel-inner" role="listbox">
-				<div class="item active" style = "width: 1000px">
-					<img class="first-slide" 
-						src="http://localhost/jsp_prj/project02_team03/main_images/01_grand01.jpg"
-						alt="First slide">
-					<div class="container">
-						<div class="carousel-caption">
-						</div>
-					</div>
-				</div>
-				<div class="item" style = "width: 1000px">
-					<img class="second-slide"
-						src="http://localhost/jsp_prj/project02_team03/main_images/01_grand02.jpg"
-						alt="Second slide">
+			
+				<!-- 첫번째 사진만 여기에 넣고싶음 -->
+				 <div class="item active">
+					<img class="first-slide"
+						src="http://localhost/hotel_prj/main/main_images/<%= rv.getMain_img() %>"
+						>
 					<div class="container">
 						<div class="carousel-caption"></div>
 					</div>
 				</div>
+				 
+				 
+				<c:forEach var = "img" items = "${ imgs }">
+				<div class="item ">
+					<img  
+						src="http://localhost/hotel_prj/main/main_images/<c:out value = "${ img.img_src }"/>"
+						>
+					<div class="container">
+						<div class="carousel-caption"></div>
+					</div>
+				</div>
+				</c:forEach>
 			</div>
 			<a class="left carousel-control" href="#myCarousel" role="button"
 				data-slide="prev"> <span
@@ -157,10 +197,9 @@ $(function(){
 
 		<div class = "roomBox">
 			<div class = "roomDesc">
-			[그랜드 디럭스 룸, 40㎡~50㎡]<br/>
-			우아한 인테리어와 현대적 세련미가 조화롭게 어우러진 리츠 서울의 그랜드 디럭스 룸은 서울 시내 동급 호텔 대비 넓은 40~50㎡의 여유로운 공간을 제공합니다.<br/>
-			87층부터 101층까지 위치한 초고층 객실에서 바라보는 서울 도심의 파노라믹뷰는 최상의 휴식을 제공합니다.<br/>
-			모든 호텔 투숙객들이 자유롭게 이용할 수 있는 살롱 드 리츠은 리츠 서울의 또 하나의 즐길 거리입니다.
+			
+			<%= rv.getDescription()%>
+			
 			</div><br/><br/>
 			<table class = "roomSumm">
 			<tr>
@@ -169,17 +208,17 @@ $(function(){
 				<table class = "summSubTab">
 				<tr>
 				<th class = "summSubTh">침대타입</th>
-				<td class = "summSubTd">더블</td>
+				<td class = "summSubTd"><%= rv.getBed_type() %></td>
 				<th class = "summSubTh">투숙인원</th>
-				<td class = "summSubTd">2명</td>
+				<td class = "summSubTd"><%= rv.getMax_guest() %></td>
 				<th class = "summSubTh">전망</th>
-				<td class = "summSubTd">시티뷰</td>
+				<td class = "summSubTd"><%= rv.getR_view() %></td>
 				</tr>
 				<tr>
-				<th class = "summSubTh">객실면적</th>
-				<td class = "summSubTd">40 ~ 50㎡</td>
+				<th class = "summSubTh">객실면적(㎡)</th>
+				<td class = "summSubTd"><%= rv.getR_size() %></td>
 				<th class = "summSubTh">체크인/체크아웃</th>
-				<td class = "summSubTd">15:00 / 12:00</td>
+				<td class = "summSubTd"><%= rv.getChkin_time() %>/<%= rv.getChkout_time() %></td>
 				<th></th>
 				<td></td>
 				</tr>
@@ -192,15 +231,15 @@ $(function(){
 				<table id = "amntTab">
 				<tr>
 				<th class = "amntTh">일반</th>
-				<td class = "amntTd">55” HD TV 60” HD TV 미니바 티포트 금고 사무용 데스크 (문구류 포함) 전화기 체중계 우산 구둣주걱</td>
+				<td class = "amntTd"><%= rv.getAmnt_gen() %></td>
 				</tr>
 				<tr>
 				<th class = "amntTh">욕실</th>
-				<td class = "amntTd">세면대 2개 면도기 면봉 비데 샤워 캡 슬리퍼 욕실용품 (Diptyque) 욕조 목욕 가운 헤어드라이어 1회용 칫솔 및 치약</td>
+				<td class = "amntTd"><%= rv.getAmnt_bath() %></td>
 				</tr>
 				<tr>
 				<th class = "amntTh">기타</th>
-				<td class = "amntTd">케이블 위성 TV 채널 무료 생수 1일 2병 커피 및 티 메이커 무료 일간 신문 옷솔 매일 2병의 물을 무료로 제공 무료 다림질 서비스 (1일 2점)</td>
+				<td class = "amntTd"><%= rv.getAmnt_other() %></td>
 				</tr>
 				</table>
 			</div>
@@ -217,13 +256,15 @@ $(function(){
 			</div><br/>
 			<hr class = "hr1"><br/>
 			
+			<form name = "frmRes" method = "get" id = "frmRes" action = "http://localhost/hotel_prj/user/reser_room/reservation3_card.jsp?"+room_no=>
+				<input type="hidden" name="room_no" id="room_no" value = "${param.room_no}"/>
 			<div class = "guideR">
 			<div class = "guideTitle"> 예약 옵션 </div>
 			<div id = "confirmDiv">
 			<table id = "confirmTab">
 				<tr>
 				<td>
-				<p id = "checkRname">객실 그랜드 디럭스 룸</p>
+				<p id = "checkRname">객실 no_${ param.room_no }</p>
 				<p id = "checkAdult">투숙인원 : 성인 2명, 어린이 0명</p>
 				<br/><br/><br/>
 				<p id = "checkRname">추가요청</p>
@@ -232,14 +273,25 @@ $(function(){
 				<td>
 				<div id = "confirmPaper">
 				<br/>
+				<%
+				int price = rv.getPrice();
+				pageContext.setAttribute("price", price);
+				
+				int tax = (int)(rv.getPrice()*0.21);
+				pageContext.setAttribute("tax", tax);
+				
+				int totalP = (int)(rv.getPrice()+tax);
+				pageContext.setAttribute("totalP", totalP);
+				%>
 				<span class = "chkPaperLeft">객실 요금</span><br/><br/>
 				<span style = "color: #333; font-size: 15px; text-align: left; float: left">2021년 11월 26일</span>
-				<span class = "chkPaperRight">407,000 KRW </span><br/><br/><br/>
+				<span class = "chkPaperRight"><fmt:formatNumber pattern = "#,###,###" value = "${ price }"/> KRW </span><br/><br/><br/>
 				<span class = "chkPaperLeft">세금 및 봉사료</span>
-				<span class = "chkPaperRight">85,470 KRW </span><br/>
+				
+				<span class = "chkPaperRight"><fmt:formatNumber pattern = "#,###,###" value = "${ tax }"/> KRW </span><br/>
 				<hr class = "hr1">
 				<span class = "chkPaperLeft">총 요금</span>
-				<span class = "chkPaperRight">492,470 KRW </span><br/>
+				<span class = "chkPaperRight"><fmt:formatNumber pattern = "#,###,###" value = "${ totalP }"/> KRW </span><br/>
 				</div>
 				</td>
 				</tr>
@@ -247,9 +299,11 @@ $(function(){
 			</div>
 			</div><br/>
 			<hr class = "hr1"><br/>
-			 <button type="button" id = "resBtn" class="btn btn-default btn-lg">예약하기</button>
+			 <button type="submit" id = "resBtn" class="btn btn-default btn-lg">예약하기</button>
+			</form>
 			 			
 			</div><!-- roomBox -->
+			
 			<br/><br/>
 
 			<!-- footer import -->
@@ -262,7 +316,7 @@ $(function(){
     <!-- ================================================== -->
 
 		<script
-			src="http://localhost/jsp_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
+			src="http://localhost/hotel_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
 	</div>
 </body>
 </html>

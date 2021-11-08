@@ -1,7 +1,9 @@
+<%@page import="user_room.RoomVO"%>
+<%@page import="user_room.RoomSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="Hotel Ritz Seoul"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix = "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -241,7 +243,7 @@ p { border: 1px solid #FF00FF}
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-<link href="http://localhost/jsp_prj/common/bootstrap/carousel.css"
+<link href="http://localhost/hotel_prj/common/bootstrap/carousel.css"
 	rel="stylesheet">
 
 <script type="text/javascript">
@@ -300,15 +302,14 @@ function chkCard(){
 		
 	
 	//취소규정 체크 여부 (필수)
-	if( !(document.getElementById("ccAgree").checked) ){
+
+	if($( "[name = 'ccAgree']:checked").val() == "" ){
 		alert("위 취소규정 약관에 동의해 주세요.");
-		return;
 	}//end id
 		
 	//개인정보동의 체크 여부 (필수)
-	if( !(document.getElementById("piAgree").checked) ){
+	if($( "[name = 'piAgree']:checked").val() == "" ){
 		alert("위 개인정보수집 약관에 동의해 주세요.");
-		return;
 	}//end id
 	
 	location.href="http://localhost/hotel_prj/user/reser_room/reservation_complete.jsp";
@@ -321,6 +322,18 @@ function chkCard(){
 <!-- NAVBAR
 ================================================== -->
 <body>
+
+
+<%
+	String paramRoomNo = request.getParameter("room_no");
+	int room_no = Integer.parseInt( paramRoomNo );
+
+	String addReq = request.getParameter("addReq");
+	
+	
+	RoomSelect rs = new RoomSelect();
+	RoomVO rv = rs.selectRoomInfo(room_no);  
+%>
 	<div class="wrapper" style="width: 1130px">
 		<!-- header/navibar import -->
 		<c:import url="http://localhost/hotel_prj/main/main_header_nav.jsp" />
@@ -335,14 +348,14 @@ function chkCard(){
 				<table class="chkTab">
 					<tr>
 						<td style="width: 500px"><img
-							src="http://localhost/jsp_prj/project02_team03/main_images/01_grand01.jpg"
+							src="http://localhost/hotel_prj/main/main_images/<%= rv.getMain_img() %>"
 							width="480" height="330" /><br /> <br /></td>
 
 						<td>
 							<table id="chkSubTab">
 								<tr>
 									<td class="guide">객실</td>
-									<td class="guideTextP">그랜드 디럭스 룸</td>
+									<td class="guideTextP">${ param.room_no } ${param.addReq}<%= rv.getR_name()%></td>
 								</tr>
 								<tr>
 									<td class="guide">투숙 날짜</td>
@@ -350,18 +363,28 @@ function chkCard(){
 								</tr>
 								<tr>
 									<td class="guide">인원</td>
-									<td class="guideTextP">성인2, 어린이0</td>
+									<td class="guideTextP"></td>
 								</tr>
 							</table> <br />
 
 							<table id="chkSubTab">
+							<%
+				int price = rv.getPrice();
+				pageContext.setAttribute("price", price);
+				
+				int tax = (int)(rv.getPrice()*0.21);
+				pageContext.setAttribute("tax", tax);
+				
+				int totalP = (int)(rv.getPrice()+tax);
+				pageContext.setAttribute("totalP", totalP);
+				%>
 								<tr>
 									<td class="guide">객실요금</td>
-									<td class="guideTextPR">407,000 KRW</td>
+									<td class="guideTextPR"><fmt:formatNumber pattern = "#,###,###" value = "${ price }"/> KRW</td>
 								</tr>
 								<tr>
 									<td class="guide">세금 및 봉사료</td>
-									<td class="guideTextPR">85,470 KRW</td>
+									<td class="guideTextPR"><fmt:formatNumber pattern = "#,###,###" value = "${ tax }"/> KRW</td>
 								</tr>
 							</table> <br /> <span class="guide">요금정책</span><br /> <span
 							class="guideText"> ㆍ 상기 요금에 세금 및 봉사료가 각 10%가 가산됩니다. (총
@@ -376,7 +399,7 @@ function chkCard(){
 					<tr>
 						<td></td>
 						<td>총 요금</td>
-						<td>492,470 KRW</td>
+						<td><fmt:formatNumber pattern = "#,###,###" value = "${ totalP }"/> KRW</td>
 					</tr>
 				</table>
 				<hr class="hr1">
@@ -408,8 +431,7 @@ function chkCard(){
 			<!-- guideDiv -->
 			<br />
 
-			<form name="cardFrm" action="card_process.jsp" id="cardFrm"
-				method="post">
+			<form name="cardFrm" action="card_process.jsp" id="cardFrm" method="post">
 				<div class="guideDiv">
 					<div class="guideTitle">신용카드 정보</div>
 					<p class="guideText" style="float: left">신용카드 정보는 게런티/위약금 결제를
@@ -510,7 +532,7 @@ function chkCard(){
 	<!-- ================================================== -->
 
 	<script
-		src="http://localhost/jsp_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
+		src="http://localhost/hotel_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
 	</div>
 </body>
 </html>

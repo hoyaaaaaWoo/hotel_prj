@@ -98,7 +98,7 @@ p { border: 1px solid #FF00FF}
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link href="http://localhost/jsp_prj/common/bootstrap/carousel.css"
+<link href="http://localhost/hotel_prj/common/bootstrap/carousel.css"
 	rel="stylesheet">
 </head>
 
@@ -127,7 +127,7 @@ p { border: 1px solid #FF00FF}
 						<td>
 							<div class="weddingImg">
 								<img
-									src="http://localhost/jsp_prj/project02_team03/main_images/wedding01.jpg"
+									src="http://localhost/hotel_prj/main/main_images/wedding01.jpg"
 									width="520" height="400"><br />
 							</div>
 							<div class="weddingBox">
@@ -141,7 +141,7 @@ p { border: 1px solid #FF00FF}
 						<td>
 							<div class="weddingImg">
 								<img
-									src="http://localhost/jsp_prj/project02_team03/main_images/wedding02.jpg"
+									src="http://localhost/hotel_prj/main/main_images/wedding02.jpg"
 									width="520" height="400"><br />
 							</div>
 							<div class="weddingBox">
@@ -164,7 +164,7 @@ p { border: 1px solid #FF00FF}
 
 		<!-- ================================================== -->
 		<script
-			src="http://localhost/jsp_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
+			src="http://localhost/hotel_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
 	</div>
 </body>
 </html>
