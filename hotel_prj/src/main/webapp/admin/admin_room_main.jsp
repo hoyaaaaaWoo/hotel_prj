@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="admin_room.RoomSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="객실관리 메인"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -34,7 +36,7 @@
 }
 
 #roomList{
-	width:1200px;
+	width:100%;
 	padding-left:20px;
 	border-bottom: 1px solid #454D55;
 }
@@ -66,8 +68,20 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	 $("td").click(function(){
-		 location.href="http://localhost/hotel_prj/admin/admin_room_main_roomview.jsp";
+	 $("#roomtab tr").click(function(){
+		//현재 선택된 tr과 td
+			let tr = $(this);
+			let td = tr.children();
+
+			//선택된 행에서 예약번호 얻어오기
+			let resNum = td.eq(0).text();
+			
+			if(resNum != "예약번호" && resNum != null){
+			//해당 예약번호를 예약변경 페이지로 전송!
+				$("#resNum").val(resNum);
+				$("#chgFrm").submit();
+			}//end if
+		 
 	 })//click
 	 
 	 $("#addBtn").click(function(){
@@ -87,23 +101,32 @@ $(function(){
 		<span id="mainMenu" onclick="location.href='http://localhost/hotel_prj/admin/admin_room_main.jsp'">객실</span><br/>
 		<input type="button" id="addBtn" class="btn btn-primary" value="객실 추가"/>
 		<div id="roomList"> 
-		<!-- 추가되면 동적으로 테이블 생성 예정!! -->
 		<form name="mainFrm">
+		
+		<% 
+		RoomSelect room = new RoomSelect();
+		pageContext.setAttribute("roomList", room.selectRoomInfo(null));
+		%>
+				
 		<table id="roomTab">
 		<tr>
+		  <c:forEach var="roomList" items="${ roomList }">
+	        <c:set var="rStatus" value="roomStatusY"/>
+		         <c:set var="height" value=""/>
 			<td class="mainTd">
-			<img src="http://localhost/hotel_prj/images/roomStatusY.png" name="room" class="room img-rounded"/>
+			 <c:if test="${roomList.getrStatus() eq 'N'}">
+		         <c:set var="rStatus" value="roomStatusN"/>
+		         <c:set var="height" value="style='height:110px'"/>
+		 	 </c:if>
+  			<img src="http://localhost/hotel_prj/images/${rStatus}.png" ${height} name="rStatus" id="rStatus" class="room img-rounded"/>
 			<br/>
-			그랜드 디럭스 룸</td>
-			<td class="mainTd">
-			<img src="http://localhost/hotel_prj/images/roomStatusY.png" name="room" class="room img-rounded"/>
-			<br/>
-			리츠 프리미어 룸</td>
+			<c:out value="${roomList.getRoomName()}"/></td>
+		  </c:forEach>
 		</tr>
 		</table>
 		</form>
-		</div>
-		
+		</div> <!-- roomList div -->
+
 		<div id="viewRoom">
 		</div>
 		

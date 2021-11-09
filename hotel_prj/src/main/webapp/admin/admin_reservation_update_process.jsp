@@ -1,9 +1,14 @@
+<%@page import="admin_reservation.ReserveSelect"%>
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@page import="admin_member.MemberVO"%>
+<%@page import="java.util.List"%>
+<%@page import="admin_member.MemberSelect"%>
 <%@page import="admin_reservation.ReserveUpdateVO"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="admin_reservation.ReserveModify"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" info="예약 건 삭제"%>
+    pageEncoding="UTF-8" info="예약 건 수정"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -29,48 +34,33 @@
 <jsp:setProperty property="*" name="ruVO"/>
 <jsp:setProperty property="chkInDate" name="ruVO" value="${ruVO.inYear}.${ruVO.inMonth}.${ruVO.inDay}"/>
 <jsp:setProperty property="chkOutDate" name="ruVO" value="${ruVO.outYear}.${ruVO.outMonth}.${ruVO.outDay}"/>
+
 <%
-///////////////////////////////////날짜 검증//////////////////////////////////////////
-//현재일을 date 형식으로 변환
-String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-Date toDay = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+//회원 검증
+MemberSelect ms = new MemberSelect();
+List<MemberVO> list = ms.selectMember(null);
+boolean flag = false;
+for(MemberVO mv : list){
+	if(ruVO.getkName().equals(mv.getKname())){ //회원테이블의 kname과 변경하려는 회원명이 같다면 true
+		flag = true;
+		break;
+	}//end if
+}//end for
 
-//체크인 일자를 date 형식으로 변환
-StringBuilder sb = new StringBuilder();
-sb.append((String)request.getParameter("inYear")).append("-")
-.append((String)request.getParameter("inMonth")).append("-")
-.append((String)request.getParameter("inDay"));
-Date chkInDate = new SimpleDateFormat("yyyy-MM-dd").parse(sb.toString()); 
-
-//체크아웃 일자를 date 형식으로 변환
-StringBuilder sb2 = new StringBuilder();
-sb2.append((String)request.getParameter("outYear")).append("-")
-.append((String)request.getParameter("outMonth")).append("-")
-.append((String)request.getParameter("outDay"));
-Date chkOutDate = new SimpleDateFormat("yyyy-MM-dd").parse(sb2.toString());
-
-//체크인/아웃 일자가 현재일자보다 빠르면 back
-if(chkInDate.before(toDay) || chkOutDate.before(toDay)){
- %>
+if(!flag){%>
 <script type="text/javascript">
-	alert("체크인/체크아웃은 현재일 이후의 날짜로 입력해주세요.");
+	alert("유효한 회원이 아닙니다. 회원명을 확인해주세요.");
 	history.back();
 </script>
-<% } 
-//체크아웃 일자가 체크인보다 빠르면 back
- else if(chkOutDate.before(chkInDate)){
- %>
-<script type="text/javascript">
-	alert("체크아웃 일자는 체크인 일자보다 커야 합니다.");
-	history.back();
-</script>
-<%}//end 
-///////////////////////////////////인원수 검증//////////////////////////////////////////
+<%return;
+}//endif
+
+//인원수 검증
 int adult = Integer.parseInt(request.getParameter("adult"));
 int child = Integer.parseInt(request.getParameter("child"));
 
-ReserveModify rm = new ReserveModify();
-int maxGuest = rm.selectMaxGuest(ruVO.getrName());
+ReserveSelect rs = new ReserveSelect();
+int maxGuest = rs.selectMaxGuest(ruVO.getrName());
 
 if((adult+child) > maxGuest){ 
 %>
@@ -78,11 +68,21 @@ if((adult+child) > maxGuest){
 	alert("<%=ruVO.getrName()%> 의 최대 인원수는 <%=maxGuest%>명 입니다.");
 	history.back();
 </script>
-<%}%>
+<%return; }%>
+
+<!-- 입력한 체크인일자로 숙박 가능한지 기존에약건과 예약일자 범위 체크 -->
+<% List<String> resList = rs.selectStayDateRange(ruVO);
+	if(!(resList.isEmpty())) { // 조회결과가 비어있지 않다면 return %>
+<script type="text/javascript">
+	alert("해당 기간 중 다른 예약이 존재합니다.");
+	history.back();
+</script>
+<%return; }%>
 
 <!-- 검증 통과 / update 진행 -->
 <c:catch var="e">
 <%
+ReserveModify rm = new ReserveModify();
 int cnt = rm.updateRes(ruVO);
 //1 이라면 예약상태 N으로 변경 성공!
 if(cnt == 1){

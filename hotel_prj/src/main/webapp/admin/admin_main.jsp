@@ -40,12 +40,11 @@ height:300px;
 	border: 1px solid #333;
 	font-size: 15px;
 	margin-bottom:0px;
-	width:900px;
 	text-align: center;
+	width:1100px;
 	}
 
 th{
-	width:50px;
 	height:40px;
 	font-size: 16px;
 	text-align: center;
@@ -74,7 +73,21 @@ tr:hover td {
 </style>
 
 <script type="text/javascript">
+$(function(){
+/* 예약 변경 */
+$("#toDayList tr").click(function(){
+	//현재 선택된 tr과 td
+	let tr = $(this);
+	let td = tr.children();
+
+	//선택된 행에서 예약번호 얻어오기
+	let resNum = td.eq(0).text();
 	
+	if(resNum != "예약번호" && resNum != null){
+		$("#moveFrm").submit();
+	}//end if
+})//table click
+})//ready
 </script>
 </head>
 <body>
@@ -97,21 +110,23 @@ tr:hover td {
 		 date.setYear(String.valueOf(nowYear));
 		 date.setMonth(String.valueOf(nowMonth));
 		 date.setDay(String.format("%02d",nowDay));
-		
+		 
 		 ReserveSelect rs = new ReserveSelect();
 		 pageContext.setAttribute("toDayData", rs.selectRes(date));
 		 %>
-		<table  class="table table-bordered" id="table">
+		<table  class="table table-bordered" id="toDayList">
 			<tr>
 			<th>예약번호</th>
-			<th>회원명</th>
+			<th>예약자명</th>
 			<th>객실</th>
-			<th>인원</th>
+			<th>투숙기간</th>
+			<th>인원수</th>
+			<th>예약일자</th>
 		<tr>
 				
 		<c:if test="${ empty toDayData }">
 		<tr>
-			<td onclick="event.cancelBubble=true" colspan="4" style="font-weight: bold">
+			<td onclick="event.cancelBubble=true" colspan="6" style="font-weight: bold">
 			예약 정보가 존재하지 않습니다.</td>
 		</tr>
 		</c:if>
@@ -121,13 +136,23 @@ tr:hover td {
 			<td><c:out value="${ data.resNo }"/></td>
 			<td><c:out value="${ data.kName }"/></td>
 			<td><c:out value="${ data.rName }"/></td>
+			<td><c:out value="${ data.stayDate }"/></td>
 			<td><c:out value="${ data.guest }"/></td>
+			<td><c:out value="${ data.resDate }"/></td>
 		  </tr>
 		</c:forEach>
 		
 		</table>
 		</div>
 		
+		<!-- 테이블의 예약건(행) 클릭시 hidden값 설정 및 페이지 이동 -->
+		 <form name="moveFrm" id="moveFrm" action="admin_reservation_main.jsp" method="get">
+		 <c:if test="${ not empty toDayData }">
+		 	<input type="hidden" name="year" id="year" value="<%=nowYear%>"/>
+		 	<input type="hidden" name="month" id="month" value="<%=nowMonth%>"/>
+		 	<input type="hidden" name="day" id="day" value="<%=String.format("%02d",nowDay)%>"/>
+		 </c:if>
+		 </form>
 
  		<div id="page">
 		  <ul class="pagination">

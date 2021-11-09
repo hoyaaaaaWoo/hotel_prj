@@ -1,3 +1,10 @@
+<%@page import="admin_room.RoomSelect"%>
+<%@page import="admin_reservation.ReserveSelect"%>
+<%@page import="java.util.List"%>
+<%@page import="admin_member.MemberSelect"%>
+<%@page import="admin_member.MemberVO"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="admin_reservation.ReserveUpdateVO"%>
 <%@page import="admin_reservation.ReserveModify"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -107,6 +114,43 @@ $(function(){
 			return;
 		}//end if
 		
+		//날짜 유효성 체크
+		//chkindate
+	 	let inDate = inYear;
+		inDate+='-'+inMonth;
+		  inDate+='-'+inDay;
+		//chkoutdate
+		let outDate = outYear;
+		outDate+='-'+outMonth;
+		  outDate+='-'+outDay;
+	 	//date 형식변환
+		let ckInDate = Date.parse(inDate);
+		let ckOutDate = Date.parse(outDate);
+		
+		//date형식 변환했을 때, 유효하지 않은 날짜는 NaN이 return
+		if(isNaN(ckInDate) || isNaN(ckOutDate)){
+			alert("정상적인 날짜를 입력해주세요.");
+			return;
+		}//end if
+		
+		//현재일자 구하기
+	 	var toDay = new Date();
+
+		if(toDay > ckInDate || toDay > ckOutDate){
+			alert("체크인/체크아웃은 현재일 이후의 날짜로 입력해주세요.")
+			return;
+		}//end if 
+		
+		if(ckInDate > ckOutDate){
+			alert("체크아웃 일자는 체크인 이후로 설정되어야 합니다.")
+			return;
+		}//end if
+
+		if(ckInDate == ckOutDate){
+			alert("체크인 일자와 체크아웃 일자는 다르게 설정되어야 합니다.")
+			return;
+		}//end if
+
 		//인원수 체크
 		if( adult =="none" || child=="none"){
 			alert("인원을 선택해주세요.");
@@ -129,14 +173,14 @@ $(function(){
 		history.back();
 	})//click
 	
-})//ready
+});	
 </script>
 </head>
 <body>
-		 <!-- 예약관리 메인 페이지에서 넘어오지 않았을 경우 redirect 해주기 (예약번호 선택 필요) -->
-		 <c:if test="${empty param.resNum}">
-		 	<% response.sendRedirect("http://localhost/hotel_prj/admin/admin_reservation_main.jsp"); %>
-		 </c:if>
+	<!-- 예약관리 메인 페이지에서 넘어오지 않았을 경우 redirect 해주기 (예약번호 선택 필요) -->
+	<c:if test="${empty param.resNum}">
+	   <% response.sendRedirect("http://localhost/hotel_prj/admin/admin_reservation_main.jsp"); %>
+	</c:if>
 		 
 	<div id="wrap">
 		
@@ -149,11 +193,12 @@ $(function(){
 		 
 		 <% 
 		 String resNum = request.getParameter("resNum");
-		 ReserveModify rm = new ReserveModify();
-		 ReserveUpdateVO rVO = rm.selectRes(resNum);
+		 ReserveSelect rs = new ReserveSelect();
+		 ReserveUpdateVO rVO = rs.selectRes(resNum);
 		 pageContext.setAttribute("rVO", rVO); // 예약정보
 		 
-		 pageContext.setAttribute("rNameList", rm.selectAllRName()); //등록된 모든 룸 리스트
+		 RoomSelect room = new RoomSelect();
+		 pageContext.setAttribute("rNameList", room.selectAllRName()); //등록된 모든 룸 리스트
 		 %>
 		 <table>
 		 <tr>

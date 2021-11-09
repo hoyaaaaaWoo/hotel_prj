@@ -34,13 +34,13 @@
 	margin: 20px;
 	padding-bottom :30px;
 	border-bottom: 1px solid #454D55;
-	width:1300px;
+	width:100%;
 	hegiht:300px;
 }
 
 #resList{
 	font-size: 15px;
-	margin-left: 20px;
+	margin-left: 10px;
 	margin-bottom:0px;
 }
 
@@ -51,12 +51,11 @@
 	color:#000000}
 
 .table{
-	width:1100px;
+	width:1200px;
 	margin-top: 40px;
 	}
 
 th{
-	width:250px;
 	height:40px;
 	font-size: 16px;
 	text-align: center;
@@ -97,6 +96,22 @@ $(function(){
 		
 		if(year == "" || month == "" || day == ""){
 			alert("날짜를 입력해주세요.");
+			$("#year").focus();
+			return;
+		}//end if
+		
+		//날짜 유효성 체크
+		let inputDate = year;
+		inputDate +='-'+month;
+		inputDate +='-'+day;
+		
+		let isValidDate = Date.parse(inputDate);
+		
+		if(isNaN(isValidDate)){
+			alert("정상적인 날짜를 입력해주세요.");
+			$("#year").val("");
+			$("#month").val("");
+			$("#day").val("");
 			$("#year").focus();
 			return;
 		}//end if
@@ -186,15 +201,16 @@ $(function(){
 		 <tr>
 		 	<th>예약번호</th>
 		 	<th>예약자명</th>
-		 	<th>투숙날짜</th>
-		 	<th>인원수</th>
 		 	<th>객실</th>
+		 	<th>투숙기간</th>
+		 	<th>인원수</th>
+		 	<th>예약일자</th>
 		 	<th>예약관리</th>
 		 </tr>
 		 
 		<c:if test="${ empty resData }">
 		<tr>
-			<td onclick="event.cancelBubble=true" colspan="6" style="font-weight: bold">
+			<td onclick="event.cancelBubble=true" colspan="7" style="font-weight: bold">
 			예약 정보가 존재하지 않습니다.</td>
 		</tr>
 		</c:if>
@@ -203,9 +219,10 @@ $(function(){
 		  <tr>
 			<td><c:out value="${ res.resNo }"/></td>
 			<td><c:out value="${ res.kName }"/></td>
+			<td><c:out value="${ res.rName }"/></td>
 			<td><c:out value="${ res.stayDate }"/></td>
 			<td><c:out value="${ res.guest }"/></td>
-			<td><c:out value="${ res.rName }"/></td>
+			<td><c:out value="${ res.resDate }"/></td>
 	 		<td onclick="event.cancelBubble=true">
 	 	 	<input type="button" id="delBtn" name="delBtn" class="delBtn btn btn-danger" value="예약삭제"></td>
 		  </tr>

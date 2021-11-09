@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -29,7 +30,7 @@ public class ReserveSelect {
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		// 3. 쿼리 실행
 		StringBuilder select = new StringBuilder();
-		select.append("select	rs.res_status, rs.res_no, m.kname,")
+		select.append("select	rs.res_status, to_char(rs.res_date, 'yyyy.mm.dd HH24:MI') res_date, rs.res_no, m.kname,")
 				.append("		(rs.chkin_date || '-'|| rs.chkout_date) staydate,")
 				.append("		(nvl(rs.adult,0) + nvl(rs.child,0)) guest, r.r_name		")
 				.append("from   reservation rs, member m, room r		")
@@ -48,41 +49,136 @@ public class ReserveSelect {
 		// 4. Spring Container닫기
 		gjt.closeAc();
 		return rsList;
-	}// selectAllRes
+	}// selectRes
 
-	///////////////////////// 조회된 예약 정보를 담을 inner class/////////////////////////
+	/**
+	 * /* selectRes에서 조회된 예약 정보를 담을 inner class
+	 * @author user
+	 */
 	public class selectRes implements RowMapper<ReserveSelectVO> {
 		public ReserveSelectVO mapRow(ResultSet rs, int rowNum) throws SQLException {
-			ReserveSelectVO rVO = new ReserveSelectVO();
-			rVO.setResNo(rs.getString("res_no"));
-			rVO.setkName(rs.getString("kname"));
-			rVO.setStayDate(rs.getString("staydate"));
-			rVO.setGuest(rs.getInt("guest"));
-			rVO.setrName(rs.getString("r_name"));
-			rVO.setResStauts(rs.getString("res_status"));
-			return rVO;
+			ReserveSelectVO rsVO = new ReserveSelectVO();
+			rsVO.setResNo(rs.getString("res_no"));
+			rsVO.setResDate(rs.getString("res_date"));
+			rsVO.setkName(rs.getString("kname"));
+			rsVO.setStayDate(rs.getString("staydate"));
+			rsVO.setGuest(rs.getInt("guest"));
+			rsVO.setrName(rs.getString("r_name"));
+			rsVO.setResStauts(rs.getString("res_status"));
+			return rsVO;
 		}// mapRow
 		
 	}//selectRes
 	
-//	public static void main (String[] args) {
-//		ReserveSelect rs = new ReserveSelect();
-//		try {
-//			 Calendar cal = Calendar.getInstance();
-//			 int nowYear = cal.get(Calendar.YEAR);
-//			 int nowMonth = cal.get(Calendar.MONTH)+1;
-//			 int nowDay = cal.get(Calendar.DAY_OF_MONTH);
-//			 // 오늘을 체크인 일자로 투입하여 VO 생성
-//			 ReserveDateVO date = new ReserveDateVO();
-//			 date.setYear(String.valueOf(nowYear));
-//			 date.setMonth(String.valueOf(nowMonth));
-//			 date.setDay(String.format("%02d",nowDay));
-//			
-//			System.out.println(rs.selectRes(date));
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			
-//		}//catch
-//	}//main
+	
+	/**
+	 * 선택 예약건 수정 전 기존 정보를 조회하는 method
+	 * @param resNum
+	 * @return
+	 */
+	public ReserveUpdateVO selectRes(String resNum){
+		ReserveUpdateVO ruVO= null;
+			
+		// 1. Spring Container 얻기
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		// 2. JdbcTemplate 얻기
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		// 3. 쿼리 실행
+		StringBuilder select = new StringBuilder();
+		select.append("select rs.res_no, m.kname, rs.chkin_date, rs.chkout_date,")
+				.append("		rs.adult, nvl(rs.child,0) child,")
+				.append("		r.r_name, rs.add_req		")
+				.append("from   reservation rs, member m, room r 	")
+				.append("where  (rs.id = m.id and rs.room_no = r.room_no) and res_no=?");
+		try {
+		ruVO = jt.queryForObject(select.toString(), new Object[] {resNum}, 
+				new RowMapper<ReserveUpdateVO>() {
+					public ReserveUpdateVO mapRow(ResultSet rs, int rowNum) throws SQLException  {
+						ReserveUpdateVO ruVO = new ReserveUpdateVO();
+						ruVO.setResNo(rs.getString("res_no"));
+						ruVO.setkName(rs.getString("kname"));
+						ruVO.setChkInDate(rs.getString("chkin_date"));
+						ruVO.setChkOutDate(rs.getString("chkout_date"));
+						ruVO.setAdult(rs.getInt("adult"));
+						ruVO.setChild(rs.getInt("child"));
+						ruVO.setrName(rs.getString("r_name"));
+						ruVO.setAddReq(rs.getString("add_req"));
+						return ruVO;
+					}//mapRow
+		});}catch(EmptyResultDataAccessException erdae) {
+			return null;
+		}//end catch
+		// 4. Spring Container닫기
+		gjt.closeAc();	
+		
+		//체크인.아웃 날짜 분리하여 저장
+		ruVO.setInYear(ruVO.getChkInDate().substring(0, 4));
+		ruVO.setInMonth(ruVO.getChkInDate().substring(5, 7));
+		ruVO.setInDay(ruVO.getChkInDate().substring(8, 10));
+		ruVO.setOutYear(ruVO.getChkOutDate().substring(0, 4));
+		ruVO.setOutMonth(ruVO.getChkOutDate().substring(5, 7));
+		ruVO.setOutDay(ruVO.getChkOutDate().substring(8, 10));
+		
+		return ruVO;
+	}//selectRes
+	
+	/**
+	 * 예약수정 프로세스에서 사용할 최대 객실인원 수 
+	 * @return
+	 */
+	public int selectMaxGuest(String rName){
+		int maxGuest=0;
+		
+		// 1. Spring Container 얻기
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		// 2. JdbcTemplate 얻기
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		// 3. 쿼리 실행
+		String select = "select max_Guest from room where r_name=?";
+		maxGuest = jt.queryForObject(select, new Object[] {rName},Integer.class);
+		// 4. Spring Container닫기
+		gjt.closeAc();	
+		
+		return maxGuest;
+	}//selectAllRName
+	
+	/**
+	 * 예약수정 프로세스에서 사용할 체크인/아웃 일자 유효 체크<br>
+	 * 기존 예약건과 일자가 겹치는 경우를 조회 <br>
+	 * @return 겹치는 예약건의 예약넘버를 담은 list
+	 */
+	public List<String> selectStayDateRange(ReserveUpdateVO ruVO) {
+		List<String> list = null;
+		
+		// 1. Spring Container 얻기
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		// 2. JdbcTemplate 얻기
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		// 3. 쿼리 실행
+		StringBuilder select = new StringBuilder();
+		select
+		.append("	select res_no	")
+		.append("	from   reservation	")
+		.append("	where  room_no= (select room_no from room where r_name= ?)	")
+		.append("	 and ((to_date( ? ) between to_date(chkin_date) and (to_date(chkout_date)-1)) or	")
+		.append("	 ((to_date(chkin_date)+1) between to_date( ? ) and to_date( ? )))	")
+		.append("	 and res_no != ? 	");
+
+		list = jt.query(select.toString(), new Object[] {ruVO.getrName(), ruVO.getChkInDate(),
+				ruVO.getChkInDate(), ruVO.getChkOutDate(), ruVO.getResNo()},new SelectResNo());
+		// 4. Spring Container닫기
+			gjt.closeAc();
+		
+		return list;
+		
+	}//selectAllRName
+	
+	public class SelectResNo implements RowMapper<String>{
+		@Override
+		public String mapRow(ResultSet rs, int cnt) throws SQLException {
+			String resNo = rs.getString("res_no");
+			return resNo;
+		}//mapRow
+	}//SelectResNo 
 	
 }// class

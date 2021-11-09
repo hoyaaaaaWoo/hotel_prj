@@ -5,68 +5,78 @@ package admin_reservation;
  * @author user
  */
 public class ReserveSelectVO {
-	
-private String resNo, kName, stayDate, rName, resStauts;
-private int Guest;
 
-public ReserveSelectVO() {
-}
+	private String resNo, kName, stayDate, rName, resStauts, resDate;
+	private int Guest;
 
-public ReserveSelectVO(String resNo, String kName, String stayDate, String rName, String resStauts, int guest) {
-	this.resNo = resNo;
-	this.kName = kName;
-	this.stayDate = stayDate;
-	this.rName = rName;
-	this.resStauts = resStauts;
-	this.Guest = guest;
-}
+	public ReserveSelectVO() {
+	}
 
-public String getResNo() {
-	return resNo;
-}
+	public ReserveSelectVO(String resNo, String kName, String stayDate, String rName, String resStauts, String resDate,
+			int guest) {
+		this.resNo = resNo;
+		this.kName = kName;
+		this.stayDate = stayDate;
+		this.rName = rName;
+		this.resStauts = resStauts;
+		this.resDate = resDate;
+		Guest = guest;
+	}
 
-public void setResNo(String resNo) {
-	this.resNo = resNo;
-}
+	public String getResNo() {
+		return resNo;
+	}
 
-public String getkName() {
-	return kName;
-}
+	public void setResNo(String resNo) {
+		this.resNo = resNo;
+	}
 
-public void setkName(String kName) {
-	this.kName = kName;
-}
+	public String getkName() {
+		return kName;
+	}
 
-public String getStayDate() {
-	return stayDate;
-}
+	public void setkName(String kName) {
+		this.kName = kName;
+	}
 
-public void setStayDate(String stayDate) {
-	this.stayDate = stayDate;
-}
+	public String getStayDate() {
+		return stayDate;
+	}
 
-public String getrName() {
-	return rName;
-}
+	public void setStayDate(String stayDate) {
+		this.stayDate = stayDate;
+	}
 
-public void setrName(String rName) {
-	this.rName = rName;
-}
+	public String getrName() {
+		return rName;
+	}
 
-public String getResStauts() {
-	return resStauts;
-}
+	public void setrName(String rName) {
+		this.rName = rName;
+	}
 
-public void setResStauts(String resStauts) {
-	this.resStauts = resStauts;
-}
+	public String getResStauts() {
+		return resStauts;
+	}
 
-public int getGuest() {
-	return Guest;
-}
+	public void setResStauts(String resStauts) {
+		this.resStauts = resStauts;
+	}
 
-public void setGuest(int guest) {
-	Guest = guest;
-}
+	public int getGuest() {
+		return Guest;
+	}
 
-}//class
+	public void setGuest(int guest) {
+		Guest = guest;
+	}
+
+	public String getResDate() {
+		return resDate;
+	}
+
+	public void setResDate(String resDate) {
+		this.resDate = resDate;
+	}
+
+}// class
