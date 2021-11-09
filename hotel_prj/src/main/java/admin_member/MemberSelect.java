@@ -15,90 +15,122 @@ import team3_dao.GetJdbcTemplate;
 public class MemberSelect {
 
 	/**
-	 *  전체회원 조회 ( 아이디,이름,생년월일,번호,이메일,영문이름)
+	 * 회원 조회 ( 아이디,이름,생년월일,번호,이메일,영문이름)
+	 * 
 	 * @param id
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<MemberVO> selectMember(String id) throws SQLException{
+	public List<MemberVO> selectMember(String id) throws SQLException {
 		List<MemberVO> list = null;
-		
+
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
 
 		JdbcTemplate jt = gjt.getJdbcTemplate();
-		
+
 		StringBuilder selectMember = new StringBuilder();
-		selectMember.append
-		(" select id,kname,birth_year,tel,email,ename_fst,ename_lst,out_date,m_status")
-		.append(" from member ");
-		if( id !=null) {
-			selectMember.append(" where id=?");
+		selectMember.append(" select id,kname,birth_year,tel,email,ename_fst,ename_lst,out_date,m_status")
+				.append(" from member ");
+		if (id != null) {
+			selectMember.append(" where id=? ");
 		}
-		if( id == null) {
-			list=jt.query(selectMember.toString(), new SelectMember());
-		}else {
-			 list=jt.query(selectMember.toString(),new Object[] { Long.valueOf(id) },new SelectMember());
+		if (id == null) {
+			list = jt.query(selectMember.toString(), new SelectMember());
+		} else {
+			list = jt.query(selectMember.toString(), new Object[] { Long.valueOf(id) }, new SelectMember());
 		}
 		gjt.closeAc();
 		return list;
-	}//MemberSelect
+	}// MemberSelect
 	
+	public class SelectMember implements RowMapper<MemberVO> {
+		public MemberVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+			MemberVO mv = new MemberVO();
+			mv.setId(rs.getString("id"));
+			mv.setKname(rs.getString("kname"));
+			mv.setBirth_year(rs.getString("birth_year"));
+			mv.setTel(rs.getString("tel"));
+			mv.setEmail(rs.getString("email"));
+			mv.setEname_fst(rs.getString("ename_fst"));
+			mv.setEname_lst(rs.getString("ename_lst"));
+			mv.setEname_lst(rs.getString("out_date"));
+			mv.setM_status(rs.getString("m_status"));
+			return mv;
+		}
+	}// selectMember
+
 	/**
 	 * 이름을 조회하여 특정회원 조회
+	 * 
 	 * @param kname
 	 * @return
 	 * @throws EmptyResultDataAccessException
 	 * @throws IncorrectResultSizeDataAccessException
 	 * @throws BadSqlGrammarException
 	 */
-	 public MemberVO selectSpecificMember(String kname)throws SQLException{//mapRow method throws
-	      MemberVO mVO=null;
-	      
-	      //1. Spring Container 얻기
-	      GetJdbcTemplate gjt=GetJdbcTemplate.getInstance();
-	      //2 JdbcTemplate 얻기
-	      JdbcTemplate jt=gjt.getJdbcTemplate();
-	      //3. 쿼리 실행
-	      String select="select id,kname,birth_year,tel,email,ename_fst,ename_lst from member where kname=?";
-	      //interface를 anonymous inner class로 생성하여 그안에서 조회결과를 VO에 할당.
-	      mVO=jt.queryForObject(select, new Object[] { kname },
-	            new RowMapper<MemberVO>() {
-	            public MemberVO mapRow(ResultSet rs,int rowNum)throws SQLException{
-	            	MemberVO mVO=new MemberVO();
-	               //ResultSet을 사용하여 조회결과를 VO에 저장
-	               mVO.setId(rs.getString("id"));
-	               mVO.setKname(rs.getString("kname"));
-	               mVO.setBirth_year(rs.getString("birth_year"));
-	               mVO.setTel(rs.getString("tel"));
-	               mVO.setEmail(rs.getString("email"));
-	               mVO.setEname_fst(rs.getString("ename_fst"));
-	               mVO.setEname_lst(rs.getString("ename_lst"));
-	               //조회결과를 저장한 dv반환
-	               return mVO;
-	            }
-	            } );
-	      //4,. Spring Container 닫기
-	      gjt.closeAc();
-	      return mVO; 
-	   }
-	   
-	
-	public class SelectMember implements RowMapper<MemberVO> {
-	      public MemberVO mapRow(ResultSet rs, int rowNum) throws SQLException {
-	         MemberVO mv=new MemberVO();
-	         mv.setId(rs.getString("id"));
-	         mv.setKname(rs.getString("kname"));
-	         mv.setBirth_year(rs.getString("birth_year"));
-	         mv.setTel(rs.getString("tel"));
-	         mv.setEmail(rs.getString("email"));
-	         mv.setEname_fst(rs.getString("ename_fst"));
-	         mv.setEname_lst(rs.getString("ename_lst"));
-	         mv.setEname_lst(rs.getString("out_date"));
-	         mv.setM_status(rs.getString("m_status"));
-	         return mv;
-	      }
-	   }
-	
-	
-	
-}//class
+	public MemberVO selectSpecificMember(String kname) throws SQLException {// mapRow method throws
+		MemberVO mVO = null;
+
+		// 1. Spring Container 얻기
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		// 2 JdbcTemplate 얻기
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		// 3. 쿼리 실행
+		String select = "select id,kname,birth_year,tel,email,ename_fst,ename_lst from member where kname=?";
+		// interface를 anonymous inner class로 생성하여 그안에서 조회결과를 VO에 할당.
+		mVO = jt.queryForObject(select, new Object[] { kname }, new RowMapper<MemberVO>() {
+			public MemberVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				MemberVO mVO = new MemberVO();
+				// ResultSet을 사용하여 조회결과를 VO에 저장
+				mVO.setId(rs.getString("id"));
+				mVO.setKname(rs.getString("kname"));
+				mVO.setBirth_year(rs.getString("birth_year"));
+				mVO.setTel(rs.getString("tel"));
+				mVO.setEmail(rs.getString("email"));
+				mVO.setEname_fst(rs.getString("ename_fst"));
+				mVO.setEname_lst(rs.getString("ename_lst"));
+				// 조회결과를 저장한 dv반환
+				return mVO;
+			}
+		});
+		// 4,. Spring Container 닫기
+		gjt.closeAc();
+		return mVO;
+	}
+
+	/**
+	 * 이름을 조회하여 탈퇴회원 조회
+	 * 
+	 * @param kname
+	 * @return
+	 * @throws EmptyResultDataAccessException
+	 * @throws IncorrectResultSizeDataAccessException
+	 * @throws BadSqlGrammarException
+	 */
+	public MemberVO selectSpecificMemberDelete(String kname) throws SQLException {// mapRow method throws
+		MemberVO mVO = null;
+
+		// 1. Spring Container 얻기
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		// 2 JdbcTemplate 얻기
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		// 3. 쿼리 실행
+		String select = "select id,kname,out_date from member where kname=?";
+		// interface를 anonymous inner class로 생성하여 그안에서 조회결과를 VO에 할당.
+		mVO = jt.queryForObject(select, new Object[] { kname }, new RowMapper<MemberVO>() {
+			public MemberVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				MemberVO mVO = new MemberVO();
+				// ResultSet을 사용하여 조회결과를 VO에 저장
+				mVO.setId(rs.getString("id"));
+				mVO.setKname(rs.getString("kname"));
+				mVO.setOut_date(rs.getDate("out_date"));
+				// 조회결과를 저장한 dv반환
+				return mVO;
+			}
+		});
+		// 4,. Spring Container 닫기
+		gjt.closeAc();
+		return mVO;
+	}
+
+}// class

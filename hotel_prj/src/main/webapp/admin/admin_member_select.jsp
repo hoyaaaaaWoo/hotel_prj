@@ -3,7 +3,9 @@
 <%@page import="java.util.List"%>
 <%@page import="admin_member.MemberSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"
+	info="회원조회"
+	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -58,16 +60,13 @@
 }
 
 .table{
+	width:1100px;
 	margin-top: 80px;
-	margin-left: 50px;
-	font-size: 15px;
-	margin-bottom:0px;
-	width:1200px;
-	text-align: center;
+	margin-left: 60px;
 	}
 
 th{
-	width:80px;
+	width:250px;
 	height:40px;
 	font-size: 16px;
 	text-align: center;
@@ -82,7 +81,6 @@ td{
 	color:#000000;
 	background-color: #FFFFFF;
 }
-
 tr:hover td {
 	background-color: #F1F3F4;
 	cursor:pointer;
@@ -104,18 +102,24 @@ $(function(){
 $("#search").click(function(){
 	$("#frm_search").submit();
 })//click
-})//ready
 
-function updateData( kname ,i){
-	if( confirm( kname + "님 회원정보를 변경하시겠습니까?") ){
-		$("#kname").val( kname );
-		$("#tel").val( $("#tel"+i).val() );
-		$("#address").val( $("#address"+i).val() );
-		$("#m_status").val( $("#m_status"+ i).val() );
-		
-	  	$("#hiddenFrm").submit();
-	}//end if
-}//updateData
+$(".delBtn").click(function(){
+	//선택된 버튼 할당
+	var delBtn = $(this);
+	//선택된 버튼에 해당하는 행과 각 td
+	let tr = delBtn.parent().parent(); 
+	let td = tr.children();
+	//삭제번호 얻기
+	let kname = td.eq(1).text();
+	if(confirm("["+kname+"] 회원을 삭제하시겠습니까?")){
+		$("#delKname").val(kname);
+		$("#delFrm").submit();
+	}else{
+		alert("회원 삭제를 취소합니다.");
+	}//end else
+	
+})//click
+})//ready
 
 
 </script>
@@ -134,7 +138,6 @@ pageContext.setAttribute("memberData", list);
 	<div id="wrap">
 		<!-- header/navibar import -->
 		 <c:import url="common/admin_header_nav.jsp" />  
-
 		<!-- 컨테이너 시작 -->
 		<div id="container">
 			<div id="naviBar2">
@@ -144,14 +147,8 @@ pageContext.setAttribute("memberData", list);
 				<input type="text" name="search" placeholder="이름조회" id="id_search" class="form-control" maxlength="10"/>
 				<input type="submit" value="검색" name="search" class="btn btn-default" id="search" />
 				</form>				
-			
 			</div>
 			<table class="table table-bordered"  id="table">
-			 <c:if test="${ empty memberData }">
-   			<tr> 
-     		 <td colspan="5">회원정보가 존재하지 않습니다.</td>
-   			</tr>
-   			</c:if>
 				<tr>
 					<th>아이디</th>
 					<th>이름</th>
@@ -159,30 +156,32 @@ pageContext.setAttribute("memberData", list);
 					<th>연락처</th>
 					<th>이메일</th>
 					<th>영문이름</th>
-					<th>탈퇴여부</th>
+					<th>회원삭제</th>
+				</tr>	
+			 <c:if test="${ empty memberData }">
+   			<tr> 
+     		 <td colspan="7">회원정보가 존재하지 않습니다.</td>
+   			</tr>
+   			</c:if>
 				<c:forEach var="member" items="${memberData}">
-				<c:set var="i" value="${ i+1 }"/>
 				<tr>
-					<td><input type="text" value="${member.id}"size="15px;" style="text-align: center;" readonly="readonly"/ ></td>
-					<td><input type="text" value="${member.kname}"  id="kname" size="15px;" style="text-align: center;"readonly="readonly"/></td>
-					<td><input type="text" value="${member.birth_year}"style="text-align: center;"readonly="readonly"/></td>
-					<td><input type="text" id="tel${i}"value="${member.tel}" size="15px;"style="text-align: center;"/></td>
-					<td><input type="text" id="email${i}" value="${member.email}" style="text-align: center;"/></td>
-					<td><input type="text" value="${member.ename_fst}${member.ename_lst }"size="15px;"style="text-align: center;"readonly="readonly"/></td>
-					<td><input type="text" id="m_status${i}"value="${member.m_status}"  size="4px;" style="text-align: center;"/></td>
-					<td><input type="button" name="del" value="변경"  
-						class="btn btn-danger" id="del" onclick="updateData('${member.kname}',${i})"/></td>
+					<td><c:out value="${member.id }"/></td>
+					<td><c:out value="${member.kname }"/></td>
+					<td><c:out value="${member.birth_year }"/></td>
+					<td><c:out value="${member.tel }"/></td>
+					<td><c:out value="${member.email }"/></td>
+					<td><c:out value="${member.ename_fst }${member.ename_lst }"/></td>
+					<%-- <td><c:out value="${member.m_status }"/></td> --%>
+					<td><input type="button" id="delBtn" name="delBtn" class="delBtn btn btn-danger" value="회원삭제"></td>
 				</tr>
 				</c:forEach>
 			</table>
 		</div>
-		<form  action="admin_member_update_process.jsp"   method="post" name="hiddenFrm" id="hiddenFrm" >
-		<input type="hidden" name="kname" id="kname"/>
-		<input type="hidden" name="tel" id="tel"/>
-		<input type="hidden" name="address" id="address"/>
-		<input type="hidden"  name="m_status" id="m_status"/>
-		</form>
 		
+		<!-- 삭제버튼 클릭시 hidden값 설정 및 페이지 이동 -->
+		 <form name="delFrm" id="delFrm" action="admin_member_del_process.jsp" method="post">
+		 	<input type="hidden" name="delKname" id="delKname"/>
+		 </form>
 		<!-- footer import -->
 		<c:import url="common/admin_footer.jsp" />
 	</div>

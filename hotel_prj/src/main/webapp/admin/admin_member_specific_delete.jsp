@@ -4,7 +4,7 @@
 <%@page import="admin_member.MemberDelete"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	info="탈퇴회원 조회"
+	info="특정 탈퇴회원 조회"
 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -31,6 +31,7 @@
 <link rel="stylesheet" type="text/css"
 	href="http://localhost/hotel_prj/admin/css/admin_main.css">
 <style type="text/css">
+
 .button {
 	border-radius: 10px;
 	width: 70px;
@@ -42,114 +43,112 @@
 	background-color: #454D55;
 }
 
-#page {
-	margin-top: 50px;
-	padding-left: 420px;
+#page{
+	margin-top : 50px;
+	padding-left:420px;
 }
 
-.pagination>li>a {
-	color: #343A40
-}
+.pagination>li>a {color:#343A40}
 
-.form-control {
-	font-size: 15px;
-	color: #000000;
-	height: 40px;
+.form-control{
+	font-size:15px;
+	color:#000000;
+	height:40px;
 	width: 180px;
-	margin: 0px;
+	margin:0px;
 }
 
-.table {
+.table{
 	margin-top: 80px;
 	margin-left: 50px;
 	font-size: 15px;
-	margin-bottom: 0px;
-	width: 1200px;
+	margin-bottom:0px;
+	width:1200px;
 	text-align: center;
-}
+	
+	}
 
-th {
-	width: 80px;
-	height: 20px;
+th{
+	width:80px;
+	height:20px;
 	font-size: 16px;
 	text-align: center;
 	vertical-align: middle;
 	background-color: #dfdfdf;
-}
-
-td {
+	}
+	
+td{
 	font-size: 16px;
-	height: 20px;
+	height:20px;
 	text-align: center;
 	vertical-align: middel;
-	color: #000000;
+	color:#000000;
 	background-color: #FFFFFF;
 }
 
 tr:hover td {
 	background-color: #F1F3F4;
-	cursor: pointer;
+	cursor:pointer;
 }
 
-#id_search {
-	position: absolute;
-	top: 80px;
-	left: 1000px;
+#id_search{
+position: absolute; top: 80px; left: 1000px;
 }
 
-#search {
-	position: absolute;
-	top: 80px;
-	left: 1200px;
+#search{
+position: absolute; top: 80px; left: 1200px;
 }
 </style>
+
+
 <script type="text/javascript">
 	
 </script>
 </head>
 <body>
-	<%
-	MemberDelete md = new MemberDelete();
-	List<MemberVO> list = md.selectDeleteMember();
-	pageContext.setAttribute("memberData", list);
-	%>
 	<div id="wrap">
 		<!-- header/navibar import -->
-		<c:import url="common/admin_header_nav.jsp" />
+		<c:import url="common/admin_header_nav.jsp" /> 
 		<div id="container">
 			<div id="naviBar2">
-				<span id="mainMenu" style="text-decoration: none"
-					onclick="location.href='http://localhost/hotel_prj/admin/admin_member_select.jsp'">회원조회</span>
-				&nbsp; <span id="mainMenu"
-					onclick="location.href='http://localhost/hotel_prj/admin/admin_member_delete.jsp'">탈퇴회원</span>
-					
+				<span id="mainMenu" style="text-decoration: none" onclick="location.href='http://localhost/hotel_prj/admin/admin_member_select.jsp'">회원조회</span> &nbsp;
+				<span id="mainMenu" onclick="location.href='http://localhost/hotel_prj/admin/admin_member_delete.jsp'">탈퇴회원</span>
 				<form name="frm_search" action="http://localhost/hotel_prj/admin/admin_member_specific_delete.jsp" method="post">
-					<input type="text" name="search" placeholder="이름조회" id="id_search"class="form-control" maxlength="10" /> 
-					<input type="submit"value="검색" name="search" class="btn btn-default" id="search" />
+				<input type="text" name="search" placeholder="이름조회" id="id_search" class="form-control" maxlength="10"/>
+				<input type="submit" value="검색" name="search" class="btn btn-default" id="search"/>
 				</form>
 			</div>
-			
 			<table class="table table-bordered" id="table">
-				<c:if test="${ empty memberData }">
-					<tr>
-						<td colspan="3">회원정보가 존재하지 않습니다.</td>
-					</tr>
-				</c:if>
 				<tr>
 					<th>아이디</th>
 					<th>이름</th>
 					<th>탈퇴일자</th>
-					<c:forEach var="member" items="${memberData}">
+				</tr>	
+					<c:catch var="e">
+						<%	
+						request.setCharacterEncoding("utf-8");
+						String kname = request.getParameter("search");
+						MemberSelect ms = new MemberSelect();
+						pageContext.setAttribute("kname", ms.selectSpecificMemberDelete(kname));
+						%>
 						<tr>
-							<td><c:out value="${member.id }" /></td>
-							<td><c:out value="${member.kname }" /></td>
-							<td><c:out value="${	member.out_date }" /></td>
+							<td><c:out value="${kname.id }" /></td>
+							<td><c:out value="${kname.kname }" /></td>
+							<td><c:out value="${kname.out_date }" /></td>
 						</tr>
-					</c:forEach>
-			</table>
+					</c:catch>
+					
+					<c:if test="${ not empty e }">
+						<tr>
+							<td colspan="3">
+							<span style="color: #ff0000"><c:out value="${ param.search }" /></span>회원은 존재하지 않습니다.</td>
+						</tr>
+					</c:if>
+					</table>
 		</div>
-		<!-- footer import -->
-		<c:import url="common/admin_footer.jsp" />
+	<!-- footer import -->
+	<c:import url="common/admin_footer.jsp" />
+
 	</div>
 </body>
 </html>

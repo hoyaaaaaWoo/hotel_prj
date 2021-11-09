@@ -2,7 +2,9 @@
 <%@page import="java.util.List"%>
 <%@page import="admin_member.MemberSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"
+	info="특정회원조회"
+%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -99,7 +101,24 @@ position: absolute; top: 80px; left: 1200px;
 
 
 <script type="text/javascript">
-	
+$(function(){
+	$(".delBtn").click(function(){
+		//선택된 버튼 할당
+		var delBtn = $(this);
+		//선택된 버튼에 해당하는 행과 각 td
+		let tr = delBtn.parent().parent(); 
+		let td = tr.children();
+		//예약번호 얻기
+		let kname = td.eq(1).text();
+		if(confirm("["+kname+"] 회원을 삭제하시겠습니까?")){
+			$("#delKname").val(kname);
+			$("#delFrm").submit();
+		}else{
+			alert("회원 삭제를 취소합니다.");
+		}//end else
+		
+	})//click
+})	//ready
 </script>
 </head>
 <body>
@@ -126,6 +145,7 @@ position: absolute; top: 80px; left: 1200px;
 					<th><strong>연락처</strong></th>
 					<th><strong>이메일</strong></th>
 					<th><strong>영문이름</strong></th>
+					<th><strong>회원삭제</strong></th>
 					</tr>
 					<c:catch var="e">
 					<%
@@ -141,8 +161,10 @@ position: absolute; top: 80px; left: 1200px;
 					<td><c:out value="${kname.tel}"/></td>
 					<td><c:out value="${kname.email}"/></td>
 					<td><c:out value="${kname.ename_fst}${kname.ename_lst}"/></td>
+					<td><input type="button" id="delBtn" name="delBtn" class="delBtn btn btn-danger" value="회원삭제"></td>
 				</tr>
 					</c:catch>
+					
 				<c:if test="${ not empty e }">
 				<tr>
 				<td colspan="7">
@@ -151,8 +173,14 @@ position: absolute; top: 80px; left: 1200px;
 				</tr>
 				</c:if>
 			</table>
-
 		</div>
+		
+		<!-- 삭제버튼 클릭시 hidden값 설정 및 페이지 이동 -->
+		 <form name="delFrm" id="delFrm" action="admin_member_del_process.jsp" method="post">
+		 	<input type="hidden" name="delKname" id="delKname"/>
+		 </form>
+		
+		
 	<!-- footer import -->
 	<c:import url="common/admin_footer.jsp" />
 
