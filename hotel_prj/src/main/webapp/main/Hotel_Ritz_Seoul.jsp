@@ -94,6 +94,10 @@
 	color: #000000;
 	font-weight: bold;
 }
+
+.hr1 {
+	border-bottom: 1px solid #d3d3d3;
+}
 /*
 div { border: 1px solid #0000FF}
 td { border: 1px solid #FF0000}
@@ -124,25 +128,31 @@ p { border: 1px solid #FF00FF}
 <!-- NAVBAR
 ================================================== -->
 <body>
-	<div class="wrapper" style="margin: 0px auto">
+
 
 		<!-- header/navibar import -->
 		<c:import url="http://localhost/hotel_prj/main/main_header_nav.jsp" />
 
+		
 		<!-- Carousel
     ================================================== -->
+    <div>
 		<div id="myCarousel" class="carousel slide" data-ride="carousel"
-			style="width: 1130px; margin: 0px auto;">
+			style="margin: 0px auto; height: 800px">
 			<!-- Indicators -->
 			<ol class="carousel-indicators">
 				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+				<li data-target="#myCarousel" data-slide-to="3"></li>
 			</ol>
-			<div class="carousel-inner" role="listbox">
-				<div class="item active">
+			<div class="carousel-inner" role="listbox" style = "margin: 0px auto; height: 800px">
+				<div class="item active" style = "margin: 0px auto; height: 800px">
 					<img class="first-slide"
 						src="http://localhost/hotel_prj/main/main_images/main1.jpg"
+						style= "min-width: 2150px; height: 800px; margin: 0px auto;"
 						alt="First slide">
+						<!-- style="min-width: 1600px; height: 800px; margin: 0px auto;" -->
 					<div class="container">
 						<div class="carousel-caption">
 							<h1>3조의 리츠호텔~</h1>
@@ -150,10 +160,29 @@ p { border: 1px solid #FF00FF}
 						</div>
 					</div>
 				</div>
-				<div class="item">
+				<div class="item" style="margin: 0px auto; height: 800px">
 					<img class="second-slide"
+						style="min-width: 2150px; margin: 0px auto; height: 800px"
 						src="http://localhost/hotel_prj/main/main_images/main2.jpg"
 						alt="Second slide">
+					<div class="container">
+						<div class="carousel-caption"></div>
+					</div>
+				</div>
+				<div class="item" style="margin: 0px auto; height: 800px">
+					<img class="third-slide"
+						style="min-width: 2150px; margin: 0px auto; height: 800px"
+						src="http://localhost/hotel_prj/main/main_images/main3.jpg"
+						/>
+					<div class="container">
+						<div class="carousel-caption"></div>
+					</div>
+				</div>
+				<div class="item" style="margin: 0px auto; height: 800px">
+					<img class="fourth-slide"
+						style="min-width: 2150px; margin: 0px auto; height: 800px"
+						src="http://localhost/hotel_prj/main/main_images/main4.jpg"
+						/>
 					<div class="container">
 						<div class="carousel-caption"></div>
 					</div>
@@ -170,8 +199,9 @@ p { border: 1px solid #FF00FF}
 			</a>
 		</div>
 		<!-- /.carousel -->
-		<br /> <br />
-
+		<br /> <br /><br /> <br /><br /> <br />
+</div>
+<div>
 		<!--================================================== -->
 
 		<div class="container marketing"
@@ -184,7 +214,7 @@ p { border: 1px solid #FF00FF}
 						<a
 							href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#grandRoom">
 							<img
-							src="http://localhost/hotel_prj/main/main_images/02_03.jpg"
+							src="http://localhost/hotel_prj/main/main_images/01_grand01.jpg"
 							width="350" height="200">
 						</a>
 					</div>
@@ -203,7 +233,7 @@ p { border: 1px solid #FF00FF}
 						<a
 							href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#koreanRoom">
 							<img
-							src="http://localhost/hotel_prj/main/main_images/04_01.jpg"
+							src="http://localhost/hotel_prj/main/main_images/04_korean01.jpg"
 							width="350" height="200">
 						</a>
 					</div>
@@ -222,7 +252,7 @@ p { border: 1px solid #FF00FF}
 						<a
 							href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#royalRoom">
 							<img
-							src="http://localhost/hotel_prj/main/main_images/05_01.jpg"
+							src="http://localhost/hotel_prj/main/main_images/05_royal01.jpg"
 							alt="Generic placeholder image" width="350" height="200">
 						</a>
 					</div>
@@ -235,13 +265,15 @@ p { border: 1px solid #FF00FF}
 							href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#royalRoom"
 							role="button">View details &raquo;</a>
 					</p>
-				</div>
+				</div><br /> <br /><br /> <br />
 
 
 				<div style="width: 1130px; margin: 0px auto;">
 					<hr class="featurette-divider">
 
 					<div id="promo" style="width: 1130px; margin: 0px auto;">
+					<br /> <br /><br /><br />
+					<hr class="hr1"><br /><br />
 						<span>호텔 리츠의 추천 프로모션</span><br /> <br /> <br />
 					</div>
 					<div>
@@ -314,11 +346,11 @@ p { border: 1px solid #FF00FF}
 					<br /> <br />
 
 					<!-- footer import -->
-					<c:import url="http://localhost/hotel_prj/main/main_footer.jsp" />
 
 				</div>
 			</div>
 		</div>
+					<c:import url="http://localhost/hotel_prj/main/main_footer.jsp" />
 
 		<!-- ================================================== -->
 

@@ -1,6 +1,9 @@
+<%@page import="user_room.RoomVO"%>
+<%@page import="user_room.RoomSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="Hotel Ritz Seoul"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix = "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,6 +130,23 @@ $(function(){
 <!-- NAVBAR
 ================================================== -->
 <body>
+
+<%
+ String paramRoomNo = request.getParameter("room_no");
+int room_no = Integer.parseInt( paramRoomNo );
+
+String addReq = request.getParameter("addReq"); 
+
+ /*
+String card_no = request.getParameter("card_no");
+String company = request.getParameter("company");
+String val_MM = request.getParameter("val_MM");
+String val_YY = request.getParameter("val_YY");*/
+
+RoomSelect rs = new RoomSelect();
+RoomVO rv = rs.selectRoomInfo(room_no);  
+
+%>
 	<div class="wrapper">
 		<!-- header/navibar import -->
 		<c:import url="http://localhost/hotel_prj/main/main_header_nav.jsp" />
@@ -137,18 +157,18 @@ $(function(){
 
 		<div class = "resChk">
 			<div class = "chkDiv">
-			<div id = "resConf">예약이 완료되었습니다. </div>
+			<div id = "resConf">예약이 완료되었습니다.  ${param.room_no} ${param.addReq } ${param.card_no } ${param.company } ${param.val_MM } ${param.val_YY }</div>
 			<table class = "chkTab">
 			<tr >
 				<td style = "width: 500px">
-				<img src = "http://localhost/hotel_prj/main/main_images/01_grand01.jpg" width="480" height="330"/><br/><br/>
+				<img src = "http://localhost/hotel_prj/main/main_images/<%= rv.getMain_img() %>" width="480" height="330"/><br/><br/>
 				</td>
 				
 				<td >
 				<table id = "chkSubTab">
 				<tr>
 					<td class = "guide">객실</td>
-					<td class = "guideTextP">그랜드 디럭스 룸</td>
+					<td class = "guideTextP"><%= rv.getR_name() %></td>
 				</tr>
 				<tr>
 					<td class = "guide">투숙 날짜</td>
@@ -161,13 +181,23 @@ $(function(){
 				</table> <br/>
 				
 				<table id = "chkSubTab">
+				<%
+				int price = rv.getPrice();
+				pageContext.setAttribute("price", price);
+				
+				int tax = (int)(rv.getPrice()*0.21);
+				pageContext.setAttribute("tax", tax);
+				
+				int totalP = (int)(rv.getPrice()+tax);
+				pageContext.setAttribute("totalP", totalP);
+				%>
 				<tr>
 					<td class = "guide">객실요금</td>
-					<td class = "guideTextPR">407,000 KRW</td>
+					<td class = "guideTextPR"><fmt:formatNumber pattern = "#,###,###" value = "${ price }"/> KRW</td>
 				</tr>
 				<tr>
 					<td class = "guide">세금 및 봉사료</td>
-					<td class = "guideTextPR">85,470 KRW</td>
+					<td class = "guideTextPR"><fmt:formatNumber pattern = "#,###,###" value = "${ tax }"/> KRW</td>
 				</tr>
 				</table><br/>
 				
@@ -183,7 +213,7 @@ $(function(){
 			<tr>
 				<td></td>
 				<td>총 요금</td>
-				<td>492,470 KRW</td>
+				<td><fmt:formatNumber pattern = "#,###,###" value = "${ totalP }"/> KRW</td>
 			</tr>
 			</table>
 			<hr class = "hr1">

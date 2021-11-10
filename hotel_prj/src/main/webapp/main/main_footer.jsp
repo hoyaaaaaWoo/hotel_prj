@@ -6,7 +6,7 @@
 
 <!-- FOOTER -->
 <footer>
-	<div class="divFooter" style="margin: 0px auto">
+	<div class="divFooter" style="margin: 0px auto; width: 100%">
 		<span id="logoF"
 			onclick="location.href = 'http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp'"><strong>Hotel
 				Ritz Seoul</strong></span><br /> <br /> <span id="textF">㈜호텔리츠 05551, 서울특별시

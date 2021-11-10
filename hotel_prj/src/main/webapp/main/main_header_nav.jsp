@@ -5,8 +5,9 @@
 
 
 <div class="navbar-wrapper"
-	style="width: 1130px; margin: 0px auto; position: fixed;">
-	<div style="height: 50px; background-color: #FFFFFF">
+	style="width: 100%; margin: 0px auto; position: fixed;">
+	<div style="height: 60px; background-color: #FFFFFF">
+	<div style="height: 20px;  background-color: #FFFFFF"></div>
 		<span id="logo"
 			onclick="location.href = 'http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp'">
 			<strong>Hotel Ritz Seoul</strong>
@@ -14,7 +15,7 @@
 			href="void" id="linkResView">예약조회</a>
 		</span> <span> <a href="void" id="linkMyPage">마이페이지</a></span>
 	</div>
-	<div>
+	<div style = "background-color: #000000">
 		<nav>
 			<table id="navTab">
 				<tr>

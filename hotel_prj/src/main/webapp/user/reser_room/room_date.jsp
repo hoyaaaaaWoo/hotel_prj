@@ -113,6 +113,7 @@ $(function() {
 	
 	
 	$("#pickRoom").click(function() {
+		alert();
 		location.href="http://localhost/hotel_prj/user/reser_room/room_reserve.jsp?kidsNum="+kidsNum;
 			
 	});	//click

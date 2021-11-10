@@ -234,6 +234,7 @@ p { border: 1px solid #FF00FF}
 
 		</div>
 		<!-- footer import -->
+	</div>
 		<c:import url="http://localhost/hotel_prj/main/main_footer.jsp" />
 
 
@@ -242,6 +243,5 @@ p { border: 1px solid #FF00FF}
 
 		<script
 			src="http://localhost/hotel_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
-	</div>
 </body>
 </html>

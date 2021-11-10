@@ -127,7 +127,7 @@ $(function(){
 	int count = Integer.parseInt( paramCount );
 	
 	
-	//
+	//브렌치로와서 머지 -> 작업파일 붙여넣으세요 감사합니당 네]
 	ImageCount ic = new ImageCount();
 	int cnt = ic.selectCountImg(count);
 	pageContext.setAttribute("imgs", ic.selectImages(room_no));
@@ -256,7 +256,7 @@ $(function(){
 			</div><br/>
 			<hr class = "hr1"><br/>
 			
-			<form name = "frmRes" method = "get" id = "frmRes" action = "http://localhost/hotel_prj/user/reser_room/reservation3_card.jsp?"+room_no=>
+			<form name = "frmRes" method = "get" id = "frmRes" action = "http://localhost/hotel_prj/user/reser_room/reservation3_card.jsp">
 				<input type="hidden" name="room_no" id="room_no" value = "${param.room_no}"/>
 			<div class = "guideR">
 			<div class = "guideTitle"> 예약 옵션 </div>
@@ -264,7 +264,7 @@ $(function(){
 			<table id = "confirmTab">
 				<tr>
 				<td>
-				<p id = "checkRname">객실 no_${ param.room_no }</p>
+				<p id = "checkRname">객실 no_${ param.room_no }<%= rv.getR_name()%></p>
 				<p id = "checkAdult">투숙인원 : 성인 2명, 어린이 0명</p>
 				<br/><br/><br/>
 				<p id = "checkRname">추가요청</p>
@@ -317,6 +317,6 @@ $(function(){
 
 		<script
 			src="http://localhost/hotel_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
-	</div>
+	
 </body>
 </html>

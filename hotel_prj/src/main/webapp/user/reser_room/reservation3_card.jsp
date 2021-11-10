@@ -249,11 +249,13 @@ p { border: 1px solid #FF00FF}
 <script type="text/javascript">
 $(function() {
 	$("#completeBtn").click(function() {
-		chkCard();
+
+		("#cardFrm").submit();
 		
-	});//table click
+	})//click
 }); //ready
 
+/*
 function chkCard(){
 	let card_no = $("#card_no").val();
 	let val_MM = $("#val_MM").val();
@@ -274,7 +276,7 @@ function chkCard(){
 		alert( "good");
 	}*/
 	
-	
+	/*
 	//신용카드 유효기간 월 유효성 검사
 	if ( (/[^0123456789]/g.test(val_MM) )
 		|| val_MM < 1 
@@ -287,7 +289,7 @@ function chkCard(){
 		alert(val_MM)
 	}*/
 	
-	
+	/*
 	//신용카드 유효기간 월 유효성 검사
 	if ( (/[^0123456789]/g.test(val_YY) )
 			|| val_YY < 21 
@@ -300,7 +302,7 @@ function chkCard(){
 			alert(val_YY)
 		}*/
 		
-	
+	/*
 	//취소규정 체크 여부 (필수)
 
 	if($( "[name = 'ccAgree']:checked").val() == "" ){
@@ -312,9 +314,10 @@ function chkCard(){
 		alert("위 개인정보수집 약관에 동의해 주세요.");
 	}//end id
 	
-	location.href="http://localhost/hotel_prj/user/reser_room/reservation_complete.jsp";
-	
-}//chkCard
+	/* location.href="http://localhost/hotel_prj/user/reser_room/reservation_complete.jsp"; */
+	/*
+}//chkCard*/
+
 </script>
 
 </head>
@@ -420,18 +423,20 @@ function chkCard(){
 
 						</tr>
 						<tr>
-						</tr>
 						<td class="guide">이름(영문)</td>
 						<td class="guideText">Jiho</td>
 						<td class="guide">이메일</td>
 						<td class="guideText">woojiho22@naver.com</td>
+						</tr>
 					</table>
 				</div>
 			</div>
 			<!-- guideDiv -->
 			<br />
 
-			<form name="cardFrm" action="card_process.jsp" id="cardFrm" method="post">
+			<form name="cardFrm" action="http://localhost/hotel_prj/user/reser_room/reservation_complete.jsp" id="cardFrm" method="get">
+			<input type="hidden" name="addReq" id="addReq" value = "${param.addReq}"/>
+			<input type="hidden" name="room_no" id="room_no" value = "${param.room_no}"/> 
 				<div class="guideDiv">
 					<div class="guideTitle">신용카드 정보</div>
 					<p class="guideText" style="float: left">신용카드 정보는 게런티/위약금 결제를
@@ -471,7 +476,7 @@ function chkCard(){
 					<br />
 
 				</div>
-			</form>
+			
 			<!-- guideDiv -->
 			<br />
 			<br />
@@ -518,7 +523,8 @@ function chkCard(){
 				</details>
 			</div>
 			<br />
-			<button type="button" id="completeBtn" class="btn btn-default btn-lg">예약하기</button>
+			<button type="submit" id = "completeBtn" class="btn btn-default btn-lg">예약하기</button>
+			</form>
 		</div>
 		<!-- resChk -->
 		<br /> <br />

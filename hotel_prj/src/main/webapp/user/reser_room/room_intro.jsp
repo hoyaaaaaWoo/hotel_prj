@@ -71,7 +71,7 @@ tr { border: 1px solid #FF0000}
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-<link href="http://localhost/jsp_prj/common/bootstrap/carousel.css"
+<link href="http://localhost/hotel_prj/common/bootstrap/carousel.css"
 	rel="stylesheet">
 	
 <script type="text/javascript">
@@ -99,7 +99,7 @@ $(function(){
 		
 		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 		
-		<div style="width: 720px; text-align: center;">
+		<div style="width: 1130px; text-align: center;">
  		 <input type="button" id = "roomIntroBtn" value="객실소개" class="btn btn-default" style="width: 100px;">	
   			&nbsp;	&nbsp; 	&nbsp;
  		 <input type="button" id = "roomReserBtn" value="객실예약" class="btn btn-default" style="width: 100px;" >
@@ -107,7 +107,7 @@ $(function(){
   		<hr class = "hr1">
 		<br/><br/><br/>
 		
-		<span id = "grandRoom"></span>
+		<span id = "grandRoom"></span><br/><br/>
 		<div class ="roomName" >그랜드 디럭스 룸</div><br/>
 
 		<!-- Carousel
