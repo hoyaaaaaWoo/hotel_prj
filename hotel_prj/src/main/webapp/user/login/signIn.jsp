@@ -14,7 +14,7 @@
     <title>Hotel_Ritz_Seoul</title>
     <!-- 메인 CSS -->
 	<link rel="stylesheet" type="text/css"
-	href="http://localhost/jsp_prj/project02_team03/main/main.css">
+	href="http://localhost/hotel_prj/main/main.css">
     
 	<style type = "text/css">
 			div {margin: 0px auto; width: 1130px;}
@@ -31,17 +31,14 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	
-    <script src="http://localhost/jsp_prj/common/bootstrap/holder.js"></script>
+    <script src="http://localhost/hotel_prj/common/bootstrap/holder.js"></script>
 
-    <script src="http://localhost/jsp_prj/common/bootstrap/ie-emulation-modes-warning.js"></script>
+    <script src="http://localhost/hotel_prj/common/bootstrap/ie-emulation-modes-warning.js"></script>
 
-    <link href="http://localhost/jsp_prj/common/bootstrap/carousel.css" rel="stylesheet">
+    <link href="http://localhost/hotel_prj/common/bootstrap/carousel.css" rel="stylesheet">
     <script type="text/javascript">
     
-/*     $(function() {
-		$("#btn").click(function() {
-			location.href="http://localhost/jsp_prj/project02_team03/login/signIn_done.jsp";
-		}); */
+
 		$(function(){
 			$("#btn").click(function(){
 				if($("#id").val()==""){
@@ -181,6 +178,6 @@
     ================================================== -->
     
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="http://localhost/jsp_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
+    <script src="http://localhost/hotel_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>

@@ -14,7 +14,7 @@
     <title>Hotel_Ritz_Seoul</title>
     <!-- 메인 CSS -->
 	<link rel="stylesheet" type="text/css"
-	href="http://localhost/jsp_prj/project02_team03/main/main.css">
+	href="http://localhost/hotel_prj/main/main.css">
     
 	<style type = "text/css">
 			div {margin: 0px auto; width: 1130px;}
@@ -30,36 +30,30 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	
-    <script src="http://localhost/jsp_prj/common/bootstrap/holder.js"></script>
+    <script src="http://localhost/hotel_prj/common/bootstrap/holder.js"></script>
 
-    <script src="http://localhost/jsp_prj/common/bootstrap/ie-emulation-modes-warning.js"></script>
+    <script src="http://localhost/hotel_prj/common/bootstrap/ie-emulation-modes-warning.js"></script>
 
-    <link href="http://localhost/jsp_prj/common/bootstrap/carousel.css" rel="stylesheet">
+    <link href="http://localhost/hotel_prj/common/bootstrap/carousel.css" rel="stylesheet">
     <script type="text/javascript">
   $(function() {
 		$("#btn").click(function() {
-			login();
-		});
-		function login() {
-			if ($("#id").val() == "") {
-				alert("아이디를 입력하세요");
-				$("#id").focus();
+			if($("#id").val()==""){
+				alert("아이디를 입력해 주세요.");
 				return;
-			}
-			if ($("#pass").val() == "") {
-				alert("비밀번호를 입력하세요");
-				$("#pass").focus();
+		}//end if
+	
+			if($("#pass").val()==""){
+				alert("비밀번호를 입력해 주세요.");
 				return;
-			}
+		}//end if
 			
-			if ($("#id").val() =="user" && $("#pass").val() == "1111") {
-				$("#frm").submit();
-			} else {
-				alert("아이디와 비밀번호를 확인하세요")
-			}
-		}
-	});
-  
+			
+			$("#frm").submit();
+		});//click	
+		
+
+  });
   </script>
   
   </head>
@@ -67,7 +61,7 @@
 <!-- NAVBAR
 ================================================== -->
   <body>
-	 <jsp:include page="../../main/main_header_nav.jsp"/>
+	<jsp:include page="../../main/main_header_nav.jsp"/>
 	
 	<!-- Standard button -->
 
@@ -78,19 +72,19 @@
     <h2 style="text-align: center;">로그인</h2>
     <hr/>
     <br/><br/>
-    <form action="http://localhost/jsp_prj/project02_team03/login/login_process.jsp"  method="post" id="frm">
+    <form action="login_process.jsp"  method="post" id="frm" name="frm">
     <table style="margin: 0px auto;">
     	<tr>
-    		<td style="padding: 5px"><input type="text" placeholder="아이디를 입력하세요" name="userid"id="id" class="form-control"> </td>
-    		<td rowspan="2"><input type="button" class="btn btn-default" style="width:90px; height:40px;" value="로그인" class="submit" id="btn"></td>
+    		<td style="padding: 5px"><input type="text" placeholder="아이디를 입력하세요" name="id" id="id" class="form-control"> </td>
+    		<td rowspan="2"><input type="button"  class="btn btn-default" style="width:90px; height:40px;" value="로그인"  id="btn" ></td>
     	</tr>
     	<tr>
-    		<td style="padding: 5px"><input type="password" placeholder="비밀번호를 입력하세요"  name="userpass" id="pass" class="form-control"> </td>
+    		<td style="padding: 5px"><input type="password" placeholder="비밀번호를 입력하세요"  name="pass" id="pass" class="form-control"> </td>
     	</tr>
     	<tr >
     	
-    		<td><a href="http://localhost/jsp_prj/project02_team03/login/signIn.jsp">&nbsp;&nbsp;회원가입&nbsp;&nbsp;</a>
-    		<a href="http://localhost/jsp_prj/project02_team03/login/find.jsp">아이디/비밀번호 찾기</a></td>
+    		<td><a href="http://localhost/hotel_prj/user/login/signIn.jsp">&nbsp;&nbsp;회원가입&nbsp;&nbsp;</a>
+    		<a href="http://localhost/hotel_prj/user/login/find.jsp">아이디/비밀번호 찾기</a></td>
     	</tr>
     </table>
     </form>
@@ -104,6 +98,6 @@
     ================================================== -->
     
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="http://localhost/jsp_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
+    <script src="http://localhost/hotel_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>
