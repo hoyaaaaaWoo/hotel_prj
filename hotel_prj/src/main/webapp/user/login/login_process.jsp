@@ -83,8 +83,8 @@ kname=dd.decryption(kname);
 //로그인 정보를 세션에 할당 
 //=>비연결성인 웹에서 로그인 정보를 모든 페이지에서 사용하기 위해
 session.setAttribute("kname", kname);
-session.setAttribute("id", id);
 session.setAttribute("pass", pass);
+session.setAttribute("id", id);
 
 %>
 <!-- <script type="text/javascript">
