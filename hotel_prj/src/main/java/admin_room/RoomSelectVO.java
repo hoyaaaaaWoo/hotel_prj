@@ -7,16 +7,15 @@ package admin_room;
 public class RoomSelectVO {
 	
 private String rStatus, roomNum, roomName, mainDesc, type, roomSize, view, chkIn, chkOut,
-			specialServ,generalAmn, bathAmn, otherAmn, addInfo, img, inputDate;
-private int price, guestNum;
+			specialServ,generalAmn, bathAmn, otherAmn, addInfo, img, inputDate,price;
+private int guestNum;
 
 public RoomSelectVO() {
 }
 
-
 public RoomSelectVO(String rStatus, String roomNum, String roomName, String mainDesc, String type, String roomSize,
 		String view, String chkIn, String chkOut, String specialServ, String generalAmn, String bathAmn,
-		String otherAmn, String addInfo, String img, String inputDate, int price, int guestNum) {
+		String otherAmn, String addInfo, String img, String inputDate, String price, int guestNum) {
 	this.rStatus = rStatus;
 	this.roomNum = roomNum;
 	this.roomName = roomName;
@@ -37,23 +36,20 @@ public RoomSelectVO(String rStatus, String roomNum, String roomName, String main
 	this.guestNum = guestNum;
 }
 
-
-public String getRoomNum() {
-	return roomNum;
-}
-
-
-public void setRoomNum(String roomNum) {
-	this.roomNum = roomNum;
-}
-
-
 public String getrStatus() {
 	return rStatus;
 }
 
 public void setrStatus(String rStatus) {
 	this.rStatus = rStatus;
+}
+
+public String getRoomNum() {
+	return roomNum;
+}
+
+public void setRoomNum(String roomNum) {
+	this.roomNum = roomNum;
 }
 
 public String getRoomName() {
@@ -160,11 +156,19 @@ public void setImg(String img) {
 	this.img = img;
 }
 
-public int getPrice() {
+public String getInputDate() {
+	return inputDate;
+}
+
+public void setInputDate(String inputDate) {
+	this.inputDate = inputDate;
+}
+
+public String getPrice() {
 	return price;
 }
 
-public void setPrice(int price) {
+public void setPrice(String price) {
 	this.price = price;
 }
 
@@ -174,16 +178,6 @@ public int getGuestNum() {
 
 public void setGuestNum(int guestNum) {
 	this.guestNum = guestNum;
-}
-
-
-public String getInputDate() {
-	return inputDate;
-}
-
-
-public void setInputDate(String inputDate) {
-	this.inputDate = inputDate;
 }
 
 }//class

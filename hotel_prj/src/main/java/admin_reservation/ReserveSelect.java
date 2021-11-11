@@ -105,11 +105,7 @@ public class ReserveSelect {
 						ruVO.setAddReq(rs.getString("add_req"));
 						return ruVO;
 					}//mapRow
-		});}catch(EmptyResultDataAccessException erdae) {
-			return null;
-		}//end catch
-		// 4. Spring Container닫기
-		gjt.closeAc();	
+		});
 		
 		//체크인.아웃 날짜 분리하여 저장
 		ruVO.setInYear(ruVO.getChkInDate().substring(0, 4));
@@ -119,6 +115,12 @@ public class ReserveSelect {
 		ruVO.setOutMonth(ruVO.getChkOutDate().substring(5, 7));
 		ruVO.setOutDay(ruVO.getChkOutDate().substring(8, 10));
 		
+		}catch(EmptyResultDataAccessException erdae) {
+			return null;
+		}finally {
+		// 4. Spring Container닫기
+		gjt.closeAc();	
+		}
 		return ruVO;
 	}//selectRes
 	
@@ -162,7 +164,7 @@ public class ReserveSelect {
 		.append("	where  room_no= (select room_no from room where r_name= ?)	")
 		.append("	 and ((to_date( ? ) between to_date(chkin_date) and (to_date(chkout_date)-1)) or	")
 		.append("	 ((to_date(chkin_date)+1) between to_date( ? ) and to_date( ? )))	")
-		.append("	 and res_no != ? 	");
+		.append("	 and res_no != ? 	and res_status = 'Y'");
 
 		list = jt.query(select.toString(), new Object[] {ruVO.getrName(), ruVO.getChkInDate(),
 				ruVO.getChkInDate(), ruVO.getChkOutDate(), ruVO.getResNo()},new SelectResNo());

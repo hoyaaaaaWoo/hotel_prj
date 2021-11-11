@@ -2,12 +2,13 @@ package admin_room;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import admin_reservation.ReserveSelectVO;
 import team3_dao.GetJdbcTemplate;
 
 /**
@@ -43,7 +44,6 @@ public class RoomSelect {
 
 	/**
 	 * 등록된 모든 room 상세정보 조회
-	 * 
 	 * @return
 	 */
 	public List<RoomSelectVO> selectRoomInfo(String rName) {
@@ -54,10 +54,10 @@ public class RoomSelect {
 		// 2. JdbcTemplate 얻기
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		// 3. 쿼리 실행
-		StringBuilder select = new StringBuilder("select * from room	");
+		StringBuilder select = new StringBuilder("select * from room");
 
 		if (rName != null) { // 객실 이름이 들어왔다면, 해당 객실 정보만 조회
-			select.append("		where rName = '");
+			select.append(" 	where r_Name = '");
 			select.append(rName);
 			select.append("'");
 		} // end if
@@ -91,10 +91,11 @@ public class RoomSelect {
 			rmVO.setGeneralAmn(rs.getString("amnt_gen"));
 			rmVO.setBathAmn(rs.getString("amnt_bath"));
 			rmVO.setOtherAmn(rs.getString("amnt_other"));
-			rmVO.setAddInfo(rs.getString("MORE_INFO"));
+			rmVO.setAddInfo(rs.getString("more_info"));
 			rmVO.setImg(rs.getString("main_img"));
 			rmVO.setInputDate(rs.getString("input_date"));
-			rmVO.setPrice(rs.getInt("price"));
+			String price = new DecimalFormat("#,###").format(rs.getInt("price"));
+			rmVO.setPrice(price);
 			rmVO.setGuestNum(rs.getInt("max_guest"));
 			
 			return rmVO;
@@ -102,4 +103,46 @@ public class RoomSelect {
 
 	}// selectRes
 
+	
+	/**
+	 * images 테이블에서 룸별 이미지 조회
+	 * @return
+	 */
+	public List<OtherImgVO> selectOtherImg(String rName) {
+		List<OtherImgVO> imgList = null;
+
+		// 1. Spring Container 얻기
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		// 2. JdbcTemplate 얻기
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		// 3. 쿼리 실행
+		StringBuilder select = new StringBuilder();
+
+		select.append(" 	select * "
+				+ "")
+				.append(" 	from   images")
+				.append(" 	where  room_no = (select room_no")
+									.append(" 	 from room	")
+									.append(" 	 where r_name=?)");	
+		
+		try {
+			imgList = jt.query(select.toString(), new Object[] {rName}, 
+					new RowMapper<OtherImgVO>() {
+						public OtherImgVO mapRow(ResultSet rs, int rowNum) throws SQLException  {
+							OtherImgVO imgVO = new OtherImgVO();
+							imgVO.setImgNo(rs.getInt("img_no"));
+							imgVO.setRoomNo(rs.getInt("room_no"));
+							imgVO.setImgSrc(rs.getString("img_src"));
+							return imgVO;
+						}//mapRow
+			});
+		}catch (EmptyResultDataAccessException erdae) {
+			return null;
+		}finally {
+			// 4. Spring Container닫기
+			gjt.closeAc();
+		}//end fin
+		return imgList;
+	}// selectRoomInfo
+	
 }// class
