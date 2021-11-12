@@ -15,7 +15,6 @@
 <title>Hotel Ritz - 특정회원조회</title>
 <link rel="stylesheet" type="text/css"
 	href="http://localhost/hotel_prj/common/css/main_v20211012.css">
-
 <!-- jQuery CDN -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>

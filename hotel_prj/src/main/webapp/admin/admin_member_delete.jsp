@@ -108,11 +108,11 @@ tr:hover td {
 </script>
 </head>
 <body>
-	<%
+<%
 	MemberDelete md = new MemberDelete();
 	List<MemberVO> list = md.selectDeleteMember();
 	pageContext.setAttribute("memberData", list);
-	%>
+%>
 	<div id="wrap">
 		<!-- header/navibar import -->
 		<c:import url="common/admin_header_nav.jsp" />

@@ -11,6 +11,7 @@ import team3_dao.GetJdbcTemplate;
 
 public class MemberDelete {
 
+	
 	/**
 	 * Å»ÅğÈ¸¿ø Á¶È¸ ( ¾ÆÀÌµğ,ÀÌ¸§,Å»Åğ)
 	 * 

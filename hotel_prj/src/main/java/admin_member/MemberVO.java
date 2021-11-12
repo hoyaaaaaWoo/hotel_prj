@@ -10,6 +10,7 @@ public class MemberVO {
 	public MemberVO() {
 	}
 
+	
 	public MemberVO(String id, String email, String pass, String ename_fst, String ename_lst, String kname,
 			String birth_year, String tel, String req_agree, String opt_agree, String m_status, Date join_date,
 			Date out_date) {

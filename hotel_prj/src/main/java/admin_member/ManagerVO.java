@@ -3,6 +3,7 @@ package admin_member;
 /**
  * @author user 관리자 사용자 아이디 비밀번호
  */
+
 public class ManagerVO {
 
 	private String mg_id, pass;

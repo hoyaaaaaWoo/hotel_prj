@@ -11,6 +11,7 @@
  	location.href="http://localhost/hotel_prj/admin/common/admin_login.jsp";
  	</script>  
  <%}%>       --%>
+ 
 
 		<div id="header">
 		Hotel Ritz Seoul  &nbsp; &nbsp;

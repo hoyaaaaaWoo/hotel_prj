@@ -133,8 +133,6 @@ request.setCharacterEncoding("utf-8");
 MemberSelect ms = new MemberSelect();
 List<MemberVO> list = ms.selectMember(null);
 pageContext.setAttribute("memberData", list);
-
-
 %>
 </c:catch>
 	<div id="wrap">
