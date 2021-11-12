@@ -1,3 +1,5 @@
+<%@page import="user_login.MemberDAO"%>
+<%@page import="kr.co.sist.util.cipher.DataDecrypt"%>
 <%@page import="admin_member.MemberUpdate"%>
 <%@page import="admin_member.MemberVO"%>
 <%@page import="java.util.List"%>
@@ -117,10 +119,8 @@ $(".delBtn").click(function(){
 	}else{
 		alert("회원 삭제를 취소합니다.");
 	}//end else
-	
 })//click
 })//ready
-
 
 </script>
 </head>
@@ -133,6 +133,8 @@ request.setCharacterEncoding("utf-8");
 MemberSelect ms = new MemberSelect();
 List<MemberVO> list = ms.selectMember(null);
 pageContext.setAttribute("memberData", list);
+
+
 %>
 </c:catch>
 	<div id="wrap">

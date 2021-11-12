@@ -92,11 +92,7 @@
 				$("#pass").focus();
 				return;
 			}
-			if ($("#id").val() == "admin" && $("#pass").val() == "1234") {
 				$("#frm").submit();
-			} else {
-				alert("아이디와 비밀번호를 확인하세요")
-			}
 		}//login	
 	})
 </script>
@@ -113,18 +109,17 @@
 
 		<!-- container  -->
 		<div id="container">
-
 			<form action="http://localhost/hotel_prj/admin/common/admin_login_process.jsp" name="login_form" method="post"
 				id="frm">
 				<div class="login">
 					<div class="login_id">
 							<strong>ID</strong>
-						<input type="text" name="userid" placeholder="ID" id="id" class="form-control" maxlength="10"/>
+						<input type="text" name="userid" placeholder="ID" id="id" class="form-control" maxlength="15"/>
 					</div>
 					<div class="login_pass">
 							<strong>Password</strong>
 						<input type="password" name="password" placeholder="Password" class="form-control"
-							id="pass" maxlength="10" />
+							id="pass" maxlength="15" />
 					</div>
 					<br />
 					<div class="submit">

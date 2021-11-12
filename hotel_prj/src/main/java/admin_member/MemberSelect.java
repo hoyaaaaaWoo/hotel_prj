@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.BadSqlGrammarException;
@@ -42,7 +43,7 @@ public class MemberSelect {
 		gjt.closeAc();
 		return list;
 	}// MemberSelect
-	
+
 	public class SelectMember implements RowMapper<MemberVO> {
 		public MemberVO mapRow(ResultSet rs, int rowNum) throws SQLException {
 			MemberVO mv = new MemberVO();
@@ -107,7 +108,7 @@ public class MemberSelect {
 	 * @throws IncorrectResultSizeDataAccessException
 	 * @throws BadSqlGrammarException
 	 */
-	public MemberVO selectSpecificMemberDelete(String kname) throws SQLException {// mapRow method throws
+	public MemberVO selectSpecificMemberDelete(String kname) throws SQLException {
 		MemberVO mVO = null;
 
 		// 1. Spring Container 얻기
@@ -132,5 +133,29 @@ public class MemberSelect {
 		gjt.closeAc();
 		return mVO;
 	}
+
+	/**
+	 * 관리자 아이디 비밀번호
+	 * 
+	 * @param mg_id
+	 * @param pass
+	 * @return
+	 * @throws SQLException
+	 */
+	public String loginChk(String mg_id, String pass) throws SQLException {
+		String result = "";
+
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+
+		StringBuilder selectLogin = new StringBuilder();
+		selectLogin.append("select mg_id").append(" from manager").append(" where mg_id=? and pass=?");
+		result = jt.queryForObject(selectLogin.toString(), new Object[] { mg_id, pass }, String.class);
+
+		gjt.closeAc();
+
+		return result;
+	}// loginChk
 
 }// class
