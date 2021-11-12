@@ -24,7 +24,14 @@
 </head>
 <body>
 <%
-	session.invalidate();
+//세션 값 삭제.(세션은 존재하고 값만 삭제 : 세션을 사용하는데 에러를 발생 시키지 않는다.)
+session.removeAttribute("user_name");
+
+//세션의 무효화(브라우저에 할당된 세션 자체를 삭제한다. (이페이지에서만 삭제) :)
+//세션을 사용하면 에러가발생.)
+session.invalidate();
+//페이지를 메인으로 이동한다.
+response.sendRedirect("use_session_a.jsp");
 %>
 </body>
 </html>

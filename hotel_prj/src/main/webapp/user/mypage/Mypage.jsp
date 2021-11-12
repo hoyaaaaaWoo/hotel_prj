@@ -11,12 +11,11 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Hotel_Ritz_Seoul</title>
-		 <!-- 메인 CSS -->
-		 
+	<!-- 메인 CSS -->
 	<link rel="stylesheet" type="text/css"
 	href="http://localhost/hotel_prj/main/main.css">
-		
+	
+    <title>Hotel_Ritz_Seoul</title>
 	<style type = "text/css">
 	</style>
 
@@ -36,14 +35,12 @@ $(function() {
 			alert("비밀번호를 입력해 주세요.");
 			return;
 	}//end if
-		
-		
+
 		$("#frm").submit();
 	});//click	
 	
 
 });
-
 
 function home(){
 	alert("메인페이지로 이동합니다.");
@@ -52,27 +49,32 @@ function home(){
 
 </script>
 </head>
+<%
+	String id=(String)session.getAttribute("id");
+%>
+
 <!-- NAVBAR
 ================================================== -->
   <body>
- 		 <jsp:include page="../../main/main_header_nav.jsp"/>
  <form action="mypage_process.jsp"  method="post" id="frm" name="frm">
+ 		 <jsp:include page="../../main/main_header_nav.jsp"/>
+<div>
  		 
 <h4>&nbsp;&nbsp;홈 / 마이페이지</h4>
-<div  style="text-align: center; margin: 0px auto;">
 </div>
 <br/><br/><br/>
-<div style = "width:600px; text-align: center;border-bottom:2px solid #d3d3d3 ;margin: 0px auto;">
+<div style = "width:600px; text-align: center;border-bottom:2px solid #d3d3d3 ;margin:0px;">
 <h2>마이페이지</h2>
 </div>
 <div style = "text-align: center; ">
 <br/><br/><br/>
+<input type="hidden" value="${ id }">
 <h4>비밀번호를 입력해주세요.</h4>
 <input type="text" name="pass" id="pass" style="width:250px;height:40px" placeholder="현재 비밀번호를 입력하세요">
 <br/><br/>
 <button type="button" class="btn btn-default"  id="btn" style="width:250px;height:40px" >확인</button>
 <br/><br/><br/>
-<button type="button" class="btn btn-default" style="width:75px; height:30px;" location.href="http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp";>홈으로</button>
+<button type="button" class="btn btn-default" style="width:75px; height:30px;" onclick="home()">홈으로</button>
 
 </div>
 
@@ -81,9 +83,9 @@ function home(){
 <body>
 <div class="container marketing">
   <!-- FOOTER -->
-    </div>
  <jsp:include page="../../main/main_footer.jsp"/>
 
+    </div>
     <!-- /.container -->
 
 

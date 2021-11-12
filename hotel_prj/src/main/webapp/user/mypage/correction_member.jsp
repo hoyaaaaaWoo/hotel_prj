@@ -12,10 +12,37 @@
     <link rel="icon" href="../../favicon.ico">
 
     <title>Hotel_Ritz_Seoul</title>
- <!-- 메인 CSS -->
-	<link rel="stylesheet" type="text/css"
-	href="http://localhost/hotel_prj/main/main.css">
 	<style type = "text/css">
+		#mainImg {margin: 0px auto;}
+		#navTab {background-color: #000000; color: #F5dF4D; width: 1130px; height: 50px; 
+				margin: 0px auto; text-align: center; font-size: 15px;
+				font-weight: bold; vertical-align: middle; display: table; table-layout: fixed }
+				
+		#logo {font-size: 30px; font-weight: bold; color: #000000; margin-top: 5px; cursor: pointer;}
+		#logoF {font-size: 25px; font-weight: bold; color: #FFFFFF;cursor: pointer;
+				margin-left: 25px;}
+		#textF {font-size: 10px; color: #FFFFFF; margin-left: 25px}
+		
+		#linkLogin {font-size: 15px; font-weight: bold; color: #000000; cursor: pointer; float: right; margin-top: 15px;}
+		#linkResView {font-size: 15px; font-weight: bold; color: #000000; cursor: pointer; float: right; margin-top: 15px; margin-right: 20px}
+		#linkMyPage {font-size: 15px; font-weight: bold; color: #000000; cursor: pointer; float: right; margin-top: 15px; margin-right: 20px}
+					
+		#promo {font-size: 25px; font-weight: bold; color: #000000}
+		
+		div {margin: 0px auto; width: 1130px;}
+		
+		.navTd:hover { background-color: #F5dF4D; color :#000000; cursor: pointer;}
+		
+		.divFooter {background-color: #000000; color: #FFFFFF; width: 1130px; height: 200px; 
+					margin: 0px auto; vertical-align: bottom; padding-top: 20px}
+					
+		.promTab { width: 1130px; height: 1000px; text-align: center}
+		
+		.promTitle:link {text-decoration: none; color: #5A5A5A; }
+		.promTitle:hover {text-decoration: none; color: #000000; font-weight:bold;}
+	/* tr {border: 1px solid #FF0000}
+		td {border: 1px solid #FF0000}
+		*/
 	</style>
 
 
@@ -27,8 +54,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
-function corpass(){
-	if (confirm("비밀번호를 변경하시겠습니까?") == true) {
+function corpass(){if (confirm("비밀번호를 변경하시겠습니까?") == true) {
 	alert("비밀번호 변경이 완료되었습니다.");
 } else {
 	return;
@@ -62,32 +88,31 @@ function main(){
 <!-- NAVBAR
 ================================================== -->
   <body>
+  <div class="navbar-wrapper">
  	 <jsp:include page="../../main/main_header_nav.jsp"/>
- 	 <form name="frm_member_update">
-  <div class="container marketing">
-   
+   </div>
 <div>
 <h5>&nbsp;&nbsp;홈 / 마이페이지</h5>
 </div>
 <br/><br/><br/>
-<div style = "width:600px; border-bottom:2px solid #d3d3d3;  text-align: center; margin: 0px auto;">
+<div style = "width:600px; border-bottom:2px solid #d3d3d3; text-align: center;">
 <h2>마이페이지</h2>
 </div>
 
-<div style = "width:450px; border-bottom:2px solid #d3d3d3; text-align: center;margin: 0px auto;">
+<div style = "width:450px; border-bottom:2px solid #d3d3d3; text-align: center;">
 <br/><br/><br/>
 <h5>비밀번호 변경하기</h5>
-<input type="text" style="width:250px;height:40px" id="pass" name="pass" placeholder="현재 비밀번호를 입력하세요">
+<input type="text" style="width:250px;height:40px" placeholder="현재 비밀번호를 입력하세요">
 <br/><br/>
-<input type="text" style="width:250px;height:40px"  id="pass" name="pass"  placeholder="변경할 비밀번호를 입력하세요">
+<input type="text" style="width:250px;height:40px" placeholder="변경할 비밀번호를 입력하세요">
 <br/><br/>
-<input type="text" style="width:250px;height:40px"  id="pass" name="pass"  placeholder="변경할 비밀번호를 한 번 더 입력하세요.">
+<input type="text" style="width:250px;height:40px" placeholder="변경할 비밀번호를 한 번 더 입력하세요.">
 <br/><br/><br/>
 <button type="button" class="btn btn-default" style="width:250px;height:40px" onclick="corpass()">수정</button>
 <br/><br/><br/><br/><br/><br/>
 </div>
 
-<div style = "width:450px; border-bottom:2px solid #d3d3d3; text-align: center;margin: 0px auto;">
+<div style = "width:450px; border-bottom:2px solid #d3d3d3; text-align: center;">
 <br/><br/><br/>
 <h5>이름 변경하기</h5>
 <input type="text" style="width:250px;height:40px" placeholder="변경할 이름을 입력하세요">
@@ -101,21 +126,20 @@ function main(){
 <button type="button" class="btn btn-default" style="width:250px;height:40px" onclick="coremail()">수정</button>
 <br/><br/><br/><br/><br/><br/>
 </div>
-<div style = "width:450px; text-align: center;margin: 0px auto;">
+<div style = "width:450px; text-align: center;">
 <br/><br/><br/>
 <button type="button" class="btn btn-default" style="width:100px;height:40px" onclick="exit()">회원탈퇴</button>
 <br/><br/><br/>
 <button type="button" class="btn btn-default" style="width:75px; height:30px;" onclick="main()">홈으로</button>
 </div>
   <br/><br/><br/><br/><br/><br/>
-
+<body>
+<div class="container marketing">
  <!-- FOOTER -->
-    </div><!-- /.container -->
 <jsp:include page="../../main/main_footer.jsp"/>
 
+    </div><!-- /.container -->
 
- 	 </form>
-<body>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

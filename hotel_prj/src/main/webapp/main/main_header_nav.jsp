@@ -11,8 +11,8 @@
 		<span id="logo"
 			onclick="location.href = 'http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp'">
 			<strong>Hotel Ritz Seoul</strong>
-		</span> <span> <a href="http://localhost/hotel_prj/user/login/login.jsp" id="linkLogin">로그인</a></span> <span> <a
-			href="void" id="linkResView">예약조회</a>
+		</span> <span> <a href="http://localhost/hotel_prj/user/login/login.jsp" id="linkLogin">로그인</a></span>
+		 <span> <a href="http://localhost/hotel_prj/user/reser_chk/reservation_inq.jsp" id="linkResView">예약조회</a>
 		</span> <span> <a href="http://localhost/hotel_prj/user/mypage/Mypage.jsp" id="linkMyPage">마이페이지</a></span>
 	</div>
 	<div style = "background-color: #000000">

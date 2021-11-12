@@ -17,8 +17,8 @@
 	href="http://localhost/hotel_prj/main/main.css">
     
 	<style type = "text/css">
-		/* 	div {margin: 0px auto; width: 1130px;} */
-		/* 	table{margin:0px auto;} */
+	/* 		div {margin: 0px auto; width: 1130px;} */
+			/* table{margin:0px auto;} */
 	</style>
 
     <!-- Bootstrap core CSS -->
@@ -53,6 +53,26 @@
 					alert("비밀번호 필수 입력");
 					return;
 			}//end if
+				if($("#ename_fst").val()==""){
+					alert("이름 필수 입력");
+					return;
+			}//end if
+				if($("#ename_lst").val()==""){
+					alert("비밀번호 필수 입력");
+					return;
+			}//end if
+				if($("#kname").val()==""){
+					alert("이름 필수 입력");
+					return;
+			}//end if
+				if($("#tel").val()==""){
+					alert("전화번호 필수 입력");
+					return;
+			}//end if
+				if($("#birth_year").val()==""){
+					alert("생년월일 필수 입력");
+					return;
+			}//end if
 				
 				
 				$("#frm").submit();
@@ -78,14 +98,15 @@
 ================================================== -->
   <jsp:include page="../../main/main_header_nav.jsp"/>
   
-    <div class="container">		
-
 <form action="sign_form_process.jsp" method="post" name="frm" id="frm">
+	
+<div class="container" style="margin: 0px auto;">
+
 	<!-- 약관 동의 -->
 	<br/><br/><br/>
 	<table style="margin:0px auto; text-align: center;">
 	<tr >
-		<td><h2 style="padding: 10px;">약관 동의</h2></td>
+		<td><h2 style="padding: 10px;margin:0px auto;">약관 동의</h2></td>
 	</tr>
 	<tr>
 		<td>아래 동의서를 각각 확인한 후 개별적으로 동의하실 수 있습니다. 전체 동의 시 체크되는 동의 항목에는 선택동의 항목이 포함되어 있습니다.
@@ -93,7 +114,7 @@
 	</tr>
 	</table>
 <br/><br/><br/><br/>
-<div style="padding: 10px;">
+<div style="padding: 10px; margin: 0px auto;">
 	<table class="table" style="height: 600px;">
 	<tr>
 		<td><input type="checkbox" name="req_agree" id="req_agree" value="Y"></td>
@@ -112,7 +133,7 @@
 	<br/><br/><br/><br/><br/>
 	
 	<!-- 아이디 만들기 -->
-	<div class= "container" style="margin: 0px auto;" >
+	<div class= "container" style=" margin:0px;">
 	<table style="height: 800px; width: 800px;">
 	<tr>
 	<td style="font-weight: bold">아이디</td>
@@ -163,22 +184,21 @@
 	</table>
 	</div>
 	<br>
-	<div style="width : 100px; text-align: center; margin: 0px auto;">
+	<div style="width : 100px; text-align: center;">
 	<input type="submit" class="btn btn-default" value="입력" id="btn" >
 	</div>
-</form>
 </div>
+</form>
       	
     
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
      <!-- FOOTER -->
-     <div>
      <jsp:include page="../../main/main_footer.jsp"/>
-  </body>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="http://localhost/hotel_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
+  </body>
 </html>
