@@ -101,49 +101,6 @@ public class RoomSelect {
 	
 	
 	
-	public List<RoomVO> selectAllRoomInfo(int room_no) {
-		List<RoomVO> roomList = null;
-
-		// 1. Spring Container 얻기
-		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
-		// 2. JdbcTemplate 얻기
-		JdbcTemplate jt = gjt.getJdbcTemplate();
-		// 3. 쿼리 실행
-		StringBuilder selectAllRoom = new StringBuilder("select * from room");
-
-		roomList = jt.query(selectAllRoom.toString(), new Object[] { room_no }, 
-				new RowMapper<RoomVO>() {
-			public RoomVO mapRow(ResultSet rs, int rowNum) throws SQLException{
-						RoomVO rv = new RoomVO();
-						// ResultSet을 사용하여 조회결과를 VO에 저장
-						rv.setR_name(rs.getString("r_name"));
-						rv.setDescription(rs.getString("description"));
-						rv.setBed_type(rs.getString("bed_type"));
-						rv.setMax_guest(rs.getInt("max_guest"));
-						rv.setR_view(rs.getString("r_view"));
-						rv.setR_size(rs.getString("r_size"));
-						rv.setChkin_time(rs.getString("chkin_time"));
-						rv.setChkout_time(rs.getString("chkout_time"));
-						rv.setAmnt_gen(rs.getString("amnt_gen"));
-						rv.setAmnt_bath(rs.getString("amnt_bath"));
-						rv.setAmnt_other(rs.getString("amnt_other"));
-						rv.setMain_img(rs.getString("main_img"));
-						rv.setPrice(rs.getInt("price"));
-						
-						
-						// 조회결과를 저장한 dv 반환
-						return rv;
-					}
-				});
-
-		// 4. Spring Container 닫기
-		gjt.closeAc();
-
-		return roomList;
-	}// selectRoomInfo
-	
-	
-	
 	/**
 	 * 사용자가 선택한 인원수와 날짜를 받아 예약가능한 방을 조회하기
 	 * @param start_date

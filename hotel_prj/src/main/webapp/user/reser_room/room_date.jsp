@@ -212,7 +212,7 @@ $(function(){
 		</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 			<input type="button" class = "btn btn-default btn-lg"; value="조회" id="btn" />
 			</form>
-		< <div id="view" style="clear: both"></div> 
+		 <div id="view" style="clear: both"></div> 
 
 
 

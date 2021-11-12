@@ -214,12 +214,12 @@ p { border: 1px solid #FF00FF}
 			
 <%
 
-RoomSelect rs = new RoomSelect();
+/* RoomSelect rs = new RoomSelect();
 pageContext.setAttribute("RoomNo", rs.selectAllRoomNo(null) );
 
 
 RoomVO rv = rs.selectRoomInfo(room_no);
-
+ */
 %>
 			<!-- Three columns of text below the carousel -->
 			<div class="row">
