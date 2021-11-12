@@ -17,7 +17,7 @@
 	href="http://localhost/hotel_prj/main/main.css">
     
 	<style type = "text/css">
-			div {margin: 0px auto; width: 1130px;}
+/* 			div {margin: 0px auto; width: 1130px;} */
 	</style>
 
     <!-- Bootstrap core CSS -->
@@ -61,14 +61,14 @@
 <!-- NAVBAR
 ================================================== -->
   <body>
-	<jsp:include page="../../main/main_header_nav.jsp"/>
 	
 	<!-- Standard button -->
 
 	
       	<br/><br/><br/><br/><br/>
-    <div class="container">	
-    
+    <div class="wrapper">	
+	<jsp:include page="../../main/main_header_nav.jsp"/>
+   <div class="container marketing">
     <h2 style="text-align: center;">로그인</h2>
     <hr/>
     <br/><br/>
@@ -88,12 +88,12 @@
     	</tr>
     </table>
     </form>
+    
     </div>
-    
-    
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       <!-- FOOTER -->
     <jsp:include page="../../main/main_footer.jsp"/>
+    </div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     

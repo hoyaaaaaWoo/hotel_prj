@@ -23,7 +23,7 @@
 	href="http://localhost/hotel_prj/main/main.css">
     
 	<style type = "text/css">
-			div {margin: 0px auto; width: 1130px;}
+		/* 	div {margin: 0px auto; width: 1130px;} */
 	</style>
 
     <!-- Bootstrap core CSS -->
@@ -47,18 +47,18 @@
 ================================================== -->
   <body>
  <div class="wrapper">
- 
 		 <jsp:include page="../../main/main_header_nav.jsp"/>
+ 
 	
 	<br/><br/><br/>
 	<div class="container marketing">
   <br/><br/>
-  <div style="width: 300px;text-align: center;">
+  <div style="width: 300px;text-align: center;margin: 0px auto;">
   <br>
   <h2>가입완료</h2>
   </div>
   <hr style="width: 500px"/>
-  <div style="width: 300px;text-align: center;">
+  <div style="width: 300px;text-align: center; margin: 0px auto;">
 
 <%
 request.setCharacterEncoding("UTF-8");
@@ -83,15 +83,17 @@ String m_status = request.getParameter("m_status");
 //비밀번호 복호화 가능
 mVO.setPass(DataEncrypt.messageDigest("MD5", mVO.getPass()));
 //이름 복호화
-DataEncrypt de=new DataEncrypt("AbcdEfgHiJkLmnOpQ");
+DataEncrypt de=new DataEncrypt("AbcdEfgHiJkLmnOpQrstUvW");
 mVO.setKname(de.encryption(mVO.getKname()) );
+mVO.setEmail(de.encryption(mVO.getEmail()) );
+mVO.setEname_fst(de.encryption(mVO.getEname_fst()) );
+mVO.setEname_lst(de.encryption(mVO.getEname_lst()) );
+mVO.setBirth_year(de.encryption(mVO.getBirth_year()) );
+mVO.setTel(de.encryption(mVO.getTel()) );
 
- mVO.setId(mVO.getId());
-mVO.setEmail(mVO.getEmail());
-mVO.setEname_fst(mVO.getEname_fst());
-mVO.setEname_lst(mVO.getEname_lst());
-mVO.setBirth_year(mVO.getBirth_year());
-mVO.setTel(mVO.getTel());
+
+
+mVO.setId(mVO.getId());
 mVO.setReq_agree(mVO.getReq_agree());
 mVO.setOpt_agree(mVO.getOpt_agree());
 mVO.setJoin_date(mVO.getJoin_date());
@@ -113,12 +115,12 @@ ${ e  }
 잠시 후 다시 시도해주세요.
 </c:if>
 </div>
-</div>
 
   <br/><br/>
- <div style="width:150px; text-align: center;">
+ <div style="width:150px; text-align: center; margin: 0px auto;">
   <input type="button" class="btn btn-default" style="width: 100px;" value="홈으로" onclick="location.href='http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp'">
   </div>
+</div>
 </div>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       <!-- FOOTER -->

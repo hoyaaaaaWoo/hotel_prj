@@ -12,35 +12,12 @@
     <link rel="icon" href="../../favicon.ico">
 
     <title>Hotel_Ritz_Seoul</title>
+		 <!-- 메인 CSS -->
+		 
+	<link rel="stylesheet" type="text/css"
+	href="http://localhost/hotel_prj/main/main.css">
+		
 	<style type = "text/css">
-		#mainImg {margin: 0px auto;}
-		#navTab {background-color: #000000; color: #F5dF4D; width: 1130px; height: 50px; 
-				margin: 0px auto; text-align: center; font-size: 15px;
-				font-weight: bold; vertical-align: middle; display: table; table-layout: fixed }
-				
-		#logo {font-size: 30px; font-weight: bold; color: #000000; margin-top: 5px; cursor: pointer;}
-		#logoF {font-size: 25px; font-weight: bold; color: #FFFFFF;cursor: pointer;
-				margin-left: 25px;}
-		#textF {font-size: 10px; color: #FFFFFF; margin-left: 25px}
-		
-		#linkLogin {font-size: 15px; font-weight: bold; color: #000000; cursor: pointer; float: right; margin-top: 15px;}
-		#linkResView {font-size: 15px; font-weight: bold; color: #000000; cursor: pointer; float: right; margin-top: 15px; margin-right: 20px}
-		#linkMyPage {font-size: 15px; font-weight: bold; color: #000000; cursor: pointer; float: right; margin-top: 15px; margin-right: 20px}
-					
-		#promo {font-size: 25px; font-weight: bold; color: #000000}
-		
-		div {margin: 0px auto; width: 1130px;}
-		
-		.navTd:hover { background-color: #F5dF4D; color :#000000; cursor: pointer;}
-		
-		.divFooter {background-color: #000000; color: #FFFFFF; width: 1130px; height: 200px; 
-					margin: 0px auto; vertical-align: bottom; padding-top: 20px}
-					
-		.promTab { width: 1130px; height: 1000px; text-align: center}
-		
-		.promTitle:link {text-decoration: none; color: #5A5A5A; }
-		.promTitle:hover {text-decoration: none; color: #000000; font-weight:bold;}
-		
 	</style>
 
 
@@ -78,14 +55,14 @@ function home(){
 <!-- NAVBAR
 ================================================== -->
   <body>
- <form action="../login/login_process.jsp"  method="post" id="frm" name="frm">
-<div>
  		 <jsp:include page="../../main/main_header_nav.jsp"/>
+ <form action="mypage_process.jsp"  method="post" id="frm" name="frm">
  		 
 <h4>&nbsp;&nbsp;홈 / 마이페이지</h4>
+<div  style="text-align: center; margin: 0px auto;">
 </div>
 <br/><br/><br/>
-<div style = "width:600px; text-align: center;border-bottom:2px solid #d3d3d3 ">
+<div style = "width:600px; text-align: center;border-bottom:2px solid #d3d3d3 ;margin: 0px auto;">
 <h2>마이페이지</h2>
 </div>
 <div style = "text-align: center; ">
@@ -95,7 +72,7 @@ function home(){
 <br/><br/>
 <button type="button" class="btn btn-default"  id="btn" style="width:250px;height:40px" >확인</button>
 <br/><br/><br/>
-<button type="button" class="btn btn-default" style="width:75px; height:30px;" onclick="home()">홈으로</button>
+<button type="button" class="btn btn-default" style="width:75px; height:30px;" location.href="http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp";>홈으로</button>
 
 </div>
 
@@ -104,9 +81,9 @@ function home(){
 <body>
 <div class="container marketing">
   <!-- FOOTER -->
+    </div>
  <jsp:include page="../../main/main_footer.jsp"/>
 
-    </div>
     <!-- /.container -->
 
 

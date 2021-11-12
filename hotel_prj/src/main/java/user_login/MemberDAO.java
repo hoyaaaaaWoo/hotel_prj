@@ -111,5 +111,27 @@ public class MemberDAO {
 		
 		return kname;
 	}
+	/**
+	 * 비밀번호를 입력받아 이름을 조회하는 일.
+	 * @param mVO
+	 * @return
+	 * @throws SQLException
+	 */
+	public String selectPass(memberVO mVO)throws SQLException{
+		String pass="";//이름은 AES 암호화되어있다.
+		//1.Spring Container 얻기
+		GetJdbcTemplate gjt=GetJdbcTemplate.getInstance();
+		//2. JdbcTemplate 얻기
+		JdbcTemplate jt=gjt.getJdbcTemplate();
+		//3.쿼리문 수행.
+		String selectpass="select pass from member where pass=?";
+		pass=
+			jt.queryForObject(selectpass, new Object[] {mVO.getPass()},String.class );
+		//4. Spring Container 닫기.
+		gjt.closeAc();
+		
+		return pass;
+	}
+	
 
 }//class

@@ -22,7 +22,7 @@
 	href="http://localhost/hotel_prj/main/main.css">
     
 	<style type = "text/css">
-			div {margin: 0px auto; width: 1130px;}
+			/* div {margin: 0px auto; width: 1130px;} */
 
 	</style>
 
@@ -53,12 +53,12 @@
 	<br/><br/><br/>
 	<div class="container marketing">
   <br/><br/>
-  <div style="width: 300px;text-align: center;">
+  <div style="width: 300px;text-align: center; margin: 0px auto; width: 1130px;">
   <br>
-  <h2>가입완료</h2>
+  <h2>로그인 완료</h2>
   </div>
   <hr style="width: 500px"/>
-  <div style="width: 300px;text-align: center;">
+  <div style="width: 300px;text-align: center; margin: 0px auto; width: 1130px;">
   
  <jsp:useBean id="loginVO" class="user_login.memberVO" scope="page"/>
 <jsp:setProperty property="*" name="loginVO"/><!--  입력정보-->
@@ -95,7 +95,9 @@ session.setAttribute("id", id);
 <c:if test="${ not empty e }">
 아이디나 비밀번호를 확인해 주세요.
 <br/><br/><br/>
-<input type="button"  value="로그인" class="btn btn-default" onclick="location.href='login.jsp'">
+<div   style="margin: 0px auto; width: 1130px;">
+<input type="button" value="로그인" class="btn btn-default" onclick="location.href='login.jsp'">
+</div>
 </c:if>
 </div>
 
@@ -103,8 +105,8 @@ session.setAttribute("id", id);
 </div>
 
   <br/><br/>
- <div style="width:150px; text-align: center;">
-  <input type="button" class="btn btn-default" style="width: 100px;" value="홈으로" onclick="location.href='http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp'">
+ <div style="width:150px; text-align: center; margin: 0px auto; width: 1130px;">
+  <input type="button" class="btn btn-default" style="width: 100px; " value="홈으로" onclick="location.href='http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp'">
   </div>
 </div>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

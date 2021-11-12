@@ -17,8 +17,8 @@
 	href="http://localhost/hotel_prj/main/main.css">
     
 	<style type = "text/css">
-			div {margin: 0px auto; width: 1130px;}
-			table{margin:0px auto;}
+		/* 	div {margin: 0px auto; width: 1130px;} */
+		/* 	table{margin:0px auto;} */
 	</style>
 
     <!-- Bootstrap core CSS -->
@@ -78,9 +78,9 @@
 ================================================== -->
   <jsp:include page="../../main/main_header_nav.jsp"/>
   
+    <div class="container">		
+
 <form action="sign_form_process.jsp" method="post" name="frm" id="frm">
-	
-<div>
 	<!-- 약관 동의 -->
 	<br/><br/><br/>
 	<table style="margin:0px auto; text-align: center;">
@@ -112,7 +112,7 @@
 	<br/><br/><br/><br/><br/>
 	
 	<!-- 아이디 만들기 -->
-	<div class= "container" >
+	<div class= "container" style="margin: 0px auto;" >
 	<table style="height: 800px; width: 800px;">
 	<tr>
 	<td style="font-weight: bold">아이디</td>
@@ -163,21 +163,22 @@
 	</table>
 	</div>
 	<br>
-	<div style="width : 100px; text-align: center;">
+	<div style="width : 100px; text-align: center; margin: 0px auto;">
 	<input type="submit" class="btn btn-default" value="입력" id="btn" >
 	</div>
-</div>
 </form>
+</div>
       	
     
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
      <!-- FOOTER -->
+     <div>
      <jsp:include page="../../main/main_footer.jsp"/>
+  </body>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="http://localhost/hotel_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
-  </body>
 </html>
