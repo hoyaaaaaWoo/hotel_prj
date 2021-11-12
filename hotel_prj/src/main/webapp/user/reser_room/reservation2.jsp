@@ -127,7 +127,6 @@ $(function(){
 	int count = Integer.parseInt( paramCount );
 	
 	
-	//브렌치로와서 머지 -> 작업파일 붙여넣으세요 감사합니당 네]
 	ImageCount ic = new ImageCount();
 	int cnt = ic.selectCountImg(count);
 	pageContext.setAttribute("imgs", ic.selectImages(room_no));

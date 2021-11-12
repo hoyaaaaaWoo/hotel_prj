@@ -53,7 +53,7 @@
 	
 %>
 
-<form name = "frm" method = "get" id = "frm" action = "http://localhost/hotel_prj/user/reser_room/reservation2.jsp"> <!--action : url  -->
+<form name = "frm" method = "get" id = "frm" action = "http://localhost/hotel_prj/user/reser_room/room_reserve.jsp"> <!--action : url  -->
 
 <select id = "room_no" name = "room_no" >
 <option value = "N/A">---방번호-----</option>
