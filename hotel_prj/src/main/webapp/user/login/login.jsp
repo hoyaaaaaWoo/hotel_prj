@@ -63,6 +63,8 @@
 	<jsp:include page="../../main/main_header_nav.jsp"/>
   <body>
 	
+	<input type="hidden" value="${ id }">
+	
 	<!-- Standard button -->
 
 	

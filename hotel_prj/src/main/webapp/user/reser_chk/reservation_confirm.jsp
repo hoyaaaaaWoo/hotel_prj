@@ -16,7 +16,7 @@
 
 <!-- 메인 CSS -->
 <link rel="stylesheet" type="text/css"
-	href="http://localhost/jsp_prj/project02_team03/main/main.css">
+	href="http://localhost/hotel_prj/main/main.css">
 
 <style type="text/css">
 .hr1 {
@@ -235,22 +235,26 @@ p { border: 1px solid #FF00FF}
 </script>
 </head>
 <body>
+<%-- <%
+ReservationSelect rChk =new ReservationSelect();
+String r_name = rChk.reservationChk(rVO);
+%> --%>
 
 	<div class="wrap">
 
 		<jsp:include page="../../main/main_header_nav.jsp" />
-
+		<input type="hidden" value="${ id }">
 		<!--================================================== -->
 		<div class="resChk">
-
+		<br><br><br>	
 			<div class="chkDiv">
 				<div id="resConf">예약 정보 조회</div>
-
+	
 				<form name="resChkInfo" id="resChkInfo" action="" method="post">
 					<table class="chkTab">
 						<tr>
 							<td style="width: 500px"><img
-								src="http://localhost/jsp_prj/project02_team03/main_images/01_grand01.jpg"
+								src="http://localhost/hotel_prj/images/01_grand01.jpg"
 								width="480" height="330" /><br /> <br /></td>
 
 							<td>

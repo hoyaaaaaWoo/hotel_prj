@@ -13,40 +13,8 @@
 
     <title>Hotel_Ritz_Seoul</title>
 	<style type = "text/css">
-		#mainImg {margin: 0px auto;}
-		#navTab {background-color: #000000; color: #F5dF4D; width: 1130px; height: 50px; 
-				margin: 0px auto; text-align: center; font-size: 15px;
-				font-weight: bold; vertical-align: middle; display: table; table-layout: fixed }
-				
-		#logo {font-size: 30px; font-weight: bold; color: #000000; margin-top: 5px; cursor: pointer;}
-		#logoF {font-size: 25px; font-weight: bold; color: #FFFFFF;cursor: pointer;
-				margin-left: 25px;}
-		#textF {font-size: 10px; color: #FFFFFF; margin-left: 25px}
-		
-		#linkLogin {font-size: 15px; font-weight: bold; color: #000000; cursor: pointer; float: right; margin-top: 15px;}
-		#linkResView {font-size: 15px; font-weight: bold; color: #000000; cursor: pointer; float: right; margin-top: 15px; margin-right: 20px}
-		#linkMyPage {font-size: 15px; font-weight: bold; color: #000000; cursor: pointer; float: right; margin-top: 15px; margin-right: 20px}
-					
-		#promo {font-size: 25px; font-weight: bold; color: #000000}
-		
-		div {margin: 0px auto; width: 1130px;}
-		
-		.navTd:hover { background-color: #F5dF4D; color :#000000; cursor: pointer;}
-		
-		.divFooter {background-color: #000000; color: #FFFFFF; width: 1130px; height: 200px; 
-					margin: 0px auto; vertical-align: bottom; padding-top: 20px}
-					
-		.promTab { width: 1130px; height: 1000px; text-align: center}
-		
-		.promTitle:link {text-decoration: none; color: #5A5A5A; }
-		.promTitle:hover {text-decoration: none; color: #000000; font-weight:bold;}
-		.tb{width:800px; height:60px; margin: 0px auto;vertical-align: middle; border:0px; border-top-color:#F5dF4D;}
-		#table {width: 700px; height: 90px; border-align: center}
 
-
-	/*  tr {border: 1px solid #FF0000}
-		td {border: 1px solid #FF0000}
-		div {border: 1px solid #FF0000} */
+	#table {width: 700px; height: 90px; border-align: center; margin: 0px auto;}
 		
 	</style>
 
@@ -57,10 +25,15 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<!-- 메인 CSS -->
+<link rel="stylesheet" type="text/css"
+	href="http://localhost/hotel_prj/main/main.css">
+
 <%
 String id = (String)session.getAttribute("id");
 if(id==null){//세션이 존재하지 않으면 
-		response.sendRedirect("login.jsp");
+		response.sendRedirect("../login/login.jsp");
 	}//end if
 %>
 
@@ -77,21 +50,22 @@ function main(){
 <div class="wrapper">
 <jsp:include page="../../main/main_header_nav.jsp"/>	
 
-<div>
+<div style="margin:0px auto;">
 <h4>&nbsp;&nbsp;홈 / 마이페이지</h4>
 </div>
 <br/><br/><br/>
-<div style = "width:800px; text-align: center;">
+<input type="hidden" value="${ id }">
+<div style = "width:800px; text-align: center; margin:0px auto;">
 <h2>예약조회</h2>
 </div>
 <br/><br/>
-<div  style = "width:600px; text-align: center;">
+<div  style = "width:600px; text-align: center; margin:0px auto;">
 	<table id="table">
 				<tr>
-					<td><a href = "http://localhost/jsp_prj/project02_team03/room/reservation_confirm.jsp" >10445635 </a></td>
-					<td><a href = "http://localhost/jsp_prj/project02_team03/room/reservation_confirm.jsp" >Hotel Ritz Seoul</a></td>
-					<td><a href = "http://localhost/jsp_prj/project02_team03/room/reservation_confirm.jsp" >2022년05월24일~2022년05월25일</a></td>
-					<td><a href = "http://localhost/jsp_prj/project02_team03/room/reservation_confirm.jsp">예약완료</a></td>
+					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp" >10445635 </a></td>
+					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp" >Hotel Ritz Seoul</a></td>
+					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp" >2022년05월24일~2022년05월25일</a></td>
+					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp">예약완료</a></td>
 				</tr>
 				<tr>
 					<td>10445635</td>
@@ -101,7 +75,7 @@ function main(){
 				</table>
 </div>
 <br/><br/><br/>
-<div style = "width:450px; text-align: center;">
+<div style = "width:450px; text-align: center; margin:0px auto;">
 <button type="button" class="btn btn-default" name="reservation_inq" onclick="main()">홈으로</button>
 </div>
 
@@ -119,6 +93,6 @@ function main(){
     ================================================== -->
     
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="http://localhost/jsp_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
+    <script src="http://localhost/hotel_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>
