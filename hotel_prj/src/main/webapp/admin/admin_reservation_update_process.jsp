@@ -41,15 +41,19 @@ MemberSelect ms = new MemberSelect();
 List<MemberVO> list = ms.selectMember(null);
 boolean flag = false;
 for(MemberVO mv : list){
-	if(ruVO.getkName().equals(mv.getKname())){ //회원테이블의 kname과 변경하려는 회원명이 같다면 true
-		flag = true;
-		break;
+	if(ruVO.getkName().equals(mv.getKname())){ //회원테이블의 kname과 변경하려는 회원명이 같고, 정상 회원이면 true
+		if(mv.getM_status().equals("Y")){
+			flag = true;
+			break;
+		}else{
+			break;
+		}//end els
 	}//end if
 }//end for
 
 if(!flag){%>
 <script type="text/javascript">
-	alert("유효한 회원이 아닙니다. 회원명을 확인해주세요.");
+	alert("유효한 회원이 아닙니다. 회원 정보를 확인해주세요.");
 	history.back();
 </script>
 <%return;

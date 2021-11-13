@@ -103,9 +103,9 @@ $(function(){
 		var outYear = $("input[name=outYear]").val();
 		var outMonth = $("input[name=outMonth]").val();
 		var outDay = $("input[name=outDay]").val();
-		var adult = $("select[name=adult]").val();
-		var child = $("select[name=child]").val();
-		var room = $("select[name=rName]").val();
+		var adult = $("#adult").val();
+		var child = $("#child").val();
+		var room = $("#rName").val();
 		
 		//text 형식 공란 체크
 		if(name == "" || inYear == "" || inMonth == "" || inDay == "" || outYear == ""
@@ -179,7 +179,7 @@ $(function(){
 <body>
 	<!-- 예약관리 메인 페이지에서 넘어오지 않았을 경우 redirect 해주기 (예약번호 선택 필요) -->
 	<c:if test="${empty param.resNum}">
-	   <% response.sendRedirect("http://localhost/hotel_prj/admin/admin_reservation_main.jsp"); %>
+  	  <c:redirect url="http://localhost/hotel_prj/admin/admin_reservation_main.jsp"/>
 	</c:if>
 		 
 	<div id="wrap">
@@ -226,7 +226,7 @@ $(function(){
 		  <tr>
 		   <td>	<label id="title">* 인원수</label> </td>
 		  <td> <label id="subTitle">성인</label>
-			<select name="adult" class="form-control" style="margin-left:50px">
+			<select name="adult" id="adult" class="form-control" style="margin-left:50px">
 				<option value="none">--인원수 선택--</option>
 				<c:forEach var="i" begin="1" end="4" step="1">
 				<c:set var="selected" value=""/>
@@ -238,7 +238,7 @@ $(function(){
 		  	</select>
 		  	<br/>
 			<label id="subTitle" style="margin-top:15px">어린이</label>
-			<select name="child" class="form-control" style="margin-left:32px;">
+			<select name="child" id="child" class="form-control" style="margin-left:32px;">
 				<option value="none">--인원수 선택--</option> 
 				<c:forEach var="i" begin="0" end="3" step="1">
 				<c:set var="selected" value=""/>
@@ -248,12 +248,11 @@ $(function(){
 				<option value="${i}" ${selected}><c:out value="${i}"/>명</option>
 				</c:forEach>
 		  	</select>
-			<span style="font-size:12px;">&nbsp;&nbsp;어린이는 성인 동반 필수</span>
 		  </td>
 		  </tr>
 		  <tr>
 		  <td> <label id="title">* 객실</label> </td>
-		  <td> <select name="rName" class="form-control">
+		  <td> <select name="rName" id="rName" class="form-control">
 				<option value="none">--객실 선택--</option>
 				<c:forEach var="rName" items="${ rNameList }">
 					<c:set var="selected" value=""/>
@@ -265,7 +264,8 @@ $(function(){
 		  	</select>
 		  </td>
 		  <tr> 
-		  <td> <label id="title">* 추가 요청</label> </td>
+		  <td> <label id="title">* 추가 요청</label><br/>
+		  	   <span style="font-size:14px;font-weight: bold">&nbsp;&nbsp; (선택사항)</span> </td>
 		  <td> <textarea name="addReq" rows="3" cols="80"><c:out value="${rVO.addReq}"/></textarea> </td>
 		  </tr>
 		</table>

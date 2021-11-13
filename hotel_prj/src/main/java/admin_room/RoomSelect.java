@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -21,7 +20,7 @@ public class RoomSelect {
 	 * 활성화된 객실 리스트 조회
 	 * @return
 	 */
-	public List<String> selectAllRName() {
+	public List<String> selectAllRName() throws SQLException {
 		List<String> list = null;
 
 		// 1. Spring Container 얻기
@@ -46,7 +45,7 @@ public class RoomSelect {
 	 * 등록된 모든 room 상세정보 조회
 	 * @return
 	 */
-	public List<RoomSelectVO> selectRoomInfo(String rName) {
+	public List<RoomSelectVO> selectRoomInfo(String rName) throws SQLException {
 		List<RoomSelectVO> roomList = null;
 
 		// 1. Spring Container 얻기
@@ -91,7 +90,7 @@ public class RoomSelect {
 			rmVO.setGeneralAmn(rs.getString("amnt_gen"));
 			rmVO.setBathAmn(rs.getString("amnt_bath"));
 			rmVO.setOtherAmn(rs.getString("amnt_other"));
-			rmVO.setAddInfo(rs.getString("more_info"));
+			rmVO.setMoreInfo(rs.getString("more_info"));
 			rmVO.setImg(rs.getString("main_img"));
 			rmVO.setInputDate(rs.getString("input_date"));
 			String price = new DecimalFormat("#,###").format(rs.getInt("price"));
@@ -108,7 +107,7 @@ public class RoomSelect {
 	 * images 테이블에서 룸별 이미지 조회
 	 * @return
 	 */
-	public List<OtherImgVO> selectOtherImg(String rName) {
+	public List<OtherImgVO> selectOtherImg(String rName) throws SQLException {
 		List<OtherImgVO> imgList = null;
 
 		// 1. Spring Container 얻기
@@ -125,7 +124,6 @@ public class RoomSelect {
 									.append(" 	 from room	")
 									.append(" 	 where r_name=?)");	
 		
-		try {
 			imgList = jt.query(select.toString(), new Object[] {rName}, 
 					new RowMapper<OtherImgVO>() {
 						public OtherImgVO mapRow(ResultSet rs, int rowNum) throws SQLException  {
@@ -136,12 +134,9 @@ public class RoomSelect {
 							return imgVO;
 						}//mapRow
 			});
-		}catch (EmptyResultDataAccessException erdae) {
-			return null;
-		}finally {
 			// 4. Spring Container닫기
-			gjt.closeAc();
-		}//end fin
+		gjt.closeAc();
+		
 		return imgList;
 	}// selectRoomInfo
 	

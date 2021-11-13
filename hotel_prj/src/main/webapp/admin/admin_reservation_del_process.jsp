@@ -18,9 +18,16 @@
 
 <c:catch var="e">
 <%
+//부적절한 페이지 이동시 redirect
+if (request.getParameter("delResNum") == null) {
+	response.sendRedirect("admin_reservation_main.jsp");
+	return;
+}//end if
+
 //파라미터 받고 삭제 method 호출
 String resNum = request.getParameter("delResNum");
-ReserveModify rm = new ReserveModify();
+	
+ ReserveModify rm = new ReserveModify();
 int cnt = rm.deleteRes(resNum);
 //1 이라면 예약상태 N으로 변경 성공!
 if(cnt == 1){

@@ -1,9 +1,13 @@
 package admin_room;
 
+/**
+ * 객실 메인 이미지 외 기타 이미지를 저장할 VO
+ * @author user
+ */
 public class OtherImgVO {
 	
-	String imgSrc;
-	int imgNo,	roomNo;
+	private String imgSrc;
+	private int imgNo, roomNo;
 
 	public OtherImgVO() {
 	}

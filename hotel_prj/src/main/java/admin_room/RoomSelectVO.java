@@ -1,183 +1,184 @@
 package admin_room;
 
 /**
- * 룸 조회에 사용할 VO
+ * 룸 조회/추가/변경에 사용할 VO
+ * 
  * @author user
  */
 public class RoomSelectVO {
-	
-private String rStatus, roomNum, roomName, mainDesc, type, roomSize, view, chkIn, chkOut,
-			specialServ,generalAmn, bathAmn, otherAmn, addInfo, img, inputDate,price;
-private int guestNum;
 
-public RoomSelectVO() {
-}
+	private String rStatus, roomNum, roomName, mainDesc, type, roomSize, view, chkIn, chkOut, specialServ, generalAmn,
+			bathAmn, otherAmn, moreInfo, img, inputDate, price;
+	private int guestNum;
 
-public RoomSelectVO(String rStatus, String roomNum, String roomName, String mainDesc, String type, String roomSize,
-		String view, String chkIn, String chkOut, String specialServ, String generalAmn, String bathAmn,
-		String otherAmn, String addInfo, String img, String inputDate, String price, int guestNum) {
-	this.rStatus = rStatus;
-	this.roomNum = roomNum;
-	this.roomName = roomName;
-	this.mainDesc = mainDesc;
-	this.type = type;
-	this.roomSize = roomSize;
-	this.view = view;
-	this.chkIn = chkIn;
-	this.chkOut = chkOut;
-	this.specialServ = specialServ;
-	this.generalAmn = generalAmn;
-	this.bathAmn = bathAmn;
-	this.otherAmn = otherAmn;
-	this.addInfo = addInfo;
-	this.img = img;
-	this.inputDate = inputDate;
-	this.price = price;
-	this.guestNum = guestNum;
-}
+	public RoomSelectVO() {
+	}
 
-public String getrStatus() {
-	return rStatus;
-}
+	public RoomSelectVO(String rStatus, String roomNum, String roomName, String mainDesc, String type, String roomSize,
+			String view, String chkIn, String chkOut, String specialServ, String generalAmn, String bathAmn,
+			String otherAmn, String moreInfo, String img, String inputDate, String price, int guestNum) {
+		this.rStatus = rStatus;
+		this.roomNum = roomNum;
+		this.roomName = roomName;
+		this.mainDesc = mainDesc;
+		this.type = type;
+		this.roomSize = roomSize;
+		this.view = view;
+		this.chkIn = chkIn;
+		this.chkOut = chkOut;
+		this.specialServ = specialServ;
+		this.generalAmn = generalAmn;
+		this.bathAmn = bathAmn;
+		this.otherAmn = otherAmn;
+		this.moreInfo = moreInfo;
+		this.img = img;
+		this.inputDate = inputDate;
+		this.price = price;
+		this.guestNum = guestNum;
+	}
 
-public void setrStatus(String rStatus) {
-	this.rStatus = rStatus;
-}
+	public String getrStatus() {
+		return rStatus;
+	}
 
-public String getRoomNum() {
-	return roomNum;
-}
+	public void setrStatus(String rStatus) {
+		this.rStatus = rStatus;
+	}
 
-public void setRoomNum(String roomNum) {
-	this.roomNum = roomNum;
-}
+	public String getRoomNum() {
+		return roomNum;
+	}
 
-public String getRoomName() {
-	return roomName;
-}
+	public void setRoomNum(String roomNum) {
+		this.roomNum = roomNum;
+	}
 
-public void setRoomName(String roomName) {
-	this.roomName = roomName;
-}
+	public String getRoomName() {
+		return roomName;
+	}
 
-public String getMainDesc() {
-	return mainDesc;
-}
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
+	}
 
-public void setMainDesc(String mainDesc) {
-	this.mainDesc = mainDesc;
-}
+	public String getMainDesc() {
+		return mainDesc;
+	}
 
-public String getType() {
-	return type;
-}
+	public void setMainDesc(String mainDesc) {
+		this.mainDesc = mainDesc;
+	}
 
-public void setType(String type) {
-	this.type = type;
-}
+	public String getType() {
+		return type;
+	}
 
-public String getRoomSize() {
-	return roomSize;
-}
+	public void setType(String type) {
+		this.type = type;
+	}
 
-public void setRoomSize(String roomSize) {
-	this.roomSize = roomSize;
-}
+	public String getRoomSize() {
+		return roomSize;
+	}
 
-public String getView() {
-	return view;
-}
+	public void setRoomSize(String roomSize) {
+		this.roomSize = roomSize;
+	}
 
-public void setView(String view) {
-	this.view = view;
-}
+	public String getView() {
+		return view;
+	}
 
-public String getChkIn() {
-	return chkIn;
-}
+	public void setView(String view) {
+		this.view = view;
+	}
 
-public void setChkIn(String chkIn) {
-	this.chkIn = chkIn;
-}
+	public String getChkIn() {
+		return chkIn;
+	}
 
-public String getChkOut() {
-	return chkOut;
-}
+	public void setChkIn(String chkIn) {
+		this.chkIn = chkIn;
+	}
 
-public void setChkOut(String chkOut) {
-	this.chkOut = chkOut;
-}
+	public String getChkOut() {
+		return chkOut;
+	}
 
-public String getSpecialServ() {
-	return specialServ;
-}
+	public void setChkOut(String chkOut) {
+		this.chkOut = chkOut;
+	}
 
-public void setSpecialServ(String specialServ) {
-	this.specialServ = specialServ;
-}
+	public String getSpecialServ() {
+		return specialServ;
+	}
 
-public String getGeneralAmn() {
-	return generalAmn;
-}
+	public void setSpecialServ(String specialServ) {
+		this.specialServ = specialServ;
+	}
 
-public void setGeneralAmn(String generalAmn) {
-	this.generalAmn = generalAmn;
-}
+	public String getGeneralAmn() {
+		return generalAmn;
+	}
 
-public String getBathAmn() {
-	return bathAmn;
-}
+	public void setGeneralAmn(String generalAmn) {
+		this.generalAmn = generalAmn;
+	}
 
-public void setBathAmn(String bathAmn) {
-	this.bathAmn = bathAmn;
-}
+	public String getBathAmn() {
+		return bathAmn;
+	}
 
-public String getOtherAmn() {
-	return otherAmn;
-}
+	public void setBathAmn(String bathAmn) {
+		this.bathAmn = bathAmn;
+	}
 
-public void setOtherAmn(String otherAmn) {
-	this.otherAmn = otherAmn;
-}
+	public String getOtherAmn() {
+		return otherAmn;
+	}
 
-public String getAddInfo() {
-	return addInfo;
-}
+	public void setOtherAmn(String otherAmn) {
+		this.otherAmn = otherAmn;
+	}
 
-public void setAddInfo(String addInfo) {
-	this.addInfo = addInfo;
-}
+	public String getMoreInfo() {
+		return moreInfo;
+	}
 
-public String getImg() {
-	return img;
-}
+	public void setMoreInfo(String moreInfo) {
+		this.moreInfo = moreInfo;
+	}
 
-public void setImg(String img) {
-	this.img = img;
-}
+	public String getImg() {
+		return img;
+	}
 
-public String getInputDate() {
-	return inputDate;
-}
+	public void setImg(String img) {
+		this.img = img;
+	}
 
-public void setInputDate(String inputDate) {
-	this.inputDate = inputDate;
-}
+	public String getInputDate() {
+		return inputDate;
+	}
 
-public String getPrice() {
-	return price;
-}
+	public void setInputDate(String inputDate) {
+		this.inputDate = inputDate;
+	}
 
-public void setPrice(String price) {
-	this.price = price;
-}
+	public String getPrice() {
+		return price;
+	}
 
-public int getGuestNum() {
-	return guestNum;
-}
+	public void setPrice(String price) {
+		this.price = price;
+	}
 
-public void setGuestNum(int guestNum) {
-	this.guestNum = guestNum;
-}
+	public int getGuestNum() {
+		return guestNum;
+	}
 
-}//class
+	public void setGuestNum(int guestNum) {
+		this.guestNum = guestNum;
+	}
+
+}// class

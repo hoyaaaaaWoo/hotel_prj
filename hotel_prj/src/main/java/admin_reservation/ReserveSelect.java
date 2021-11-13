@@ -76,7 +76,7 @@ public class ReserveSelect {
 	 * @param resNum
 	 * @return
 	 */
-	public ReserveUpdateVO selectRes(String resNum){
+	public ReserveUpdateVO selectRes(String resNum) throws SQLException {
 		ReserveUpdateVO ruVO= null;
 			
 		// 1. Spring Container 얻기
@@ -90,7 +90,7 @@ public class ReserveSelect {
 				.append("		r.r_name, rs.add_req		")
 				.append("from   reservation rs, member m, room r 	")
 				.append("where  (rs.id = m.id and rs.room_no = r.room_no) and res_no=?");
-		try {
+		
 		ruVO = jt.queryForObject(select.toString(), new Object[] {resNum}, 
 				new RowMapper<ReserveUpdateVO>() {
 					public ReserveUpdateVO mapRow(ResultSet rs, int rowNum) throws SQLException  {
@@ -115,12 +115,9 @@ public class ReserveSelect {
 		ruVO.setOutMonth(ruVO.getChkOutDate().substring(5, 7));
 		ruVO.setOutDay(ruVO.getChkOutDate().substring(8, 10));
 		
-		}catch(EmptyResultDataAccessException erdae) {
-			return null;
-		}finally {
 		// 4. Spring Container닫기
 		gjt.closeAc();	
-		}
+		
 		return ruVO;
 	}//selectRes
 	
@@ -128,7 +125,7 @@ public class ReserveSelect {
 	 * 예약수정 프로세스에서 사용할 최대 객실인원 수 
 	 * @return
 	 */
-	public int selectMaxGuest(String rName){
+	public int selectMaxGuest(String rName) throws SQLException {
 		int maxGuest=0;
 		
 		// 1. Spring Container 얻기
@@ -149,7 +146,7 @@ public class ReserveSelect {
 	 * 기존 예약건과 일자가 겹치는 경우를 조회 <br>
 	 * @return 겹치는 예약건의 예약넘버를 담은 list
 	 */
-	public List<String> selectStayDateRange(ReserveUpdateVO ruVO) {
+	public List<String> selectStayDateRange(ReserveUpdateVO ruVO) throws SQLException {
 		List<String> list = null;
 		
 		// 1. Spring Container 얻기
@@ -163,7 +160,7 @@ public class ReserveSelect {
 		.append("	from   reservation	")
 		.append("	where  room_no= (select room_no from room where r_name= ?)	")
 		.append("	 and ((to_date( ? ) between to_date(chkin_date) and (to_date(chkout_date)-1)) or	")
-		.append("	 ((to_date(chkin_date)+1) between to_date( ? ) and to_date( ? )))	")
+		.append("	 (to_date(chkin_date) between to_date( ? ) and to_date( ? )-1))	")
 		.append("	 and res_no != ? 	and res_status = 'Y'");
 
 		list = jt.query(select.toString(), new Object[] {ruVO.getrName(), ruVO.getChkInDate(),

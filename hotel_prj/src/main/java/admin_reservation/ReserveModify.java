@@ -1,5 +1,6 @@
 package admin_reservation;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import team3_dao.GetJdbcTemplate;
@@ -15,7 +16,7 @@ public class ReserveModify {
 	 * @param resNum 선택된 에약번호
 	 * @return 삭제 성공 시 1반환
 	 */
-	public int deleteRes(String resNum) {
+	public int deleteRes(String resNum) throws DataAccessException {
 		int cnt = 0;
 		
 		// 1. Spring Container 얻기
@@ -36,7 +37,7 @@ public class ReserveModify {
 	 * @param resNum 선택된 에약번호
 	 * @return update 성공 시 1반환
 	 */
-	public int updateRes(ReserveUpdateVO ruVO) {
+	public int updateRes(ReserveUpdateVO ruVO) throws DataAccessException  {
 		int cnt = 0;
 		
 		// 1. Spring Container 얻기
@@ -46,7 +47,7 @@ public class ReserveModify {
 		// 3. 쿼리 실행
 			StringBuilder sb = new StringBuilder();
 			sb.append("update reservation		")
-			.append("set    id = (select id from member where kname=?),")
+			.append("set    id = (select id from member where kname=? and m_status='Y'),")
 			.append("		chkin_date = to_char(to_date(?),'yyyy.mm.dd'),")
 			.append("		chkout_date = to_char(to_date(?),'yyyy.mm.dd'),")
 			.append("		adult = ?, child = ?,")
@@ -61,6 +62,5 @@ public class ReserveModify {
 			
 		return cnt;
 	}//updateRes
-	
 	
 }//class

@@ -60,10 +60,13 @@
 	text-align: center;
 }
 
-#rStatus{
+.rStatus{
 	width:120px;
 	margin-bottom: 10px;
 	border : 1px solid #454D55
+}
+
+.rStatus:hover{
 	cursor:pointer;
 }
 
@@ -113,7 +116,7 @@ function showRoomDetail(roomName){
 		         <c:set var="rStatus" value="roomStatusN"/>
 		         <c:set var="height" value="style='height:110px'"/>
 		 	 </c:if>
-  			<img src="http://localhost/hotel_prj/images/${rStatus}.png" ${height} name ="rStatus" id="rStatus" class="room img-rounded"
+  			<img src="http://localhost/hotel_prj/images/${rStatus}.png" ${height} class="rStatus img-rounded"
   			onclick="showRoomDetail( '${roomList.getRoomName()}' )"/>
 			<br/>
 			<c:out value="${roomList.getRoomName()}"/></td>
@@ -168,7 +171,7 @@ function showRoomDetail(roomName){
 			    </td>
 			  	<th>투숙인원</th>
 			 	<td class="subTd">
-				  <input type="text" name="guestNum" id="guestNum" value="${rmVO.guestNum}" class="form-control" maxlength="8" readonly="readonly"/>
+				  <input type="text" name="guestNum" id="guestNum" value="${rmVO.guestNum}명" class="form-control" maxlength="8" readonly="readonly"/>
 			    </td>
 			  </tr>
 			  <tr>
@@ -233,8 +236,8 @@ function showRoomDetail(roomName){
 		<tr>
 			<td colspan="2">
 			  <label>* 추가 정보</label><br/>
-			  <textarea id="addInfo" name="addInfo" rows="7" cols="100" readonly="readonly">
-<c:out value="${rmVO.addInfo}"/>
+			  <textarea id="moreInfo" name="moreInfo" rows="7" cols="100" readonly="readonly">
+<c:out value="${rmVO.moreInfo}"/>
 			  </textarea>
 			</td>
 		</tr>
