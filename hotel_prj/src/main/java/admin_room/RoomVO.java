@@ -5,16 +5,16 @@ package admin_room;
  * 
  * @author user
  */
-public class RoomSelectVO {
+public class RoomVO {
 
 	private String rStatus, roomNum, roomName, mainDesc, type, roomSize, view, chkIn, chkOut, specialServ, generalAmn,
 			bathAmn, otherAmn, moreInfo, img, inputDate, price;
 	private int guestNum;
 
-	public RoomSelectVO() {
+	public RoomVO() {
 	}
 
-	public RoomSelectVO(String rStatus, String roomNum, String roomName, String mainDesc, String type, String roomSize,
+	public RoomVO(String rStatus, String roomNum, String roomName, String mainDesc, String type, String roomSize,
 			String view, String chkIn, String chkOut, String specialServ, String generalAmn, String bathAmn,
 			String otherAmn, String moreInfo, String img, String inputDate, String price, int guestNum) {
 		this.rStatus = rStatus;

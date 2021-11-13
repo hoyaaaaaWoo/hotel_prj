@@ -150,17 +150,27 @@ $(function(){
 				specialServ=="" || generalAmn=="" || bathAmn=="" || otherAmn=="" || moreInfo=="" ||
 				type=="none"||guestNum=="none"||view=="none"){
 			alert("객실의 정보를 모두 기입해주세요.");
-			//return;
+			return;
 		}//end if
 		
-		var imgNum =$("#imgTable>tbody tr").length;
-		
 		//객실사진 추가여부 체크
+		var imgNum =$("#imgTable>tbody tr").length;
 		if(imgNum == 0) {
 			alert("객실 이미지는 1장 이상 등록되어야 합니다.")	
 		}//end if
 		
 	})//click
+	
+	//가격 숫자형식 체크
+	$("#price").keyup(function(evt){
+		if(!(evt.which>=48 && evt.which<=57)){ //0~9 사이의 숫자만 입력 가능함
+			alert("숫자만 입력해주세요.");
+			$("#price").val("");
+			$("#price").focus();
+			return;
+		}//end if
+	})//keyup
+	
 	
 	//메인이미지 클릭시 main hidden값 main으로 설정 (메인이미지 등록여부 체크용)
 	$("#mainUpLoad").click(function(){
@@ -367,7 +377,7 @@ function resetFileTag(){
 		<div id="container">
 		<span id="mainMenu" onclick="location.href='http://localhost/hotel_prj/admin/admin_room_add.jsp'">객실 추가</span>
 		
-		<form name="roomAddFrm" id="roomAddFrm" action="http://localhost/hotel_prj/admin/admin_room_main.jsp" method="get">
+		<form name="roomAddFrm" id="roomAddFrm" action="http://localhost/hotel_prj/admin/admin_room_add_process.jsp" method="get">
 		<div id="tabDiv">
 		<table id="mainTab">
 		<tr>

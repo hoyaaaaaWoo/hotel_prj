@@ -45,8 +45,8 @@ public class RoomSelect {
 	 * 등록된 모든 room 상세정보 조회
 	 * @return
 	 */
-	public List<RoomSelectVO> selectRoomInfo(String rName) throws SQLException {
-		List<RoomSelectVO> roomList = null;
+	public List<RoomVO> selectRoomInfo(String rName) throws SQLException {
+		List<RoomVO> roomList = null;
 
 		// 1. Spring Container 얻기
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
@@ -74,9 +74,9 @@ public class RoomSelect {
 	/* selectRoomInfo에서 조회된 객실 정보를 담을 inner class
 	 * @author user
 	 */
-	public class selectRoomInfo implements RowMapper<RoomSelectVO> {
-		public RoomSelectVO mapRow(ResultSet rs, int rowNum) throws SQLException {
-			RoomSelectVO rmVO = new RoomSelectVO();
+	public class selectRoomInfo implements RowMapper<RoomVO> {
+		public RoomVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+			RoomVO rmVO = new RoomVO();
 			rmVO.setrStatus(rs.getString("r_status"));
 			rmVO.setRoomNum(rs.getString("room_no"));
 			rmVO.setRoomName(rs.getString("r_name"));

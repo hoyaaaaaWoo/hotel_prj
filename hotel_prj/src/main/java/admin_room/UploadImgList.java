@@ -43,7 +43,6 @@ public class UploadImgList {
 				uliVO = new UploadImgVO();
 				uliVO.setImgName(file.getName());
 				uliVO.setImgLeng((int)((file.length())/1024));
-				System.out.println(uliVO.getImgLeng());
 				uliVO.setLastModified(sdf.format(new Date(file.lastModified())));
 				list.add(uliVO);
 			} // end if
@@ -93,15 +92,6 @@ public class UploadImgList {
 		
 		selectedImgPath.renameTo(mainImgPath);
 	}// markMainImg
-	
-	public static void main (String[] args) {
-		UploadImgList ul = new UploadImgList();
-		//System.out.println(ul.searchImgList());
-		//String file = "dd";
-		//System.out.println(file.equals(""));
-		ul.markMainImg("01_grand03.jpg");
-	}
-	
 	
 	
 	/**
