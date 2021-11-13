@@ -112,11 +112,17 @@ $(function(){
 ================================================== -->
 <body>
 
-<jsp:useBean id="RoomVO" class = "user_room.RoomVO" scope = "page"></jsp:useBean>
-<jsp:setProperty property="*" name="RoomVO"/>
+<%-- <jsp:useBean id="RoomVO" class = "user_room.RoomVO" scope = "page"></jsp:useBean>
+<jsp:setProperty property="*" name="RoomVO"/> --%>
 
 <%
+	String paramSd = request.getParameter("sd");
+	String paramEd = request.getParameter("ed");
+	String paramAdult = request.getParameter("adult");
+	String paramChild = request.getParameter("child");	
+	
 	String paramRoomNo = request.getParameter("room_no");
+	
 	int room_no = Integer.parseInt( paramRoomNo );
 	
 	RoomSelect rs = new RoomSelect();
@@ -139,7 +145,8 @@ $(function(){
 		
 		
 		<%-- <div class ="roomName"><%= rv.getR_name()%></div><br/ --%>>
-		<div class ="roomName"><%= rv.getR_name()%></div><br/>
+		<div><%=paramSd %>/<%=paramEd %>/<%=paramAdult %>/<%=paramChild %>/<%= paramRoomNo%></div>
+		<div class ="roomName">${param.room_no}<%= rv.getR_name()%></div><br/>
 		
 
 		<!-- Carousel

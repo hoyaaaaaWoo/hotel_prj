@@ -70,9 +70,7 @@ $(function(){
 		 let sd=$("#datepicker-range-start").val();
 		 let ed=$("#datepicker-range-end").val();
 		 let adult = $("#adult").val(); 
-		 //var adultCnt = Number (adult);
 		 let child = $("#child").val();
-		 //var childCnt = Number (child);
 		 
 		  if( (Number(adult) + Number(child)) > 4 ){
 			 alert("어린이를 동반한 수용 가능한 최대 인원수는 4명입니다. ");
@@ -108,15 +106,9 @@ $(function(){
 				}//end if
 				
 				
-				let output ="";
-				//output="<div style='font-weight:bold'>";
-				//output+=jsonObj.dataRow + "건 조회되었습니다.";
-				//output+="</div>";
-				
-				
-				
 				//조회 데이터 (JSONArray) 보여주기
-				let param="";
+				let param="start_date="+sd+"&end_date="+ed+"&adult="+adult+"&child="+child+"&";
+				
 				$.each(jsonObj.data,function(idx,temp){
 					param += "rev_room_num="+temp.room_no+"&";
 				//요기서 디자인하기
@@ -124,15 +116,7 @@ $(function(){
 				
 				location.href="room_reserve.jsp?"+param;
 			
-				//조회결과가 만들어졌다면 room_reserve.jsp에 출력
-				//$("#view").html(output);
-				
-				
-				//let room_no = $("#room_no").val(output);
-				
-				$("#dateFrm").submit(output);
-				
-				//location href = "http://localhost/hotel_prj/user/reser_room/room_reserve.jsp";
+				//$("#dateFrm").submit(output);
 				
 			 }//success
 			 

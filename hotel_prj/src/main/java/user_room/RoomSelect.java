@@ -7,8 +7,6 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import admin_room.RoomSelectVO;
-import admin_room.RoomSelect.selectRoomInfo;
 import team3_dao.GetJdbcTemplate;
 
 

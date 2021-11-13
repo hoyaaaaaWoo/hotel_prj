@@ -1,9 +1,11 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="user_room.RoomVO"%>
 <%@page import="user_room.RoomSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="Hotel Ritz Seoul"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>   
+<%@ taglib prefix = "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 	
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +29,7 @@
 	font-weight: bold;
 	background-color: #000;
 	color: #F5DF3C;
-	width: 300px;
+	width: 350px;
 	height: 40px;
 	cursor: pointer;
 	text-align: center;
@@ -38,6 +40,14 @@
 	width: 720px;
 	height: 405px;
 }
+
+#roomName {font-size: 18px; font-weight: bold; margin-bottom: 20px; margin-left: 20px}
+
+div { border: 1px solid #FF0000}
+td { border: 1px solid #FF0000}
+tr { border: 1px solid #FF0000}
+
+
 </style>
 
 <!-- Bootstrap core CSS -->
@@ -63,32 +73,33 @@
 	rel="stylesheet">
 
 <script type="text/javascript">
-$(function () {
-	
-	$("#deluxe").click(function() {
-		location.href="http://localhost/hotel_prj/user/reser_room/reservation2.jsp";
-	});
-	
-	$("#description").click(function() {
-		
-		if($("#description").val()=="open"){
-			var output = "[그랜드 디럭스 룸, 40㎡~50㎡]<br>우아한 인테리어와 현대적 세련미가 조화롭게 어우러진 시그니엘 서울의 그랜드 디럭스 룸은 <br>서울 시내 동급 호텔 대비 넓은 40~50㎡의 여유로운 공간을 제공합니다.<br>87층부터 101층까지 위치한 초고층 객실에서 바라보는 서울 도심의 파노라믹뷰는 최상의 휴식을 제공합니다.<br>모든 호텔 투숙객들이 자유롭게 이용할 수 있는 살롱 드 시그니엘은 시그니엘 서울의 또 하나의 즐길 거리입니다.";
-			document.getElementById("view").innerHTML = output;
-			$("#description").val("close");
-			}else{
-			$("#description").val("open");
-			document.getElementById("view").innerHTML = "";
-				
-			}
-	});
-	
-	
-	
-	
-});
-	
-	
 
+function divPlaying(  viewId, btnId  ){
+	if($( "#"+viewId ).css("display") == "block" ){ //view제어
+		$( "#"+viewId).hide();
+		$("#"+btnId).text("detail"); //버튼의 텍스트 변경
+	}else{
+		$("#"+viewId ).show();
+		$("#"+btnId).text("close");
+	}//end else
+}//divPlaying 
+
+
+
+function roomDetail( Hroom,paramSd,paramEd,paramAdult ,paramChild){
+	//파라메터를 hiddenFr에 설정한다.
+	$("#Room_no").val(Hroom);
+	$("#Sd").val(paramSd);
+	$("#Ed").val(paramEd);
+	$("#Adult").val(paramAdult);
+	$("#Child").val(paramChild); 
+	
+	//alert( $("#room_no").val() );
+	 //alert( Hroom+" / " +paramSd+" / "+paramEd+" / "+paramAdult +" / "+paramChild)
+	 
+	//hiddenFrm을 submit 한다. 
+	$("#hiddenFrm").submit();
+}
 </script>
 </head>
 
@@ -96,18 +107,14 @@ $(function () {
 ================================================== -->
 
 <body>
-<c:forEach var = "room_no" items = "${ RoomNo }">
-</c:forEach>
 
 <%
+	String paramSd = request.getParameter("start_date");
+	String paramEd = request.getParameter("end_date");
+	String paramAdult = request.getParameter("adult");
+	String paramChild = request.getParameter("child");
 	String[] paramRoomNo = request.getParameterValues("rev_room_num");
-	
-/* 
- 	
-	RoomSelect rs = new RoomSelect();
-	pageContext.setAttribute("RoomNo", rs.selectAllRoomNo() ); 
-	
- */	
+
 %>
 
 
@@ -115,83 +122,91 @@ $(function () {
 		<br/><br/><br/>
 
 	<div style="width: 720px; margin:0px auto; text-align: center;">
- 		 <input type="button" id = "roomIntroBtn" value="${param.room_no}" class="btn btn-default" style="width: 100px;">	
+ 		 <input type="button" id = "roomIntroBtn" value="객실소개" class="btn btn-default" style="width: 100px;">	
   			&nbsp;	&nbsp; 	&nbsp;
  		 <input type="button" id = "roomReserBtn" value="객실예약" class="btn btn-default" style="width: 100px;" >
   		</div><br/>
   		<hr class = "hr1">
 		<br/><br/><br/>
-
-	<form name="resRoom" id="resRoom" action="http://localhost/hotel_prj/user/reser_room/reservation2.jsp" method="get">
-	
-	<%-- <c:forEach var = "room_no" items = "${ RoomNo }"> --%>
+	<div id = "info">
+	<strong><%=paramSd %></strong> ~ <strong><%= paramEd %></strong> / 성인 : <%=paramAdult %> / 어린이 : <%= paramChild %>
+	</div>	
+		
+	<div id = "big">
 	<%
 	RoomSelect rs=new RoomSelect();
 	
 	RoomVO tempRoom=null;
+	
 	for(int i= 0 ; i <paramRoomNo.length ; i++){
 		tempRoom = rs.selectRoomInfo(Integer.parseInt( paramRoomNo[i]));
-		pageContext.setAttribute("serachRoom", tempRoom);
+		pageContext.setAttribute("searchRoom", tempRoom);
+	
+	String Hroom = paramRoomNo[i];
+	String btnId = "detail"+Hroom;
+	String viewId = "divView"+Hroom;
+	String priceId = "price"+Hroom;
+	
 	%>
-	<!-- 그랜드 디럭스 더블 -->
+	
 	<div style="width: 1000px; margin: 0px auto;">
 		<table style="width: 1000px;">
 			<tr>
 				<td style="width: 252px;" rowspan="2">
-				<img src="http://localhost/hotel_prj/images/01_grand01.jpg %>"
-					style="width: 270px; height: 187px;">&nbsp;&nbsp;&nbsp;</td>
-				<td style="height: 100px;"><br><br><br>
-				<span style="font-size: 25px; font-weight: bold;">&nbsp;&nbsp;</span>
-				<input type="button" id="description" value="open" class="btn" style="margin-left: 30px;">
+				<img src="http://localhost/hotel_prj/main/main_images/${searchRoom.main_img }"
+					style="width: 270px; height: 187px;">
+				</td>
+				<td style="height: 120px;"><br><br><br>
+				<div id = "roomName">No.<%= paramRoomNo[i] %>  ${ searchRoom.r_name }</div>
+				<input type="button" onclick = "divPlaying( '<%= viewId %>','<%= btnId %>' )" id="<%= btnId %>" value=<%= btnId %> class="btn" style="margin-left: 20px;"/>
 				<hr/>
 				</td>
 			</tr>
-			
 			<tr>
-				<td style="height: 87px;">&nbsp;&nbsp; 전망 ${ serachRoom.r_view }| 객실면적 40㎡~50㎡
+				<td style="height: 87px;">&nbsp;&nbsp; 전망 ${ searchRoom.r_view }| 객실면적 ${searchRoom.r_size }
 				<br><br><br><br>
 			</tr>
 			
 		</table>
-		
-		<div id="view"></div>
-		<input type="button" class="button" id="deluxe" name="grand" style="width: 100px; float: right;" value="${ room_no }">
+		<div id="<%=viewId %>"  style = "display: none">${ searchRoom.description }</div>
+		<input type="button" class="button" id="<%= priceId%>" style="width: 100px; float: right;" 
+			value="<fmt:formatNumber pattern = "#,###,###" value = "${ searchRoom.price }" /> KRW"
+ 			onclick="roomDetail('<%= Hroom %>','<%=paramSd %>','<%=paramEd %>','<%=paramAdult %>','<%=paramChild %>')">
 	</div>
-	<% }//end for %>
-<%-- 	</c:forEach> --%>
-	<br><br>
-	<br><br>
+	
+	
+	
+	
+	<% 
+	 Hroom = "";
+	btnId = "";
+	viewId = "";
+	}//end for %>
+
+	<br><br><br><br>
 	<hr/>
+	
+	<form name="frm" id="hiddenFrm" action="http://localhost/hotel_prj/user/reser_room/reservation2.jsp" method = "get">
+	 <input type="hidden" id="Room_no" name = "room_no"/>
+	 <input type="hidden" id="Sd" name="sd"/>
+	 <input type="hidden" id="Ed"  name="ed"/>
+	 <input type="hidden" id="Adult" name="adult" />
+	 <input type="hidden" id="Child" name="child"/>
 	</form>
+	
+	</div>
 
 
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
+	<br /><br /><br /><br /><br />
 	<div style="width: 1000px; margin: 0px auto; text-align: center;">
 		<input type="submit" class="button" style="width: 100px;" value="홈으로">
 	</div>
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-<!-- FOOTER -->
-<jsp:include page="../../main/main_footer.jsp"/>
+	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+	<!-- FOOTER -->
+	<jsp:include page="../../main/main_footer.jsp"/>
 
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
+	<!--================================================== -->
 
-	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script
 		src="http://localhost/jsp_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
 </body>
