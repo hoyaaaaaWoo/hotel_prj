@@ -1,3 +1,4 @@
+<%@page import="admin_member.Admin_Decription"%>
 <%@page import="admin_member.MemberVO"%>
 <%@page import="java.util.List"%>
 <%@page import="admin_member.MemberSelect"%>
@@ -150,8 +151,8 @@ $(function(){
 					<%
 					request.setCharacterEncoding("utf-8");
 					String kname=request.getParameter("search");
-					MemberSelect ms = new MemberSelect();
-					pageContext.setAttribute("kname", ms.selectSpecificMember(kname));
+					Admin_Decription ad = new Admin_Decription();
+					pageContext.setAttribute("kname",ad.searchDecryptMemberData(kname));
 					%>
 				<tr>
 					<td><c:out value="${kname.id}"/></td>

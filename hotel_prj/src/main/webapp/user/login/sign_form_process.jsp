@@ -80,18 +80,17 @@ String m_status = request.getParameter("m_status");
 <c:catch var="e">
   
 <%
-//비밀번호 복호화 가능
-mVO.setPass(DataEncrypt.messageDigest("MD5", mVO.getPass()));
-//이름 복호화
+//비밀번호 암호화 
+mVO.setPass(DataEncrypt.messageDigest("SHA-512", mVO.getPass()));
+//이름 암호화
 DataEncrypt de=new DataEncrypt("AbcdEfgHiJkLmnOpQ");
-mVO.setKname(de.encryption(mVO.getKname()) );
-
+mVO.setKname(de.encryption(mVO.getKname()) );//이름
+mVO.setEname_fst(de.encryption(mVO.getEname_fst()));  //영문이름
+mVO.setEname_lst(de.encryption(mVO.getEname_lst()));//영문이름
+mVO.setEmail(de.encryption(mVO.getEmail()));//이메일
+mVO.setBirth_year(de.encryption(mVO.getBirth_year()));//생년월일
+mVO.setTel(de.encryption(mVO.getTel()));//번호
  mVO.setId(mVO.getId());
-mVO.setEmail(mVO.getEmail());
-mVO.setEname_fst(mVO.getEname_fst());
-mVO.setEname_lst(mVO.getEname_lst());
-mVO.setBirth_year(mVO.getBirth_year());
-mVO.setTel(mVO.getTel());
 mVO.setReq_agree(mVO.getReq_agree());
 mVO.setOpt_agree(mVO.getOpt_agree());
 mVO.setJoin_date(mVO.getJoin_date());

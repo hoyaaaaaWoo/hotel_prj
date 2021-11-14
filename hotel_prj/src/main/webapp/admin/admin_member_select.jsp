@@ -1,3 +1,4 @@
+<%@page import="admin_member.Admin_Decription"%>
 <%@page import="user_login.MemberDAO"%>
 <%@page import="kr.co.sist.util.cipher.DataDecrypt"%>
 <%@page import="admin_member.MemberUpdate"%>
@@ -130,8 +131,9 @@ $(".delBtn").click(function(){
 <c:catch var="e">
 <%
 request.setCharacterEncoding("utf-8");
+Admin_Decription ad = new Admin_Decription();
 MemberSelect ms = new MemberSelect();
-List<MemberVO> list = ms.selectMember(null);
+List<MemberVO> list = ad.allDecryptMemberData();
 pageContext.setAttribute("memberData", list);
 %>
 </c:catch>
