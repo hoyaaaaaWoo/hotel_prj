@@ -62,7 +62,6 @@
 
 <%
 request.setCharacterEncoding("UTF-8");
-
 String id = request.getParameter("id");
 String pass = request.getParameter("pass");
 String email = request.getParameter("email");

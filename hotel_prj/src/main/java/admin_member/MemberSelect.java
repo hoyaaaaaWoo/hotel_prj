@@ -71,6 +71,7 @@ public class MemberSelect {
 	 * gjt.closeAc(); return list; }
 	 */
 
+	
 	/**
 	 * 이름을 조회하여 특정회원 조회
 	 * 

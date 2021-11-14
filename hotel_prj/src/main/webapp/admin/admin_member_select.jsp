@@ -178,7 +178,6 @@ pageContext.setAttribute("memberData", list);
 				</c:forEach>
 			</table>
 		</div>
-
 		<!-- 삭제버튼 클릭시 hidden값 설정 및 페이지 이동 -->
 		 <form name="delFrm" id="delFrm" action="admin_member_del_process.jsp" method="post">
 		 	<input type="hidden" name="delKname" id="delKname"/>
