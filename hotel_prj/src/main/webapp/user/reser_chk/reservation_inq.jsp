@@ -1,5 +1,9 @@
+<%@page import="user_reservation.ReservationVO"%>
+<%@page import="java.util.List"%>
+<%@page import="user_reservation.ReservationSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,6 +51,20 @@ function main(){
 <!-- NAVBAR
 ================================================== -->
   <body>
+  <%request.setCharacterEncoding("UTF-8"); %>
+  
+  <!-- 이전 페이지에서 날아온 웹파라미터 이 페이지에서 받아서 설정하기 -->
+  <jsp:useBean id="rVO" class="user_reservation.ReservationVO"/>  
+  <!-- *써서 setter method 다 실행해서 세팅됨 -->
+  <jsp:setProperty property="*" name="rVO"/>
+  
+<%
+	ReservationSelect rsD = new ReservationSelect();
+	List<ReservationVO> list = rsD.reserInq();
+	pageContext.setAttribute("reserInq", list);
+%>
+  
+  
 <div class="wrapper">
 <jsp:include page="../../main/main_header_nav.jsp"/>	
 
@@ -60,6 +78,9 @@ function main(){
 </div>
 <br/><br/>
 <div  style = "width:600px; text-align: center; margin:0px auto;">
+<c:if test="${ empty reserChk }">
+예약이 존재하지 않습니다.
+</c:if>
 	<table id="table">
 				<tr>
 					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp" >10445635 </a></td>
@@ -68,7 +89,7 @@ function main(){
 					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp">예약완료</a></td>
 				</tr>
 				<tr>
-					<td>10445635</td>
+					<td><c:out value="${ reserInq.res_no }"/></td>
 					<td>Hotel Ritz Seoul</td>
 					<td>2022년05월24일~2022년05월25일</td>
 					<td>예약취소</td>

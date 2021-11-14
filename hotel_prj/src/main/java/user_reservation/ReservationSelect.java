@@ -11,8 +11,41 @@ import org.springframework.jdbc.core.RowMapper;
 import team3_dao.GetJdbcTemplate;
 
 public class ReservationSelect {
+	
+	public List<ReservationVO> reserInq() throws SQLException {
+		List<ReservationVO> list = null;
+		
+		//1. 스프링 컨테이너 생성
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();  
+		//2. JdbcTemplate 얻기
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		//3. 쿼리문 수행
+		StringBuilder chkInq = new StringBuilder();
+		chkInq.append("	select res_no, chkin_date, chkout_date	")
+		.append("	from reservation	")
+		.append("	where id=?	");	
+		
+		list=jt.query(chkInq.toString(),new chkInq());
+		
+		//4. 스프링컨테이너 닫기
+		gjt.closeAc();
+		
+		return list;
+		
+	}//reserInq
+	public class chkInq implements RowMapper<ReservationVO>{
+		public ReservationVO mapRow(ResultSet rs, int rowCnt) throws SQLException {
+			ReservationVO rVO= new ReservationVO();
+			rVO.setR_name(rs.getString("res_no"));
+			rVO.setChkin_date(rs.getString("chkin_date"));
+			rVO.setChkout_date(rs.getString("chkout_date"));
+			
+			return rVO;
+		}
+	}//RowMapper
 
-	public List<ReservationVO> reservationChk(ReservationVO rVO) throws DataAccessException {
+	
+	public List<ReservationVO> reservationChk() throws SQLException {
 		List<ReservationVO> list = null;
 		
 		//1. 스프링 컨테이너 생성
@@ -21,13 +54,19 @@ public class ReservationSelect {
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		//3. 쿼리문 수행
 		StringBuilder chkRes = new StringBuilder();
-		chkRes.append("	select r.r_name, chkin_date, choute_date, adult, child	")
+		chkRes.append("	select r.r_name, chkin_date, chout_date, adult, child	")
 		.append("	from room r, reservation res	")
 		.append("	where r.room_no=res.room_no(+) and res.id=?	");	
 		
-		list=jt.query(chkRes.toString(), new Object[] {},
-				new RowMapper<ReservationVO>() {
+		list=jt.query(chkRes.toString(),new chkRes());
+		
+		//4. 스프링컨테이너 닫기
+		gjt.closeAc();
+		
+		return list;
+		}//reservationChk
 			
+		public class chkRes implements RowMapper<ReservationVO>{
 			public ReservationVO mapRow(ResultSet rs, int rowCnt) throws SQLException {
 				ReservationVO rVO= new ReservationVO();
 				rVO.setR_name(rs.getString("r_name"));
@@ -38,15 +77,12 @@ public class ReservationSelect {
 				
 				return rVO;
 			}
-		});
-		//4. 스프링컨테이너 닫기
-		gjt.closeAc();
+		}
 		
-		return list;
-		
-	}
+}	 
 	
-	public List<ReservationVO> reserWhoChk (String id) throws DataAccessException {
+	/*
+	 public List<ReservationVO> reserWhoChk (String id) throws DataAccessException {
 		List<ReservationVO> list = null;
 		
 		//1. 스프링 컨테이너 생성
@@ -82,5 +118,6 @@ public class ReservationSelect {
 		
 		return list;		
 	}
+	 */
 	
-}
+
