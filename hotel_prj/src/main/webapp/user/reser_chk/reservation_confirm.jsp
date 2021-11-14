@@ -1,6 +1,9 @@
+<%@page import="user_reservation.ReservationVO"%>
+<%@page import="java.util.List"%>
 <%@page import="user_reservation.ReservationSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="Hotel Ritz Seoul"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -235,9 +238,17 @@ p { border: 1px solid #FF00FF}
 </script>
 </head>
 <body>
+<%request.setCharacterEncoding("UTF-8"); %>
+  
+  <!-- 이전 페이지에서 날아온 웹파라미터 이 페이지에서 받아서 설정하기 -->
+  <jsp:useBean id="rVO" class="user_reservation.ReservationVO"/>  
+  <!-- *써서 setter method 다 실행해서 세팅됨 -->
+  <jsp:setProperty property="*" name="rVO"/>
+
 <%-- <%
-ReservationSelect rChk =new ReservationSelect();
-String r_name = rChk.reservationChk(rVO);
+	ReservationSelect rsD = new ReservationSelect();
+	List<ReservationVO> list = rsD.reserWhoChk(id);
+	pageContext.setAttribute("reserWhoChk", list);
 %> --%>
 
 	<div class="wrap">
@@ -252,6 +263,7 @@ String r_name = rChk.reservationChk(rVO);
 	
 				<form name="resChkInfo" id="resChkInfo" action="" method="post">
 					<table class="chkTab">
+					<tbody>
 						<tr>
 							<td style="width: 500px"><img
 								src="http://localhost/hotel_prj/images/01_grand01.jpg"
@@ -271,7 +283,8 @@ String r_name = rChk.reservationChk(rVO);
 										<td class="guide">인원</td>
 										<td class="guideTextP">성인2, 어린이0</td>
 									</tr>
-								</table> <br />
+					</tbody>
+					</table> <br />
 
 								<table id="chkSubTab">
 									<tr>
@@ -372,7 +385,7 @@ String r_name = rChk.reservationChk(rVO);
 			</form>
 
 			<br /> <br />
-			<div id="map" style="width: 800px; height: 350px;"></div>
+			<div id="map" style="width: 1000px; height: 350px; magin: 0px auto; "></div>
 
 
 			<br /> <br />
@@ -380,10 +393,12 @@ String r_name = rChk.reservationChk(rVO);
 				<button type="button" class="btn btn-default"
 					style="width: 100px; height: 40px" onclick="main()">홈으로</button>
 			</div>
+			
+			
 
 		</div>
 		<!-- resChk -->
-		<br /> <br />
+		<br /> <br /><br /> <br /><br /> <br /><br /> <br />
 
 		<!-- FOOTER -->
 		<jsp:include page="../../main/main_footer.jsp" />

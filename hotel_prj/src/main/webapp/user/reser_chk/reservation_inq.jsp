@@ -60,7 +60,7 @@ function main(){
   
 <%
 	ReservationSelect rsD = new ReservationSelect();
-	List<ReservationVO> list = rsD.reserInq();
+	List<ReservationVO> list = rsD.reserInq(id);
 	pageContext.setAttribute("reserInq", list);
 %>
   
@@ -78,22 +78,21 @@ function main(){
 </div>
 <br/><br/>
 <div  style = "width:600px; text-align: center; margin:0px auto;">
-<c:if test="${ empty reserChk }">
+<c:if test="${ empty reserInq }">
 예약이 존재하지 않습니다.
 </c:if>
 	<table id="table">
+	<tbody>
+		<c:forEach var="res_inq" items="${ reserInq }">
 				<tr>
-					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp" >10445635 </a></td>
+					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp" ><c:out value="${ res_inq.res_no }"/> </a></td>
 					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp" >Hotel Ritz Seoul</a></td>
-					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp" >2022년05월24일~2022년05월25일</a></td>
+					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp" ><c:out value="${ res_inq.chkin_date }"/>~<c:out value="${ res_inq.chkout_date }"/></a></td>
 					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp">예약완료</a></td>
 				</tr>
-				<tr>
-					<td><c:out value="${ reserInq.res_no }"/></td>
-					<td>Hotel Ritz Seoul</td>
-					<td>2022년05월24일~2022년05월25일</td>
-					<td>예약취소</td>
-				</table>
+		</c:forEach>
+	</tbody>
+	</table>
 </div>
 <br/><br/><br/>
 <div style = "width:450px; text-align: center; margin:0px auto;">

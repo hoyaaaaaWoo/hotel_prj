@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -12,7 +11,7 @@ import team3_dao.GetJdbcTemplate;
 
 public class ReservationSelect {
 	
-	public List<ReservationVO> reserInq() throws SQLException {
+	public List<ReservationVO> reserInq(String id) throws SQLException {
 		List<ReservationVO> list = null;
 		
 		//1. 스프링 컨테이너 생성
@@ -25,7 +24,7 @@ public class ReservationSelect {
 		.append("	from reservation	")
 		.append("	where id=?	");	
 		
-		list=jt.query(chkInq.toString(),new chkInq());
+		list=jt.query(chkInq.toString(),new chkInq(), new Object[] { id });
 		
 		//4. 스프링컨테이너 닫기
 		gjt.closeAc();
@@ -45,7 +44,7 @@ public class ReservationSelect {
 	}//RowMapper
 
 	
-	public List<ReservationVO> reservationChk() throws SQLException {
+	public List<ReservationVO> reservationChk(String id) throws SQLException {
 		List<ReservationVO> list = null;
 		
 		//1. 스프링 컨테이너 생성
@@ -54,16 +53,17 @@ public class ReservationSelect {
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		//3. 쿼리문 수행
 		StringBuilder chkRes = new StringBuilder();
-		chkRes.append("	select r.r_name, chkin_date, chout_date, adult, child	")
+		chkRes.append("	select r.r_name, chkin_date, chkout_date, adult, child	")
 		.append("	from room r, reservation res	")
 		.append("	where r.room_no=res.room_no(+) and res.id=?	");	
 		
-		list=jt.query(chkRes.toString(),new chkRes());
+		list=jt.query(chkRes.toString(),new chkRes(), new Object[] { id });
 		
 		//4. 스프링컨테이너 닫기
 		gjt.closeAc();
 		
 		return list;
+		
 		}//reservationChk
 			
 		public class chkRes implements RowMapper<ReservationVO>{
@@ -79,10 +79,10 @@ public class ReservationSelect {
 			}
 		}
 		
-}	 
+	 
 	
-	/*
-	 public List<ReservationVO> reserWhoChk (String id) throws DataAccessException {
+	
+	 public List<ReservationVO> reserWhoChk (String id) throws SQLException {
 		List<ReservationVO> list = null;
 		
 		//1. 스프링 컨테이너 생성
@@ -90,14 +90,20 @@ public class ReservationSelect {
 		//2. JdbcTemplate 얻기
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		//3. 쿼리문 수행
-		StringBuilder chkRes = new StringBuilder();
-		chkRes.append("	select m.ename_lst, m.ename_fst,ci.company, ci.val_mm, ci.val_yy, m.tel, m.email, ci.card_no	")
+		StringBuilder chkWho = new StringBuilder();
+		chkWho.append("	select m.ename_lst, m.ename_fst,ci.company, ci.val_mm, ci.val_yy, m.tel, m.email, ci.card_no	")
 		.append("	from member m, card_info ci	")
-		.append("	where m.id = ci.id  and m.id=?	");	//like할때는 bind변수와 like의 특수문자를 문자로 처리하여 붙인다 like '%'||?||'%'
+		.append("	where m.id = ci.id  and m.id=?	");
 		
-		list=jt.query(chkRes.toString(), new Object[] {id},
-				new RowMapper<ReservationVO>() {
+		list=jt.query(chkWho.toString(), new chkRes(), new Object[] {id});
 			
+		//4. 스프링컨테이너 닫기
+		gjt.closeAc();
+		
+		return list;
+		}//reserWhoChk
+	 
+	 public class chkWho implements RowMapper<ReservationVO>{
 			public ReservationVO mapRow(ResultSet rs, int rowCnt) throws SQLException {
 				ReservationVO rVO= new ReservationVO();
 				rVO.setEname_lst(rs.getString("ename_lst"));
@@ -110,14 +116,11 @@ public class ReservationSelect {
 				rVO.setCard_no(rs.getString("card_no"));
 				
 				return rVO;
+				
 			}
-		});
+		}
+}
 		
-		//4. 스프링컨테이너 닫기
-		gjt.closeAc();
 		
-		return list;		
-	}
-	 */
 	
 
