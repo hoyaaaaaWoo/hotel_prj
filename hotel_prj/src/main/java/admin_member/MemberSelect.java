@@ -82,7 +82,6 @@ public class MemberSelect {
 	 */
 	public MemberVO selectSpecificMember(String kname) throws SQLException {// mapRow method throws
 		MemberVO mVO = null;
-
 		// 1. Spring Container 얻기
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
 		// 2 JdbcTemplate 얻기

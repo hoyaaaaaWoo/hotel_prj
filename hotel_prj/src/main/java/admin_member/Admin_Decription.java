@@ -36,7 +36,6 @@ public class Admin_Decription {
 		         return list;
 		      }//allDecryptMemberData
 	
-	
 	/**
 	 *  특정회원조회 복호화
 	 * @param kname

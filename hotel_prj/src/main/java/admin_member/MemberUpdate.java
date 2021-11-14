@@ -7,6 +7,7 @@ import team3_dao.GetJdbcTemplate;
 public class MemberUpdate {
 
 	
+	
 	/**
 	 * 특정회원 삭제 method / update로 status N로 변경
 	 * 

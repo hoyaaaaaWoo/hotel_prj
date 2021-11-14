@@ -83,7 +83,6 @@ td{
 	color:#000000;
 	background-color: #FFFFFF;
 }
-
 tr:hover td {
 	background-color: #F1F3F4;
 	cursor:pointer;
@@ -151,8 +150,9 @@ $(function(){
 					<%
 					request.setCharacterEncoding("utf-8");
 					String kname=request.getParameter("search");
+					MemberSelect ms = new MemberSelect();
 					Admin_Decription ad = new Admin_Decription();
-					pageContext.setAttribute("kname",ad.searchDecryptMemberData(kname));
+					pageContext.setAttribute("kname",ms.selectSpecificMember(kname));
 					%>
 				<tr>
 					<td><c:out value="${kname.id}"/></td>

@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.RowMapper;
 import team3_dao.GetJdbcTemplate;
 
 public class MemberDelete {
-
 	
 	/**
 	 * Å»ÅðÈ¸¿ø Á¶È¸ ( ¾ÆÀÌµð,ÀÌ¸§,Å»Åð)

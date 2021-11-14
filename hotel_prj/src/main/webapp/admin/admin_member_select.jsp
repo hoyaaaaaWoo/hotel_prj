@@ -132,7 +132,6 @@ $(".delBtn").click(function(){
 <%
 request.setCharacterEncoding("utf-8");
 Admin_Decription ad = new Admin_Decription();
-MemberSelect ms = new MemberSelect();
 List<MemberVO> list = ad.allDecryptMemberData();
 pageContext.setAttribute("memberData", list);
 %>
@@ -179,7 +178,7 @@ pageContext.setAttribute("memberData", list);
 				</c:forEach>
 			</table>
 		</div>
-		
+
 		<!-- 삭제버튼 클릭시 hidden값 설정 및 페이지 이동 -->
 		 <form name="delFrm" id="delFrm" action="admin_member_del_process.jsp" method="post">
 		 	<input type="hidden" name="delKname" id="delKname"/>

@@ -82,6 +82,7 @@ String m_status = request.getParameter("m_status");
 <%
 //비밀번호 암호화 
 mVO.setPass(DataEncrypt.messageDigest("SHA-512", mVO.getPass()));
+
 //이름 암호화
 DataEncrypt de=new DataEncrypt("AbcdEfgHiJkLmnOpQ");
 mVO.setKname(de.encryption(mVO.getKname()) );//이름
