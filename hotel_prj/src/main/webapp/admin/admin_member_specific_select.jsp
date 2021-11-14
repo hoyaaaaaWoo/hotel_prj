@@ -1,3 +1,5 @@
+<%@page import="kr.co.sist.util.cipher.DataEncrypt"%>
+<%@page import="kr.co.sist.util.cipher.DataDecrypt"%>
 <%@page import="admin_member.Admin_Decription"%>
 <%@page import="admin_member.MemberVO"%>
 <%@page import="java.util.List"%>
@@ -150,9 +152,9 @@ $(function(){
 					<%
 					request.setCharacterEncoding("utf-8");
 					String kname=request.getParameter("search");
-					MemberSelect ms = new MemberSelect();
+					DataEncrypt de = new DataEncrypt("AbcdEfgHiJkLmnOpQ");
 					Admin_Decription ad = new Admin_Decription();
-					pageContext.setAttribute("kname",ms.selectSpecificMember(kname));
+					pageContext.setAttribute("kname",ad.DecryptSpecificMemberData(de.encryption(kname)));
 					%>
 				<tr>
 					<td><c:out value="${kname.id}"/></td>

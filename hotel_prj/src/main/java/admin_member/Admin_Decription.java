@@ -45,11 +45,12 @@ public class Admin_Decription {
 	 * @throws GeneralSecurityException
 	 * @throws SQLException
 	 */
-	public MemberVO searchDecryptMemberData(String kname) throws UnsupportedEncodingException,GeneralSecurityException ,SQLException{
+	public MemberVO DecryptSpecificMemberData(String kname) throws UnsupportedEncodingException,GeneralSecurityException ,SQLException{
 		MemberVO mVO = null;
 		MemberSelect ms = new MemberSelect();
 		mVO= ms.selectSpecificMember(kname);
 		DataDecrypt dd = new DataDecrypt("AbcdEfgHiJkLmnOpQ");
+		  mVO.setId(mVO.getId());
 		  mVO.setKname( dd.decryption(mVO.getKname()));
           mVO.setBirth_year( dd.decryption(mVO.getBirth_year()));
           mVO.setEname_fst( dd.decryption(mVO.getEname_fst()));
@@ -58,6 +59,46 @@ public class Admin_Decription {
           mVO.setEmail(dd.decryption(mVO.getEmail()));
 		return mVO;
 	}//searchDecrtpy
+	
+	/**
+	 * Å»ÅðÈ¸¿ø Á¶È¸
+	 * @return
+	 * @throws SQLException
+	 * @throws UnsupportedEncodingException
+	 * @throws GeneralSecurityException
+	 */
+	public List<MemberVO>  DecryptDeleteMemberData() throws SQLException,UnsupportedEncodingException,GeneralSecurityException {
+		List<MemberVO> list = null;
+		MemberDelete md = new MemberDelete();
+		list=md.selectDeleteMember();
+		DataDecrypt dd = new DataDecrypt("AbcdEfgHiJkLmnOpQ");
+		for(MemberVO mVO:list) {
+			mVO.setId(mVO.getId());
+			mVO.setKname(dd.decryption(mVO.getKname()));
+			mVO.setOut_date(mVO.getOut_date());
+		}
+		return list;
+	}//DecryptDeleteMemberData
+	
+	
+	/**
+	 * Æ¯Á¤ Å»ÅðÈ¸¿ø Á¶È¸
+	 * @param kname
+	 * @return
+	 * @throws SQLException
+	 * @throws UnsupportedEncodingException
+	 * @throws GeneralSecurityException
+	 */
+	public MemberVO DecryptDeleteSearchData(String kname) throws SQLException,UnsupportedEncodingException,GeneralSecurityException{
+	MemberVO mVO = null;
+	MemberSelect ms = new MemberSelect();
+	mVO=ms.selectSpecificMemberDelete(kname);
+	DataDecrypt dd = new DataDecrypt("AbcdEfgHiJkLmnOpQ");
+	mVO.setId(mVO.getId());
+	mVO.setKname(dd.decryption(mVO.getKname()));
+	mVO.setOut_date(mVO.getOut_date());
+	return mVO;
+	}//DecryptDeleteSearchData
 	
 	
 }//class

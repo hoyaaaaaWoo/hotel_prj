@@ -148,7 +148,6 @@ public class MemberSelect {
 		return mVO;
 	}
 
-	
 	/**
 	 * 관리자 아이디 비밀번호
 	 * 

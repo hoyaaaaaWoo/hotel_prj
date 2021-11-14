@@ -1,3 +1,5 @@
+<%@page import="kr.co.sist.util.cipher.DataEncrypt"%>
+<%@page import="admin_member.Admin_Decription"%>
 <%@page import="admin_member.MemberVO"%>
 <%@page import="java.util.List"%>
 <%@page import="admin_member.MemberSelect"%>
@@ -127,8 +129,9 @@ position: absolute; top: 80px; left: 1200px;
 						<%	
 						request.setCharacterEncoding("utf-8");
 						String kname = request.getParameter("search");
-						MemberSelect ms = new MemberSelect();
-						pageContext.setAttribute("kname", ms.selectSpecificMemberDelete(kname));
+						DataEncrypt de = new DataEncrypt("AbcdEfgHiJkLmnOpQ");
+						Admin_Decription ad = new Admin_Decription();
+						pageContext.setAttribute("kname",ad.DecryptDeleteSearchData(de.encryption(kname)));
 						%>
 						<tr>
 							<td><c:out value="${kname.id }" /></td>
@@ -136,7 +139,6 @@ position: absolute; top: 80px; left: 1200px;
 							<td><c:out value="${kname.out_date }" /></td>
 						</tr>
 					</c:catch>
-					
 					<c:if test="${ not empty e }">
 						<tr>
 							<td colspan="3">
@@ -147,7 +149,6 @@ position: absolute; top: 80px; left: 1200px;
 		</div>
 	<!-- footer import -->
 	<c:import url="common/admin_footer.jsp" />
-
 	</div>
 </body>
 </html>
