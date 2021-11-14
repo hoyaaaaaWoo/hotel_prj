@@ -1,3 +1,4 @@
+<%@page import="user_login.updateDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,12 +25,21 @@
 </head>
 <body>
 <%
+String kname=request.getParameter("delKname");
+updateDAO ud = new updateDAO();
+int cnt = ud.delmember(kname);
 
-//세션의 무효화(브라우저에 할당된 세션 자체를 삭제한다. (이페이지에서만 삭제) :)
-//세션을 사용하면 에러가발생.)
-session.invalidate();
-//페이지를 메인으로 이동한다.
-response.sendRedirect("../main/Hotel_Ritz_Seoul.jsp");
+if(cnt ==1){
 %>
+<script type="text/javascript">
+alert("회원이 정상적으로 삭제되었습니다.");
+location.href="http://localhost/hotel_prj/admin/admin_member_select.jsp";
+</script>	
+<%}else{%>
+<script type="text/javascript">
+	alert("죄송합니다. 잠시 후 다시 시도해주십시오.");
+	location.href="http://localhost/hotel_prj/admin/admin_member_select.jsp";
+</script>
+<%}%>
 </body>
 </html>

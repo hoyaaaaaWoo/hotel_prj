@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+kalicso<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" info="Hotel Ritz Seoul"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +16,9 @@
 	href="http://localhost/hotel_prj/main/main.css">
 	
     <title>Hotel_Ritz_Seoul</title>
+    <!-- 메인 CSS -->
+	<link rel="stylesheet" type="text/css"
+	href="http://localhost/hotel_prj/main/main.css">
 	<style type = "text/css">
 	</style>
 
@@ -56,14 +59,14 @@ function home(){
 <!-- NAVBAR
 ================================================== -->
   <body>
- <form action="mypage_process.jsp"  method="post" id="frm" name="frm">
  		 <jsp:include page="../../main/main_header_nav.jsp"/>
+ <form action="mypage_process.jsp"  method="post" id="frm" name="frm">
 <div>
  		 
 <h4>&nbsp;&nbsp;홈 / 마이페이지</h4>
 </div>
 <br/><br/><br/>
-<div style = "width:600px; text-align: center;border-bottom:2px solid #d3d3d3 ;margin:0px;">
+<div style = "width:600px; text-align: center;border-bottom:2px solid #d3d3d3 ;margin:0px auto;">
 <h2>마이페이지</h2>
 </div>
 <div style = "text-align: center; ">
@@ -72,7 +75,7 @@ function home(){
 <h4>비밀번호를 입력해주세요.</h4>
 <input type="text" name="pass" id="pass" style="width:250px;height:40px" placeholder="현재 비밀번호를 입력하세요">
 <br/><br/>
-<button type="button" class="btn btn-default"  id="btn" style="width:250px;height:40px" >확인</button>
+<button type="submit" class="btn btn-default"  id="btn" style="width:250px;height:40px" >확인</button>
 <br/><br/><br/>
 <button type="button" class="btn btn-default" style="width:75px; height:30px;" onclick="home()">홈으로</button>
 
@@ -83,9 +86,9 @@ function home(){
 <body>
 <div class="container marketing">
   <!-- FOOTER -->
- <jsp:include page="../../main/main_footer.jsp"/>
 
     </div>
+ <jsp:include page="../../main/main_footer.jsp"/>
     <!-- /.container -->
 
 

@@ -11,7 +11,6 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Hotel_Ritz_Seoul</title>
     <!-- 메인 CSS -->
 	<link rel="stylesheet" type="text/css"
 	href="http://localhost/hotel_prj/main/main.css">
@@ -24,7 +23,7 @@
 	<!-- jQuery CDN -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	
-
+	
 	<!-- Bootstrap CDN -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -63,9 +62,9 @@
 	<jsp:include page="../../main/main_header_nav.jsp"/>
   <body>
 	
-	<input type="hidden" value="${ id }">
 	
 	<!-- Standard button -->
+
 
 	
       	<br/><br/><br/><br/><br/>
@@ -78,7 +77,7 @@
     <table style="margin: 0px auto;">
     	<tr>
     		<td style="padding: 5px"><input type="text" placeholder="아이디를 입력하세요" name="id" id="id" class="form-control"> </td>
-    		<td rowspan="2"><input type="button"  class="btn btn-default" style="width:90px; height:40px;" value="로그인"  id="btn" ></td>
+    		<td rowspan="2"><input type="submit"  class="btn btn-default" style="width:90px; height:40px;" value="로그인"  id="btn" ></td>
     	</tr>
     	<tr>
     		<td style="padding: 5px"><input type="password" placeholder="비밀번호를 입력하세요"  name="pass" id="pass" class="form-control"> </td>
@@ -101,5 +100,10 @@
     
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="http://localhost/hotel_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
+    <script>
+
+   		
+    	
+    </script>
   </body>
 </html>

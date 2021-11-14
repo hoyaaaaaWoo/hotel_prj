@@ -55,14 +55,18 @@
   <br/><br/>
   <div style="width: 300px;text-align: center; margin:0px auto;">
   <br>
-  <h2>가입완료</h2>
+  <h2>로그인</h2>
   </div>
   <hr style="width: 500px"/>
   <div style="width: 300px;text-align: center;margin:0px auto;">
   
  <jsp:useBean id="loginVO" class="user_login.memberVO" scope="page"/>
 <jsp:setProperty property="*" name="loginVO"/><!--  입력정보-->
+
 <c:catch var="e">
+<script type="text/javascript">
+
+</script>
 <%
 request.setCharacterEncoding("UTF-8");
 String id = request.getParameter("id");
@@ -82,6 +86,8 @@ kname=dd.decryption(kname);
 
 //로그인 정보를 세션에 할당 
 //=>비연결성인 웹에서 로그인 정보를 모든 페이지에서 사용하기 위해
+
+
 session.setAttribute("kname", kname);
 session.setAttribute("pass", pass);
 session.setAttribute("id", id);
