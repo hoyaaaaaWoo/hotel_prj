@@ -1,3 +1,4 @@
+<%@page import="admin_room.RoomVO"%>
 <%@page import="admin_room.OtherImgVO"%>
 <%@page import="java.util.List"%>
 <%@page import="admin_room.RoomSelect"%>
@@ -73,14 +74,22 @@
 </style>
 <script type="text/javascript">
 $(function(){
-		
+	
+	//객실추가 시 
 	 $("#addBtn").click(function(){
 		 location.href="http://localhost/hotel_prj/admin/admin_room_add.jsp";
 	 });//click
 	 
+	 //객실정보수정 시
+	 $("#chgBtn").click(function(){
+		 var room =$("#roomName").val();
+		 $("#selectedRName").val(room);
+		 $("#chgFrm").submit();
+	 });//click
+	 
 });//ready 
 
-//이미지 클릭시 룸 상세 view 페이지로 이동
+//이미지 클릭시 룸 상세보기
 function showRoomDetail(roomName){
 	$("#rName").val(roomName);
 	$("#frm").submit();
@@ -100,10 +109,9 @@ function showRoomDetail(roomName){
 		<input type="button" id="addBtn" class="btn btn-primary" value="객실 추가"/>
 		
 		<div id="roomList"> 
-		
 		<% 
 		RoomSelect room = new RoomSelect();
-		pageContext.setAttribute("roomList", room.selectRoomInfo(null));
+		pageContext.setAttribute("roomList", room.selectRoomInfo(null,null));
 		%>
 				
 		<table id="roomTab">
@@ -133,10 +141,12 @@ function showRoomDetail(roomName){
 		<c:if test="${ not empty param.rName }">
 		<%
 		String rName = request.getParameter("rName");
-		pageContext.setAttribute("rmVO", room.selectRoomInfo(rName));
+		pageContext.setAttribute("rmVO", room.selectRoomInfo(rName,null));
 		%>
 		<div id="viewRoom">
-			<input type="button" id="chgBtn" name="chgBtn" class="btn btn-primary" value="객실 정보 수정"/>
+		<form name ="chgFrm" id ="chgFrm"  action="http://localhost/hotel_prj/admin/admin_room_change.jsp" method="post">
+		<input type="button" id="chgBtn" name="chgBtn" class="btn btn-primary" value="객실 정보 수정"/>
+			<input type="hidden" name="selectedRName" id="selectedRName"/>
 		<br/>
 		<c:forEach var="rmVO" items="${ rmVO }">
 		<label style="margin-left: 11px">* 상태</label><br/>
@@ -172,6 +182,7 @@ function showRoomDetail(roomName){
 			  	<th>투숙인원</th>
 			 	<td class="subTd">
 				  <input type="text" name="guestNum" id="guestNum" value="${rmVO.guestNum}명" class="form-control" maxlength="8" readonly="readonly"/>
+				  <input type="hidden" name="guestNum" id="guestNum" value="${rmVO.guestNum}"/>
 			    </td>
 			  </tr>
 			  <tr>
@@ -244,9 +255,10 @@ function showRoomDetail(roomName){
 		</table>
 		<br/>
 		
-		<label>* 사진 </label>
+		<label>* 객실 이미지 </label>
 		<br/>
-		<img src="http://localhost/hotel_prj/roomImages/${rmVO.img}" name="img" class="viewImg"/>
+		<img src="http://localhost/hotel_prj/roomImages/${rmVO.img}" title="${rmVO.img}" name="img" class="viewImg"/>
+		<input type="hidden" name="mainImg" value="${rmVO.img}"/>
 		</c:forEach>
 		<%
 		List<OtherImgVO> imgList = room.selectOtherImg(rName);
@@ -254,11 +266,14 @@ function showRoomDetail(roomName){
 		%>
  		<c:if test="${not empty imgList}">
 		 <c:forEach var="img" items="${imgList}">
-		   <img src="http://localhost/hotel_prj/roomImages/${img.imgSrc}" name="img" class="viewImg"/>
+		   <img src="http://localhost/hotel_prj/roomImages/${img.imgSrc}" title="${img.imgSrc}" name="img" class="viewImg"/>
+			<input type="hidden" name="otherImg" value="${img.imgSrc}" />
 		 </c:forEach>
-		</c:if> 
+		</c:if> <!-- not empty imgList -->
+		</form> <!-- chgFrm -->
+		
 		</div> <!-- view room div  -->
-		</c:if>
+		</c:if> <!-- not empty param.rName  -->
 		
 		</div> <!-- 컨테이너 div -->
 		

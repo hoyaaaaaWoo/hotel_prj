@@ -45,8 +45,9 @@ roomVO.setImg(mainImg);
 <c:catch var ="e">
 <%
 String rName = request.getParameter("roomName");
+String rStatus = "Y";
 RoomSelect rs = new RoomSelect();
-List<RoomVO> list = rs.selectRoomInfo(rName);
+List<RoomVO> list = rs.selectRoomInfo(rName, rStatus);
 if(list.size()!=0){ // 객실 이름 중복 체크
 %>
 <script type="text/javascript">
@@ -59,7 +60,7 @@ RoomInsert ri = new RoomInsert();
 if(ri.insertProcess(roomVO)){
 %>
 <script type="text/javascript">
-	alert("객실이 추가되었습니다.");
+	alert("객실이 정상적으로 추가되었습니다.");
 	location.href="http://localhost/hotel_prj/admin/admin_room_main.jsp";
 </script>
 <% }else{

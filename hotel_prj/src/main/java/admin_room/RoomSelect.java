@@ -3,6 +3,8 @@ package admin_room;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -18,6 +20,7 @@ import team3_dao.GetJdbcTemplate;
 public class RoomSelect {
 
 	/**
+	 * 예약변경시 사용할 
 	 * 활성화된 객실 리스트 조회
 	 * @return
 	 */
@@ -46,7 +49,7 @@ public class RoomSelect {
 	 * 등록된 모든 room 상세정보 조회
 	 * @return
 	 */
-	public List<RoomVO> selectRoomInfo(String rName) throws SQLException {
+	public List<RoomVO> selectRoomInfo(String rName, String rStatus) throws SQLException {
 		List<RoomVO> roomList = null;
 
 		// 1. Spring Container 얻기
@@ -55,24 +58,42 @@ public class RoomSelect {
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		// 3. 쿼리 실행
 		StringBuilder select = new StringBuilder("select * from room");
-		select.append(" 	where r_status='Y'");
 		
-		if (rName != null) { // 객실 이름이 들어왔다면, 해당 객실 정보만 조회
-			select.append(" 	and r_Name = '");
-			select.append(rName);
-			select.append("'");
+		//파라미터가 들어왔을 때 조건문 추가 
+		if(rName!=null && rStatus !=null){
+			select.append("		where	r_name='")
+					.append(rName)
+					.append("'	and	")
+					.append("r_status='")
+					.append(rStatus)
+					.append("'");
+		}//end if
+		
+		if (rName != null && rStatus == null) { 
+			select.append("		where	r_name='")
+			.append(rName)
+			.append("'");
 		} // end if
-
-		select.append("		order by  r_name");
+		
+		if (rName == null && rStatus != null) { 
+			select.append("		where	r_status='")
+			.append(rStatus)
+			.append("'");
+		} // end if
 
 		roomList = jt.query(select.toString(), new selectRoomInfo());
 
 		// 4. Spring Container닫기
 		gjt.closeAc();
 
+		//room_no대로 정렬
+		if(roomList!=null) {
+		Collections.sort(roomList, new CompareRNoAsc());
+		}
+		
 		return roomList;
 	}// selectRoomInfo
-
+	
 	/* selectRoomInfo에서 조회된 객실 정보를 담을 inner class
 	 * @author user
 	 */
@@ -103,7 +124,17 @@ public class RoomSelect {
 		}// mapRow
 
 	}// selectRes
-
+	
+	/**
+	 * List<RoomVO>에서 room no 순서대로 정렬하는 inner Class
+	 * @author user
+	 */
+	public class CompareRNoAsc implements Comparator<RoomVO> {
+		@Override
+		public int compare(RoomVO o1, RoomVO o2) {
+			return o1.getRoomNum().compareTo(o2.getRoomNum());
+		}
+	}// class
 	
 	/**
 	 * images 테이블에서 룸별 이미지 조회

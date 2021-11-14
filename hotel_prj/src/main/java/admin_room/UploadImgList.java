@@ -52,7 +52,7 @@ public class UploadImgList {
 		} // end for
 
 		// 등록순서대로 정렬
-		Collections.sort(list, new CompareDateDesc());
+		Collections.sort(list, new CompareDateAsc());
 
 		return list;
 	}// searchImgList
@@ -62,7 +62,7 @@ public class UploadImgList {
 	 * 
 	 * @author user
 	 */
-	public class CompareDateDesc implements Comparator<UploadImgVO> {
+	public class CompareDateAsc implements Comparator<UploadImgVO> {
 		@Override
 		public int compare(UploadImgVO o1, UploadImgVO o2) {
 			return o1.getLastModified().compareTo(o2.getLastModified());

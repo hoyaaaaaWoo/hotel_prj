@@ -107,10 +107,6 @@ img {
 	margin:20px;
 }
 
-#imgTabe{
-width:600px;
-}
-
 .imgTh{
  font-size:14px;
 }
@@ -194,13 +190,6 @@ $(function(){
 	})//keyup
 	
 	
-	//메인이미지 클릭시 main hidden값 main으로 설정 (메인이미지 등록여부 체크용)
-	$("#mainUpLoad").click(function(){
-		var main = "mainY";
-		$("#mianImg").val(main);
-	})//mainUpLoad
-	
-	
 	//메인이미지 등록시 file hidden값 파일명으로 설정
 	$("#mainFile").change(function(){
 		var fileName = this.files[0].name;
@@ -246,30 +235,6 @@ $(function(){
 	})//otherFile
 	
 	
-	//메인이미지 등록 체크 (기타 비활성화)
-	$("#otherUpLoad").click(function(){
-		//기본 : 기타이미지 버튼 비활성화
-		$("#otherFile").attr("disabled",true);
-
-		var imgNum = $("#imgTable>tbody tr").length;
-		
-		//이미지 추가가 안됐을경우 alert
-		if(imgNum == 0) {
-			alert("메인이미지를 먼저 추가해주세요.");
-			return;
-		}//end if
-		
-		//이미지 추가 5장 초과할 경우 alert
-		if(imgNum > 5) {
-			alert("이미지는 5장을 초과하여 추가할 수 없습니다.");
-			return;
-		}//end if
-		
-		//메인이미지가 있다면 활성화로 변경
-		$("#otherFile").attr("disabled",false);
-	});//click 
-	
-	
 	$("#cancelBtn").click(function(){
 		alert("객실 추가를 취소합니다.");
 		location.href="http://localhost/hotel_prj/admin/admin_room_main.jsp";
@@ -278,7 +243,25 @@ $(function(){
 	//ajax 이벤트 등록
 	document.getElementById("mainFile").addEventListener("change", addImg);
 	document.getElementById("otherFile").addEventListener("change", addImg);
+	//fileUpload 개수제한 이벤트 등록
+	document.getElementById("mainUpLoad").addEventListener("click", cntImg);
+	document.getElementById("otherUpLoad").addEventListener("click", cntImg);
 })//ready
+
+//이미지 개수 검증
+function cntImg(){
+	flag = false;
+	var imgNum = $("#imgTable>tbody tr").length;
+	
+	if(imgNum > 5) {
+		alert("이미지는 5장을 초과하여 추가할 수 없습니다.");
+		flag = true;
+	}//end if
+
+	$("#mainFile").attr("disabled",flag);
+	$("#otherFile").attr("disabled",flag);
+	return;
+}//cntImg
 
 //이미지 파일(jpg,png,gif,bmp) 체크
 function expCheck(fileName){
@@ -301,6 +284,7 @@ function expCheck(fileName){
 	}//end if
 }//expCheck
 
+
 // 이미지 추가시 temp 폴더에 등록
 function addImg(){
 		var form = $("#uploadfrm")[0];
@@ -318,15 +302,14 @@ function addImg(){
 			},
 			success: function(imgJson){
 			  if(imgJson.imgData.length!=0){
-				var output="<table id='imgTable' class='table table-bordered' style='width:700px;'>";
+				var output="<table id='imgTable' class='table table-bordered' style='width:580px;'>";
 					output += "<tr>	<th class='imgTh'>번호</th> <th class='imgTh'>파일명</th>";
-					output += 	"<th class='imgTh'>파일크기</th> <th class='imgTh'>관리</th> </tr>";
+					output += 	"<th class='imgTh'>관리</th> </tr>";
 					
 				$.each(imgJson.imgData, function(idx, imgData){ //imgData가 JSONArray
 				output += "<tr class='imgTr'>" +
 						  "<td class='imgTd'>" + (idx+1) +"</td>" +
 						  "<td class='imgTd' style='font-weight:bold'>" + imgData.imgName +"</td>" +
-						  "<td class='imgTd'>" + imgData.imgLeng +"</td>" +
 						  "<td class='imgTd'>" +
 						  "<input type='button' name='delBtn' class='delBtn btn btn-default btn-sm'"+ 
 						  "style='margin:0px;font-size:13px' value='삭제' onclick='delImg(this)'/>" +
@@ -340,6 +323,7 @@ function addImg(){
 		//input file 초기화
 		resetFileTag();
 }//addimg
+
 
 //객실 이미지 삭제 시 
 function delImg(ele){
@@ -370,15 +354,14 @@ function delImg(ele){
 				output = "";
 				
 			}else if(length != 0){
-				output="<table id='imgTable' class='table table-bordered' style='width:700px;'>";
+				output="<table id='imgTable' class='table table-bordered' style='width:580px;'>";
 				output += "<tr> <th class='imgTh'>번호</th>	<th class='imgTh'>파일명</th>";
-				output += 	"<th class='imgTh'>파일크기</th> <th class='imgTh'>관리</th> </tr>";
+				output += " <th class='imgTh'>관리</th> </tr>";
 				
 				$.each(imgJson.imgData, function(idx, imgData){ //imgData가 JSONArray
 					output += "<tr class='imgTr'>" +
 					  "<td class='imgTd'>" + (idx+1) +"</td>" +
 					  "<td class='imgTd' style='font-weight:bold'>" + imgData.imgName +"</td>" +
-					  "<td class='imgTd'>" + imgData.imgLeng +"</td>" +
 					  "<td class='imgTd'>" +
 					  "<input type='button' name='delBtn' class='delBtn btn btn-default btn-sm'"+ 
 					  "style='margin:0px;font-size:13px' value='삭제' onclick='delImg(this)' />" +
@@ -399,7 +382,7 @@ function resetFileTag(){
 	$("#otherFile").val("");
 	$("#mainFile").innerHTML = "<input type='file' name ='mainFile' id='mainFile' style='display: none;'/>";
 	$("#otherFile").innerHTML = "<input type='file' name ='otherFile' id='otherFile' style='display: none;'/>";
-}//mainFile
+}//resetFileTag
 
 </script>
 </head>
@@ -408,8 +391,10 @@ function resetFileTag(){
 	    <% 
 	    //새로 진입하면 이전에 진행한 temp 사진들 삭제
 	    UploadImgList uil = new UploadImgList();
-	    if (uil.searchImgList().size() != 0) {
-	    	uil.removeAllImg();
+	    if(uil.searchImgList() != null){
+	    	if (uil.searchImgList().size() != 0) {
+	    		uil.removeAllImg();
+	   		}//end fi
 	    }//end if
 	    %>
 		<!-- header/navibar import -->
@@ -536,7 +521,7 @@ function resetFileTag(){
 		<br/>
 
 		<form action="admin_room_img_upload_process.jsp" id="uploadfrm" method="post" enctype="multipart/form-data">
-		<label>* 객실 사진</label>
+		<label>* 객실 이미지</label>
 		<span style="font-size:14px;">&nbsp;(※최대 5장까지 등록 가능합니다.)</span>
 		<label for="mainFile" class="btn btn-info btn-sm" id="mainUpLoad">메인 이미지 추가</label>
 			<input type="file" name ="mainFile" id="mainFile" style="display: none;"/>
