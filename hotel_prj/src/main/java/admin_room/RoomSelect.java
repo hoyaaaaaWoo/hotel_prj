@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -54,9 +55,10 @@ public class RoomSelect {
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		// 3. 쿼리 실행
 		StringBuilder select = new StringBuilder("select * from room");
-
+		select.append(" 	where r_status='Y'");
+		
 		if (rName != null) { // 객실 이름이 들어왔다면, 해당 객실 정보만 조회
-			select.append(" 	where r_Name = '");
+			select.append(" 	and r_Name = '");
 			select.append(rName);
 			select.append("'");
 		} // end if
@@ -139,5 +141,25 @@ public class RoomSelect {
 		
 		return imgList;
 	}// selectRoomInfo
+	
+	
+	/**
+	 * 객실 추가 시 가장 끝번호인 RoomNo를 조회하여 사용
+	 * @return
+	 */
+	public int selectMaxRoomNo() {
+		int num = 0;
+		
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+
+		String selectMaxNo = "select max(room_no) from room where r_status='Y'";
+		try {
+		num = jt.queryForObject(selectMaxNo, Integer.class);
+		}catch (EmptyResultDataAccessException erdae) {
+			num = 0;
+		}//end catch
+		return num;
+	}//selectMaxRoomNo
 	
 }// class

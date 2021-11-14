@@ -129,7 +129,8 @@ background-color: #F1F3F4;
 
 <script type="text/javascript">
 $(function(){
-	/* 객실추가 시 */
+	
+	//submit 클릭
 	$("#addBtn").click(function(){
 	 	let roomName = $("#roomName").val();
 		let price = $("#price").val();
@@ -156,10 +157,31 @@ $(function(){
 		//객실사진 추가여부 체크
 		var imgNum =$("#imgTable>tbody tr").length;
 		if(imgNum == 0) {
-			alert("객실 이미지는 1장 이상 등록되어야 합니다.")	
+			alert("객실 이미지는 1장 이상 등록되어야 합니다.");
+			return;
 		}//end if
 		
-	})//click
+		//테이블에 'main' img가 없을 경우 alert
+		var imgList = document.getElementById("imgTable");
+		var flag=false;
+		if(imgList.rows.length != 0){
+			for (var i = 1; i < imgList.rows.length; i++) {
+				var imgName = imgList.rows[i].cells[1].innerText;
+				if((imgName.indexOf("main")) != -1){ // main img가 있다면 break
+					flag=true;
+				break;
+			}//end if
+			}//end for
+		}//end if
+		
+		if(!flag){
+			alert("메인이미지는 필수입니다.");
+			return;
+		}//end if
+		
+		$("#roomAddFrm").submit();
+	})//submit
+	
 	
 	//가격 숫자형식 체크
 	$("#price").keyup(function(evt){
@@ -178,27 +200,34 @@ $(function(){
 		$("#mianImg").val(main);
 	})//mainUpLoad
 	
+	
 	//메인이미지 등록시 file hidden값 파일명으로 설정
 	$("#mainFile").change(function(){
 		var fileName = this.files[0].name;
-		$("#fileName").val(fileName);
+		$("#fileName").val(fileName); // temp 파일 업로드용
+		$("#img").val(fileName); // DB insert용
+		
+		var flag = expCheck(fileName);
+		if(!flag){
+			return;
+		}//end if
 	})//mainFile
 	
 	
 	//기타 이미지 등록시 file hidden값 초기화 (temp 폴더에 중복 등록 방지)
-	//main img가 있다면 break
+	//main img와 중복파일 및 파일 확장자 검증
 	$("#otherFile").change(function(){
 		$("#fileName").val("");
 		
 		var selectedFileName=this.files[0].name;
-
 		var imgList = document.getElementById("imgTable");
 		var flag = false;
 		for (var i = 1; i < imgList.rows.length; i++) {
+			//테이블의 파일명 추출해서 main 체크
 			var imgName = imgList.rows[i].cells[1].innerText;
 			originalFileName=imgName.substring(0,imgName.lastIndexOf("_main"))+imgName.substring(imgName.lastIndexOf("."))
 			if(originalFileName == selectedFileName){ 
-				flag=true;
+				flag = true;
 				break;
 			}//end if
 		}//end for
@@ -208,10 +237,16 @@ $(function(){
 			resetFileTag();
 			return;
 		}//end if
+		
+		//기타 이미지 확장자가 안 맞으면 return;
+		var flag = expCheck(selectedFileName);
+		if(!flag){
+			return;
+		}
 	})//otherFile
 	
 	
-	//메인이미지 등록 체크
+	//메인이미지 등록 체크 (기타 비활성화)
 	$("#otherUpLoad").click(function(){
 		//기본 : 기타이미지 버튼 비활성화
 		$("#otherFile").attr("disabled",true);
@@ -230,36 +265,41 @@ $(function(){
 			return;
 		}//end if
 		
-		//테이블에 'main' img가 없을 경우 alert
-		var imgList = document.getElementById("imgTable");
-		var flag=false;
-		for (var i = 1; i < imgList.rows.length; i++) {
-			var imgName = imgList.rows[i].cells[1].innerText;
-			if((imgName.indexOf("main")) != -1){ // main img가 있다면 break
-				flag=true;
-				break;
-			}//end if
-		}//end for
-		
-		if(!flag){
-			alert("메인이미지를 먼저 추가해주세요.");
-			return;
-		}//end if
-		
 		//메인이미지가 있다면 활성화로 변경
 		$("#otherFile").attr("disabled",false);
-	})//click 
+	});//click 
 	
 	
 	$("#cancelBtn").click(function(){
 		alert("객실 추가를 취소합니다.");
-		history.back();
+		location.href="http://localhost/hotel_prj/admin/admin_room_main.jsp";
 	});//click
 	
-	
-document.getElementById("mainFile").addEventListener("change", addImg);
-document.getElementById("otherFile").addEventListener("change", addImg);
+	//ajax 이벤트 등록
+	document.getElementById("mainFile").addEventListener("change", addImg);
+	document.getElementById("otherFile").addEventListener("change", addImg);
 })//ready
+
+//이미지 파일(jpg,png,gif,bmp) 체크
+function expCheck(fileName){
+	let blockExt = ["jpg","png","gif","bmp"];
+	let blockFlag = false;
+
+	let ext = (fileName.substring(fileName.lastIndexOf(".")+1)).toLowerCase();
+
+	for(var i = 0 ; i < blockExt.length; i++){
+		if(ext == blockExt[i]){
+			blockFlag=true;
+			break;
+		}//end if
+	}//end for
+
+	if(!blockFlag){
+		alert("업로드 가능 확장자가 아닙니다.");
+		resetFileTag();
+		return;
+	}//end if
+}//expCheck
 
 // 이미지 추가시 temp 폴더에 등록
 function addImg(){
@@ -277,6 +317,7 @@ function addImg(){
 				console.log(xhr.status + " / " + xhr.statusText)
 			},
 			success: function(imgJson){
+			  if(imgJson.imgData.length!=0){
 				var output="<table id='imgTable' class='table table-bordered' style='width:700px;'>";
 					output += "<tr>	<th class='imgTh'>번호</th> <th class='imgTh'>파일명</th>";
 					output += 	"<th class='imgTh'>파일크기</th> <th class='imgTh'>관리</th> </tr>";
@@ -293,6 +334,7 @@ function addImg(){
 				});//each
 				$("#imgDiv").html(output);
 			}//success
+			}//end if
 		})//ajax
 		
 		//input file 초기화
@@ -486,6 +528,9 @@ function resetFileTag(){
 		</tr>
 		</table>
 		</div><!-- 테이블 div -->
+		
+		<input type="hidden" name="img" id="img"/>
+ 		
 		</form> <!-- roomAddFrm  -->
 
 		<br/>
