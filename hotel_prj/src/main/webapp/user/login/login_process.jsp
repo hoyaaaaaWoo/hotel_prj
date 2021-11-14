@@ -74,7 +74,7 @@ String pass = request.getParameter("pass");
 
 //DBMS비밀번호 컬럼은 SHA 암호화된 값이므로 입력된 Plain Text를 
 //cipher Text로 변환하여 비교하는 코드를 수행해야한다.
-loginVO.setPass(DataEncrypt.messageDigest("MD5", loginVO.getPass()));
+loginVO.setPass(DataEncrypt.messageDigest("SHA-512", loginVO.getPass()));
 
 //로그인 수행
 MemberDAO mDAO=new MemberDAO();
