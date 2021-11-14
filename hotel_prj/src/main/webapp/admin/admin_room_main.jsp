@@ -246,7 +246,7 @@ function showRoomDetail(roomName){
 		
 		<label>* 사진 </label>
 		<br/>
-		<img src="http://localhost/hotel_prj/images/${rmVO.img}" name="img" class="viewImg"/>
+		<img src="http://localhost/hotel_prj/roomImages/${rmVO.img}" name="img" class="viewImg"/>
 		</c:forEach>
 		<%
 		List<OtherImgVO> imgList = room.selectOtherImg(rName);
@@ -254,7 +254,7 @@ function showRoomDetail(roomName){
 		%>
  		<c:if test="${not empty imgList}">
 		 <c:forEach var="img" items="${imgList}">
-		   <img src="http://localhost/hotel_prj/images/${img.imgSrc}" name="img" class="viewImg"/>
+		   <img src="http://localhost/hotel_prj/roomImages/${img.imgSrc}" name="img" class="viewImg"/>
 		 </c:forEach>
 		</c:if> 
 		</div> <!-- view room div  -->
