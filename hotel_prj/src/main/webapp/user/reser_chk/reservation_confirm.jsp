@@ -244,12 +244,14 @@ p { border: 1px solid #FF00FF}
   <jsp:useBean id="rVO" class="user_reservation.ReservationVO"/>  
   <!-- *써서 setter method 다 실행해서 세팅됨 -->
   <jsp:setProperty property="*" name="rVO"/>
-
-<%-- <%
+<%
+	String id = (String)session.getAttribute("id");
 	ReservationSelect rsD = new ReservationSelect();
-	List<ReservationVO> list = rsD.reserWhoChk(id);
-	pageContext.setAttribute("reserWhoChk", list);
-%> --%>
+	List<ReservationVO> list = rsD.reservationChk(id);
+	List<ReservationVO> list2 = rsD.reserWhoChk(id);
+	pageContext.setAttribute("resChk", list);
+	pageContext.setAttribute("resWho", list2);
+%>
 
 	<div class="wrap">
 
@@ -263,7 +265,6 @@ p { border: 1px solid #FF00FF}
 	
 				<form name="resChkInfo" id="resChkInfo" action="" method="post">
 					<table class="chkTab">
-					<tbody>
 						<tr>
 							<td style="width: 500px"><img
 								src="http://localhost/hotel_prj/images/01_grand01.jpg"
@@ -271,20 +272,21 @@ p { border: 1px solid #FF00FF}
 
 							<td>
 								<table id="chkSubTab">
+								<c:forEach var="resChk" items="${ resChk }">
 									<tr>
 										<td class="guide">객실</td>
-										<td class="guideTextP">그랜드 디럭스 룸</td>
+										<td class="guideTextP"><c:out value="${ resChk.r_name }"/></td>
 									</tr>
 									<tr>
 										<td class="guide">투숙 날짜</td>
-										<td class="guideTextP">2021년 11월 26일 - 2021년 11월 27일 (1박)</td>
+										<td class="guideTextP"><c:out value="${ resChk.chkin_date }"/> - <c:out value="${ resChk.chkout_date }"/> (1박)</td>
 									</tr>
 									<tr>
 										<td class="guide">인원</td>
-										<td class="guideTextP">성인2, 어린이0</td>
+										<td class="guideTextP">성인<c:out value="${ resChk.adult }"/>, 어린이<c:out value="${ resChk.child }"/></td>
 									</tr>
-					</tbody>
-					</table> <br />
+								</c:forEach>
+								</table> <br />
 
 								<table id="chkSubTab">
 									<tr>
@@ -323,35 +325,37 @@ p { border: 1px solid #FF00FF}
 				<div class="back">
 					<form name="bookerInfo" id="bookerInfo" action="" method="post">
 						<table class="backTab">
+						<c:forEach var="resWho" items="${ resWho }">
 							<tr>
 								<td class="guide">성(영문)</td>
-								<td class="guideText">Woo</td>
+								<td class="guideText"><c:out value="${ resWho.ename_lst }"/></td>
 								<td class="guide">연락처</td>
-								<td class="guideText">820144065532</td>
+								<td class="guideText"><c:out value="${ resWho.tel }"/></td>
 
 							</tr>
 							<tr>
 								<td class="guide">이름(영문)</td>
-								<td class="guideText">Jiho</td>
+								<td class="guideText"><c:out value="${ resWho.ename_fst }"/></td>
 								<td class="guide">이메일</td>
-								<td class="guideText">woojiho22@naver.com</td>
+								<td class="guideText"><c:out value="${ resWho.email }"/></td>
 								<td></td>
 								<td><button type="button" class="btn btn-primary"
 										onclick="print()">인쇄하기</button></td>
 							</tr>
 							<tr>
 								<td class="creditcard">신용카드 종류</td>
-								<td class="creditname">Master Card</td>
+								<td class="creditname"><c:out value="${ resWho.company }"/></td>
 								<td class="creditcard">신용카드번호</td>
 								<td class="creditnum">5389***************</td>
 							</tr>
 							<tr>
 								<td class="creditcard">유효기간</td>
-								<td class="creditday">03/26</td>
+								<td class="creditday"><c:out value="${ resWho.val_mm }"/>/<c:out value="${ resWho.val_yy }"/></td>
 								<td></td>
 								<td></td>
 							</tr>
 
+						</c:forEach>
 						</table>
 						<table>
 							<tr>
@@ -366,7 +370,6 @@ p { border: 1px solid #FF00FF}
 			<br /> <br /> <br />
 
 
-			<form name="cancel" id="cancel" action="" method="post">
 				<div>
 					<table class="total">
 						<td>상기 홈페이지 요금은 정상가에서 할인된 금액으로 중복할인은 불가능합니다. 예약 취소 및 변경은 체크인
@@ -377,6 +380,7 @@ p { border: 1px solid #FF00FF}
 					</table>
 				</div>
 				<br /> <br /> <br />
+			<form name="cancel" id="cancel" action="" method="post">
 				<div style="width: 1000px; text-align: center;">
 					<button type="button" class="btn btn-default"
 						style="width: 400px; height: 40px;" onclick="memexit()">예약취소</button>

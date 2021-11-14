@@ -108,7 +108,7 @@ public class ReservationSelect {
 				ReservationVO rVO= new ReservationVO();
 				rVO.setEname_lst(rs.getString("ename_lst"));
 				rVO.setEname_fst(rs.getString("ename_fst"));
-				rVO.setCompany(rs.getString("id"));
+				rVO.setCompany(rs.getString("company"));
 				rVO.setVal_mm(rs.getInt("val_mm"));
 				rVO.setVal_yy(rs.getInt("val_yy"));
 				rVO.setTel(rs.getString("tel"));
