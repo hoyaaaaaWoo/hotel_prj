@@ -46,18 +46,23 @@ public class ReservationSelect {
 	}//RowMapper
 
 	
+	/**
+	 * 예약정보조회
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
 	public List<ReservationVO> reservationChk(String res_no) throws SQLException {
 		List<ReservationVO> list = null;
-		
 		//1. 스프링 컨테이너 생성
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();  
 		//2. JdbcTemplate 얻기
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		//3. 쿼리문 수행
 		StringBuilder chkRes = new StringBuilder();
-		chkRes.append("	select r_name, chkin_date, chkout_date, adult, child	")
+		chkRes.append("	select r.r_name, chkin_date, chkout_date, adult, child	")
 		.append("	from room r, reservation res	")
-		.append("	where r.room_no=res.room_no(+) and res_no=?	");	
+		.append("	where r.room_no=res.room_no(+) and res.res_no=?	");	
 		
 		list=jt.query(chkRes.toString(),new chkRes(), new Object[] { res_no });
 		
@@ -84,7 +89,13 @@ public class ReservationSelect {
 	 
 	
 	
-	 public List<ReservationVO> reserWhoChk (String id) throws SQLException {
+	 /**
+	  * 예약자정보조회
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<ReservationVO> reserWhoChk (String id) throws SQLException {
 		List<ReservationVO> list = null;
 		
 		//1. 스프링 컨테이너 생성
@@ -122,7 +133,17 @@ public class ReservationSelect {
 			}
 		}
 	 
-	 public String pay(ReservationVO rVO) throws DataAccessException {
+	 
+	 
+	 
+	 
+	 /**
+	 * 금액
+	 * @param rVO
+	 * @return
+	 * @throws DataAccessException
+	 */
+	public String pay(ReservationVO rVO) throws DataAccessException {
 			String price="";
 			
 			//1. 스프링 컨테이너 생성

@@ -19,7 +19,9 @@
 	<style type = "text/css">
 
 	#table {width: 700px; height: 90px; border-align: center; margin: 0px auto;}
-		
+	
+	a {text-decoration: none;}
+	a:hover {text-decoration: none;}
 	</style>
 
 
@@ -46,6 +48,8 @@ function main(){
 	alert("메인 페이지로 이동합니다.");
 	location.href="http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp"
 }
+	
+
 </script>
 </head>
 <!-- NAVBAR
@@ -63,6 +67,9 @@ function main(){
 	List<ReservationVO> list = rsD.reserInq(id);
 	pageContext.setAttribute("reserInq", list);
 %>
+<form action="reservation_confirm.jsp" id="res_noFrm" name="res_noFrm" method="post">
+<input type="hidden" name="res_no" id="res_no" />
+</form>
 
 <div class="wrapper">
 <jsp:include page="../../main/main_header_nav.jsp"/>	
@@ -79,14 +86,14 @@ function main(){
 <c:if test="${ empty reserInq }">
 예약이 존재하지 않습니다.
 </c:if>
-	<table id="table">
+	<table id="table" class="table">
 	<tbody>
 		<c:forEach var="res_inq" items="${ reserInq }">
 				<tr>
-					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp" ><c:out value="${ res_inq.res_no }"/></a></td>
-					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp" >Hotel Ritz Seoul</a></td>
-					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp" ><c:out value="${ res_inq.chkin_date }"/>~<c:out value="${ res_inq.chkout_date }"/></a></td>
-					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp">예약완료</a></td>
+					<td><a style="color:#000000" href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp?res_no=${ res_inq.res_no }" ><c:out value="${ res_inq.res_no }"/></a></td>
+					<td><a style="color:#000000" href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp?res_no=${ res_inq.res_no }" >Hotel Ritz Seoul</a></td>
+					<td><a style="color:#000000" href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp?res_no=${ res_inq.res_no }" ><c:out value="${ res_inq.chkin_date }"/>~<c:out value="${ res_inq.chkout_date }"/></a></td>
+					<td>예약완료</td>
 				</tr>
 		</c:forEach>
 	</tbody>
@@ -101,9 +108,9 @@ function main(){
   <br/><br/><br/><br/><br/><br/>
 <div class="container marketing">
  <!-- FOOTER -->
-	<jsp:include page="../../main/main_footer.jsp"/>
 	
     </div><!-- /.container -->
+	<jsp:include page="../../main/main_footer.jsp"/>
 
 </div>
     <!-- Bootstrap core JavaScript

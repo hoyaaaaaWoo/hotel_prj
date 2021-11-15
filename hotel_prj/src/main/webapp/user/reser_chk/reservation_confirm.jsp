@@ -181,14 +181,14 @@ p { border: 1px solid #FF00FF}
 		let result = confirm('예약을 취소하시겠습니까?');
 		if (result) {
 			alert("예약이 취소되었습니다");
-			location.href = "http://localhost/jsp_prj/project02_team03/room/reservation_inq.jsp"
+			location.href = "http://localhost/hotel_prj/user/reser_chk/reservation_inq.jsp"
 		} else {
 		}
 	}
 
 	function main() {
 		alert("메인 페이지로 이동합니다.");
-		location.href = "http://localhost/jsp_prj/project02_team03/main/Hotel_Ritz_Seoul.jsp"
+		location.href = "http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp"
 	}
 	function print() {
 		alert("인쇄를 시작하겠습니다..");
@@ -246,25 +246,25 @@ p { border: 1px solid #FF00FF}
   <jsp:useBean id="rVO" class="user_reservation.ReservationVO"/>  
   <!-- *써서 setter method 다 실행해서 세팅됨 -->
   <jsp:setProperty property="*" name="rVO"/>
-<%-- <%
+<%
 	String id = (String)session.getAttribute("id");
+	String paramResNo = request.getParameter("res_no");
 
 	ReservationSelect rsD = new ReservationSelect();
-	List<ReservationVO> list = rsD.reservationChk(id);
-	String price = rsD.pay(rVO);
-	pageContext.setAttribute("resChk", list);
-%> --%>
-
-<input type="hidden" name="res_no" value="${ res_no }">
+	
+	/* List<ReservationVO> list = rsD.reservationChk(paramResNo);
+	pageContext.setAttribute("resChk", list); */
+%>
 
 	<div class="wrap">
+	
 
 		<jsp:include page="../../main/main_header_nav.jsp" />
 		<!--================================================== -->
 		<div class="resChk">
 		<br><br><br>	
 			<div class="chkDiv">
-				<div id="resConf">예약 정보 조회</div>
+				<div id="resConf">예약 정보 조회</div><%= paramResNo %>
 	
 				<form name="resChkInfo" id="resChkInfo" action="" method="post">
 					<table class="chkTab">
