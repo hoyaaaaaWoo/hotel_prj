@@ -115,7 +115,7 @@ position: absolute; top: 80px; left: 1200px;
 				<span id="mainMenu" style="text-decoration: none" onclick="location.href='http://localhost/hotel_prj/admin/admin_member_select.jsp'">회원조회</span> &nbsp;
 				<span id="mainMenu" onclick="location.href='http://localhost/hotel_prj/admin/admin_member_delete.jsp'">탈퇴회원</span>
 				<form name="frm_search" action="http://localhost/hotel_prj/admin/admin_member_specific_delete.jsp" method="post">
-				<input type="text" name="search" placeholder="이름조회" id="id_search" class="form-control" maxlength="10"/>
+				<input type="text" name="search" placeholder="회원조회" id="id_search" class="form-control" maxlength="10"/>
 				<input type="submit" value="검색" name="search" class="btn btn-default" id="search"/>
 				</form>
 			</div>
@@ -128,10 +128,10 @@ position: absolute; top: 80px; left: 1200px;
 					<c:catch var="e">
 						<%	
 						request.setCharacterEncoding("utf-8");
-						String kname = request.getParameter("search");
+						String id = request.getParameter("search");
 						DataEncrypt de = new DataEncrypt("AbcdEfgHiJkLmnOpQ");
 						Admin_Decription ad = new Admin_Decription();
-						pageContext.setAttribute("kname",ad.DecryptDeleteSearchData(de.encryption(kname)));
+						pageContext.setAttribute("kname",ad.DecryptDeleteSearchData(id));
 						%>
 						<tr>
 							<td><c:out value="${kname.id }" /></td>

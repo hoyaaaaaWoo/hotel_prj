@@ -45,10 +45,10 @@ public class Admin_Decription {
 	 * @throws GeneralSecurityException
 	 * @throws SQLException
 	 */
-	public MemberVO DecryptSpecificMemberData(String kname) throws UnsupportedEncodingException,GeneralSecurityException ,SQLException{
+	public MemberVO DecryptSpecificMemberData(String id) throws UnsupportedEncodingException,GeneralSecurityException ,SQLException{
 		MemberVO mVO = null;
 		MemberSelect ms = new MemberSelect();
-		mVO= ms.selectSpecificMember(kname);
+		mVO= ms.selectSpecificMember(id);
 		DataDecrypt dd = new DataDecrypt("AbcdEfgHiJkLmnOpQ");
 		  mVO.setId(mVO.getId());
 		  mVO.setKname( dd.decryption(mVO.getKname()));
@@ -89,10 +89,10 @@ public class Admin_Decription {
 	 * @throws UnsupportedEncodingException
 	 * @throws GeneralSecurityException
 	 */
-	public MemberVO DecryptDeleteSearchData(String kname) throws SQLException,UnsupportedEncodingException,GeneralSecurityException{
+	public MemberVO DecryptDeleteSearchData(String id) throws SQLException,UnsupportedEncodingException,GeneralSecurityException{
 	MemberVO mVO = null;
 	MemberSelect ms = new MemberSelect();
-	mVO=ms.selectSpecificMemberDelete(kname);
+	mVO=ms.selectSpecificMemberDelete(id);
 	DataDecrypt dd = new DataDecrypt("AbcdEfgHiJkLmnOpQ");
 	mVO.setId(mVO.getId());
 	mVO.setKname(dd.decryption(mVO.getKname()));

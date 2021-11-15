@@ -132,7 +132,7 @@ $(function(){
 			<div id="naviBar2">
 				<span id="mainMenu" onclick="location.href='#void'">특정회원조회</span>
 				<form name="frm_search" action="http://localhost/hotel_prj/admin/admin_member_specific_select.jsp" method="post">
-				<input type="text" name="search" placeholder="이름조회" id="id_search" class="form-control" maxlength="10"/>
+				<input type="text" name="search" placeholder="회원조회" id="id_search" class="form-control" maxlength="10"/>
 				<input type="submit" value="검색" name="search" class="btn btn-default" id="search" />
 				</form>		
 			</div>
@@ -151,11 +151,12 @@ $(function(){
 					<c:catch var="e">
 					<%
 					request.setCharacterEncoding("utf-8");
-					String kname=request.getParameter("search");
+					String id=request.getParameter("search");
 					DataEncrypt de = new DataEncrypt("AbcdEfgHiJkLmnOpQ");
 					Admin_Decription ad = new Admin_Decription();
-					pageContext.setAttribute("kname",ad.DecryptSpecificMemberData(de.encryption(kname)));
+					pageContext.setAttribute("kname",ad.DecryptSpecificMemberData(id));
 					%>
+				
 				<tr>
 					<td><c:out value="${kname.id}"/></td>
 					<td><c:out value="${kname.kname}"/></td>
@@ -166,7 +167,7 @@ $(function(){
 					<td><input type="button" id="delBtn" name="delBtn" class="delBtn btn btn-danger" value="회원삭제"></td>
 				</tr>
 					</c:catch>
-					
+
 				<c:if test="${ not empty e }">
 				<tr>
 				<td colspan="7">

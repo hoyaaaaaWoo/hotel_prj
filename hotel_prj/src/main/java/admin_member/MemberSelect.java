@@ -81,16 +81,16 @@ public class MemberSelect {
 	 * @throws IncorrectResultSizeDataAccessException
 	 * @throws BadSqlGrammarException
 	 */
-	public MemberVO selectSpecificMember(String kname) throws SQLException {// mapRow method throws
+	public MemberVO selectSpecificMember(String id) throws SQLException {// mapRow method throws
 		MemberVO mVO = null;
 		// 1. Spring Container 얻기
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
 		// 2 JdbcTemplate 얻기
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		// 3. 쿼리 실행
-		String select = "select id,kname,birth_year,tel,email,ename_fst,ename_lst from member where kname=?";
+		String select = "select id,kname,birth_year,tel,email,ename_fst,ename_lst from member where id=?";
 		// interface를 anonymous inner class로 생성하여 그안에서 조회결과를 VO에 할당.
-		mVO = jt.queryForObject(select, new Object[] { kname }, new RowMapper<MemberVO>() {
+		mVO = jt.queryForObject(select, new Object[] { id }, new RowMapper<MemberVO>() {
 			public MemberVO mapRow(ResultSet rs, int rowNum) throws SQLException {
 				MemberVO mVO = new MemberVO();
 				// ResultSet을 사용하여 조회결과를 VO에 저장
@@ -111,8 +111,6 @@ public class MemberSelect {
 	}
 	
 	
-	
-	
 	/**
 	 * 이름을 조회하여 탈퇴회원 조회
 	 * 
@@ -122,7 +120,7 @@ public class MemberSelect {
 	 * @throws IncorrectResultSizeDataAccessException
 	 * @throws BadSqlGrammarException
 	 */
-	public MemberVO selectSpecificMemberDelete(String kname) throws SQLException {
+	public MemberVO selectSpecificMemberDelete(String id) throws SQLException {
 		MemberVO mVO = null;
 
 		// 1. Spring Container 얻기
@@ -130,9 +128,9 @@ public class MemberSelect {
 		// 2 JdbcTemplate 얻기
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		// 3. 쿼리 실행
-		String select = "select id,kname,out_date from member where kname=?";
+		String select = "select id,kname,out_date from member where id=?";
 		// interface를 anonymous inner class로 생성하여 그안에서 조회결과를 VO에 할당.
-		mVO = jt.queryForObject(select, new Object[] { kname }, new RowMapper<MemberVO>() {
+		mVO = jt.queryForObject(select, new Object[] { id }, new RowMapper<MemberVO>() {
 			public MemberVO mapRow(ResultSet rs, int rowNum) throws SQLException {
 				MemberVO mVO = new MemberVO();
 				// ResultSet을 사용하여 조회결과를 VO에 저장
