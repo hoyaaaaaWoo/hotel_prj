@@ -238,25 +238,28 @@ p { border: 1px solid #FF00FF}
 </script>
 </head>
 <body>
+<input type="hidden" value="${ res_no }"/>
+
 <%request.setCharacterEncoding("UTF-8"); %>
   
   <!-- 이전 페이지에서 날아온 웹파라미터 이 페이지에서 받아서 설정하기 -->
   <jsp:useBean id="rVO" class="user_reservation.ReservationVO"/>  
   <!-- *써서 setter method 다 실행해서 세팅됨 -->
   <jsp:setProperty property="*" name="rVO"/>
-<%
+<%-- <%
 	String id = (String)session.getAttribute("id");
+
 	ReservationSelect rsD = new ReservationSelect();
 	List<ReservationVO> list = rsD.reservationChk(id);
-	List<ReservationVO> list2 = rsD.reserWhoChk(id);
+	String price = rsD.pay(rVO);
 	pageContext.setAttribute("resChk", list);
-	pageContext.setAttribute("resWho", list2);
-%>
+%> --%>
+
+<input type="hidden" name="res_no" value="${ res_no }">
 
 	<div class="wrap">
 
 		<jsp:include page="../../main/main_header_nav.jsp" />
-		<input type="hidden" value="${ id }">
 		<!--================================================== -->
 		<div class="resChk">
 		<br><br><br>	
@@ -291,7 +294,7 @@ p { border: 1px solid #FF00FF}
 								<table id="chkSubTab">
 									<tr>
 										<td class="guide">객실요금</td>
-										<td class="guideTextPR">407,000 KRW</td>
+										<td class="guideTextPR"><c:out value="${ price }"/> KRW</td>
 									</tr>
 									<tr>
 										<td class="guide">세금 및 봉사료</td>

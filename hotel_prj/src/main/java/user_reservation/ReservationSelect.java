@@ -4,9 +4,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import admin_member.MemberVO;
 import team3_dao.GetJdbcTemplate;
 
 public class ReservationSelect {
@@ -35,7 +37,7 @@ public class ReservationSelect {
 	public class chkInq implements RowMapper<ReservationVO>{
 		public ReservationVO mapRow(ResultSet rs, int rowCnt) throws SQLException {
 			ReservationVO rVO= new ReservationVO();
-			rVO.setR_name(rs.getString("res_no"));
+			rVO.setRes_no(rs.getString("res_no"));
 			rVO.setChkin_date(rs.getString("chkin_date"));
 			rVO.setChkout_date(rs.getString("chkout_date"));
 			
@@ -44,7 +46,7 @@ public class ReservationSelect {
 	}//RowMapper
 
 	
-	public List<ReservationVO> reservationChk(String id) throws SQLException {
+	public List<ReservationVO> reservationChk(String res_no) throws SQLException {
 		List<ReservationVO> list = null;
 		
 		//1. 스프링 컨테이너 생성
@@ -53,11 +55,11 @@ public class ReservationSelect {
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		//3. 쿼리문 수행
 		StringBuilder chkRes = new StringBuilder();
-		chkRes.append("	select r.r_name, chkin_date, chkout_date, adult, child	")
+		chkRes.append("	select r_name, chkin_date, chkout_date, adult, child	")
 		.append("	from room r, reservation res	")
-		.append("	where r.room_no=res.room_no(+) and res.id=?	");	
+		.append("	where r.room_no=res.room_no(+) and res_no=?	");	
 		
-		list=jt.query(chkRes.toString(),new chkRes(), new Object[] { id });
+		list=jt.query(chkRes.toString(),new chkRes(), new Object[] { res_no });
 		
 		//4. 스프링컨테이너 닫기
 		gjt.closeAc();
@@ -119,6 +121,24 @@ public class ReservationSelect {
 				
 			}
 		}
+	 
+	 public String pay(ReservationVO rVO) throws DataAccessException {
+			String price="";
+			
+			//1. 스프링 컨테이너 생성
+			GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();  
+			//2. JdbcTemplate 얻기
+			JdbcTemplate jt = gjt.getJdbcTemplate();
+			//3. 쿼리문 수행
+			String selectPrice = "select price from room where r_name=?";
+			price = jt.queryForObject(selectPrice, new Object[] {rVO.getR_name()}, String.class);
+			//4. 스프링컨테이너 닫기
+			gjt.closeAc();
+			
+			return price;		
+		}
+	 
+	 
 }
 		
 		

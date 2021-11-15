@@ -63,8 +63,7 @@ function main(){
 	List<ReservationVO> list = rsD.reserInq(id);
 	pageContext.setAttribute("reserInq", list);
 %>
-  
-  
+
 <div class="wrapper">
 <jsp:include page="../../main/main_header_nav.jsp"/>	
 
@@ -72,7 +71,6 @@ function main(){
 <h4>&nbsp;&nbsp;홈 / 마이페이지</h4>
 </div>
 <br/><br/><br/>
-<input type="hidden" value="${ id }">
 <div style = "width:800px; text-align: center; margin:0px auto;">
 <h2>예약조회</h2>
 </div>
@@ -85,7 +83,7 @@ function main(){
 	<tbody>
 		<c:forEach var="res_inq" items="${ reserInq }">
 				<tr>
-					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp" ><c:out value="${ res_inq.res_no }"/> </a></td>
+					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp" ><c:out value="${ res_inq.res_no }"/></a></td>
 					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp" >Hotel Ritz Seoul</a></td>
 					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp" ><c:out value="${ res_inq.chkin_date }"/>~<c:out value="${ res_inq.chkout_date }"/></a></td>
 					<td><a href = "http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp">예약완료</a></td>
@@ -98,7 +96,6 @@ function main(){
 <div style = "width:450px; text-align: center; margin:0px auto;">
 <button type="button" class="btn btn-default" name="reservation_inq" onclick="main()">홈으로</button>
 </div>
-
 
 
   <br/><br/><br/><br/><br/><br/>
