@@ -24,7 +24,7 @@
 	href="http://localhost/hotel_prj/main/main.css">
 
 <style type="text/css">
-
+.hr1 {border-bottom: 1px solid #d3d3d3; }
 /*
 div { border: 1px solid #FF0000}
 td { border: 1px solid #FFFF00}
@@ -52,16 +52,30 @@ tr { border: 1px solid #FFFF00}
 <link rel="stylesheet" href="http://localhost/hotel_prj/common/zebra_datepicker/css/default/zebra_datepicker.min.css">
 
 <script type="text/javascript">
-	
+
+<%--  function loginChk(){
+	var userId = '<%=(String)session.getAttribute("id") %>';
+	if(userId == "null"){
+		alert("예약은 로그인 후 가능합니다. ")
+		location.href = "http://localhost/hotel_prj/user/login/login.jsp";
+		return;
+	}//endif
+}//loginChk --%>
+
 $(function(){
 	$('#datepicker-range-start').Zebra_DatePicker({
 	    direction: true,
-	    pair: $('#datepicker-range-end'),
+	    showDropdowns : true,
+	    default_position: 'below',
+ pair: $('#datepicker-range-end'),
+
 	    format: 'Y-m-d'
 	});
 	 
 	$('#datepicker-range-end').Zebra_DatePicker({
 	    direction: 1,
+	    showDropdowns : true,
+	    default_position: 'below',
 	    format: 'Y-m-d'
 	});
 	
@@ -72,6 +86,14 @@ $(function(){
 		 let adult = $("#adult").val(); 
 		 let child = $("#child").val();
 		 
+		 var userId = '<%=(String)session.getAttribute("id") %>';
+			if(userId == "null"){
+				alert("예약은 로그인 후 가능합니다. ")
+				location.href = "http://localhost/hotel_prj/user/login/login.jsp";
+				return;
+			}//endif
+
+		 
 		  if( (Number(adult) + Number(child)) > 4 ){
 			 alert("어린이를 동반한 수용 가능한 최대 인원수는 4명입니다. ");
 			 return;
@@ -81,6 +103,11 @@ $(function(){
 			 alert("원하시는 예약 날짜를 선택해주세요.");
 			 return;
 		 }//end if   
+		 
+		 if ( sd == ed ){
+			 alert("체크인 날짜와 체크아웃 날짜는 달라야 합니다.");
+			 return;
+		 }//end if
 		 
 		//alert(sd +"  / " +ed + " / " + " / " + Number(adult) + " / " + Number(child) + " / " + (Number(adult) + Number(child)));
 	 
@@ -125,6 +152,15 @@ $(function(){
 		 
 	});//click
 	
+	$("#roomIntroBtn").click(function(){
+		location.href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp";
+	})//table click
+	
+	$("#roomReserBtn").click(function(){
+		location.href="http://localhost/hotel_prj/user/reser_room/room_date.jsp";
+	})//table click
+	
+	
 });//ready
 
 </script>
@@ -139,64 +175,79 @@ $(function(){
 		<c:import url="http://localhost/hotel_prj/main/main_header_nav.jsp" />
 	<div class="wrapper" style = "text-align: center">
 		<!-- header/navibar import -->
-		<br />
-		<br />
-		<br />
-		<br />
+		<br/><br/><br/><br/><br/><br/>
+		
+		<div style="width: 1130px; text-align: center; margin: 0px auto">
+ 		 <input type="button" id = "roomIntroBtn" value="객실소개" class="btn btn-default" style="width: 100px;">	
+  			&nbsp;	&nbsp; 	&nbsp;
+ 		 <input type="button" id = "roomReserBtn" value="객실예약" class="btn btn-default" style="width: 100px;" >
+ 		 <br/><br/>
+  		<hr class = "hr1">
+  		</div><br/>
+  		
+		<br/><br/><br/>
 		
 		<form name = "dateFrm" id = "dateFrm" method = "get" action = "room_reserve.jsp">
-		<div>
-		<table style = "width: 500px;  margin: 0px auto">
-		<tr>
-		<td>
-		<label>성인 인원수</label>
-		</td>
-		<td>
-		<input type = "number" id = "adult" name = "adult" min = "1" max = "4"/>
-		</td>
-		<td>
-		<label>어린이 인원수</label>
-		</td>
-		<td>
-		<input type = "number" id = "child" name = "child" min = "0" max = "3"/>
-		</td>
-		</tr>
-		</table><br/>
+		<div style = "width: 800px; margin: 0px auto">
 		<div style = "width: 500px;  margin: 0px auto">
+		<strong>원하시는 날짜와 인원을 선택해주세요.</strong> <br/>
 		저희 리츠호텔은 수용 가능한 최대 인원은 성인 4인입니다.<br/>
 		어린이가 포함된 예약은 성인 1인 동반 필수입니다.  
-		</div>
-		<br/><br/><br/>
+		</div><br/><br/>
+		
+		<table style = " margin: 0px auto">
+		<tr >
+			<td  style = "width: 350px;">
+			<label>성인 인원수</label>
+			</td>
+			<td  style = "width: 350px;">
+			<label>어린이 인원수</label>
+			</td>
+		<tr>
+			<td>
+		<input type = "number" id = "adult" name = "adult" min = "1" max = "4"/>
+			</td>
+			<td>
+		<input type = "number" id = "child" name = "child" min = "0" max = "3"/>
+			</td>
+		</tr>
+		
+		</table><br/>
+		
+		<br/>
+		<hr class = "hr1">
+		<br/>
 		</div>
 		
-		<div style="width: 700px; margin: 0px auto">
-		<table style = "width: 700px;">
+		
+		<table style=" margin: 0px auto" >
 		<tr >
-			<td >
+			<td style = "width: 300px">
 			<label>체크인 날짜</label><br/> 
 			<span class="Zebra_DatePicker_Icon_Wrapper"
-				style=" width: 50px;"> <input
+				style=" width: 300px;"> <input
 				id="datepicker-range-start" type="text" class="form-control"
 				data-zdp_readonly_element="false"
-				style="position: relative; float: none; inset: auto; margin: 0px; padding-right: 10px;"></span>
+				style="position: relative; float: none; inset: auto; margin: 0px;"></span>
 			</td>
-			<td style = "width: 50px"></td>
-			<td>
+			
+			<td style = "width: 80px"></td>
+			
+			<td  style = "width: 300px">
 			<label>체크아웃 날짜</label><br/>
 			<span class="Zebra_DatePicker_Icon_Wrapper"
-				style=" width: 50px;"> <input
+				style=" width: 300px;"> <input
 				id="datepicker-range-end" type="text" class="form-control"
 				data-zdp_readonly_element="false"
-				style="position: relative; float: none; inset: auto; margin: 0px; padding-right: 10px;"></span>
+				style="position: relative; float: none; inset: auto; margin: 0px; "></span>
 			</td>
-			<td>
-			</td>
+
 			</tr>
 			</table>
-		</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-			<input type="button" class = "btn btn-default btn-lg"; value="조회" id="btn" />
+			<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+			<input type="button" class = "btn btn-default btn-lg" value="조회" id="btn" />
 			</form>
-		 <div id="view" style="clear: both"></div> 
+<!--  -->
 
 
 

@@ -81,7 +81,7 @@ $(function(){
 	})//table click
 	
 	$("#roomReserBtn").click(function(){
-		location.href="http://localhost/jsp_prj/project02_team03/room_reserve.jsp";
+		location.href="http://localhost/hotel_prj/user/reser_room/room_date.jsp";
 	})//table click
 	
 }); //ready
@@ -93,18 +93,18 @@ $(function(){
 <!-- NAVBAR
 ================================================== -->
 <body>
-	<div class="wrapper" style = "height: 9000px">
+	<div class="wrapper">
 		<!-- header/navibar import -->
 		<c:import url="http://localhost/hotel_prj/main/main_header_nav.jsp" />
 		
-		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<br/><br/><br/><br/><br/><br/>
 		
-		<div style="width: 1130px; text-align: center;">
+		<div style="width: 1130px; text-align: center; margin: 0px auto">
  		 <input type="button" id = "roomIntroBtn" value="객실소개" class="btn btn-default" style="width: 100px;">	
   			&nbsp;	&nbsp; 	&nbsp;
  		 <input type="button" id = "roomReserBtn" value="객실예약" class="btn btn-default" style="width: 100px;" >
-  		</div><br/>
   		<hr class = "hr1">
+  		</div><br/>
 		<br/><br/><br/>
 		
 		<span id = "grandRoom"></span><br/><br/>

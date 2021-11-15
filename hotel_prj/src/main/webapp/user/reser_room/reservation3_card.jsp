@@ -1,3 +1,9 @@
+<%@page import="uesr_member.MemberVO"%>
+<%@page import="uesr_member.MemberSelect"%>
+<%@page import="java.text.DateFormat"%>
+
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="user_room.RoomVO"%>
 <%@page import="user_room.RoomSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -249,8 +255,28 @@ p { border: 1px solid #FF00FF}
 <script type="text/javascript">
 $(function() {
 	$("#completeBtn").click(function() {
-
-		("#cardFrm").submit();
+		
+		if ($("input:checkbox[name=CHECK_YN]").is(":checked") == true){
+			$("#saveYN").val("Y");
+			
+		}else{
+			$("#saveYN").val("N");
+		}//end else
+		
+		if ($("input:checkbox[name=ccAgree]").is(":checked") == true){
+			$("#ccYN").val("Y");
+		}else{
+			$("#ccYN").val("N");
+		}//end else
+		
+		if ($("input:checkbox[name=piAgree]").is(":checked") == true){
+			$("#piYN").val("Y");
+		}else{
+			$("#piYN").val("N");
+		}//end else
+		
+		 //alert($("#saveYN").val());
+		("#FFrm").submit();
 		
 	})//click
 }); //ready
@@ -260,6 +286,7 @@ function chkCard(){
 	let card_no = $("#card_no").val();
 	let val_MM = $("#val_MM").val();
 	let val_YY = $("#val_YY").val();
+	let cardCompany = $("#cardCompany".val();
 	
 	
 	//신용카드 정보 유효성 검사
@@ -302,6 +329,11 @@ function chkCard(){
 			alert(val_YY)
 		}*/
 		
+/* 	if( ( cardCompany == "none"){
+		alert("카드 종류를 선택해주세요.");
+	return;
+	}//end if */
+		
 	/*
 	//취소규정 체크 여부 (필수)
 
@@ -318,6 +350,8 @@ function chkCard(){
 	/*
 }//chkCard*/
 
+
+
 </script>
 
 </head>
@@ -328,14 +362,38 @@ function chkCard(){
 
 
 <%
-	String paramRoomNo = request.getParameter("room_no");
-	int room_no = Integer.parseInt( paramRoomNo );
-
+	String paramSd = request.getParameter("sd");
+	String paramEd = request.getParameter("ed");
+	String paramAdult = request.getParameter("adult");
+	String paramChild = request.getParameter("child");	
 	String addReq = request.getParameter("addReq");
+	String paramRoomNo = request.getParameter("room_no");
+	String DiffDays = request.getParameter("diffDays");
+	int room_no = Integer.parseInt( paramRoomNo );
+	int diffDays = Integer.parseInt( DiffDays );
+
 	
+	// 체크인월일 구하기 (res_no에 사용됨)
+	String year = paramSd.substring(0, 4);
+	String month = paramSd.substring(5,7);
+	String day = paramSd.substring(8,10);
+	
+	
+	// 룸넘버 0으로 두자리 만들기
+	String zeroRoomNo = String.format("%02d", room_no);
+	String zeroDiffDays = String.format("%03d", diffDays);
+	
+	//예약번호 생성
+	//String strResNo = year + month + day + "-" + zeroDiffDays + "R" + zeroRoomNo;
+	String strResNo = month + day + "R" + zeroRoomNo;
 	
 	RoomSelect rs = new RoomSelect();
 	RoomVO rv = rs.selectRoomInfo(room_no);  
+	
+	String id = (String)session.getAttribute("id");
+	
+	MemberSelect ms = new MemberSelect();
+	MemberVO mv = ms.selectMemInfo(id);
 %>
 	<div class="wrapper" style="width: 1130px">
 		<!-- header/navibar import -->
@@ -347,6 +405,8 @@ function chkCard(){
 		<!--================================================== -->
 
 		<div class="resChk">
+		<div>예약번호 : <%= strResNo%> %>/<%=zeroRoomNo%> %> 월: <%=month%> / 일 : <%= day%> <%=addReq %><%=id%><%=paramSd %>/<%=paramEd %> / <%=diffDays %>박/<%=paramAdult %>/<%=paramChild %>/<%= paramRoomNo%>///id:<%=(String)session.getAttribute("id") %></div>
+		
 			<div class="chkDiv">
 				<table class="chkTab">
 					<tr>
@@ -362,32 +422,43 @@ function chkCard(){
 								</tr>
 								<tr>
 									<td class="guide">투숙 날짜</td>
-									<td class="guideTextP">2021년 11월 26일 - 2021년 11월 27일 (1박)</td>
+									<td class="guideTextP"><%=paramSd %> - <%=paramEd %> (<%=diffDays %>박)</td>
 								</tr>
 								<tr>
 									<td class="guide">인원</td>
-									<td class="guideTextP"></td>
+									<td class="guideTextP">성인 : <%=paramAdult %>명 어린이 : <%=paramChild %>명</td>
 								</tr>
 							</table> <br />
 
 							<table id="chkSubTab">
 							<%
-				int price = rv.getPrice();
-				pageContext.setAttribute("price", price);
-				
-				int tax = (int)(rv.getPrice()*0.21);
-				pageContext.setAttribute("tax", tax);
-				
-				int totalP = (int)(rv.getPrice()+tax);
-				pageContext.setAttribute("totalP", totalP);
-				%>
+								int price = rv.getPrice();
+								pageContext.setAttribute("price", price);
+								
+								int tax = (int)(rv.getPrice()*0.21);
+								pageContext.setAttribute("tax", tax);
+								
+								int totalP = (int)(rv.getPrice()+tax);
+								pageContext.setAttribute("totalP", totalP);
+								
+
+								int daysPrice = price*(int)diffDays;
+								pageContext.setAttribute("daysP", daysPrice);
+
+								int daysTax = tax*(int)diffDays;
+								pageContext.setAttribute("daysTax", daysTax);
+								
+								int daysTotal = (daysPrice + daysTax);
+								pageContext.setAttribute("daysTotal", daysTotal);
+								
+								%>
 								<tr>
 									<td class="guide">객실요금</td>
-									<td class="guideTextPR"><fmt:formatNumber pattern = "#,###,###" value = "${ price }"/> KRW</td>
+									<td class="guideTextPR"><fmt:formatNumber pattern = "#,###,###" value = "${ daysP }"/> KRW</td>
 								</tr>
 								<tr>
 									<td class="guide">세금 및 봉사료</td>
-									<td class="guideTextPR"><fmt:formatNumber pattern = "#,###,###" value = "${ tax }"/> KRW</td>
+									<td class="guideTextPR"><fmt:formatNumber pattern = "#,###,###" value = "${ daysTax }"/> KRW</td>
 								</tr>
 							</table> <br /> <span class="guide">요금정책</span><br /> <span
 							class="guideText"> ㆍ 상기 요금에 세금 및 봉사료가 각 10%가 가산됩니다. (총
@@ -402,7 +473,7 @@ function chkCard(){
 					<tr>
 						<td></td>
 						<td>총 요금</td>
-						<td><fmt:formatNumber pattern = "#,###,###" value = "${ totalP }"/> KRW</td>
+						<td><fmt:formatNumber pattern = "#,###,###" value = "${ daysTotal }"/> KRW</td>
 					</tr>
 				</table>
 				<hr class="hr1">
@@ -417,27 +488,27 @@ function chkCard(){
 					<table class="backTab">
 						<tr>
 							<td class="guide">성(영문)</td>
-							<td class="guideText">Woo</td>
+							<td class="guideText"><%= mv.getEname_lst() %></td>
 							<td class="guide">연락처</td>
-							<td class="guideText">820144065532</td>
+							<td class="guideText"><%= mv.getTel() %></td>
 
 						</tr>
 						<tr>
 						<td class="guide">이름(영문)</td>
-						<td class="guideText">Jiho</td>
+						<td class="guideText"><%= mv.getEname_fst() %></td>
 						<td class="guide">이메일</td>
-						<td class="guideText">woojiho22@naver.com</td>
+						<td class="guideText"><%= mv.getEmail() %></td>
 						</tr>
 					</table>
 				</div>
 			</div>
 			<!-- guideDiv -->
 			<br />
-
-			<form name="cardFrm" action="http://localhost/hotel_prj/user/reser_room/reservation_complete.jsp" id="cardFrm" method="get">
-			<input type="hidden" name="addReq" id="addReq" value = "${param.addReq}"/>
-			<input type="hidden" name="room_no" id="room_no" value = "${param.room_no}"/> 
-				<div class="guideDiv">
+<!-- <form name="cardFrm" action="http://localhost/hotel_prj/user/reser_room/reservation_complete.jsp" id="cardFrm" method="get">
+ -->				
+ 
+			<form name="FFrm" action="http://localhost/hotel_prj/user/reser_room/reservation_complete.jsp" id="FFrm" method="get">
+ 					<div class="guideDiv">
 					<div class="guideTitle">신용카드 정보</div>
 					<p class="guideText" style="float: left">신용카드 정보는 게런티/위약금 결제를
 						위해 이용되며, 객실요금은 추후 체크인 시 결제됩니다.</p>
@@ -455,7 +526,8 @@ function chkCard(){
 							<input type="text" name="val_YY"  class="form-control" id="val_YY" maxlength="2" placeholder="YY" />
 							</td>
 							<td class="cardTd">카드종류*<br /> 
-							<select name="company" id="company" class="form-control sel">
+							<select name="cardCompany" id="cardCompany" class="form-control sel">
+									<option value="none">--선택--</option>
 									<option value="VISA">VISA</option>
 									<option value="MasterCard">MasterCard</option>
 									<option value="UnionPay">UnionPay</option>
@@ -467,7 +539,8 @@ function chkCard(){
 					<br /> <br />
 
 					<p id="cardSave">
-						<input type="checkbox" name="cardSave" value="카드정보저장" /> 입력한 신용카드
+						<input type = "hidden"  id = "saveYN" name = "saveYN"/>
+						<input type="checkbox" name="CHECK_YN" id = "CHECK_YN" /> 입력한 신용카드
 						정보 저장
 					</p>
 					<p style="float: left; padding-top: 3px; padding-left: 10px">입력하신
@@ -486,6 +559,7 @@ function chkCard(){
 
 			<div class="agreeDiv">
 				<label><div class="guideTitle">
+						<input type = "hidden" id = "ccYN" name = "ccYN"/>
 						<input type="checkbox" id = "ccAgree" name="ccAgree" value="Y">&nbsp;취소규정
 						동의*
 						<input type = "hidden" id = "ccAgree_hidden" name = "ccAgree" value = "N" />
@@ -503,6 +577,7 @@ function chkCard(){
 
 			<div class="pAgreeDiv">
 				<label><div class="guideTitle">
+						<input type = "hidden" id = "piYN" name = "piYN"/>
 						<input type="checkbox" id = "piAgree" name="piAgree" value="개인정보 동의" />&nbsp;필수적
 						개인정보수집이용에 대한 동의(객실예약)*
 					</div></label>
@@ -522,18 +597,28 @@ function chkCard(){
 					</p>
 				</details>
 			</div>
+			<!-- </form> -->
 			<br />
+			<input type="hidden" name="addReq" id="addReq" value = "${param.addReq}"/>
+			<input type="hidden" name="room_no" id="room_no" value = "${param.room_no}"/> 
+			<input type="hidden" id="Sd" name="sd" value = "<%= paramSd %>"/>
+		 	<input type="hidden" id="Ed"  name="ed" value = "<%= paramEd %>"/>
+			<input type="hidden" id="Adult" name="adult" value = "<%= paramAdult %>"/>
+			<input type="hidden" id="Child" name="child" value = "<%= paramChild %>"/>
+			<input type="hidden" id="diffDays" name="diffDays" value = "<%=diffDays %>"/>
+			<input type="hidden" id="resNo" name="resNo" value = "<%= strResNo %>"/>
 			<button type="submit" id = "completeBtn" class="btn btn-default btn-lg">예약하기</button>
 			</form>
+			
 		</div>
 		<!-- resChk -->
 		<br /> <br />
 
+	</div>
 		<!-- footer import -->
 					<c:import url="http://localhost/hotel_prj/main/main_footer.jsp" />
 
 
-	</div>
 	<!-- wrap -->
 	<!-- ================================================== -->
 

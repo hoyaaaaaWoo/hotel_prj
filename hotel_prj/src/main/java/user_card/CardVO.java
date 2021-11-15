@@ -1,7 +1,28 @@
 package user_card;
 
 public class CardVO {
-	String card_no,	company,	val_mm,	val_yy,	id,	res_no;
+	String card_no,	company, val_mm,	val_yy,	id,	res_no;
+	
+	public CardVO() {
+	}	
+
+	/**
+	 * @param card_no
+	 * @param company
+	 * @param val_mm
+	 * @param val_yy
+	 * @param id
+	 * @param res_no
+	 */
+	public CardVO(String card_no, String company, String val_mm, String val_yy, String id, String res_no) {
+		super();
+		this.card_no = card_no;
+		this.company = company;
+		this.val_mm = val_mm;
+		this.val_yy = val_yy;
+		this.id = id;
+		this.res_no = res_no;
+	}
 
 	public String getCard_no() {
 		return card_no;

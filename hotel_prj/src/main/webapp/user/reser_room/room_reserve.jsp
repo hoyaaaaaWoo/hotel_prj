@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="user_room.RoomVO"%>
@@ -43,10 +44,11 @@
 
 #roomName {font-size: 18px; font-weight: bold; margin-bottom: 20px; margin-left: 20px}
 
+/*
 div { border: 1px solid #FF0000}
 td { border: 1px solid #FF0000}
 tr { border: 1px solid #FF0000}
-
+*/
 
 </style>
 
@@ -72,7 +74,11 @@ tr { border: 1px solid #FF0000}
 <link href="http://localhost/hotel_prj/common/bootstrap/carousel.css"
 	rel="stylesheet">
 
+
+ 
+	 
 <script type="text/javascript">
+
 
 function divPlaying(  viewId, btnId  ){
 	if($( "#"+viewId ).css("display") == "block" ){ //view제어
@@ -99,8 +105,21 @@ function roomDetail( Hroom,paramSd,paramEd,paramAdult ,paramChild){
 	 
 	//hiddenFrm을 submit 한다. 
 	$("#hiddenFrm").submit();
-}
+}//roomDetail
+
+$(function(){
+	$("#goHome").click(function(){
+
+		location.href="http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp";
+	})//click
+	
+ 	
+	
+	
+}); //ready
+
 </script>
+
 </head>
 
 <!-- NAVBAR
@@ -115,6 +134,7 @@ function roomDetail( Hroom,paramSd,paramEd,paramAdult ,paramChild){
 	String paramChild = request.getParameter("child");
 	String[] paramRoomNo = request.getParameterValues("rev_room_num");
 
+	
 %>
 
 
@@ -129,7 +149,9 @@ function roomDetail( Hroom,paramSd,paramEd,paramAdult ,paramChild){
   		<hr class = "hr1">
 		<br/><br/><br/>
 	<div id = "info">
-	<strong><%=paramSd %></strong> ~ <strong><%= paramEd %></strong> / 성인 : <%=paramAdult %> / 어린이 : <%= paramChild %>
+	
+	<strong><%=paramSd %></strong> ~ <strong><%= paramEd %></strong> /  / 성인 : <%=paramAdult %> / 어린이 : <%= paramChild %> id : <%=(String)session.getAttribute("id") %>
+	
 	</div>	
 		
 	<div id = "big">
@@ -163,7 +185,8 @@ function roomDetail( Hroom,paramSd,paramEd,paramAdult ,paramChild){
 				</td>
 			</tr>
 			<tr>
-				<td style="height: 87px;">&nbsp;&nbsp; 전망 ${ searchRoom.r_view }| 객실면적 ${searchRoom.r_size }
+				<td style="height: 87px;">&nbsp;&nbsp; 전망 ${ searchRoom.r_view }| 객실면적 ${searchRoom.r_size }<br/>
+				
 				<br><br><br><br>
 			</tr>
 			
@@ -199,7 +222,7 @@ function roomDetail( Hroom,paramSd,paramEd,paramAdult ,paramChild){
 
 	<br /><br /><br /><br /><br />
 	<div style="width: 1000px; margin: 0px auto; text-align: center;">
-		<input type="submit" class="button" style="width: 100px;" value="홈으로">
+		<input type="button" id = "goHome" class="button" style="width: 100px;" value="홈으로">
 	</div>
 	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 	<!-- FOOTER -->

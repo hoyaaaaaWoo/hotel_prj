@@ -1,3 +1,6 @@
+<%@page import="admin_member.Admin_Decription"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="user_imagesTab.ImageCount"%>
 <%@page import="user_room.RoomVO"%>
 <%@page import="user_room.RoomSelect"%>
@@ -104,6 +107,8 @@ $(function(){
 	
 }); //ready
 
+
+
 </script>
 
 </head>
@@ -112,18 +117,23 @@ $(function(){
 ================================================== -->
 <body>
 
-<%-- <jsp:useBean id="RoomVO" class = "user_room.RoomVO" scope = "page"></jsp:useBean>
-<jsp:setProperty property="*" name="RoomVO"/> --%>
 
 <%
+	request.setCharacterEncoding("utf-8");
+
+
 	String paramSd = request.getParameter("sd");
+	
 	String paramEd = request.getParameter("ed");
 	String paramAdult = request.getParameter("adult");
 	String paramChild = request.getParameter("child");	
-	
 	String paramRoomNo = request.getParameter("room_no");
-	
 	int room_no = Integer.parseInt( paramRoomNo );
+	
+	// 박 수 구하기
+	Date sdFormat = new SimpleDateFormat("yyyy-MM-dd").parse(paramSd);
+	Date edFormat = new SimpleDateFormat("yyyy-MM-dd").parse(paramEd);
+	long diffDays = (edFormat.getTime() - sdFormat.getTime() )/1000/(24*60*60);
 	
 	RoomSelect rs = new RoomSelect();
 	RoomVO rv = rs.selectRoomInfo(room_no);
@@ -132,11 +142,13 @@ $(function(){
 	String paramCount = request.getParameter("room_no");
 	int count = Integer.parseInt( paramCount );
 	
-	
+	//룸당 등록된 사진의 갯수 
 	ImageCount ic = new ImageCount();
 	int cnt = ic.selectCountImg(count);
 	pageContext.setAttribute("imgs", ic.selectImages(room_no));
 %>
+	
+	
 
 	<div class="wrapper">
 		<!-- header/navibar import -->
@@ -145,7 +157,7 @@ $(function(){
 		
 		
 		<%-- <div class ="roomName"><%= rv.getR_name()%></div><br/ --%>>
-		<div><%=paramSd %>/<%=paramEd %>/<%=paramAdult %>/<%=paramChild %>/<%= paramRoomNo%></div>
+		<div><%=paramSd %>/<%=paramEd %> / <%=diffDays %>박/<%=paramAdult %>/<%=paramChild %>/<%= paramRoomNo%>///id:<%=(String)session.getAttribute("id") %></div>
 		<div class ="roomName">${param.room_no}<%= rv.getR_name()%></div><br/>
 		
 
@@ -164,7 +176,7 @@ $(function(){
 			</ol>
 			<div class="carousel-inner" role="listbox">
 			
-				<!-- 첫번째 사진만 여기에 넣고싶음 -->
+				
 				 <div class="item active">
 					<img class="first-slide"
 						src="http://localhost/hotel_prj/main/main_images/<%= rv.getMain_img() %>"
@@ -174,7 +186,7 @@ $(function(){
 					</div>
 				</div>
 				 
-				 
+				<!-- 룸의 images table에 등록된 이미지의 숫자만큼 반복하여 캐러셀 만듦 -->
 				<c:forEach var = "img" items = "${ imgs }">
 				<div class="item ">
 					<img  
@@ -264,6 +276,13 @@ $(function(){
 			
 			<form name = "frmRes" method = "get" id = "frmRes" action = "http://localhost/hotel_prj/user/reser_room/reservation3_card.jsp">
 				<input type="hidden" name="room_no" id="room_no" value = "${param.room_no}"/>
+				 <input type="hidden" id="Sd" name="sd" value = "<%=paramSd %>"/>
+				 <input type="hidden" id="Ed"  name="ed" value = "<%=paramEd %>"/>
+				 <input type="hidden" id="Adult" name="adult" value = "<%=paramAdult %>"/>
+				 <input type="hidden" id="Child" name="child" value = "<%=paramChild %>"/>
+				 <input type="hidden" id="diffDays" name="diffDays" value = "<%=diffDays %>"/>
+				 
+				
 			<div class = "guideR">
 			<div class = "guideTitle"> 예약 옵션 </div>
 			<div id = "confirmDiv">
@@ -271,7 +290,7 @@ $(function(){
 				<tr>
 				<td>
 				<p id = "checkRname">객실 no_${ param.room_no }<%= rv.getR_name()%></p>
-				<p id = "checkAdult">투숙인원 : 성인 2명, 어린이 0명</p>
+				<p id = "checkAdult">투숙인원 : 성인 <%=paramAdult %>명, 어린이 <%=paramChild %>명</p>
 				<br/><br/><br/>
 				<p id = "checkRname">추가요청</p>
 				 <textarea id="addReq" name="addReq" rows="5" cols="80" placeholder="예시) 추가 배드를 요청합니다." style = "resize: none"></textarea>
@@ -288,16 +307,28 @@ $(function(){
 				
 				int totalP = (int)(rv.getPrice()+tax);
 				pageContext.setAttribute("totalP", totalP);
-				%>
-				<span class = "chkPaperLeft">객실 요금</span><br/><br/>
-				<span style = "color: #333; font-size: 15px; text-align: left; float: left">2021년 11월 26일</span>
-				<span class = "chkPaperRight"><fmt:formatNumber pattern = "#,###,###" value = "${ price }"/> KRW </span><br/><br/><br/>
-				<span class = "chkPaperLeft">세금 및 봉사료</span>
 				
-				<span class = "chkPaperRight"><fmt:formatNumber pattern = "#,###,###" value = "${ tax }"/> KRW </span><br/>
+				int daysPrice = price*(int)diffDays;
+				pageContext.setAttribute("daysP", daysPrice);
+
+				int daysTax = tax*(int)diffDays;
+				pageContext.setAttribute("daysTax", daysTax);
+				
+				int daysTotal = (daysPrice + daysTax);
+				pageContext.setAttribute("daysTotal", daysTotal);
+				
+				%>
+				<span class = "chkPaperLeft">객실 요금 (1박 기준)</span>
+				<span class = "chkPaperRight"><fmt:formatNumber pattern = "#,###,###" value = "${ price }"/>&nbsp;KRW</span><br/><br/>
+				<span class = "chkPaperLeft"><%=paramSd %>&nbsp;( <%=diffDays %>박)</span>
+				<span class = "chkPaperRight"><fmt:formatNumber pattern = "#,###,###" value = "${ daysP }"/>&nbsp;KRW  </span><br/><br/><br/>
+				
+				<span class = "chkPaperLeft">세금 및 봉사료</span>
+				<span class = "chkPaperRight"><fmt:formatNumber pattern = "#,###,###" value = "${ daysTax }"/>&nbsp;KRW </span><br/>
 				<hr class = "hr1">
+				
 				<span class = "chkPaperLeft">총 요금</span>
-				<span class = "chkPaperRight"><fmt:formatNumber pattern = "#,###,###" value = "${ totalP }"/> KRW </span><br/>
+				<span class = "chkPaperRight"><fmt:formatNumber pattern = "#,###,###" value = "${ daysTotal }"/> &nbsp;KRW </span><br/>
 				</div>
 				</td>
 				</tr>

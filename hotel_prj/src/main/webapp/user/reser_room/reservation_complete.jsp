@@ -1,9 +1,18 @@
+<%@page import="user_reservation.ReservationInsert"%>
+<%@page import="user_reservation.ReservationVO"%>
+<%@page import="user_card.CardVO"%>
+<%@page import="user_card.InsertCard"%>
+<%@page import="uesr_member.MemberVO"%>
+<%@page import="uesr_member.MemberSelect"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="user_room.RoomVO"%>
 <%@page import="user_room.RoomSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="Hotel Ritz Seoul"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix = "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -132,19 +141,79 @@ $(function(){
 <body>
 
 <%
- String paramRoomNo = request.getParameter("room_no");
-int room_no = Integer.parseInt( paramRoomNo );
-
+//예약정보 파라메터 받기
+String paramSd = request.getParameter("sd");
+String paramEd = request.getParameter("ed");
+String paramAdult = request.getParameter("adult");
+String paramChild = request.getParameter("child");	
 String addReq = request.getParameter("addReq"); 
+String strResNo = request.getParameter("resNo"); 
+String DiffDays = request.getParameter("diffDays");
+String paramRoomNo = request.getParameter("room_no");
+int room_no = Integer.parseInt( paramRoomNo );
+int diffDays = Integer.parseInt( DiffDays );
+int adult = Integer.parseInt( paramAdult );
 
- /*
+int child = 0;
+if (paramChild == ""){
+	child = 0;
+}else {
+	child = Integer.parseInt( paramChild );
+}
+
+//카드정보 파라메터 받아오기
 String card_no = request.getParameter("card_no");
-String company = request.getParameter("company");
+String cardCompany = request.getParameter("cardCompany");
 String val_MM = request.getParameter("val_MM");
-String val_YY = request.getParameter("val_YY");*/
+String val_YY = request.getParameter("val_YY");
+String paramCardSave = request.getParameter("saveYN");
+String paramCcAgree = request.getParameter("ccYN");
+String paramPiAgree = request.getParameter("piYN");
 
+// 룸넘버로 룸정보 조회
 RoomSelect rs = new RoomSelect();
 RoomVO rv = rs.selectRoomInfo(room_no);  
+
+//id로 회원정보 조회
+String id = (String)session.getAttribute("id");
+
+MemberSelect ms = new MemberSelect();
+MemberVO mv = ms.selectMemInfo(id);
+
+
+//  예약 insert
+ReservationVO rsVO = new ReservationVO();
+rsVO.setRes_no(strResNo);
+rsVO.setId(id);
+rsVO.setRoom_no(room_no);
+rsVO.setAdult(adult);
+rsVO.setChild(child);
+rsVO.setChkin_date(paramSd);
+rsVO.setChkout_date(paramEd);
+rsVO.setAdd_req(addReq);
+rsVO.setCc_agree(paramCcAgree);
+rsVO.setPi_agree(paramPiAgree);
+
+ReservationInsert resInsert = new ReservationInsert();
+int cnt = resInsert.insertRes(rsVO);
+pageContext.setAttribute("cnt", cnt);
+
+
+if ( paramCardSave == "Y" ){
+ // 카드정보 insert
+CardVO cardVO = new CardVO();
+cardVO.setCard_no(card_no);
+cardVO.setCompany(cardCompany);
+cardVO.setId(id);
+cardVO.setRes_no(strResNo);
+cardVO.setVal_mm(val_MM);
+cardVO.setVal_yy(val_YY);
+
+InsertCard Icard = new InsertCard();
+}//end if
+
+
+
 
 %>
 	<div class="wrapper">
@@ -157,7 +226,9 @@ RoomVO rv = rs.selectRoomInfo(room_no);
 
 		<div class = "resChk">
 			<div class = "chkDiv">
-			<div id = "resConf">예약이 완료되었습니다.  ${param.room_no} ${param.addReq } ${param.card_no } ${param.company } ${param.val_MM } ${param.val_YY }</div>
+			<div id = "resConf"> ${cnt}건의 예약이 완료되었습니다. pi : <%=paramPiAgree %> cc : <%=paramCcAgree %> <%=cardCompany %>
+			<%=paramCardSave %> ${paramCardSave} ${param.room_no} ${param.addReq } ${param.card_no }  ${param.val_MM } ${param.val_YY }</div>
+			child : <%= child %>
 			<table class = "chkTab">
 			<tr >
 				<td style = "width: 500px">
@@ -167,16 +238,16 @@ RoomVO rv = rs.selectRoomInfo(room_no);
 				<td >
 				<table id = "chkSubTab">
 				<tr>
-					<td class = "guide">객실</td>
-					<td class = "guideTextP"><%= rv.getR_name() %></td>
+					<td class = "guide">객실 </td>
+					<td class = "guideTextP">no_${ param.room_no }<%= rv.getR_name()%></td>
 				</tr>
 				<tr>
 					<td class = "guide">투숙 날짜</td>
-					<td class = "guideTextP">2021년 11월 26일 - 2021년 11월 27일 (1박)</td>
+					<td class = "guideTextP"><%=paramSd %> - <%=paramEd %>( <%=diffDays %> 박)</td>
 				</tr>
 				<tr>
 					<td class = "guide">인원</td>
-					<td class = "guideTextP">성인2, 어린이0</td>
+					<td class = "guideTextP"> 성인 <%=paramAdult %>명, 어린이 <%=paramChild %>명</td>
 				</tr>
 				</table> <br/>
 				
@@ -190,14 +261,27 @@ RoomVO rv = rs.selectRoomInfo(room_no);
 				
 				int totalP = (int)(rv.getPrice()+tax);
 				pageContext.setAttribute("totalP", totalP);
+				
+				//박수가 곱해진 객실 가격
+				int daysPrice = price*(int)diffDays;
+				pageContext.setAttribute("daysP", daysPrice);
+
+				//박수가 곱해진 텍스 
+				int daysTax = tax*(int)diffDays;
+				pageContext.setAttribute("daysTax", daysTax);
+				
+				//박수가 곱해진 총 가격
+				int daysTotal = (daysPrice + daysTax);
+				pageContext.setAttribute("daysTotal", daysTotal);
 				%>
+				
 				<tr>
 					<td class = "guide">객실요금</td>
-					<td class = "guideTextPR"><fmt:formatNumber pattern = "#,###,###" value = "${ price }"/> KRW</td>
+					<td class = "guideTextPR"><fmt:formatNumber pattern = "#,###,###" value = "${ daysP }"/> KRW</td>
 				</tr>
 				<tr>
 					<td class = "guide">세금 및 봉사료</td>
-					<td class = "guideTextPR"><fmt:formatNumber pattern = "#,###,###" value = "${ tax }"/> KRW</td>
+					<td class = "guideTextPR"><fmt:formatNumber pattern = "#,###,###" value = "${ daysTax }"/> KRW</td>
 				</tr>
 				</table><br/>
 				
@@ -213,7 +297,7 @@ RoomVO rv = rs.selectRoomInfo(room_no);
 			<tr>
 				<td></td>
 				<td>총 요금</td>
-				<td><fmt:formatNumber pattern = "#,###,###" value = "${ totalP }"/> KRW</td>
+				<td><fmt:formatNumber pattern = "#,###,###" value = "${ daysTotal }"/> KRW</td>
 			</tr>
 			</table>
 			<hr class = "hr1">
@@ -226,17 +310,17 @@ RoomVO rv = rs.selectRoomInfo(room_no);
 			<table class = "backTab">
 			<tr>
 				<td class = "guide">성(영문)</td>
-				<td class = "guideText">Woo</td>
+				<td class = "guideText"><%= mv.getEname_lst() %></td>
 				<td class = "guide">연락처</td>
-				<td class = "guideText">820144065532</td>
+				<td class = "guideText"><%= mv.getTel() %></td>
 				
 			</tr>
 			<tr>
 			</tr>
 				<td class = "guide">이름(영문)</td>
-				<td class = "guideText">Jiho</td>
+				<td class = "guideText"><%= mv.getEname_fst() %></td>
 				<td class = "guide">이메일</td>
-				<td class = "guideText">woojiho22@naver.com</td>
+				<td class = "guideText"><%= mv.getEmail() %></td>
 			</table>
 			</div>
 			</div><!-- guideDiv --><br/>
@@ -248,6 +332,16 @@ RoomVO rv = rs.selectRoomInfo(room_no);
 			
 			</div><!-- resChk -->
 			<br/><br/>
+			<%-- 
+			<form name = "hiddenCard" action = "http://localhost/hotel_prj/user/reser_room/card_process.jsp" id = "hiddenCard" method = "get" >
+				<input type="hidden" id="card_no" name="card_no" value = "<%= card_no %>"/>
+				<input type="hidden" id="company" name="company" value = "<%=cardCompany %>"/>
+				<input type="hidden" id="val_mm" name="val_mm" value = "<%= val_MM %>"/>
+				<input type="hidden" id="val_yy" name="val_yy" value = "<%= val_YY %>"/>
+				<input type="hidden" id="id" name="id" value = "<%= id %>"/>
+				<input type="hidden" id="res_no" name="res_no" value = "<%= strResNo %>"/>
+			</form> --%>
+
 
 			<!-- footer import -->
 					<c:import url="http://localhost/hotel_prj/main/main_footer.jsp" />
