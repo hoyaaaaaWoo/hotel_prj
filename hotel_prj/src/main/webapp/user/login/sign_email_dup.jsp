@@ -40,7 +40,6 @@ $(function(){
 	});
     function emailCheck() {		
 
-  		alert(document.getElementById("email").value);
 
   		var email = document.getElementById("email").value;
 

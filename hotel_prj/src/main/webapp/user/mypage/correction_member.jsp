@@ -2,7 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%-- <jsp:useBean id="upm" class="user_login.memberVO"></jsp:useBean> --%>
 
 
 
@@ -67,7 +66,8 @@
 <script type="text/javascript">
 
 
-function corpass(){if (confirm("비밀번호를 변경하시겠습니까?") == true) {
+function corpass(){
+	if (confirm("비밀번호를 변경하시겠습니까?") == true) {
 	alert("비밀번호 변경이 완료되었습니다.");
 } else {
 	return;
@@ -85,12 +85,11 @@ function coremail(){
 
 function exit(){
 	if (confirm("회원 탈퇴를 하시겠습니까?") == true) {
-		alert("탈퇴 되었습니다.");
+		location.href="member_del.jsp";
 	} else {
 		return;
 	}
 
-	location.href="http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp"
 }
 function main(){
 	alert("메인페이지로 이동합니다.");
@@ -102,6 +101,7 @@ function main(){
 ================================================== -->
   <body>
  	 <jsp:include page="../../main/main_header_nav.jsp"/>
+ 	 <form aciton="member_update_process.jsp" id="frm" name="frm">
   <div class="navbar-wrapper">
    </div>
 <div>
@@ -121,10 +121,10 @@ function main(){
 <br/><br/>
 <input type="text" style="width:250px;height:40px" placeholder="변경할 비밀번호를 한 번 더 입력하세요.">
 <br/><br/><br/>
-<button type="button" class="btn btn-default" style="width:250px;height:40px" onclick="corpass()">수정</button>
+<button type="submit" class="btn btn-default" style="width:250px;height:40px" onclick="corpass()">수정</button>
 <br/><br/><br/><br/><br/><br/>
 </div>
-
+ 	 </form>
 <div style = "width:450px; border-bottom:2px solid #d3d3d3; text-align: center; margin: 0px auto;">
 <br/><br/><br/>
 <h5>이름 변경하기</h5>

@@ -25,20 +25,20 @@
 </head>
 <body>
 <%
-String kname=request.getParameter("delKname");
+String id=request.getParameter("delId");
 updateDAO ud = new updateDAO();
-int cnt = ud.delmember(kname);
+int cnt = ud.delmember(id);
 
 if(cnt ==1){
 %>
 <script type="text/javascript">
 alert("회원이 정상적으로 삭제되었습니다.");
-location.href="http://localhost/hotel_prj/admin/admin_member_select.jsp";
+location.href="http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp";
 </script>	
 <%}else{%>
 <script type="text/javascript">
 	alert("죄송합니다. 잠시 후 다시 시도해주십시오.");
-	location.href="http://localhost/hotel_prj/admin/admin_member_select.jsp";
+	location.href="http://localhost/hotel_prj/user/mypage/correction_member.jsp";
 </script>
 <%}%>
 </body>

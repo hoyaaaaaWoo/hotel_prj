@@ -74,6 +74,27 @@ public class updateDAO {
 		
 		return tel;
 	}
+	/**
+	 * 전화번호 수정하는 일.
+	 * @param mVO
+	 * @return
+	 * @throws SQLException
+	 */
+	public String updatePass(memberVO mVO)throws SQLException{
+		String pass="";
+		//1.Spring Container 얻기
+		GetJdbcTemplate gjt=GetJdbcTemplate.getInstance();
+		//2. JdbcTemplate 얻기
+		JdbcTemplate jt=gjt.getJdbcTemplate();
+		//3.쿼리문 수행.
+		String updatePass="update member set pass=? where id=?";
+		pass=
+				jt.queryForObject(updatePass, new Object[] {mVO.getPass()},String.class );
+		//4. Spring Container 닫기.
+		gjt.closeAc();
+		
+		return pass;
+	}
 	
 	/**
 	 * @param kname

@@ -96,7 +96,7 @@ public class MemberDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public String selectLogin(memberVO mVO)throws SQLException{
+	public String selectLogin(memberVO mVO)throws DataAccessException{
 		String kname="";//이름은 AES 암호화되어있다.
 		//1.Spring Container 얻기
 		GetJdbcTemplate gjt=GetJdbcTemplate.getInstance();
@@ -118,7 +118,7 @@ public class MemberDAO {
 	 * @throws SQLException
 	 */
 	public String selectPass(memberVO mVO)throws SQLException{
-		String pass="";//이름은 AES 암호화되어있다.
+		String pass="";
 		//1.Spring Container 얻기
 		GetJdbcTemplate gjt=GetJdbcTemplate.getInstance();
 		//2. JdbcTemplate 얻기
@@ -131,6 +131,28 @@ public class MemberDAO {
 		gjt.closeAc();
 		
 		return pass;
+	}
+	
+	/**
+	 * 비밀번호를 입력받아 아이디를 조회하는 일.
+	 * @param mVO
+	 * @return
+	 * @throws SQLException
+	 */
+	public String selectId(memberVO mVO)throws SQLException{
+		String id="";
+		//1.Spring Container 얻기
+		GetJdbcTemplate gjt=GetJdbcTemplate.getInstance();
+		//2. JdbcTemplate 얻기
+		JdbcTemplate jt=gjt.getJdbcTemplate();
+		//3.쿼리문 수행.
+		String selectpass="select pass from member where id=?";
+		id=
+				jt.queryForObject(selectpass, new Object[] {mVO.getPass()},String.class );
+		//4. Spring Container 닫기.
+		gjt.closeAc();
+		
+		return id;
 	}
 	
 

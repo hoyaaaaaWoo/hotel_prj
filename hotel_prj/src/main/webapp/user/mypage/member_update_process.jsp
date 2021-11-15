@@ -1,4 +1,4 @@
-<%@page import="user_login.MemberDAO"%>
+<%@page import="user_login.updateDAO"%>
 <%@page import="user_login.memberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -14,16 +14,29 @@ request.setCharacterEncoding("utf-8");
 String userId=(String)session.getAttribute("id");
 String userPass=(String)session.getAttribute("pass");
 String userEmail=(String)session.getAttribute("email");
+String userKname=(String)session.getAttribute("kname");
+String userTel=(String)session.getAttribute("tel");
 
 
 mVO.setEmail(mVO.getEmail());
+mVO.setId(mVO.getId());
+mVO.setPass(mVO.getPass());
+mVO.setKname(mVO.getKname());
+mVO.setTel(mVO.getTel());
 
-
+updateDAO mDAO=new updateDAO();
+mDAO.updatePass(mVO);
+mDAO.updateKname(mVO);
+mDAO.updateEmail(mVO);
+mDAO.updateTel(mVO);
 
 
 //세션 값 등록
 session.setAttribute("id", userId);
 session.setAttribute("pass", userPass);
+session.setAttribute("email", userEmail);
+session.setAttribute("tel", userTel);
+session.setAttribute("kname", userKname);
 
 
 %>

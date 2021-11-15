@@ -30,6 +30,7 @@ kalicso<%@ page language="java" contentType="text/html; charset=UTF-8"
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+
 <script type="text/javascript">
 
 $(function() {
@@ -52,8 +53,11 @@ function home(){
 
 </script>
 </head>
+ <jsp:useBean id="mVO" class="user_login.memberVO" scope="page"/>
+<jsp:setProperty property="*" name="mVO"/><!--  입력정보-->
 <%
 	String id=(String)session.getAttribute("id");
+	
 %>
 
 <!-- NAVBAR
@@ -61,8 +65,7 @@ function home(){
   <body>
  		 <jsp:include page="../../main/main_header_nav.jsp"/>
  <form action="mypage_process.jsp"  method="post" id="frm" name="frm">
-<div>
- 		 
+<div>		 
 <h4>&nbsp;&nbsp;홈 / 마이페이지</h4>
 </div>
 <br/><br/><br/>
@@ -73,9 +76,9 @@ function home(){
 <br/><br/><br/>
 <input type="hidden" value="${ id }">
 <h4>비밀번호를 입력해주세요.</h4>
-<input type="text" name="pass" id="pass" style="width:250px;height:40px" placeholder="현재 비밀번호를 입력하세요">
+<input type="password" name="pass" id="pass" style="width:250px;height:40px" placeholder="현재 비밀번호를 입력하세요">
 <br/><br/>
-<button type="submit" class="btn btn-default"  id="btn" style="width:250px;height:40px" >확인</button>
+<button type="button" class="btn btn-default"  id="btn" style="width:250px;height:40px" >확인</button><!--  button으로 해야지 submit올 하면 실패하더라도전송됩니다.-->
 <br/><br/><br/>
 <button type="button" class="btn btn-default" style="width:75px; height:30px;" onclick="home()">홈으로</button>
 

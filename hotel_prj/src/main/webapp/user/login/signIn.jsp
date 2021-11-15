@@ -51,6 +51,7 @@
 				 birthCheck($(this).val()); 
 			 });//focusout    
 			 
+			 
 	
 			 
 			$("#btn").click(function(){
@@ -128,8 +129,6 @@
 		    	       $("#birth_year").val('');
 		    	    }
 		      }
-		      
-		    
 
 	
 	
