@@ -125,7 +125,6 @@ background-color: #F1F3F4;
 
 <script type="text/javascript">
 $(function(){
-	
 	//submit 클릭
 	$("#addBtn").click(function(){
 	 	let roomName = $("#roomName").val();
@@ -150,26 +149,24 @@ $(function(){
 			return;
 		}//end if
 		
-		//객실사진 추가여부 체크
-		var imgNum =$("#imgTable>tbody tr").length;
-		if(imgNum == 0) {
-			alert("객실 이미지는 1장 이상 등록되어야 합니다.");
+		// 이미지 등록 안 되어있을 경우 alert
+		var imgList = document.getElementById("imgTable");
+		if((imgList.rows[1].cells[0].innerText)=="이미지를 추가해주세요."){
+			alert("객실 이미지는 1장 이상 등록해야 합니다.");
 			return;
 		}//end if
 		
 		//테이블에 'main' img가 없을 경우 alert
-		var imgList = document.getElementById("imgTable");
-		var flag=false;
-		if(imgList.rows.length != 0){
+		var flag = false;
+		if(imgList.rows[1].cells.length ==3){
 			for (var i = 1; i < imgList.rows.length; i++) {
 				var imgName = imgList.rows[i].cells[1].innerText;
 				if((imgName.indexOf("main")) != -1){ // main img가 있다면 break
 					flag=true;
-				break;
-			}//end if
+					break;
+				}//end if
 			}//end for
 		}//end if
-		
 		if(!flag){
 			alert("메인이미지는 필수입니다.");
 			return;
@@ -349,15 +346,14 @@ function delImg(ele){
 			var output = "";
 			var length = imgJson.imgData.length;
 		
-			// 삭제 후 temp폴더에 존재하는 이미지가 없으면 테이블 삭제
-			if(length == 0){
-				output = "";
-				
-			}else if(length != 0){
+			// 삭제 후 temp폴더에 존재하는 이미지가 없으면 테이블 '이미지 추가' 안내 
 				output="<table id='imgTable' class='table table-bordered' style='width:580px;'>";
 				output += "<tr> <th class='imgTh'>번호</th>	<th class='imgTh'>파일명</th>";
 				output += " <th class='imgTh'>관리</th> </tr>";
-				
+
+				if(imgJson.imgData.length==0){
+				output += "<td class='imgTd' colspan='3'> 이미지를 추가해주세요. </td>"
+			}else{	
 				$.each(imgJson.imgData, function(idx, imgData){ //imgData가 JSONArray
 					output += "<tr class='imgTr'>" +
 					  "<td class='imgTd'>" + (idx+1) +"</td>" +
@@ -367,7 +363,7 @@ function delImg(ele){
 					  "style='margin:0px;font-size:13px' value='삭제' onclick='delImg(this)' />" +
 				      " </td>	</tr>"
 			});//each
-			}//end elseif
+			}//end else
 			$("#imgDiv").html(output);
 		}//success
 	});//ajax
@@ -384,19 +380,22 @@ function resetFileTag(){
 	$("#otherFile").innerHTML = "<input type='file' name ='otherFile' id='otherFile' style='display: none;'/>";
 }//resetFileTag
 
-</script>
-</head>
-<body>
-	<div id="wrap">
-	    <% 
-	    //새로 진입하면 이전에 진행한 temp 사진들 삭제
+//윈도우 종료 or 새로고침 시 temp 폴더의 파일 삭제
+$(window).bind("beforeunload", function(){
+	 <% 
 	    UploadImgList uil = new UploadImgList();
 	    if(uil.searchImgList() != null){
 	    	if (uil.searchImgList().size() != 0) {
 	    		uil.removeAllImg();
-	   		}//end fi
+	   		}//end if
 	    }//end if
 	    %>
+});
+</script>
+</head>
+<body>
+	<div id="wrap">
+	   
 		<!-- header/navibar import -->
 		<c:import url="common/admin_header_nav.jsp" /> 
 		
@@ -534,6 +533,17 @@ function resetFileTag(){
 		<form>
 		<div id="imgDiv">
 		<!-- 이미지 추가 시 보여질 div -->
+		<table id="imgTable" class="table table-bordered" style="width:580px;">
+			<tr>	
+			<th class="imgTh">번호</th> 
+			<th class="imgTh">파일명</th>
+			<th class="imgTh">관리</th> 
+			</tr>
+			<tr class="imgTr">
+				<td class="imgTd" colspan="3">
+				이미지를 추가해주세요</td>
+			</tr>
+		</table>
 		</div> 
 		</form>
 		

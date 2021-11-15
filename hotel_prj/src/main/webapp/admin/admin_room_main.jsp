@@ -1,3 +1,4 @@
+<%@page import="admin_room.UploadImgList"%>
 <%@page import="admin_room.RoomVO"%>
 <%@page import="admin_room.OtherImgVO"%>
 <%@page import="java.util.List"%>
@@ -99,7 +100,14 @@ function showRoomDetail(roomName){
 </head>
 <body>
 	<div id="wrap">
-		
+		 <% 
+	    UploadImgList uil = new UploadImgList();
+	    if(uil.searchImgList() != null){
+	    	if (uil.searchImgList().size() != 0) {
+	    		uil.removeAllImg();
+	   		}//end if
+	    }//end if
+	    %>
 		<!-- header/navibar import -->
 		<c:import url="common/admin_header_nav.jsp" /> 
 	
@@ -124,7 +132,7 @@ function showRoomDetail(roomName){
 		         <c:set var="rStatus" value="roomStatusN"/>
 		         <c:set var="height" value="style='height:110px'"/>
 		 	 </c:if>
-  			<img src="http://localhost/hotel_prj/images/${rStatus}.png" ${height} class="rStatus img-rounded"
+  			<img src="http://localhost/hotel_prj/admin/room_status_img/${rStatus}.png" ${height} class="rStatus img-rounded"
   			onclick="showRoomDetail( '${roomList.getRoomName()}' )"/>
 			<br/>
 			<c:out value="${roomList.getRoomName()}"/></td>

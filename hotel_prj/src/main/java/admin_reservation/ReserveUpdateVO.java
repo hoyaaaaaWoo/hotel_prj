@@ -145,12 +145,5 @@ public class ReserveUpdateVO {
 		this.child = child;
 	}
 
-	@Override
-	public String toString() {
-		return "ReserveUpdateVO [resNo=" + resNo + ", kName=" + kName + ", chkInDate=" + chkInDate + ", chkOutDate="
-				+ chkOutDate + ", rName=" + rName + ", addReq=" + addReq + ", inYear=" + inYear + ", inMonth=" + inMonth
-				+ ", inDay=" + inDay + ", outYear=" + outYear + ", outMonth=" + outMonth + ", outDay=" + outDay
-				+ ", adult=" + adult + ", child=" + child + "]";
-	}
 
 }//class

@@ -52,7 +52,7 @@ public class ReserveModify {
 			.append("		chkout_date = to_char(to_date(?),'yyyy.mm.dd'),")
 			.append("		adult = ?, child = ?,")
 			.append("		room_no = (select room_no from room where r_name=?),")
-			.append("       add_req = ?		")
+			.append("       add_req = ?	 , res_date=sysdate	")
 			.append("where  res_no=?	");
 			
 			cnt = jt.update(sb.toString(),ruVO.getkName(),ruVO.getChkInDate(),ruVO.getChkOutDate(),

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 객실추가 - 이미지 추가에서 사용할 클래스
+ * 객실추가/변경에서 - 이미지 추가에서 사용할 클래스
  * 
  * @author user
  */
@@ -24,7 +25,6 @@ public class UploadImgList {
 
 	/**
 	 * temp 파일에 존재하는 이미지 목록 조회
-	 * 
 	 * @return List<UploadImgVO>
 	 */
 	public List<UploadImgVO> searchImgList() {
@@ -133,9 +133,9 @@ public class UploadImgList {
 		} // end if
 	}// removeSelectedImg
 
+	
 	/**
-	 * 객실 추가 시 기타 이미지가 있으면 파일명의 배열을 전달하는 method
-	 * 
+	 * 객실 추가/수정 시 기타 이미지가 있으면 파일명의 배열을 전달하는 method
 	 * @return
 	 */
 	public String[] searchOtherImg() {
@@ -157,7 +157,6 @@ public class UploadImgList {
 
 	/**
 	 * 객실추가 성공 시 temp에 있는 사진들을 roomImages폴더로 이동
-	 * 
 	 * @throws IOException
 	 */
 	public void moveRoomImg() throws IOException {
@@ -195,4 +194,93 @@ public class UploadImgList {
 		} // finally
 	}// moveRoomImg
 
+	
+	/**
+	 * 객실 정보 수정 시,
+	 * param과 일치하는 이미지들을 roomImages에서 찾아서 temp에 복사
+	 * @throws IOException
+	 */
+	public void moveImgtoTemp(List<String> list) throws IOException {
+		// 원 폴더
+		File imgFolder = new File("C:/Users/user/git/hotel_prj/hotel_prj/src/main/webapp/roomImages");
+		// 복사할 폴더
+		File tempFolder = new File("C:/Users/user/git/hotel_prj/hotel_prj/src/main/webapp/temp");
+		
+		FileInputStream fis = null;
+		FileOutputStream fos = null;
+
+		try {
+			for (int i = 0; i < list.size() ; i++) { // param으로 받은 이미지의 수만큼 반복
+				File dbImg = new File(imgFolder.getAbsolutePath() + "/" + list.get(i));
+				File temp = new File(tempFolder.getAbsolutePath() + "/" + list.get(i));
+
+				fis = new FileInputStream(dbImg);
+				fos = new FileOutputStream(temp);
+
+				byte[] data = new byte[512];
+				int byteCnt = 0;
+				while ((byteCnt = fis.read(data)) != -1) { // End Of File 체크
+					fos.write(data, 0, byteCnt);
+				} // end while
+			} // end for
+			fos.flush();
+		} finally {
+			if (fis != null) {
+				fis.close();
+			}
+			if (fos != null) {
+				fos.close();
+			}
+		} // finally
+	}// moveImgtoTemp
+
+	
+	/**
+	 * 객실 수정 완료 후 삭제된 roomImages의 파일 삭제 
+	 * @param imgList 기존 이미지 List (main, other)
+	 * @param 업데이트된 new mainImg
+	 * @param rName 변경 대상 RoomName
+	 * @throws SQLException 
+	 */
+	public void removeOriginalImg(String[] imgList, String newMainImg, String rName) throws SQLException {
+		//roomImages에서 지울 이미지 리스트
+		List<String> delImgList = new ArrayList<String>();
+		File original = new File("C:/Users/user/git/hotel_prj/hotel_prj/src/main/webapp/roomImages");
+		
+		RoomSelect rs = new RoomSelect();
+		//수정 완료 후 기타 이미지
+		List<OtherImgVO> dbList = rs.selectOtherImg(rName);
+		
+		//수정 완료 후 새로운 이미지 리스트 세팅
+		List<String> newImgList = new ArrayList<String>();
+		newImgList.add(newMainImg);
+		if(dbList.size()!=0) {
+			for(OtherImgVO VO : dbList) {
+				newImgList.add(VO.getImgSrc());
+				System.out.println(VO.getImgSrc());
+			}//end for
+		}// end if
+		
+		for(String oldImg : imgList) {
+			for(String newImg : newImgList) {
+				if (newImg.equals(oldImg)) {
+					break;
+				}//end if
+				delImgList.add(oldImg);
+				System.out.println(oldImg);
+			}//end for
+		}//end for
+		
+		//지울 리스트가 없으면 return
+		if(delImgList.size()==0) {
+			return;
+		}//end if
+		
+		for(String imgSrc : delImgList) {
+				File delImg = new File(original + "/" + imgSrc);
+				delImg.delete();
+			}//end for
+		
+	}// removeOriginalImg
+	
 }// class

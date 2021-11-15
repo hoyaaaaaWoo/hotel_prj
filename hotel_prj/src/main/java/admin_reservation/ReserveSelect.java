@@ -1,5 +1,8 @@
 package admin_reservation;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -8,6 +11,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import kr.co.sist.util.cipher.DataDecrypt;
 import team3_dao.GetJdbcTemplate;
 
 /**
@@ -57,14 +61,27 @@ public class ReserveSelect {
 	 */
 	public class selectRes implements RowMapper<ReserveSelectVO> {
 		public ReserveSelectVO mapRow(ResultSet rs, int rowNum) throws SQLException {
-			ReserveSelectVO rsVO = new ReserveSelectVO();
+			ReserveSelectVO rsVO = null;
+			try {
+				rsVO = new ReserveSelectVO();
+				DataDecrypt dd=new DataDecrypt("AbcdEfgHiJkLmnOpQ");
 			rsVO.setResNo(rs.getString("res_no"));
 			rsVO.setResDate(rs.getString("res_date"));
-			rsVO.setkName(rs.getString("kname"));
+			rsVO.setkName(dd.decryption(rs.getString("kname")));
 			rsVO.setStayDate(rs.getString("staydate"));
 			rsVO.setGuest(rs.getInt("guest"));
 			rsVO.setrName(rs.getString("r_name"));
 			rsVO.setResStauts(rs.getString("res_status"));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (GeneralSecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return rsVO;
 		}// mapRow
 		
@@ -94,15 +111,27 @@ public class ReserveSelect {
 		ruVO = jt.queryForObject(select.toString(), new Object[] {resNum}, 
 				new RowMapper<ReserveUpdateVO>() {
 					public ReserveUpdateVO mapRow(ResultSet rs, int rowNum) throws SQLException  {
-						ReserveUpdateVO ruVO = new ReserveUpdateVO();
+						ReserveUpdateVO ruVO = null;
+						try {
+							ruVO = new ReserveUpdateVO();
+							DataDecrypt dd=new DataDecrypt("AbcdEfgHiJkLmnOpQ");
 						ruVO.setResNo(rs.getString("res_no"));
-						ruVO.setkName(rs.getString("kname"));
+						ruVO.setkName(dd.decryption(rs.getString("kname")));
 						ruVO.setChkInDate(rs.getString("chkin_date"));
 						ruVO.setChkOutDate(rs.getString("chkout_date"));
 						ruVO.setAdult(rs.getInt("adult"));
 						ruVO.setChild(rs.getInt("child"));
 						ruVO.setrName(rs.getString("r_name"));
 						ruVO.setAddReq(rs.getString("add_req"));
+						} catch (UnsupportedEncodingException e) {
+							e.printStackTrace();
+						} catch (NoSuchAlgorithmException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (GeneralSecurityException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						return ruVO;
 					}//mapRow
 		});

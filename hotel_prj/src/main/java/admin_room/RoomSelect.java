@@ -150,9 +150,7 @@ public class RoomSelect {
 		// 3. Äõ¸® ½ÇÇà
 		StringBuilder select = new StringBuilder();
 
-		select.append(" 	select * "
-				+ "")
-				.append(" 	from   images")
+		select.append(" 	select * 	from   images")
 				.append(" 	where  room_no = (select room_no")
 									.append(" 	 from room	")
 									.append(" 	 where r_name=?)");	

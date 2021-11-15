@@ -29,9 +29,8 @@ if (request.getParameter("statusRNo") == null) {
 String roomNum = request.getParameter("statusRNo");
 String rStatus = request.getParameter("rStatus");
 	
-System.out.println(rStatus);
 RoomModify rm = new RoomModify();
-int cnt = rm.RoomStatusUpdate(roomNum, rStatus);
+int cnt = rm.UpdateRoomStatus(roomNum, rStatus);
 //1 이라면 객실 상태 변경 성공!
 if(cnt == 1){
 %>

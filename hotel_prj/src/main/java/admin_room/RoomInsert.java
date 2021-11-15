@@ -82,7 +82,6 @@ public class RoomInsert {
 
 	/**
 	 * 기타 이미지 존재 시, 이미지 테이블에 추가 insert
-	 * 
 	 * @param roomVO
 	 * @return
 	 * @throws SQLException
@@ -113,6 +112,11 @@ public class RoomInsert {
 		if (roomCnt == imgList.length) {
 			flag = true;
 		} 
+		
+		//기타이미지 없어도 true
+		if(imgList.length==0) {
+			flag = true;
+		}
 		
 		gjt.closeAc();
 

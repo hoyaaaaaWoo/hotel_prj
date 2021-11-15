@@ -42,6 +42,7 @@ List<MemberVO> list = ms.selectMember();
 boolean flag = false;
 for(MemberVO mv : list){
 	if(ruVO.getkName().equals(mv.getKname())){ //회원테이블의 kname과 변경하려는 회원명이 같고, 정상 회원이면 true
+		System.out.println(ruVO.getkName()+"/"+mv.getKname());
 		if(mv.getM_status().equals("Y")){
 			flag = true;
 			break;

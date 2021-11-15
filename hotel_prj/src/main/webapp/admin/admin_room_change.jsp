@@ -1,3 +1,5 @@
+<%@page import="admin_room.UploadImgList"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="admin_room.RoomVO"%>
 <%@page import="java.util.List"%>
 <%@page import="admin_room.RoomSelect"%>
@@ -159,8 +161,31 @@ $(function(){
 			return;
 		}//end if
 		
-		alert("수정")
-		//$("#roomChgFrm").submit();
+		// 이미지 등록 안 되어있을 경우 alert
+		var imgList = document.getElementById("imgTable");
+		if((imgList.rows[1].cells[0].innerText)=="이미지를 추가해주세요."){
+			alert("객실 이미지는 1장 이상 등록해야 합니다.");
+			return;
+		}//end if
+		
+		//테이블에 'main' img가 없을 경우 alert
+		var flag = false;
+		if(imgList.rows[1].cells.length ==3){
+			for (var i = 1; i < imgList.rows.length; i++) {
+				var imgName = imgList.rows[i].cells[1].innerText;
+				if((imgName.indexOf("main")) != -1){ // main img가 있다면 break
+					$("#img").val(imgName);
+					flag=true;
+					break;
+				}//end if
+			}//end for
+		}//end if
+		if(!flag){
+			alert("메인이미지는 필수입니다.");
+			return;
+		}//end if
+		
+		$("#roomChgFrm").submit();
 	})//수정완료
 
 	//비활성화 클릭 시 
@@ -206,9 +231,206 @@ $(function(){
 			return;
 		}//end if
 	})//keyup
+
+	//메인이미지 등록시 file hidden값 파일명으로 설정
+	$("#mainFile").change(function(){
+		var fileName = this.files[0].name;
+		$("#fileName").val(fileName); // temp 파일 업로드용
+		$("#img").val(fileName); // DB insert용
+		
+		var flag = expCheck(fileName);
+		if(!flag){
+			return;
+		}//end if
+	})//mainFile
 	
+	//기타 이미지 등록시 file hidden값 초기화 (temp 폴더에 중복 등록 방지)
+	//main img와 중복파일 및 파일 확장자 검증
+	$("#otherFile").change(function(){
+		$("#fileName").val("");
+		
+		var selectedFileName=this.files[0].name;
+		var imgList = document.getElementById("imgTable");
+		var flag = false;
+		for (var i = 1; i < imgList.rows.length; i++) {
+			//테이블의 파일명 추출해서 main 체크
+			var imgName = imgList.rows[i].cells[1].innerText;
+			originalFileName=imgName.substring(0,imgName.lastIndexOf("_main"))+imgName.substring(imgName.lastIndexOf("."))
+			if(originalFileName == selectedFileName){ 
+				flag = true;
+				break;
+			}//end if
+		}//end for
+		
+		
+		if(flag){
+			alert("동일한 파일이 메인 이미지로 등록되어있습니다. 삭제 후 진행해주세요.");
+			resetFileTag();
+			return;
+		}//end if
+		
+		
+		//기타 이미지 확장자가 안 맞으면 return;
+		var flag = expCheck(selectedFileName);
+		if(!flag){
+			return;
+		}
+	})//otherFile
+	
+	//ajax 이벤트 등록
+	document.getElementById("mainFile").addEventListener("change", addImg);
+	document.getElementById("otherFile").addEventListener("change", addImg);
+	//fileUpload 개수제한 이벤트 등록
+	document.getElementById("mainUpLoad").addEventListener("click", cntImg);
+	document.getElementById("otherUpLoad").addEventListener("click", cntImg);
 })//ready
 
+//이미지 개수 검증
+function cntImg(){
+	flag = false;
+	var imgNum = $("#imgTable>tbody tr").length;
+	
+	if(imgNum > 5) {
+		alert("이미지는 5장을 초과하여 추가할 수 없습니다.");
+		flag = true;
+	}//end if
+
+	$("#mainFile").attr("disabled",flag);
+	$("#otherFile").attr("disabled",flag);
+	return;
+}//cntImg
+
+//이미지 파일(jpg,png,gif,bmp) 체크
+function expCheck(fileName){
+	let blockExt = ["jpg","png","gif","bmp"];
+	let blockFlag = false;
+
+	let ext = (fileName.substring(fileName.lastIndexOf(".")+1)).toLowerCase();
+
+	for(var i = 0 ; i < blockExt.length; i++){
+		if(ext == blockExt[i]){
+			blockFlag=true;
+			break;
+		}//end if
+	}//end for
+
+	if(!blockFlag){
+		alert("업로드 가능 확장자가 아닙니다.");
+		resetFileTag();
+		return;
+	}//end if
+}//expCheck
+
+
+// 이미지 추가시 temp 폴더에 등록
+function addImg(){
+		var form = $("#uploadfrm")[0];
+		var formData = new FormData(form);
+		
+		$.ajax({
+			url:"admin_room_img_upload_process.jsp",
+			type:"post",
+			data:formData,
+			dataType:"json",
+			contentType:false,
+			processData:false,
+			error: function(xhr){
+				console.log(xhr.status + " / " + xhr.statusText)
+			},
+			success: function(imgJson){
+			  if(imgJson.imgData.length!=0){
+				var output="<table id='imgTable' class='table table-bordered' style='width:580px;'>";
+					output += "<tr>	<th class='imgTh'>번호</th> <th class='imgTh'>파일명</th>";
+					output += 	"<th class='imgTh'>관리</th> </tr>";
+					
+				$.each(imgJson.imgData, function(idx, imgData){ //imgData가 JSONArray
+				output += "<tr class='imgTr'>" +
+						  "<td class='imgTd'>" + (idx+1) +"</td>" +
+						  "<td class='imgTd' style='font-weight:bold'>" + imgData.imgName +"</td>" +
+						  "<td class='imgTd'>" +
+						  "<input type='button' name='delBtn' class='delBtn btn btn-default btn-sm'"+ 
+						  "style='margin:0px;font-size:13px' value='삭제' onclick='delImg(this)'/>" +
+					      " </td>	</tr>"
+				});//each
+				$("#imgDiv").html(output);
+			}//success
+			}//end if
+		})//ajax
+		
+		//input file 초기화
+		resetFileTag();
+}//addimg
+
+
+//객실 이미지 삭제 시 
+function delImg(ele){
+	//선택된 버튼 할당
+	var delBtn = $(ele);
+	//선택된 버튼에 해당하는 행과 각 td
+	var tr = delBtn.parent().parent(); 
+	var td = tr.children();
+	//선택된 이미지 이름 얻기
+	var imgName = td.eq(1).text();
+
+	var queryString = "imgName="+imgName;
+	
+	$.ajax({
+		url:"admin_room_img_delete_process.jsp",
+		type:"post",
+		data:queryString,
+		dataType:"json",
+		error: function(xhr){
+			console.log(xhr.status + " / " + xhr.statusText)
+		},
+		success: function(imgJson){
+			var output = "";
+			var length = imgJson.imgData.length;
+		
+			// 삭제 후 temp폴더에 존재하는 이미지가 없으면 테이블 '이미지 추가' 안내 
+				output="<table id='imgTable' class='table table-bordered' style='width:580px;'>";
+				output += "<tr> <th class='imgTh'>번호</th>	<th class='imgTh'>파일명</th>";
+				output += " <th class='imgTh'>관리</th> </tr>";
+
+				if(imgJson.imgData.length==0){
+				output += "<td class='imgTd' colspan='3'> 이미지를 추가해주세요. </td>"
+			}else{	
+				$.each(imgJson.imgData, function(idx, imgData){ //imgData가 JSONArray
+					output += "<tr class='imgTr'>" +
+					  "<td class='imgTd'>" + (idx+1) +"</td>" +
+					  "<td class='imgTd' style='font-weight:bold'>" + imgData.imgName +"</td>" +
+					  "<td class='imgTd'>" +
+					  "<input type='button' name='delBtn' class='delBtn btn btn-default btn-sm'"+ 
+					  "style='margin:0px;font-size:13px' value='삭제' onclick='delImg(this)' />" +
+				      " </td>	</tr>"
+			});//each
+			}//end else
+			$("#imgDiv").html(output);
+		}//success
+	});//ajax
+	
+	//input file 초기화
+	resetFileTag();
+}//delImg
+
+//input file 초기화
+function resetFileTag(){
+	$("#mainFile").val("");
+	$("#otherFile").val("");
+	$("#mainFile").innerHTML = "<input type='file' name ='mainFile' id='mainFile' style='display: none;'/>";
+	$("#otherFile").innerHTML = "<input type='file' name ='otherFile' id='otherFile' style='display: none;'/>";
+}//resetFileTag
+
+//윈도우 종료 or 새로고침 시 temp 폴더의 파일 삭제
+$(window).bind("beforeunload", function(){
+	 <% 
+	    UploadImgList uil = new UploadImgList();
+	    if(uil.searchImgList() != null){
+	    	if (uil.searchImgList().size() != 0) {
+	    		uil.removeAllImg();
+	   		}//end if
+	    }//end if
+	    %>
+});
 </script>
 </head>
 <body>
@@ -234,7 +456,7 @@ $(function(){
 		pageContext.setAttribute("rList", rList);
 		%>
 		
-		<form name="roomChgFrm" id="roomChgFrm" action=" " method="post">
+		<form name="roomChgFrm" id="roomChgFrm" action="http://localhost/hotel_prj/admin/admin_room_chagne_process.jsp" method="get">
 		<div id="tabDiv">
 		<c:forEach var="rVO" items="${rList}">
 		<input type="hidden" name="roomNum" id="roomNum" value="${rVO.roomNum}"/> <!-- 객실활성화에 사용할 값 -->
@@ -377,6 +599,32 @@ ${rVO.moreInfo}</textarea>
 		</div><!-- 테이블 div -->
 		
 		<input type="hidden" name="img" id="img"/>
+		
+		<!-- 파라미터 받기 -->
+		<%
+		//메인 이미지
+		String mainImg = request.getParameter("mainImg");
+		List<String> imgList = new ArrayList<String>();
+		imgList.add(mainImg);
+		//기타 이미지들
+		if(request.getParameterValues("otherImg") !=null){
+		String[] otherImg = request.getParameterValues("otherImg");
+		pageContext.setAttribute("otherImg", otherImg);
+		//기존 파일 temp폴더에 복사하여 이미지 변경/삭제 진행하기
+		for(String img : otherImg){
+			imgList.add(img);
+		}//end for
+		}//end if
+		
+		//temp로 이미지 옮기기
+		uil.moveImgtoTemp(imgList);
+		pageContext.setAttribute("imgList", imgList);
+		%>
+		
+		<c:forEach var="img" items="${imgList}">
+			<input type="hidden" name="imgList" value="${img}"/>
+		</c:forEach>
+		
 		</form> <!-- roomChgFrm  -->
 
 		<br/>
@@ -396,12 +644,6 @@ ${rVO.moreInfo}</textarea>
 		<form name="imgFrm">
 		<!-- 이미지 추가 시 보여질 div -->
 		<div id="imgDiv">
-		<!-- 파라미터 받기 -->
-		<%
-		String mainImg = request.getParameter("mainImg");
-		String[] otherImg = request.getParameterValues("otherImg");
-		pageContext.setAttribute("otherImg", otherImg);
-		%>
 		
 		<table id="imgTable" class="table table-bordered" style="width:580px;">
 			<tr>	
@@ -417,6 +659,7 @@ ${rVO.moreInfo}</textarea>
 				<input type="button" name="delBtn" class="delBtn btn btn-default btn-sm" 
 				style="margin:0px;font-size:13px" value="삭제" onclick="delImg(this)"/></td>
 			</tr>
+			<c:if test="${not empty param.otherImg}">
 			<c:forEach var="img" items="${otherImg}">	
 				<tr>
 				<c:set var="i" value="${ i+1 }"/>
@@ -427,6 +670,7 @@ ${rVO.moreInfo}</textarea>
 				style="margin:0px;font-size:13px" value="삭제" onclick="delImg(this)"/></td>
 				</tr>
 			</c:forEach>
+			</c:if>
 		</table>
 		</div> <!-- imgDiv -->
 		</form> <!-- imgFrm  -->
