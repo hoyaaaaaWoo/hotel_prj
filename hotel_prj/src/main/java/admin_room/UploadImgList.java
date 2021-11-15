@@ -257,7 +257,6 @@ public class UploadImgList {
 		if(dbList.size()!=0) {
 			for(OtherImgVO VO : dbList) {
 				newImgList.add(VO.getImgSrc());
-				System.out.println(VO.getImgSrc());
 			}//end for
 		}// end if
 		
@@ -267,7 +266,6 @@ public class UploadImgList {
 					break;
 				}//end if
 				delImgList.add(oldImg);
-				System.out.println(oldImg);
 			}//end for
 		}//end for
 		

@@ -191,4 +191,29 @@ public class RoomSelect {
 		return num;
 	}//selectMaxRoomNo
 	
+	
+	/**
+	 * 객실 수정 시, 중복 이름을 조회하는 일
+	 * @return
+	 */
+	public List<String> selectRoomName(String rName, String roomNum) throws SQLException {
+		List<String> list = null;
+
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+
+		String select = "select r_name from room where r_name=? and room_no!=?";
+		
+		list = jt.query(select, new Object[] {rName, roomNum}, new RowMapper<String>() {
+			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+				String name = rs.getString("r_name");
+				return name;
+			}// mapRow
+		});
+
+		gjt.closeAc();
+
+		return list;
+	}// selectRoomName
+	
 }// class

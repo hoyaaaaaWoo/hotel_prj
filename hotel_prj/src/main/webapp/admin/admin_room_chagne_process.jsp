@@ -55,16 +55,9 @@ if(img != ""){
 <c:catch var ="e">
 <%
 String rName = request.getParameter("roomName");
-String rStatus = "Y";
 RoomSelect rs = new RoomSelect();
-List<RoomVO> list = rs.selectRoomInfo(rName, rStatus);
-int i=0;
-for(RoomVO rVO : list){
-	if(rName.equals(rVO.getRoomName())){ // 변경하려는 rName이 자기 자신 제외하고 더 존재하면 수정 불가
-		i++;
-	}//end if
-}//end for
-if(i==2){
+List<String> list = rs.selectRoomName(rName, roomVO.getRoomNum());
+if(list.size()!=0){ // 변경하려는 rName이 자기 자신 제외하고 더 존재하면 수정 불가
 %>
 <script type="text/javascript">
 	alert("수정될 객실 이름과 동일한 객실이 존재하여 수정할 수 없습니다.");
