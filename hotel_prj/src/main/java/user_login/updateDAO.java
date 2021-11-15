@@ -15,21 +15,40 @@ public class updateDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public String updateEmail(memberVO mVO)throws SQLException{
-		String email="";
-		//1.Spring Container 얻기
-		GetJdbcTemplate gjt=GetJdbcTemplate.getInstance();
-		//2. JdbcTemplate 얻기
-		JdbcTemplate jt=gjt.getJdbcTemplate();
-		//3.쿼리문 수행.
-		String updateEmail="update member set email=? where id=?";
-		email=
-				jt.queryForObject(updateEmail, new Object[] {mVO.getEmail()},String.class );
-		//4. Spring Container 닫기.
-		gjt.closeAc();
-		
-		return email;
-	}
+	
+	 public String updateEmail(memberVO mVO)throws SQLException{ 
+	 String email="";
+	  //1.Spring Container 얻기 
+	 GetJdbcTemplate gjt=GetJdbcTemplate.getInstance();
+	  //  2. JdbcTemplate 얻기 
+	 JdbcTemplate jt=gjt.getJdbcTemplate(); //3.쿼리문 수행.
+	  String updateEmail="update member set email=? where id=?"; 
+	  email=jt.queryForObject(updateEmail, new Object[] {mVO.getEmail()},String.class );
+	  //4. Spring Container 닫기. 
+	  gjt.closeAc();
+	  
+	  return email;
+	  }
+	 
+	
+	/*
+	 * public String updateEmail(String id,String email) { String result ="";
+	 * GetJdbcTemplate gjt = GetJdbcTemplate.getInstance(); JdbcTemplate jt =
+	 * gjt.getJdbcTemplate();
+	 * 
+	 * String updateEmail = " update member set email=? where id=? "; result =
+	 * jt.queryForObject(updateEmail.toString(), new Object[] {id,email},
+	 * String.class); gjt.closeAc();
+	 * 
+	 * return result;
+	 * 
+	 * }//updateEmail
+	 */	
+	
+	
+	
+	
+	
 	
 	/**
 	 * 이름 수정하는 일.
@@ -97,7 +116,8 @@ public class updateDAO {
 	}
 	
 	/**
-	 * @param kname
+	 * 회원 탈퇴
+	 * @param id
 	 * @return
 	 */
 	public int delmember(String id) {
@@ -108,8 +128,8 @@ public class updateDAO {
 		// 2. JdbcTemplate 얻기
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		// 3. 쿼리 실행
-		String deleteRes = "delete from member where id = ?";
-		cnt = jt.update(deleteRes, id);
+		String deleteMem = "delete from member where id = ?";
+		cnt = jt.update(deleteMem, id);
 		// 4. Spring Container 닫기
 		gjt.closeAc();
 

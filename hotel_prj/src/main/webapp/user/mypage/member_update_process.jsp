@@ -6,38 +6,40 @@
     
  <jsp:useBean id="mVO" class="user_login.memberVO" scope="page"/>
 <jsp:setProperty property="*" name="mVO"/><!--  입력정보-->
-<c:catch var="e">
+
 <%
 request.setCharacterEncoding("utf-8");
 // form으로부터 전달된 데이터 전달.
 
-String userId=(String)session.getAttribute("id");
-String userPass=(String)session.getAttribute("pass");
-String userEmail=(String)session.getAttribute("email");
-String userKname=(String)session.getAttribute("kname");
-String userTel=(String)session.getAttribute("tel");
+String id=(String)session.getAttribute("id");
+String pass=request.getParameter("pass");
+String email=request.getParameter("email");
+String kname=request.getParameter("kname");
+String tel=request.getParameter("tel");
 
-
-mVO.setEmail(mVO.getEmail());
-mVO.setId(mVO.getId());
-mVO.setPass(mVO.getPass());
+mVO.setId(id);
+mVO.setEmail(email);
+/* mVO.setPass(mVO.getPass());
 mVO.setKname(mVO.getKname());
-mVO.setTel(mVO.getTel());
+mVO.setTel(mVO.getTel()); */
 
 updateDAO mDAO=new updateDAO();
-mDAO.updatePass(mVO);
+/* mDAO.updatePass(mVO);
 mDAO.updateKname(mVO);
 mDAO.updateEmail(mVO);
-mDAO.updateTel(mVO);
-
-
+mDAO.updateTel(mVO);  */
+////////////////////////////////////////////////////////
+/* String id = request.getParameter("id"); 
+String email = request.getParameter("email");  */
+mDAO.updateEmail(mVO);
+////////////////////////////////////////////////
 //세션 값 등록
-session.setAttribute("id", userId);
-session.setAttribute("pass", userPass);
-session.setAttribute("email", userEmail);
-session.setAttribute("tel", userTel);
-session.setAttribute("kname", userKname);
-
+/* session.setAttribute("id", id);
+session.setAttribute("pass", pass);
+session.setAttribute("email", email);
+session.setAttribute("tel", tel);
+session.setAttribute("kname", kname);
+ */
 
 %>
-    </c:catch>
+    
