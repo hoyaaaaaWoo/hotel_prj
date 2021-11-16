@@ -71,8 +71,6 @@
 request.setCharacterEncoding("UTF-8");
 String id = request.getParameter("id");
 String pass = request.getParameter("pass");
-String email = request.getParameter("email");
-String tel = request.getParameter("tel");
 
 //DBMS비밀번호 컬럼은 SHA 암호화된 값이므로 입력된 Plain Text를 
 //cipher Text로 변환하여 비교하는 코드를 수행해야한다.
@@ -86,7 +84,6 @@ String kname=mDAO.selectLogin(loginVO);
 DataDecrypt dd=new DataDecrypt("AbcdEfgHiJkLmnOpQ");
 kname=dd.decryption(kname);
 
-
 //로그인 정보를 세션에 할당 
 //=>비연결성인 웹에서 로그인 정보를 모든 페이지에서 사용하기 위해
 
@@ -94,8 +91,6 @@ kname=dd.decryption(kname);
 session.setAttribute("kname", kname);
 session.setAttribute("pass", pass);
 session.setAttribute("id", id);
-
-
 
 %>
 <!-- <script type="text/javascript">

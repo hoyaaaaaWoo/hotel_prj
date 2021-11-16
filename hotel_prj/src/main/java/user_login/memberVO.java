@@ -3,9 +3,8 @@ package user_login;
 import java.util.Date;
 
 public class memberVO {
-	private String id, email, pass, ename_fst, ename_lst, kname, birth_year, tel, req_agree, opt_agree, m_status;
+	private String id, email, pass,  ename_fst, ename_lst, kname, birth_year, tel, req_agree, opt_agree, m_status;
 	private Date join_date, out_date;
-
 	public String getId() {
 		return id;
 	}

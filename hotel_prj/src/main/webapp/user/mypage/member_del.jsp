@@ -1,4 +1,4 @@
-<%@page import="user_login.updateDAO"%>
+<%@page import="user_login.UpdateDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,10 +24,17 @@
 </script>
 </head>
 <body>
+<jsp:useBean id="mVO" class="user_login.memberVO" scope="page"/><!-- 아이디 비밀번호 새로운 비번을 저장할 수 있는 VO  -->
+<jsp:setProperty property="*" name="mVO"/><!--  입력정보-->
+
 <%
-String id=request.getParameter("delId");
-updateDAO ud = new updateDAO();
-int cnt = ud.delmember(id);
+String id=(String)session.getAttribute("id");
+mVO.setId(id);
+
+
+UpdateDAO ud = new UpdateDAO();
+int cnt = ud.delMember(mVO);
+
 
 if(cnt ==1){
 %>
