@@ -133,7 +133,7 @@ p { border: 1px solid #FF00FF}
 
 
 		<!-- header/navibar import -->
-		<c:import url="main_header_nav.jsp" /><!-- 세션은 기본적으로 http:가 붙으면 남의 서버로 인식해서 사용이 안됩ㄴ다. 아 그럼 폴더로 바까야하나요 -->
+		<c:import url="main_header_nav.jsp" />
 
 		
 		<!-- Carousel

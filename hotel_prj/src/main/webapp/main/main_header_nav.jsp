@@ -11,9 +11,8 @@
 		<span id="logo"
 			onclick="location.href = 'http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp'">
 			<strong>Hotel Ritz Seoul</strong>
-			<% //로그인 을 수행하면 session에 로그인 정보가 저장됩니다. 
-			//그 중에 세션에 값이없으면로그인을 보여주고 그렇지 않으며 로그아웃을 보여주면 되겠죠?>네네
-			String id=(String)session.getAttribute("id"); //로그인이 되지 않은상황이라면 id변수에는 무엇이 들어있을 까요?>null이요 그렇습니다.
+			<% 
+			String id=(String)session.getAttribute("id");
 					System.out.println( id +"==============");
 					if( id == null){
 			%>
