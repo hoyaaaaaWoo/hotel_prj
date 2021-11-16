@@ -35,7 +35,6 @@ String kname=request.getParameter("delKname");
 MemberUpdate mu = new MemberUpdate();
 int cnt = mu.memberFlag(kname);
 
-
 if(cnt ==1){
 %>
 <script type="text/javascript">
