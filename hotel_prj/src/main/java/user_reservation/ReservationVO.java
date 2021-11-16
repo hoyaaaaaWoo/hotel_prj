@@ -3,10 +3,10 @@ package user_reservation;
 import java.util.Date;
 
 public class ReservationVO {
-
-	private int room_no, adult, child, val_mm, val_yy;
+//더 많은데 다른거랑 연결되어있을거같아서 네 맞아요 DBTable의 데이터형과도 맞겠죠? 네 
+	private int room_no, adult, child;
 	private String res_no, id, chkin_date, chkout_date, add_req, 
-				cc_agree, pi_agree, res_status, r_name,
+				cc_agree, pi_agree, res_status, r_name, val_mm, val_yy,
 				ename_lst, ename_fst, company, tel, card_no, email;
 	private Date res_date;
 	
@@ -16,7 +16,7 @@ public class ReservationVO {
 	}
 
 
-	public ReservationVO(int room_no, int adult, int child, int val_mm, int val_yy, String res_no, String id,
+	public ReservationVO(int room_no, int adult, int child, String val_mm, String val_yy, String res_no, String id,
 			String chkin_date, String chkout_date, String add_req, String cc_agree, String pi_agree, String res_status,
 			String r_name, String ename_lst, String ename_fst, String company, String tel, String card_no, String email,
 			Date res_date) {
@@ -74,22 +74,22 @@ public class ReservationVO {
 	}
 
 
-	public int getVal_mm() {
+	public String getVal_mm() {
 		return val_mm;
 	}
 
 
-	public void setVal_mm(int val_mm) {
+	public void setVal_mm(String val_mm) {
 		this.val_mm = val_mm;
 	}
 
 
-	public int getVal_yy() {
+	public String getVal_yy() {
 		return val_yy;
 	}
 
 
-	public void setVal_yy(int val_yy) {
+	public void setVal_yy(String val_yy) {
 		this.val_yy = val_yy;
 	}
 

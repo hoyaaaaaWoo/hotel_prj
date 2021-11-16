@@ -1,9 +1,11 @@
+<%@page import="kr.co.sist.util.cipher.DataDecrypt"%>
 <%@page import="user_reservation.ReservationVO"%>
 <%@page import="java.util.List"%>
 <%@page import="user_reservation.ReservationSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="Hotel Ritz Seoul"%>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix = "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -183,6 +185,7 @@ p { border: 1px solid #FF00FF}
 			alert("예약이 취소되었습니다");
 			location.href = "http://localhost/hotel_prj/user/reser_chk/reservation_inq.jsp"
 		} else {
+			
 		}
 	}
 
@@ -241,19 +244,35 @@ p { border: 1px solid #FF00FF}
 <input type="hidden" value="${ res_no }"/>
 
 <%request.setCharacterEncoding("UTF-8"); %>
-  
-  <!-- 이전 페이지에서 날아온 웹파라미터 이 페이지에서 받아서 설정하기 -->
-  <jsp:useBean id="rVO" class="user_reservation.ReservationVO"/>  
-  <!-- *써서 setter method 다 실행해서 세팅됨 -->
-  <jsp:setProperty property="*" name="rVO"/>
-<%
-	String id = (String)session.getAttribute("id");
-	String paramResNo = request.getParameter("res_no");
 
-	ReservationSelect rsD = new ReservationSelect();
+ <!-- 이전 페이지에서 날아온 웹파라미터 이 페이지에서 받아서 설정하기 -->
+  <jsp:useBean id="resVO" class="user_reservation.ReservationVO"/>  
+  <!-- *써서 setter method 다 실행해서 세팅됨 -->
+  <jsp:setProperty property="*" name="resVO"/>
+  
+<%
+	//id 세션 받아오기
+	String id = (String)session.getAttribute("id"); 
+
+	//res_no파라미터로 받아오기
+	String res_no = request.getParameter("res_no");
+	pageContext.setAttribute("res_no",res_no);   
 	
-	/* List<ReservationVO> list = rsD.reservationChk(paramResNo);
-	pageContext.setAttribute("resChk", list); */
+	ReservationSelect rsD = new ReservationSelect();
+	ReservationVO rVO = rsD.reservation(id); //세션에 id를 사용하여 필요한 값을 조회하여 VO에 저장한다. 
+	int rVO2 = rsD.pay(res_no);  
+	
+	pageContext.setAttribute("rVO",rVO); //scope객체에 조회 결과 값을 넣고 아래 에서 뿌린다.
+	pageContext.setAttribute("rVO2", rVO2);
+	
+	
+	/* 
+	//복호화
+	String tel = rsD.reservation(id);
+	DataDecrypt dd=new DataDecrypt("AbcdEfgHiJkLmnOpQ");
+	tel = dd.decryption(tel);
+	 */
+	
 %>
 
 	<div class="wrap">
@@ -264,7 +283,8 @@ p { border: 1px solid #FF00FF}
 		<div class="resChk">
 		<br><br><br>	
 			<div class="chkDiv">
-				<div id="resConf">예약 정보 조회</div><%= paramResNo %>
+				<div id="resConf">예약 정보 조회</div>
+				<%= res_no %>
 	
 				<form name="resChkInfo" id="resChkInfo" action="" method="post">
 					<table class="chkTab">
@@ -275,26 +295,25 @@ p { border: 1px solid #FF00FF}
 
 							<td>
 								<table id="chkSubTab">
-								<c:forEach var="resChk" items="${ resChk }">
+								<!-- 지금은 데이터는 하나만 나오는 것이어서 반복하지 않습니다 -->
 									<tr>
 										<td class="guide">객실</td>
-										<td class="guideTextP"><c:out value="${ resChk.r_name }"/></td>
+										<td class="guideTextP"><c:out value="${ rVO.r_name }"/></td>
 									</tr>
 									<tr>
 										<td class="guide">투숙 날짜</td>
-										<td class="guideTextP"><c:out value="${ resChk.chkin_date }"/> - <c:out value="${ resChk.chkout_date }"/> (1박)</td>
+										<td class="guideTextP"><c:out value="${ rVO.chkin_date }"/> - <c:out value="${ rVO.chkout_date }"/> (1박)</td>
 									</tr>
 									<tr>
 										<td class="guide">인원</td>
-										<td class="guideTextP">성인<c:out value="${ resChk.adult }"/>, 어린이<c:out value="${ resChk.child }"/></td>
+										<td class="guideTextP">성인<c:out value="${ rVO.adult }"/>, 어린이<c:out value="${ rVO.child }"/></td>
 									</tr>
-								</c:forEach>
 								</table> <br />
 
 								<table id="chkSubTab">
 									<tr>
 										<td class="guide">객실요금</td>
-										<td class="guideTextPR"><c:out value="${ price }"/> KRW</td>
+										<td class="guideTextPR"><fmt:formatNumber pattern = "#,###,###" value = "${ rVO2 }"/> KRW</td>
 									</tr>
 									<tr>
 										<td class="guide">세금 및 봉사료</td>
@@ -328,37 +347,35 @@ p { border: 1px solid #FF00FF}
 				<div class="back">
 					<form name="bookerInfo" id="bookerInfo" action="" method="post">
 						<table class="backTab">
-						<c:forEach var="resWho" items="${ resWho }">
 							<tr>
 								<td class="guide">성(영문)</td>
-								<td class="guideText"><c:out value="${ resWho.ename_lst }"/></td>
+								<td class="guideText"><c:out value="${ rVO.ename_lst }"/></td>
 								<td class="guide">연락처</td>
-								<td class="guideText"><c:out value="${ resWho.tel }"/></td>
+								<td class="guideText"><c:out value="${ rVO.tel }"/></td>
 
 							</tr>
 							<tr>
 								<td class="guide">이름(영문)</td>
-								<td class="guideText"><c:out value="${ resWho.ename_fst }"/></td>
+								<td class="guideText"><c:out value="${ rVO.ename_fst }"/></td>
 								<td class="guide">이메일</td>
-								<td class="guideText"><c:out value="${ resWho.email }"/></td>
+								<td class="guideText"><c:out value="${ rVO.email }"/></td>
 								<td></td>
 								<td><button type="button" class="btn btn-primary"
 										onclick="print()">인쇄하기</button></td>
 							</tr>
 							<tr>
 								<td class="creditcard">신용카드 종류</td>
-								<td class="creditname"><c:out value="${ resWho.company }"/></td>
+								<td class="creditname"><c:out value="${ rVO.company }"/></td>
 								<td class="creditcard">신용카드번호</td>
-								<td class="creditnum">5389***************</td>
+								<td class="creditnum"><c:out value="${ rVO.card_no }"/></td>
 							</tr>
 							<tr>
 								<td class="creditcard">유효기간</td>
-								<td class="creditday"><c:out value="${ resWho.val_mm }"/>/<c:out value="${ resWho.val_yy }"/></td>
+								<td class="creditday"><c:out value="${ rVO.val_mm }"/>/<c:out value="${ rVO.val_yy }"/></td>
 								<td></td>
 								<td></td>
 							</tr>
 
-						</c:forEach>
 						</table>
 						<table>
 							<tr>
@@ -396,7 +413,7 @@ p { border: 1px solid #FF00FF}
 
 
 			<br /> <br />
-			<div style="width: 1000px; text-align: center;">
+			<div style="width: 1000px; text-align: center;"><!--  -->
 				<button type="button" class="btn btn-default"
 					style="width: 100px; height: 40px" onclick="main()">홈으로</button>
 			</div>

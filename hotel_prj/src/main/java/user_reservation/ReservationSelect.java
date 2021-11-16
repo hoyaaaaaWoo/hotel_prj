@@ -8,7 +8,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import admin_member.MemberVO;
 import team3_dao.GetJdbcTemplate;
 
 public class ReservationSelect {
@@ -85,10 +84,8 @@ public class ReservationSelect {
 				return rVO;
 			}
 		}
+
 		
-	 
-	
-	
 	 /**
 	  * 예약자정보조회
 	 * @param id
@@ -122,8 +119,8 @@ public class ReservationSelect {
 				rVO.setEname_lst(rs.getString("ename_lst"));
 				rVO.setEname_fst(rs.getString("ename_fst"));
 				rVO.setCompany(rs.getString("company"));
-				rVO.setVal_mm(rs.getInt("val_mm"));
-				rVO.setVal_yy(rs.getInt("val_yy"));
+				rVO.setVal_mm(rs.getString("val_mm"));
+				rVO.setVal_yy(rs.getString("val_yy"));
 				rVO.setTel(rs.getString("tel"));
 				rVO.setEmail(rs.getString("email"));
 				rVO.setCard_no(rs.getString("card_no"));
@@ -143,23 +140,63 @@ public class ReservationSelect {
 	 * @return
 	 * @throws DataAccessException
 	 */
-	public String pay(ReservationVO rVO) throws DataAccessException {
-			String price="";
+	public int pay(String pri) throws DataAccessException {
+			Integer price=null;
 			
 			//1. 스프링 컨테이너 생성
 			GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();  
 			//2. JdbcTemplate 얻기
 			JdbcTemplate jt = gjt.getJdbcTemplate();
-			//3. 쿼리문 수행
-			String selectPrice = "select price from room where r_name=?";
-			price = jt.queryForObject(selectPrice, new Object[] {rVO.getR_name()}, String.class);
+			//3. 쿼리문 수행  price가 string이에요?
+			String selectPrice = "select r.price from room r where r.room_no in"
+					+ "(select reser.room_no from reservation reser where reser.res_no=?)";//price 데이터형이 varchar2에요?
+			price = jt.queryForObject(selectPrice, new Object[] { pri/*입력되는 파라메터*/ }, Integer.class);
 			//4. 스프링컨테이너 닫기
 			gjt.closeAc();
 			
-			return price;		
-		}
+			return price.intValue();		
+	}//pay
+	
 	 
+	public ReservationVO reservation(String id) throws DataAccessException{
+		ReservationVO rVO = null;
+		
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();  
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		String reser = "select r.r_name, reser.res_no, reser.chkin_date, reser.chkout_date, "
+				+ "reser.adult, reser.child, ci.card_no, ci.company, ci.val_mm, ci.val_yy, reser.id " 
+				+ "from reservation reser, room r, card_info ci "
+				+ "where reser.room_no=r.room_no(+) and reser.res_no=ci.res_no and reser.id=?";
+		rVO=jt.queryForObject(reser, new Object[] { id }, new RowMapper<ReservationVO>() {
+
+			@Override
+			public ReservationVO mapRow(ResultSet rs, int rowCnt) throws SQLException {
+				ReservationVO rVO=new ReservationVO();
+				//조회된 결과를 rVO에  setter method를 사용해서 넣습니다.		
+				rVO.setR_name(rs.getString("r_name"));
+				rVO.setRes_no(rs.getString("res_no"));
+				rVO.setChkin_date(rs.getString("chkin_date"));
+				rVO.setChkout_date(rs.getString("chkout_date"));
+				rVO.setAdult(rs.getInt("adult"));
+				rVO.setChild(rs.getInt("child"));
+				rVO.setCard_no(rs.getString("card_no"));
+				rVO.setCompany(rs.getString("company"));
+				rVO.setVal_mm(rs.getString("val_mm"));
+				rVO.setVal_yy(rs.getString("val_yy"));
+				rVO.setId(rs.getString("id"));
+				
+				return rVO;
+			}
+			
+		});
+		gjt.closeAc();
+		
+		return rVO;
+		
+	}//reservation
 	 
+	
+	
 }
 		
 		
