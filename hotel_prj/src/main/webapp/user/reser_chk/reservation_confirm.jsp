@@ -268,7 +268,7 @@ p { border: 1px solid #FF00FF}
 	
 	/* 
 	//복호화
-	String tel = rsD.reservation(id);
+	String tel = rsD.reservation();
 	DataDecrypt dd=new DataDecrypt("AbcdEfgHiJkLmnOpQ");
 	tel = dd.decryption(tel);
 	 */
@@ -332,7 +332,7 @@ p { border: 1px solid #FF00FF}
 						<tr>
 							<td></td>
 							<td>총 요금</td>
-							<td>492,470 KRW</td>
+							<td><fmt:formatNumber pattern = "#,###,###" value = "${ rVO2 }"/> KRW</td>
 						</tr>
 					</table>
 				</form>
