@@ -78,7 +78,7 @@ $(function(){
 	
 	//객실추가 시 
 	 $("#addBtn").click(function(){
-		 location.href="http://localhost/hotel_prj/admin/admin_room_add.jsp";
+		 location.href="http://localhost/hotel_prj/admin/admin_room/admin_room_add.jsp";
 	 });//click
 	 
 	 //객실정보수정 시
@@ -109,11 +109,11 @@ function showRoomDetail(roomName){
 	    }//end if
 	    %>
 		<!-- header/navibar import -->
-		<c:import url="common/admin_header_nav.jsp" /> 
+		<c:import url="../common/admin_header_nav.jsp" /> 
 	
 		<!-- 컨테이너 시작 -->
 		<div id="container" style="padding:50px"> 
-		<span id="mainMenu" onclick="location.href='http://localhost/hotel_prj/admin/admin_room_main.jsp'">객실</span><br/>
+		<span id="mainMenu" onclick="location.href='http://localhost/hotel_prj/admin/admin_room/admin_room_main.jsp'">객실</span><br/>
 		<input type="button" id="addBtn" class="btn btn-primary" value="객실 추가"/>
 		
 		<div id="roomList"> 
@@ -141,7 +141,7 @@ function showRoomDetail(roomName){
 		</table>
 		</div> <!-- roomList div -->
 
-		<form name="frm" id="frm" action="http://localhost/hotel_prj/admin/admin_room_main.jsp" method="get">
+		<form name="frm" id="frm" action="http://localhost/hotel_prj/admin/admin_room/admin_room_main.jsp" method="get">
 			<input type="hidden" name="rName" id="rName"/>
 		</form>
 		
@@ -152,7 +152,7 @@ function showRoomDetail(roomName){
 		pageContext.setAttribute("rmVO", room.selectRoomInfo(rName,null));
 		%>
 		<div id="viewRoom">
-		<form name ="chgFrm" id ="chgFrm"  action="http://localhost/hotel_prj/admin/admin_room_change.jsp" method="post">
+		<form name ="chgFrm" id ="chgFrm"  action="http://localhost/hotel_prj/admin/admin_room/admin_room_change.jsp" method="post">
 		<input type="button" id="chgBtn" name="chgBtn" class="btn btn-primary" value="객실 정보 수정"/>
 			<input type="hidden" name="selectedRName" id="selectedRName"/>
 		<br/>
@@ -286,7 +286,7 @@ function showRoomDetail(roomName){
 		</div> <!-- 컨테이너 div -->
 		
 		<!-- footer import -->
-		<c:import url="common/admin_footer.jsp" />
+		<c:import url="../common/admin_footer.jsp" />
 		
 	</div> <!-- wrap div -->
 </body>

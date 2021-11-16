@@ -62,13 +62,13 @@ if(ri.insertProcess(roomVO)){
 %>
 <script type="text/javascript">
 	alert("객실이 정상적으로 추가되었습니다.");
-	location.href="http://localhost/hotel_prj/admin/admin_room_main.jsp";
+	location.href="http://localhost/hotel_prj/admin/admin_room/admin_room_main.jsp";
 </script>
 <% }else{
 %>
 <script type="text/javascript">
 	alert("죄송합니다. 잠시 후 다시 시도해주세요.");
-	location.href="http://localhost/hotel_prj/admin/admin_room_add.jsp";
+	location.href="http://localhost/hotel_prj/admin/admin_room/admin_room_add.jsp";
 </script>
 <% }%>
 </c:catch>
@@ -76,7 +76,7 @@ if(ri.insertProcess(roomVO)){
 <c:if test="${not empty e}">
 	<strong>죄송합니다. 객실 추가 작업 중 문제가 발생했습니다.</strong><br/>
 	<strong>잠시 후 다시 시도해주세요.</strong><br/>
-	<a href="http://localhost/hotel_prj/admin/admin_room_add.jsp">뒤로 가기</a>
+	<a href="http://localhost/hotel_prj/admin/admin_room/admin_room_add.jsp">뒤로 가기</a>
 </c:if> 
 
 </body>

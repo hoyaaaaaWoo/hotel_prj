@@ -94,10 +94,10 @@ $("#toDayList tr").click(function(){
 
 	<div id="wrap">
 		<!-- header/navibar import -->
-		<c:import url="common/admin_header_nav.jsp" /> 
+		<c:import url="../common/admin_header_nav.jsp" /> 
 		
 		<div id="container">
-			<span id="mainMenu" onclick="http://localhost/hotel_prj/admin/admin_main.jsp">오늘의 예약</span><br/>
+			<span id="mainMenu" onclick="http://localhost/hotel_prj/admin/common/admin_main.jsp">오늘의 예약</span><br/>
 			<div id="todayRes">
 			
 		<%
@@ -146,7 +146,7 @@ $("#toDayList tr").click(function(){
 		</div>
 		
 		<!-- 테이블의 예약건(행) 클릭시 hidden값 설정 및 페이지 이동 -->
-		 <form name="moveFrm" id="moveFrm" action="admin_reservation_main.jsp" method="get">
+		 <form name="moveFrm" id="moveFrm" action="http://localhost/hotel_prj/admin/admin_reservation/admin_reservation_main.jsp" method="get">
 		 <c:if test="${ not empty toDayData }">
 		 	<input type="hidden" name="year" id="year" value="<%=nowYear%>"/>
 		 	<input type="hidden" name="month" id="month" value="<%=nowMonth%>"/>
@@ -158,7 +158,7 @@ $("#toDayList tr").click(function(){
 	</div>
 
 	<!-- footer import -->
-	<c:import url="common/admin_footer.jsp" />
+	<c:import url="../common/admin_footer.jsp" />
 
 </body>
 </html>

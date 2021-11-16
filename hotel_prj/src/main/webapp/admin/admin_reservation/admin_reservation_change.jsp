@@ -179,17 +179,17 @@ $(function(){
 <body>
 	<!-- 예약관리 메인 페이지에서 넘어오지 않았을 경우 redirect 해주기 (예약번호 선택 필요) -->
 	<c:if test="${empty param.resNum}">
-  	  <c:redirect url="http://localhost/hotel_prj/admin/admin_reservation_main.jsp"/>
+  	  <c:redirect url="http://localhost/hotel_prj/admin/admin_reservation/admin_reservation_main.jsp"/>
 	</c:if>
 		 
 	<div id="wrap">
 		
 		<!-- header/navibar import -->
-		<c:import url="common/admin_header_nav.jsp" /> 
+		<c:import url="../common/admin_header_nav.jsp" /> 
 		
 		<div id="container" style="padding:50px">
-		<span id="mainMenu" onclick="location.href='admin_reservation_change.jsp">예약변경</span><br/><br/>
-		<form name="chgFrm" id="chgFrm" action="admin_reservation_update_process.jsp" method="post" class="form-inline">
+		<span id="mainMenu" onclick="location.href='http://localhost/hotel_prj/admin/admin_reservation/admin_reservation_change.jsp">예약변경</span><br/><br/>
+		<form name="chgFrm" id="chgFrm" action="http://localhost/hotel_prj/admin/admin_reservation/admin_reservation_update_process.jsp" method="post" class="form-inline">
 		 
 		 <% 
 		 String resNum = request.getParameter("resNum");
@@ -282,7 +282,7 @@ $(function(){
 		</div>
 		 
 		<!-- footer import -->
-		<c:import url="common/admin_footer.jsp" />
+		<c:import url="../common/admin_footer.jsp" />
 		
 	</div>
 </body>

@@ -21,7 +21,7 @@ session.setAttribute("mg_id", reId);
 if(reId.equals(mg_id)) {
 %>    <!-- 로그인성공시 메인페이지로 이동 -->
 <script type="text/javascript">
-location.href="http://localhost/hotel_prj/admin/admin_main.jsp";
+location.href="http://localhost/hotel_prj/admin/common/admin_main.jsp";
 </script>
  <%} 
  %>
