@@ -224,7 +224,8 @@ $(function(){
 
 	//가격 숫자형식 체크
 	$("#price").keyup(function(evt){
-		if(!(evt.which>=48 && evt.which<=57)){ //0~9 사이의 숫자만 입력 가능함
+		if((/[^0123456789]/g.test(price.value))){
+		//if(!(evt.which>=48 && evt.which<=57)){ //0~9 사이의 숫자만 입력 가능함
 			alert("숫자만 입력해주세요.");
 			$("#price").val("");
 			$("#price").focus();
@@ -232,6 +233,37 @@ $(function(){
 		}//end if
 	})//keyup
 
+	//roomSize 형식 체크
+	$("#roomSize").keyup(function(evt){
+		if((/[^0123456789~]/g.test(roomSize.value))){
+			alert("숫자만 또는 숫자~숫자 형식으로 입력해주세요.");
+			$("#roomSize").val("");
+			$("#roomSize").focus();
+			return;
+		}//end if
+	})//keyup
+	
+	//체크인시간 형식 체크
+	$("#chkIn").keyup(function(evt){
+		if((/[^0123456789:]/g.test(chkIn.value))){
+			alert("MM:HH 형식으로 입력해주세요.");
+			$("#chkIn").val("");
+			$("#chkIn").focus();
+			return;
+		}//end if
+	})//keyup
+	
+	//체크아웃시간 형식 체크
+	$("#chkOut").keyup(function(evt){
+		if((/[^0123456789:]/g.test(chkOut.value))){
+			alert("MM:HH 형식으로 입력해주세요.");
+			$("#chkOut").val("");
+			$("#chkOut").focus();
+			return;
+		}//end if
+	})//keyup
+	
+	
 	//메인이미지 등록시 file hidden값 파일명으로 설정
 	$("#mainFile").change(function(){
 		var fileName = this.files[0].name;
@@ -418,6 +450,7 @@ function resetFileTag(){
 	$("#otherFile").val("");
 	$("#mainFile").innerHTML = "<input type='file' name ='mainFile' id='mainFile' style='display: none;'/>";
 	$("#otherFile").innerHTML = "<input type='file' name ='otherFile' id='otherFile' style='display: none;'/>";
+	$("#fileName").val(""); // temp 업로드용 메인파일 히든값 초기화
 }//resetFileTag
 
 //윈도우 종료 or 새로고침 시 temp 폴더의 파일 삭제
@@ -545,11 +578,11 @@ $(window).bind("beforeunload", function(){
 				<tr>
 			  	<th>체크인</th>
 			 	<td class="subTd">
-			 	<input type="text" name="chkIn" id="chkIn" class="form-control" maxlength="10" value="${rVO.chkIn }" placeholder="15:00"/>
+			 	<input type="text" name="chkIn" id="chkIn" class="form-control" maxlength="5" value="${rVO.chkIn }" placeholder="15:00"/>
 			    </td>
 			  	<th>체크아웃</th>
 			 	<td class="subTd">
-			 	<input type="text" name="chkOut" id="chkOut" class="form-control" maxlength="10" value="${rVO.chkOut }" placeholder="12:00"/>
+			 	<input type="text" name="chkOut" id="chkOut" class="form-control" maxlength="5" value="${rVO.chkOut }" placeholder="12:00"/>
 			   </td>
 			  </tr>
 			  </table>

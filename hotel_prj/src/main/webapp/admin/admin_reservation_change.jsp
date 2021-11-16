@@ -208,7 +208,7 @@ $(function(){
 		 </tr>
 		 <tr>
 		   <td> <label id="title">* 예약자명</label> </td>
-		   <td> <input type="text" name="kName" id="kName" class="form-control"  value="${rVO.kName}"  maxlength="10"/> </td>
+		   <td> <input type="text" name="kName" id="kName" class="form-control"  value="${rVO.kName}" readonly="readonly"/> </td>
 		 </tr>
 		 <tr>
 		   <td> <label id="title">* 투숙날짜</label> </td>

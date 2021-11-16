@@ -34,43 +34,19 @@
 <jsp:setProperty property="*" name="ruVO"/>
 <jsp:setProperty property="chkInDate" name="ruVO" value="${ruVO.inYear}.${ruVO.inMonth}.${ruVO.inDay}"/>
 <jsp:setProperty property="chkOutDate" name="ruVO" value="${ruVO.outYear}.${ruVO.outMonth}.${ruVO.outDay}"/>
-
 <%
-//회원 검증
-MemberSelect ms = new MemberSelect();
-List<MemberVO> list = ms.selectMember();
-boolean flag = false;
-for(MemberVO mv : list){
-	if(ruVO.getkName().equals(mv.getKname())){ //회원테이블의 kname과 변경하려는 회원명이 같고, 정상 회원이면 true
-		System.out.println(ruVO.getkName()+"/"+mv.getKname());
-		if(mv.getM_status().equals("Y")){
-			flag = true;
-			break;
-		}else{
-			break;
-		}//end els
-	}//end if
-}//end for
-
-if(!flag){%>
-<script type="text/javascript">
-	alert("유효한 회원이 아닙니다. 회원 정보를 확인해주세요.");
-	history.back();
-</script>
-<%return;
-}//endif
+ReserveSelect rs = new ReserveSelect();
 
 //인원수 검증
 int adult = Integer.parseInt(request.getParameter("adult"));
 int child = Integer.parseInt(request.getParameter("child"));
 
-ReserveSelect rs = new ReserveSelect();
 int maxGuest = rs.selectMaxGuest(ruVO.getrName());
 
 if((adult+child) > maxGuest){ 
 %>
 <script type="text/javascript">
-	alert("<%=ruVO.getrName()%> 의 최대 인원수는 <%=maxGuest%>명 입니다.");
+	alert("<%=ruVO.getrName()%>의 최대 인원수는 <%=maxGuest%>명 입니다.");
 	history.back();
 </script>
 <%return; }%>
@@ -105,6 +81,7 @@ if(cnt == 1){
 </c:catch>
 
 <c:if test="${not empty e}">
+${e}
 	<strong>죄송합니다. 삭제 작업 중 문제가 발생했습니다.</strong><br/>
 	<strong>잠시 후 다시 시도해주세요.</strong><br/>
 	<a href="http://localhost/hotel_prj/admin/admin_reservation_main.jsp">뒤로 가기</a>
