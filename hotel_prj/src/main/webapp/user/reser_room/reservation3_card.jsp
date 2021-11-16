@@ -1,7 +1,9 @@
+
+<%@page import="user_card.CardVO"%>
+<%@page import="user_card.SelectCard"%>
+<%@page import="java.text.DateFormat"%>
 <%@page import="uesr_member.MemberVO"%>
 <%@page import="uesr_member.MemberSelect"%>
-<%@page import="java.text.DateFormat"%>
-
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="user_room.RoomVO"%>
@@ -205,8 +207,10 @@
 }
 
 #cardSave {
+width: 200px;
 	font-size: 15px;
 	font-weight: bold;
+
 	float: left
 }
 
@@ -227,13 +231,13 @@ details>p {
 	background-color: #FAFAFA;
 }
 
-/*
+
 div { border: 1px solid #0000FF}
 td { border: 1px solid #FF0000}
 tr { border: 1px solid #FF0000}
 span { border: 1px solid #FF00FF}
 p { border: 1px solid #FF00FF}
-*/
+
 </style>
 
 <!-- Bootstrap core CSS -->
@@ -254,40 +258,13 @@ p { border: 1px solid #FF00FF}
 
 <script type="text/javascript">
 $(function() {
-	$("#completeBtn").click(function() {
-		
-		if ($("input:checkbox[name=CHECK_YN]").is(":checked") == true){
-			$("#saveYN").val("Y");
-			
-		}else{
-			$("#saveYN").val("N");
-		}//end else
-		
-		if ($("input:checkbox[name=ccAgree]").is(":checked") == true){
-			$("#ccYN").val("Y");
-		}else{
-			$("#ccYN").val("N");
-		}//end else
-		
-		if ($("input:checkbox[name=piAgree]").is(":checked") == true){
-			$("#piYN").val("Y");
-		}else{
-			$("#piYN").val("N");
-		}//end else
-		
-		 //alert($("#saveYN").val());
-		("#FFrm").submit();
-		
-	})//click
-}); //ready
+	
+	$("#completeBtn").click(function() {//completeBtn 버튼이 클릭되면 유효성 검사 시작인건데 마죠?네 실행해보세요
 
-/*
-function chkCard(){
 	let card_no = $("#card_no").val();
 	let val_MM = $("#val_MM").val();
 	let val_YY = $("#val_YY").val();
-	let cardCompany = $("#cardCompany".val();
-	
+	let cardCompany = $("#cardCompany").val();
 	
 	//신용카드 정보 유효성 검사
 	if((/[^0123456789-]/g.test(card_no)) // 숫자0-9와 - 만 입력 가능
@@ -299,11 +276,9 @@ function chkCard(){
 		alert("카드번호를 0000-0000-0000-0000 형식으로 입력해주세요.");
 		$("#card_no").focus();
 		return;
-	}/*else{
-		alert( "good");
-	}*/
+	}//end if
 	
-	/*
+	
 	//신용카드 유효기간 월 유효성 검사
 	if ( (/[^0123456789]/g.test(val_MM) )
 		|| val_MM < 1 
@@ -312,11 +287,8 @@ function chkCard(){
 		alert("카드 유효기간 (월) 숫자 1 ~ 12 로 입력해주세요.");
 		$("#val_MM").focus();
 		return;
-	}/*else{
-		alert(val_MM)
-	}*/
+	}//end if
 	
-	/*
 	//신용카드 유효기간 월 유효성 검사
 	if ( (/[^0123456789]/g.test(val_YY) )
 			|| val_YY < 21 
@@ -325,18 +297,15 @@ function chkCard(){
 			alert("카드 유효기간 (년) 20XX 숫자로 입력해주세요.");
 			$("#val_YY").focus();
 			return;
-		}/*else{
-			alert(val_YY)
-		}*/
+		}//end if
 		
-/* 	if( ( cardCompany == "none"){
-		alert("카드 종류를 선택해주세요.");
+ 	if( cardCompany == "none"){
+ 		alert("카드 종류를 선택해주세요.");
 	return;
-	}//end if */
+	}//end if 
 		
-	/*
+	
 	//취소규정 체크 여부 (필수)
-
 	if($( "[name = 'ccAgree']:checked").val() == "" ){
 		alert("위 취소규정 약관에 동의해 주세요.");
 	}//end id
@@ -345,11 +314,31 @@ function chkCard(){
 	if($( "[name = 'piAgree']:checked").val() == "" ){
 		alert("위 개인정보수집 약관에 동의해 주세요.");
 	}//end id
-	
-	/* location.href="http://localhost/hotel_prj/user/reser_room/reservation_complete.jsp"; */
-	/*
-}//chkCard*/
 
+	
+	if ($("input:checkbox[name=CHECK_YN]").is(":checked") == true){
+		$("#saveYN").val("Y");
+	}else{
+		$("#saveYN").val("N");
+	}//end else
+	
+	if ($("input:checkbox[name=ccAgree]").is(":checked") == true){
+		$("#ccYN").val("Y");
+	}else{
+		$("#ccYN").val("N");
+	}//end else
+	
+	if ($("input:checkbox[name=piAgree]").is(":checked") == true){
+		$("#piYN").val("Y");
+	}else{
+		$("#piYN").val("N");
+	}//end else 
+	
+	
+  $("#FFrm").submit();  
+	
+	});//click
+}); //ready
 
 
 </script>
@@ -363,6 +352,11 @@ function chkCard(){
 
 <%
 	String paramSd = request.getParameter("sd");
+
+// 스크립틀릿은 가장 먼저 실행되어서 자바스크립트가 실행되기 전에 됩니다. 그럼 저 paramSd는 처음에 있을 까요? 없을까요? 있어요 없습니다.
+		//페이지가 처음 호출된 상태에서 paramSd는 없어요. 그럼 어떻게 하면 될까요? 근데 가장 처음에 실행되는데 왜 없죠???? 
+	//이 값은 언제들어와요? 전 페이지에서 넘어올떄요  그럼 유효성 검증을 전페이지에서 해야지 여기서 할건 아닌데요. 아근데 유효성검사는 신용카드랑 체크여부라서
+			//여기 파라미터들이랑은 상관잉 없어여 신용카드는 아래에서 넣어주나요?네 
 	String paramEd = request.getParameter("ed");
 	String paramAdult = request.getParameter("adult");
 	String paramChild = request.getParameter("child");	
@@ -388,12 +382,40 @@ function chkCard(){
 	String strResNo = month + day + "R" + zeroRoomNo;
 	
 	RoomSelect rs = new RoomSelect();
-	RoomVO rv = rs.selectRoomInfo(room_no);  
+	RoomVO rv = rs.selectRoomInfo(room_no); //이여기서 룸정보 조회하고? 네
 	
 	String id = (String)session.getAttribute("id");
 	
 	MemberSelect ms = new MemberSelect();
 	MemberVO mv = ms.selectMemInfo(id);
+	
+	// 사용자의 기본 카드 정보 확인하기
+	SelectCard sc = new SelectCard();
+	
+	// 저장된 사용자의 카드 로우가 있는지 확인 -> 없으면 card_no을 0으로 반환
+	CardVO cdVO = sc.checkSavedCard(id);
+	String savedFlag = cdVO.getCard_no();
+	pageContext.setAttribute("savedFlag", savedFlag);
+	
+	
+ 	 if( !savedFlag.equals("0")){
+	 	// 사용자의 카드 정보 가져오기
+		CardVO cVO = sc.selectCardInfo(id);
+		String savedCard_no = cVO.getCard_no(); 
+		String savedMM = cVO.getVal_mm();
+		String savedYY = cVO.getVal_yy();
+		String savedCompany = cVO.getCompany();
+		pageContext.setAttribute("savedCard_no", savedCard_no); 
+		pageContext.setAttribute("savedMM", savedMM); 
+		pageContext.setAttribute("savedYY", savedYY); 
+		pageContext.setAttribute("savedCompany", savedCompany); 
+	} 
+	
+	/* String nowCard_no = "<script>document.writeln(Nowcard_no)</script>";
+
+	pageContext.setAttribute("nowCard_no", nowCard_no); */
+	
+	
 %>
 	<div class="wrapper" style="width: 1130px">
 		<!-- header/navibar import -->
@@ -405,13 +427,13 @@ function chkCard(){
 		<!--================================================== -->
 
 		<div class="resChk">
-		<div>예약번호 : <%= strResNo%> %>/<%=zeroRoomNo%> %> 월: <%=month%> / 일 : <%= day%> <%=addReq %><%=id%><%=paramSd %>/<%=paramEd %> / <%=diffDays %>박/<%=paramAdult %>/<%=paramChild %>/<%= paramRoomNo%>///id:<%=(String)session.getAttribute("id") %></div>
+		<div>
 		
 			<div class="chkDiv">
 				<table class="chkTab">
 					<tr>
 						<td style="width: 500px"><img
-							src="http://localhost/hotel_prj/main/main_images/<%= rv.getMain_img() %>"
+							src="http://localhost/hotel_prj/roomImages/<%= rv.getMain_img() %>"
 							width="480" height="330" /><br /> <br /></td>
 
 						<td>
@@ -504,8 +526,7 @@ function chkCard(){
 			</div>
 			<!-- guideDiv -->
 			<br />
-<!-- <form name="cardFrm" action="http://localhost/hotel_prj/user/reser_room/reservation_complete.jsp" id="cardFrm" method="get">
- -->				
+		
  
 			<form name="FFrm" action="http://localhost/hotel_prj/user/reser_room/reservation_complete.jsp" id="FFrm" method="get">
  					<div class="guideDiv">
@@ -517,15 +538,41 @@ function chkCard(){
 
 					<table class="cardTab">
 						<tr>
-							<td class="cardTd" style="width: 300px">신용카드번호*<br /> <input
-								type="text" name="card_no" id="card_no" class="form-control"
-								maxlength="19" placeholder="0000-0000-0000-0000" />
+						<!-- 사용자의 카드정보가 카드테이블에 저장되어 있을 때(saveFlag가 0이 아닐때), 카드정보 넣어서 보여주기  -->
+							<td class="cardTd" style="width: 300px">신용카드번호*<br /> 
+							<c:choose>
+							<c:when test = "${ saveFlag == 0 }">
+							<input type="text" name="card_no" id="card_no" class="form-control" maxlength="19"  />
+							</c:when>
+							<c:otherwise>
+							<input type="text" name="card_no" id="card_no" class="form-control" maxlength="19" value = "${savedCard_no }" />
+							</c:otherwise>
+							</c:choose>
+							
 							</td>
 							<td class="cardTd" style="width: 200px">유효기간*<br /> 
+							<c:choose>
+							<c:when test = "${ saveFlag == 0 }">
 							<input type="text" name="val_MM"  class="form-control" id="val_MM" maxlength="2" placeholder="MM" />
+							</c:when>
+							<c:otherwise>
+							<input type="text" name="val_MM"  class="form-control" id="val_MM" maxlength="2"  value = "${savedMM }" />
+							</c:otherwise>
+							</c:choose>
+							
+							<c:choose>
+							<c:when test = "${ saveFlag == 0 }">
 							<input type="text" name="val_YY"  class="form-control" id="val_YY" maxlength="2" placeholder="YY" />
+							</c:when>
+							<c:otherwise>
+							<input type="text" name="val_YY"  class="form-control" id="val_YY" maxlength="2"  value = "${savedYY }" />
+							</c:otherwise>
+							</c:choose>
 							</td>
+							
 							<td class="cardTd">카드종류*<br /> 
+							<c:choose>
+							<c:when test = "${ saveFlag == 0 }">
 							<select name="cardCompany" id="cardCompany" class="form-control sel">
 									<option value="none">--선택--</option>
 									<option value="VISA">VISA</option>
@@ -533,18 +580,30 @@ function chkCard(){
 									<option value="UnionPay">UnionPay</option>
 									<option value="AMEX">AMEX</option>
 							</select>
+							</c:when>
+							<c:otherwise>
+							<select name="cardCompany" id="cardCompany" class="form-control sel">
+									<option value="none" <c:if test = "${savedCompany =='0'}">selected</c:if>>--선택--</option>
+									<option value="VISA" <c:if test = "${savedCompany =='VISA'}">selected</c:if>>VISA</option>
+									<option value="MasterCard" <c:if test = "${savedCompany =='MasterCard'}">selected</c:if>>MasterCard</option>
+									<option value="UnionPay" <c:if test = "${savedCompany =='UnionPay'}">selected</c:if>>UnionPay</option>
+									<option value="AMEX" <c:if test = "${savedCompany =='AMEX'}">selected</c:if>>AMEX</option>
+							</select>
+							</c:otherwise>
+							</c:choose>
+							
 							</td>
 						</tr>
 					</table>
 					<br /> <br />
-
-					<p id="cardSave">
+					
+					<label style = "float: left; "><div id="cardSave">
 						<input type = "hidden"  id = "saveYN" name = "saveYN"/>
-						<input type="checkbox" name="CHECK_YN" id = "CHECK_YN" /> 입력한 신용카드
-						정보 저장
-					</p>
-					<p style="float: left; padding-top: 3px; padding-left: 10px">입력하신
-						신용카드 정보를 저장해 두시면 향후 예약 시 편리하게 이용하실 수 있습니다.</p>
+						<input type="checkbox" name="CHECK_YN" id = "CHECK_YN" style = "float: left; font-size: 20px" /> 
+						<p>입력한 신용카드 정보 저장</p>
+					</div></label>
+					<p style="padding-left: 10px; width:800px">입력하신
+						신용카드 정보를 저장해 두시면 향후 예약 시 편리하게 이용하실 수 있습니다. </p>
 
 					<br />
 
@@ -560,9 +619,7 @@ function chkCard(){
 			<div class="agreeDiv">
 				<label><div class="guideTitle">
 						<input type = "hidden" id = "ccYN" name = "ccYN"/>
-						<input type="checkbox" id = "ccAgree" name="ccAgree" value="Y">&nbsp;취소규정
-						동의*
-						<input type = "hidden" id = "ccAgree_hidden" name = "ccAgree" value = "N" />
+						<input type="checkbox" id = "ccAgree" name="ccAgree"  >&nbsp;취소규정동의*
 					</div></label>
 				<div class="agreeBack">
 					• 상기 홈페이지 요금은 정상가에서 할인된 금액으로 중복 할인은 불가능합니다. <br /> • 예약 취소 및 변경은
@@ -577,8 +634,8 @@ function chkCard(){
 
 			<div class="pAgreeDiv">
 				<label><div class="guideTitle">
-						<input type = "hidden" id = "piYN" name = "piYN"/>
-						<input type="checkbox" id = "piAgree" name="piAgree" value="개인정보 동의" />&nbsp;필수적
+						 <input type = "hidden" id = "piYN" name = "piYN"/>
+						<input type="checkbox" id = "piAgree" name="piAgree" />&nbsp;필수적
 						개인정보수집이용에 대한 동의(객실예약)*
 					</div></label>
 				<div class=" pAgreeBack">리츠호텔 객실예약과 관련하여 아래와 같이 귀하의 개인정보를 수집 및
@@ -607,8 +664,9 @@ function chkCard(){
 			<input type="hidden" id="Child" name="child" value = "<%= paramChild %>"/>
 			<input type="hidden" id="diffDays" name="diffDays" value = "<%=diffDays %>"/>
 			<input type="hidden" id="resNo" name="resNo" value = "<%= strResNo %>"/>
-			<button type="submit" id = "completeBtn" class="btn btn-default btn-lg">예약하기</button>
-			</form>
+			<input type="hidden" id="saveFlag" name="saveFlag" value = "${ saveFlag}"/>
+			<button type="button" id = "completeBtn" class="btn btn-default btn-lg">예약하기</button>
+</form>
 			
 		</div>
 		<!-- resChk -->

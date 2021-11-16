@@ -1,3 +1,7 @@
+<%@page import="uesr_member.MemberVO"%>
+<%@page import="uesr_member.MemberSelect"%>
+<%@page import="user_room.RoomVO"%>
+<%@page import="user_room.RoomSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     info = "카드정보"%>
@@ -32,6 +36,17 @@
 
 <%
 request.setCharacterEncoding("UTF-8");
+String paramRoomNo = request.getParameter("room_no");
+int room_no = Integer.parseInt( paramRoomNo );
+
+RoomSelect rs = new RoomSelect();
+RoomVO rv = rs.selectRoomInfo(room_no);  
+
+String id = (String)session.getAttribute("id");
+
+MemberSelect ms = new MemberSelect();
+MemberVO mv = ms.selectMemInfo(id);
+
 
 %>
 

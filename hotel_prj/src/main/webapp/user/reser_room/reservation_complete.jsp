@@ -1,3 +1,4 @@
+<%@page import="user_card.ModifyCard"%>
 <%@page import="user_reservation.ReservationInsert"%>
 <%@page import="user_reservation.ReservationVO"%>
 <%@page import="user_card.CardVO"%>
@@ -169,6 +170,7 @@ String val_YY = request.getParameter("val_YY");
 String paramCardSave = request.getParameter("saveYN");
 String paramCcAgree = request.getParameter("ccYN");
 String paramPiAgree = request.getParameter("piYN");
+String saveFlag = request.getParameter("saveFlag"); //기존 카드저장정보가 있는 사용자의 flag=0
 
 // 룸넘버로 룸정보 조회
 RoomSelect rs = new RoomSelect();
@@ -198,8 +200,8 @@ ReservationInsert resInsert = new ReservationInsert();
 int cnt = resInsert.insertRes(rsVO);
 pageContext.setAttribute("cnt", cnt);
 
-
-if ( paramCardSave == "Y" ){
+// 카드저장을 체크한, 기존 카드정보가 없는 사용자
+if ( paramCardSave.equals("Y") && !saveFlag.equals("0")){
  // 카드정보 insert
 CardVO cardVO = new CardVO();
 cardVO.setCard_no(card_no);
@@ -211,6 +213,14 @@ cardVO.setVal_yy(val_YY);
 
 InsertCard Icard = new InsertCard();
 }//end if
+
+// 카드저장을 체크한, 기존 카드정보가 있는 사용자
+if ( paramCardSave.equals("Y") && saveFlag.equals("0")){
+ // 카드정보 변경
+ CardVO cVO = new CardVO();
+ ModifyCard mc = new ModifyCard();
+ pageContext.setAttribute("cardCnt", mc.updateCard(cVO));
+}
 
 
 
@@ -232,7 +242,7 @@ InsertCard Icard = new InsertCard();
 			<table class = "chkTab">
 			<tr >
 				<td style = "width: 500px">
-				<img src = "http://localhost/hotel_prj/main/main_images/<%= rv.getMain_img() %>" width="480" height="330"/><br/><br/>
+				<img src = "http://localhost/hotel_prj/roomImages/<%= rv.getMain_img() %>" width="480" height="330"/><br/><br/>
 				</td>
 				
 				<td >

@@ -170,7 +170,10 @@ $(function(){
 <!-- NAVBAR
 ================================================== -->
 <body>
-
+<%
+ String userId = (String)session.getAttribute("id");
+pageContext.setAttribute("userId", userId);
+%>
 
 		<c:import url="http://localhost/hotel_prj/main/main_header_nav.jsp" />
 	<div class="wrapper" style = "text-align: center">
@@ -185,13 +188,23 @@ $(function(){
   		<hr class = "hr1">
   		</div><br/>
   		
-		<br/><br/><br/>
+		<br/>
 		
 		<form name = "dateFrm" id = "dateFrm" method = "get" action = "room_reserve.jsp">
 		<div style = "width: 800px; margin: 0px auto">
 		<div style = "width: 500px;  margin: 0px auto">
-		<strong>원하시는 날짜와 인원을 선택해주세요.</strong> <br/>
-		저희 리츠호텔은 수용 가능한 최대 인원은 성인 4인입니다.<br/>
+		
+		<c:if test = "${ not empty userId }">
+		<span style = "font-size: 18px"><strong> <c:out value = "${userId}" /></strong></span>님 반갑습니다.<br/>
+		원하시는 날짜와 인원을 선택해주세요. <br/>
+		</c:if>
+		
+		<c:if test = "${ empty userId }">
+		
+		원하시는 날짜와 인원을 선택해주세요. <br/>
+		</c:if>
+		
+		저희 리츠호텔의 수용 가능한 최대 인원은 성인 4인입니다.<br/>
 		어린이가 포함된 예약은 성인 1인 동반 필수입니다.  
 		</div><br/><br/>
 		

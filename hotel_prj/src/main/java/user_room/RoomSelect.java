@@ -128,10 +128,11 @@ public class RoomSelect {
 		.append("	(select room.room_no	")
 		.append("	from  room room, reservation res	")
 		.append("	where (res.room_no=room.room_no)	")
-		.append("	and (  (to_date(chkin_date,'yyyy.mm.dd')>=?	")
-		.append("	and to_date(chkout_date,'yyyy.mm.dd') <= ?))	")
+		.append("	and (  (to_date(chkin_date,'yyyy.mm.dd')<=?	")
+		.append("	and to_date(chkout_date,'yyyy.mm.dd') >= ?))	")
 		.append(" 	)	")
-		.append("	and ((to_number(?) + nvl(to_number(?),0) ) <= room.max_guest)	");
+		.append("	and ((to_number(?) + nvl(to_number(?),0) ) <= room.max_guest)	")
+		.append("   and(room.r_status = 'Y')"	);
 		// 날짜에 해당하는 값이 없고,
 		// 최대 인원수보다 작거나 같은 방
 		// adult, child 파라메터를 String형으로 받아오기 때문에, 연산가능한 number로 형변환한다.

@@ -17,6 +17,9 @@ public class InsertCard {
 		// 2. JdbcTemplate ¾ò±â
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		
+		System.out.println(cnt);
+		System.out.println( cardVO.getCard_no());
+		
 		//  Äõ¸®¹®
 		String insertCard = "insert into card_info (card_no, company, val_mm, val_yy, id, res_no) values( ?, ?, ?, ?, ?, ?)";
 		

@@ -179,7 +179,7 @@ $(function(){
 				
 				 <div class="item active">
 					<img class="first-slide"
-						src="http://localhost/hotel_prj/main/main_images/<%= rv.getMain_img() %>"
+						src="http://localhost/hotel_prj/roomImages/<%= rv.getMain_img() %>"
 						>
 					<div class="container">
 						<div class="carousel-caption"></div>
@@ -190,7 +190,7 @@ $(function(){
 				<c:forEach var = "img" items = "${ imgs }">
 				<div class="item ">
 					<img  
-						src="http://localhost/hotel_prj/main/main_images/<c:out value = "${ img.img_src }"/>"
+						src="http://localhost/hotel_prj/roomImages/<c:out value = "${ img.img_src }"/>"
 						>
 					<div class="container">
 						<div class="carousel-caption"></div>
