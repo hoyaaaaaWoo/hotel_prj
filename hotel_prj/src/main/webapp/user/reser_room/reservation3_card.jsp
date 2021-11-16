@@ -259,7 +259,7 @@ p { border: 1px solid #FF00FF}
 <script type="text/javascript">
 $(function() {
 	
-	$("#completeBtn").click(function() {//completeBtn 버튼이 클릭되면 유효성 검사 시작인건데 마죠?네 실행해보세요
+	$("#completeBtn").click(function() {
 
 	let card_no = $("#card_no").val();
 	let val_MM = $("#val_MM").val();
@@ -356,10 +356,6 @@ $(function() {
 <%
 	String paramSd = request.getParameter("sd");
 
-// 스크립틀릿은 가장 먼저 실행되어서 자바스크립트가 실행되기 전에 됩니다. 그럼 저 paramSd는 처음에 있을 까요? 없을까요? 있어요 없습니다.
-		//페이지가 처음 호출된 상태에서 paramSd는 없어요. 그럼 어떻게 하면 될까요? 근데 가장 처음에 실행되는데 왜 없죠???? 
-	//이 값은 언제들어와요? 전 페이지에서 넘어올떄요  그럼 유효성 검증을 전페이지에서 해야지 여기서 할건 아닌데요. 아근데 유효성검사는 신용카드랑 체크여부라서
-			//여기 파라미터들이랑은 상관잉 없어여 신용카드는 아래에서 넣어주나요?네 
 	String paramEd = request.getParameter("ed");
 	String paramAdult = request.getParameter("adult");
 	String paramChild = request.getParameter("child");	
@@ -380,12 +376,12 @@ $(function() {
 	String zeroRoomNo = String.format("%02d", room_no);
 	String zeroDiffDays = String.format("%03d", diffDays);
 	
-	//예약번호 생성
-	//String strResNo = year + month + day + "-" + zeroDiffDays + "R" + zeroRoomNo;
-	String strResNo = month + day + "R" + zeroRoomNo;
+	//예약번호 생성 (년월일 - 박수(3자리) -R룸넘버)
+	String strResNo = year + month + day + "-" + zeroDiffDays + "R" + zeroRoomNo;
+	//String strResNo = month + day + "R" + zeroRoomNo;
 	
 	RoomSelect rs = new RoomSelect();
-	RoomVO rv = rs.selectRoomInfo(room_no); //이여기서 룸정보 조회하고? 네
+	RoomVO rv = rs.selectRoomInfo(room_no); 
 	
 	String id = (String)session.getAttribute("id");
 	
@@ -413,12 +409,7 @@ $(function() {
 		pageContext.setAttribute("savedYY", savedYY); 
 		pageContext.setAttribute("savedCompany", savedCompany); 
 	} 
-	
-	/* String nowCard_no = "<script>document.writeln(Nowcard_no)</script>";
 
-	pageContext.setAttribute("nowCard_no", nowCard_no); */
-	
-	
 %>
 	<div class="wrapper" style="width: 1130px">
 		<!-- header/navibar import -->

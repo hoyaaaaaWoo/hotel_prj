@@ -131,8 +131,8 @@ $(function(){
 	int room_no = Integer.parseInt( paramRoomNo );
 	
 	// 박 수 구하기
-	Date sdFormat = new SimpleDateFormat("yyyy-MM-dd").parse(paramSd);
-	Date edFormat = new SimpleDateFormat("yyyy-MM-dd").parse(paramEd);
+	Date sdFormat = new SimpleDateFormat("yyyy.MM.dd").parse(paramSd);
+	Date edFormat = new SimpleDateFormat("yyyy.MM.dd").parse(paramEd);
 	long diffDays = (edFormat.getTime() - sdFormat.getTime() )/1000/(24*60*60);
 	
 	RoomSelect rs = new RoomSelect();

@@ -88,14 +88,14 @@ $(function(){
 	    default_position: 'below',
  pair: $('#datepicker-range-end'),
 
-	    format: 'Y-m-d'
+	    format: 'Y.m.d'
 	});
 	 
 	$('#datepicker-range-end').Zebra_DatePicker({
 	    direction: 1,
 	    showDropdowns : true,
 	    default_position: 'below',
-	    format: 'Y-m-d'
+	    format: 'Y.m.d'
 	});
 	
 	

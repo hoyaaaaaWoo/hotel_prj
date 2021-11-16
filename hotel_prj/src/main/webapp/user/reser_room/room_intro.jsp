@@ -134,6 +134,9 @@ $(function(){
 			k++;
 		}//end for
 		pageContext.setAttribute("imgVOList", imgVOList);
+				
+		//////jiho
+		
 		%>
 		
 		<% int i =0; %>
@@ -147,6 +150,7 @@ $(function(){
 			<!-- Indicators -->
 			<ol class="carousel-indicators">
 				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				
 				<c:forEach var = "i" begin = "1" end = "5" step = "1">
 				<li data-target="#myCarousel" data-slide-to= "5"></li>
 				</c:forEach>
