@@ -132,7 +132,7 @@ $(function(){
 			<div id="naviBar2">
 				<span id="mainMenu" onclick="location.href='http://localhost/hotel_prj/admin/admin_member/admin_member_specific_select.jsp'">특정회원조회</span>
 				<form name="frm_search" action="http://localhost/hotel_prj/admin/admin_member/admin_member_specific_select.jsp" method="post">
-				<input type="text" name="search" placeholder="회원조회" id="id_search" class="form-control" maxlength="10"/>
+				<input type="text" name="search" placeholder="ID조회" id="id_search" class="form-control" maxlength="10"/>
 				<input type="submit" value="검색" name="search" class="btn btn-default" id="search" />
 				</form>		
 			</div>
