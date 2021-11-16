@@ -28,13 +28,13 @@ public class MemberSelect {
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
 
 		JdbcTemplate jt = gjt.getJdbcTemplate();
-
+ 
 		StringBuilder selectMember = new StringBuilder();
-		selectMember.append(" select id,kname,birth_year,tel,email,ename_fst,ename_lst")
-				.append(" from member ");
+		selectMember.append("select id,kname,birth_year,tel,email,ename_fst,ename_lst")
+							.append(" from member ")
+							.append(" where m_status= 'Y'") ;
 		list=jt.query(selectMember.toString(), new SelectMember());
 		gjt.closeAc();
-		
 		return list;
 	}// MemberSelect
 
@@ -52,25 +52,6 @@ public class MemberSelect {
 		}
 	}// selectMember
 	
-	/*
-	 * public List<MemberVO> selectAllMember()throws SQLException{ List<MemberVO>
-	 * list=null;
-	 * 
-	 * //1. Spring Container 얻기 GetJdbcTemplate gjt=GetJdbcTemplate.getInstance();
-	 * //2. JdbcTemplate 얻기 JdbcTemplate jt=gjt.getJdbcTemplate(); //3. 쿼리 실행 String
-	 * selectMember="select id,email,pass,ename_fst,ename_lst,kname,birth_year,tel from member"
-	 * ; list=jt.query(selectMember, new RowMapper<MemberVO>() { public MemberVO
-	 * mapRow(ResultSet rs,int rowNum)throws SQLException{ MemberVO mVO = new
-	 * MemberVO(); mVO.setId(rs.getString("id"));
-	 * mVO.setKname(rs.getString("kname")); mVO.setPass(rs.getString("pass"));
-	 * mVO.setEmail(rs.getString("email"));
-	 * mVO.setEname_fst(rs.getString("ename_fst"));
-	 * mVO.setEname_lst(rs.getString("ename_lst"));
-	 * mVO.setBirth_year(rs.getString("birth_year"));
-	 * mVO.setTel(rs.getString("tel")); return mVO; } }); //4. Spring Container 닫기
-	 * gjt.closeAc(); return list; }
-	 */
-
 	
 	/**
 	 * 이름을 조회하여 특정회원 조회
@@ -109,8 +90,6 @@ public class MemberSelect {
 		gjt.closeAc();
 		return mVO;
 	}
-	
-	
 	/**
 	 * 이름을 조회하여 탈퇴회원 조회
 	 * 
@@ -166,7 +145,7 @@ public class MemberSelect {
 		result = jt.queryForObject(selectLogin.toString(), new Object[] { mg_id, pass }, String.class);
 
 		gjt.closeAc();
-
+		
 		return result;
 	}// loginChk
 

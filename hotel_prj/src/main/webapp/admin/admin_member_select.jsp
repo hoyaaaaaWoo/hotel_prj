@@ -133,6 +133,7 @@ $(".delBtn").click(function(){
 request.setCharacterEncoding("utf-8");
 Admin_Decription ad = new Admin_Decription();
 List<MemberVO> list = ad.allDecryptMemberData();
+
 pageContext.setAttribute("memberData", list);
 %>
 </c:catch>

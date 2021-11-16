@@ -11,27 +11,32 @@ import kr.co.sist.util.cipher.DataDecrypt;
 public class Admin_Decription {
 
 	   /**
-	    * 전체회원 조회 복호화
+	    * 회원 조회 복호화
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 * @throws NoSuchAlgorithmException
 	 * @throws GeneralSecurityException
 	 */
 	public List<MemberVO> allDecryptMemberData() throws UnsupportedEncodingException, NoSuchAlgorithmException, GeneralSecurityException{
-		      List<MemberVO> list=null;
+		      
+		List<MemberVO> list=null;
+		      
 		      MemberSelect ms=new MemberSelect();
 		       try {
 		         list=ms.selectMember();
 		         DataDecrypt dd=new DataDecrypt("AbcdEfgHiJkLmnOpQ");
-		         for(MemberVO mVO : list) {
-		            mVO.setKname( dd.decryption(mVO.getKname()));
-		            mVO.setBirth_year( dd.decryption(mVO.getBirth_year()));
-		            mVO.setEname_fst( dd.decryption(mVO.getEname_fst()));
-		            mVO.setEname_lst(dd.decryption(mVO.getEname_lst()));
-		            mVO.setTel(dd.decryption(mVO.getTel()));
-		            mVO.setEmail(dd.decryption(mVO.getEmail()));
+		         MemberVO mv=null;
+		         for(int i= 0 ; i < list.size() ; i++) {
+		        	 mv=list.get(i);
+		             mv.setKname( dd.decryption(mv.getKname()));
+		             mv.setBirth_year( dd.decryption(mv.getBirth_year()));
+		             mv.setEname_fst( dd.decryption(mv.getEname_fst()));
+		            mv.setEname_lst(dd.decryption(mv.getEname_lst()));
+		            mv.setTel(dd.decryption(mv.getTel()));
+		            mv.setEmail(dd.decryption(mv.getEmail()));		            
 		         }//end for
-		      }catch (SQLException e) {
+		      }catch (Exception e) {
+		    	  e.printStackTrace();
 		      }//catch
 		         return list;
 		      }//allDecryptMemberData
