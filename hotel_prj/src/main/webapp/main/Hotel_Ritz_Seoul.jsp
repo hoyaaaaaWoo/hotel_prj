@@ -269,7 +269,7 @@ RoomVO rv = rs.selectRoomInfo(room_no);
 									class="promTitle"><h2 class="promTitle">Long and
 											Lasting Love</h2></a>
 									<p>
-										리츠 서울 더 라운지에서 오직 둘 만의 완벽한 시간을 선물합니다.<br /> 객실 + 프로포즈 디너 + 스파
+										리츠 서울 더 라운지에서 오직 둘 만의 완벽한 시간을 선물합니다.<br /> <strong>객실 + 프로포즈 디너 + 스파
 										+ 케이크/샴페인</strong>
 									</p>
 								</td>

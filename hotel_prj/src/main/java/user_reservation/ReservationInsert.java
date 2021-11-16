@@ -22,7 +22,7 @@ public class ReservationInsert {
 		String insertRes = "insert into reservation (res_no, id, room_no, adult, child, "
 				+ "chkin_date, chkout_date, add_req, cc_agree, pi_agree, res_date, res_status)"
 				+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate, 'Y' )";
-		
+		System.out.println(rsVO);
 		// Äõ¸®¹® ¼öÇà
 		cnt = jt.update(insertRes, rsVO.getRes_no(), rsVO.getId(), rsVO.getRoom_no(), rsVO.getAdult(),
 				rsVO.getChild(), rsVO.getChkin_date(), rsVO.getChkout_date(), rsVO.getAdd_req(), rsVO.getCc_agree(),

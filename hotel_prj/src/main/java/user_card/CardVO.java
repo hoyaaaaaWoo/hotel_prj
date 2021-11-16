@@ -71,6 +71,13 @@ public class CardVO {
 	public void setRes_no(String res_no) {
 		this.res_no = res_no;
 	}
+
+	@Override
+	public String toString() {
+		return "CardVO [card_no=" + card_no + "]";
+	}
+	
+	
 	
 	
 

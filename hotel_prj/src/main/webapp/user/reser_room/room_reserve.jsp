@@ -175,7 +175,7 @@ $(function(){
 		<table style="width: 1000px;">
 			<tr>
 				<td style="width: 252px;" rowspan="2">
-				<img src="http://localhost/hotel_prj/main/main_images/${searchRoom.main_img }"
+				<img src="http://localhost/hotel_prj/roomImages/${searchRoom.main_img }"
 					style="width: 270px; height: 187px;">
 				</td>
 				<td style="height: 120px;"><br><br><br>
