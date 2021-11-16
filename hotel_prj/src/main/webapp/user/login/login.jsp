@@ -84,8 +84,8 @@
     	</tr>
     	<tr >
     	
-    		<td><a href="http://localhost/hotel_prj/user/login/signIn.jsp">&nbsp;&nbsp;회원가입&nbsp;&nbsp;</a>
-    		<a href="http://localhost/hotel_prj/user/login/find.jsp">아이디/비밀번호 찾기</a></td>
+    		<td><a href="http://localhost/hotel_prj/user/login/signIn.jsp" style="color: #C0C0C0">&nbsp;&nbsp;회원가입&nbsp;&nbsp;</a>
+    		<a href="http://localhost/hotel_prj/user/login/find.jsp" style="color: #C0C0C0">아이디/비밀번호 찾기</a></td>
     	</tr>
     </table>
     </form>

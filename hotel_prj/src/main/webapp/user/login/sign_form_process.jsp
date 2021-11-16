@@ -23,7 +23,7 @@
 	href="http://localhost/hotel_prj/main/main.css">
     
 	<style type = "text/css">
-			div {margin: 0px auto; width: 1130px;}
+			/* div {margin: 0px auto; width: 1130px;} */
 	</style>
 
     <!-- Bootstrap core CSS -->
@@ -53,12 +53,12 @@
 	<br/><br/><br/>
 	<div class="container marketing">
   <br/><br/>
-  <div style="width: 300px;text-align: center;">
+  <div style="width: 300px;text-align: center;margin: 0px auto;">
   <br>
   <h2>가입완료</h2>
   </div>
   <hr style="width: 500px"/>
-  <div style="width: 300px;text-align: center;">
+  <div style="width: 300px;text-align: center; margin: 0px auto;">
 
 <%
 request.setCharacterEncoding("UTF-8");
@@ -115,7 +115,7 @@ ${ e  }
 </div>
 
   <br/><br/>
- <div style="width:150px; text-align: center;">
+ <div style="width:150px; text-align: center; margin: 0px auto;">
   <input type="button" class="btn btn-default" style="width: 100px;" value="홈으로" onclick="location.href='http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp'">
   </div>
 </div>

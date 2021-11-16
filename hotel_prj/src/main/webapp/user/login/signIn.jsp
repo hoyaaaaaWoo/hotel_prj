@@ -95,8 +95,7 @@
 		 	}//end if
 		 	if( $("#chkEmail").is(":checked")){
 		 		opt_agree='E';
-		 	}//end if
-			
+		 	}//end if			
 		 	if($("#sms").is(":checked") && $("#chkEmail").is(":checked") ){
 		 		opt_agree="A";
 		 	}
@@ -115,8 +114,8 @@
 
 			}
 			}
-
-		
+			
+			
 		      function telCheck(args) {
 		    	   var flag=false;
 		    	    

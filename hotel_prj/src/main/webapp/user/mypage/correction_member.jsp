@@ -137,7 +137,8 @@ $(function(){
   <div class="navbar-wrapper">
    </div>
 <div>
-<h5>&nbsp;&nbsp;홈 / 마이페이지</h5>
+<br/>
+<h4>&nbsp;&nbsp;홈 / 마이페이지</h4>
 </div>
 <br/><br/><br/>
 <div style = "width:600px; border-bottom:2px solid #d3d3d3; text-align: center; margin: 0px auto;">

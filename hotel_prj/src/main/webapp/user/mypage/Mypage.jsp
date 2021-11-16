@@ -1,4 +1,4 @@
-kalicso<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" info="Hotel Ritz Seoul"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,6 +66,7 @@ function home(){
  		 <jsp:include page="../../main/main_header_nav.jsp"/>
  <form action="mypage_process.jsp"  method="post" id="frm" name="frm">
 <div>		 
+<br/>
 <h4>&nbsp;&nbsp;홈 / 마이페이지</h4>
 </div>
 <br/><br/><br/>
