@@ -1,3 +1,4 @@
+<%@page import="kr.co.sist.util.cipher.DataEncrypt"%>
 <%@page import="admin_member.MemberUpdate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
@@ -32,8 +33,9 @@
 //파라미터 받고 삭제 메소드 호출
 request.setCharacterEncoding("utf-8");
 String kname=request.getParameter("delKname");
+DataEncrypt de = new DataEncrypt("AbcdEfgHiJkLmnOpQ");
 MemberUpdate mu = new MemberUpdate();
-int cnt = mu.memberFlag(kname);
+int cnt = mu.memberFlag(de.encryption(kname));
  
 if(cnt ==1){
 %>
