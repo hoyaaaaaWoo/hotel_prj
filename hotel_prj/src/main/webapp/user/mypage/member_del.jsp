@@ -33,7 +33,7 @@ mVO.setId(id);
 
 
 UpdateDAO ud = new UpdateDAO();
-int cnt = ud.delMember(mVO);
+int cnt = ud.delmember(mVO);
 
 
 if(cnt ==1){

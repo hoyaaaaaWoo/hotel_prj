@@ -78,7 +78,7 @@ loginVO.setPass(DataEncrypt.messageDigest("SHA-512", loginVO.getPass()));
 
 //로그인 수행
 MemberDAO mDAO=new MemberDAO();
-String kname=mDAO.selectLogin(loginVO);
+String kname=mDAO.selectLogin(loginVO);//여기서 로그인처리하죠?네네
 
 //이름을 복호화한다.
 DataDecrypt dd=new DataDecrypt("AbcdEfgHiJkLmnOpQ");
@@ -86,11 +86,10 @@ kname=dd.decryption(kname);
 
 //로그인 정보를 세션에 할당 
 //=>비연결성인 웹에서 로그인 정보를 모든 페이지에서 사용하기 위해
-
-
 session.setAttribute("kname", kname);
 session.setAttribute("pass", pass);
-session.setAttribute("id", id);
+session.setAttribute("id", id); //로그인 성공하면 아이디가 세션에 들어가죠?네네 로그인 어디서 ?버튼이요??
+		System.out.println("아이디 설정 "+ session.getAttribute("id"));
 
 %>
 <!-- <script type="text/javascript">

@@ -25,11 +25,11 @@
 <body>
 <%
 
-//세션의 무효화(브라우저에 할당된 세션 자체를 삭제한다. (이페이지에서만 삭제) :)
+//세션의 무효화(브라우저에 할당된 세션 자체를 삭제한다. (이페이지에서만 삭제) :) 로그인해보셍
 //세션을 사용하면 에러가발생.)
 session.invalidate();
 //페이지를 메인으로 이동한다.
-response.sendRedirect("../main/Hotel_Ritz_Seoul.jsp");
+response.sendRedirect("http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp");//어디에?
 %>
 </body>
 </html>

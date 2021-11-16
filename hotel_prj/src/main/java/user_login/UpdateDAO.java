@@ -37,14 +37,14 @@ public class UpdateDAO {
 	 * @param kname
 	 * @return
 	 */
-	public int delMember(memberVO mVO)throws DataAccessException {
+	public int delmember(memberVO mVO)throws SQLException {
 		// 1. Spring Container ¾ò±â
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
 		// 2. JdbcTemplate ¾ò±â
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		// 3. Äõ¸® ½ÇÇà
-		String deleteMem = "delete from member where id = ?";
-		int cnt = jt.update(deleteMem, mVO.getId());
+		String deleteRes = "delete from member where id = ?";
+		int cnt = jt.update(deleteRes, mVO.getId());
 		// 4. Spring Container ´Ý±â
 		gjt.closeAc();
 

@@ -42,10 +42,7 @@ function chkNull(){
 		alert("중복 검사할 아이디를 입력해 주세요.");
 		return;
 	}//end if
-	/* if( !(id.length >=8 && id.length < 19)){
-		alert("아이디는 8자부터 18자까지만 입력할 수 있습니다.")
-		return;
-	} */  //개발할때는 닫고 끝나면 풀어야 편하다.
+	
 	
 	$("#frm").submit();
 	

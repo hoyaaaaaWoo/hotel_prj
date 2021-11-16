@@ -133,7 +133,7 @@ p { border: 1px solid #FF00FF}
 
 
 		<!-- header/navibar import -->
-		<c:import url="http://localhost/hotel_prj/main/main_header_nav.jsp" />
+		<c:import url="main_header_nav.jsp" /><!-- 세션은 기본적으로 http:가 붙으면 남의 서버로 인식해서 사용이 안됩ㄴ다. 아 그럼 폴더로 바까야하나요 -->
 
 		
 		<!-- Carousel
@@ -269,7 +269,7 @@ RoomVO rv = rs.selectRoomInfo(room_no);
 									class="promTitle"><h2 class="promTitle">Long and
 											Lasting Love</h2></a>
 									<p>
-										리츠 서울 더 라운지에서 오직 둘 만의 완벽한 시간을 선물합니다.<br /> <strong>객실 + 프로포즈 디너 + 스파
+										리츠 서울 더 라운지에서 오직 둘 만의 완벽한 시간을 선물합니다.<br /> 객실 + 프로포즈 디너 + 스파
 										+ 케이크/샴페인</strong>
 									</p>
 								</td>

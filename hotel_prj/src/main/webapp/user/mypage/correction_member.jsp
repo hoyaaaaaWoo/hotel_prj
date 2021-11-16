@@ -111,10 +111,9 @@ $(function(){
 	$("#delBtn").click(function(){
 		if (confirm("정말 탈퇴를 하시겠습니까?") == true) {
 			alert("회원 탈퇴가 완료되었습니다. \n그동안이용해주셔서 감사합니다");
-			location.href="member_del.jsp";
 		}
-		return;
 		$("#delfrm").submit();	
+		return;
 	})//click
 	
 })//ready

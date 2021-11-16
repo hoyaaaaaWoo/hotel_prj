@@ -52,8 +52,6 @@
 			 });//focusout    
 			 
 			 
-	
-			 
 			$("#btn").click(function(){
 				if($("#id").val()==""){
 					alert("아이디 필수 입력");
@@ -91,6 +89,19 @@
 					alert("생년월일 필수 입력");
 					return;
 			}//end if
+			let opt_agree="N";
+		 	if( $("#sms").is(":checked")){
+		 		opt_agree='S';
+		 	}//end if
+		 	if( $("#chkEmail").is(":checked")){
+		 		opt_agree='E';
+		 	}//end if
+			
+		 	if($("#sms").is(":checked") && $("#chkEmail").is(":checked") ){
+		 		opt_agree="A";
+		 	}
+		 	//alert(opt_agree )
+		 	//설정된 opt_agree 값을 hiidden 에 넣을 것.  back-end에서 값 받을 것.
 				$("#frm").submit();
 			});//click	
 				
@@ -195,9 +206,10 @@
 - 소비자의 분쟁처리 및 부정이용, 공공질서에 위배되는 행위이용 기록(성명, 연락처, 이메일, 투숙정보)은 수집 시점으로부터 3년간 보관하고 파기하고 있습니다.</textarea></td>
 	</tr>
 	<tr>
-	<td><input type="checkbox" name="opt_agree" id="opt_agree" value="Y"></td>
+	<td><!-- <input type="checkbox" name="opt_agree" id="opt_agree" > --></td><!-- 얘는 그닥의미가 없는데 흠...화면 한번 켜볼까요??코드는 어디에??? 아직이요.. -->
 	<td>상품안내 및 마케팅 활용을 위한 개인정보 수집·이용에 관한 동의<span class="optional"> (선택)</span>
-	<br><input type="checkbox" id="sms" name="sms">SMS &nbsp;<input type="checkbox" id="email" name="email">E-mail<br><br><br>
+	<br><input type="checkbox" id="sms" name="sms">SMS &nbsp;<input type="checkbox" id="chkEmail" name="chkEmail">E-mail<br><br><br>
+		 <input type="hidden" name="opt_agree"/>
 		<textarea rows="10" cols="130">상품안내 및 마케팅 활용을 위한 개인정보 수집·이용에 관한 동의
 국내 및 해외 Hotel Ritz seoul 회원서비스 관련정보, 할인상품 및 신상품 안내, 마케팅 서비스를 위하여 국내 및 해외 체인 Hotel Ritz seoul에 개인정보를 수집 및 이용하는 것에 동의 합니다.
 
@@ -277,7 +289,7 @@
 	</div>
 	<br>
 	<div style="width : 100px; text-align: center; margin:0px auto;">
-	<input type="submit" class="btn btn-default" value="입력" id="btn" >
+	<input type="button" class="btn btn-default" value="입력" id="btn" >
 	</div>
 </div>
 </form>
