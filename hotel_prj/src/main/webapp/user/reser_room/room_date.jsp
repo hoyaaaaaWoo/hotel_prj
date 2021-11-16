@@ -25,11 +25,30 @@
 
 <style type="text/css">
 .hr1 {border-bottom: 1px solid #d3d3d3; }
-/*
+
+#btn {
+	border: 1px solid #E9E9E9;
+	font-size : 17px;
+	font-weight: bold;
+	background-color: #000;
+	color: #F5DF3C;
+	width: 130px;
+	height: 40px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 7px;
+}
+
+#btn:hover {
+	background-color: #F5dF4D;
+	color: #000000;
+	cursor: pointer;
+}
+
 div { border: 1px solid #FF0000}
 td { border: 1px solid #FFFF00}
 tr { border: 1px solid #FFFF00}
-*/
+
 </style>
 
 <!-- Bootstrap core CSS -->
@@ -258,7 +277,7 @@ pageContext.setAttribute("userId", userId);
 			</tr>
 			</table>
 			<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-			<input type="button" class = "btn btn-default btn-lg" value="조회" id="btn" />
+			<input type="button"  value="조회" id="btn" />
 			</form>
 <!--  -->
 

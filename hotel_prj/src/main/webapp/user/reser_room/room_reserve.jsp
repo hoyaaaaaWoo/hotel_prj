@@ -25,6 +25,7 @@
 	href="http://localhost/hotel_prj/main/main.css">
 
 <style type="text/css">
+
 .button {
 	border: 1px solid #E9E9E9;
 	font-weight: bold;

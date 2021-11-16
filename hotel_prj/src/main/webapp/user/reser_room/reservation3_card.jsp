@@ -306,13 +306,16 @@ $(function() {
 		
 	
 	//취소규정 체크 여부 (필수)
-	if($( "[name = 'ccAgree']:checked").val() == "" ){
+	//if($( "[name = 'ccAgree']:checked").val() == "" ){
+	if(!$("input:checkbox[name='ccAgree']").is(":checked") ){
 		alert("위 취소규정 약관에 동의해 주세요.");
+		return;
 	}//end id
 		
 	//개인정보동의 체크 여부 (필수)
-	if($( "[name = 'piAgree']:checked").val() == "" ){
+	if(!$("input:checkbox[name='piAgree']").is(":checked") ){
 		alert("위 개인정보수집 약관에 동의해 주세요.");
+		return;
 	}//end id
 
 	

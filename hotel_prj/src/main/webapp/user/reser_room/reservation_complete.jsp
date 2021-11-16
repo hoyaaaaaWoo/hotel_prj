@@ -59,6 +59,7 @@
 .backTab {width: 900px; height: 100px; margin: 0px auto; table-layout: fixed;}
 
 
+
 /*
 div { border: 1px solid #0000FF}
 td { border: 1px solid #FF0000}
@@ -196,6 +197,7 @@ rsVO.setAdd_req(addReq);
 rsVO.setCc_agree(paramCcAgree);
 rsVO.setPi_agree(paramPiAgree);
 
+// 예약 insert
 ReservationInsert resInsert = new ReservationInsert();
 int cnt = resInsert.insertRes(rsVO);
 pageContext.setAttribute("cnt", cnt);

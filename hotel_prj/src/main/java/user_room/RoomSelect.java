@@ -45,6 +45,43 @@ public class RoomSelect {
 	}//selectAllDeptno
 	
 	
+	
+	/**
+	 * 메인에 보여질 간단한 룸정보를 위해 만듦 / 모든 객실의 메인이미지, 룸네임만 가져감
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<RoomVO> selectMainRoom() throws SQLException{
+		List<RoomVO> rList = null;
+		
+		// 1. Spring Container 얻기
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		
+		// 2. JdbcTemplate 얻기
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		
+		// 3. 쿼리실행
+		String selectMainRoom = "select room_no, r_name, main_img from room";
+		rList = jt.query(selectMainRoom, new RowMapper<RoomVO>() {
+
+			@Override
+			public RoomVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				RoomVO rVO = new RoomVO();
+				rVO.setRoom_no(rs.getInt("room_no"));
+				rVO.setR_name(rs.getString("r_name"));
+				rVO.setMain_img(rs.getString("main_img"));
+				return rVO;
+			}//mapRow
+			
+		});
+		
+		// 4. Spring Container 닫기
+		gjt.closeAc();
+		
+		return rList;
+	}//selectAllDeptno
+	
+	
 
 	/**
 	 * 하나의 객실정보 얻어오기
