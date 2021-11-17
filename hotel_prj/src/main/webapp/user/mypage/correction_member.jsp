@@ -68,7 +68,7 @@ $(function(){
 	////////////////////////////////////////////////////
 	$("#btn1").click(function(){
 		if(confirm("변경하시겠습니까?") == true) {
-			alert("dd");
+			
 			$("#frm").submit();	
 		}//end if
 	})//click
@@ -144,7 +144,7 @@ pageContext.setAttribute("info", infoVO);
 <br/><br/><br/>
 <h5>비밀번호 변경하기</h5>
 <form  id="passFrm" action="http://localhost/hotel_prj/user/mypage/member_pass_process.jsp" method="post">
-<input type="password" style="width:250px;height:40px" placeholder="현재 비밀번호를 입력하세요"id="pass"  value="${mVOPass }" name ="pass">
+<input type="password" style="width:250px;height:40px" placeholder="현재 비밀번호를 입력하세요"id="pass"  name ="pass">
 <br/><br/>
 <input type="password" style="width:250px;height:40px" placeholder="변경할 비밀번호를 입력하세요" id="change_pass" name="change_pass">
 <br/><br/>
@@ -160,9 +160,9 @@ pageContext.setAttribute("info", infoVO);
 <div style = "width:450px; border-bottom:2px solid #d3d3d3; text-align: center; margin: 0px auto;">
 <br/><br/><br/>
 <c:forEach var="info" items="${info}">
-<form id="frm" action="http://localhost/hotel_prj/user/mypage/member_update_process.jsp" method="post">
+<form id="frm" action="http://localhost/hotel_prj/user/mypage/member_update_process.jsp" method="get">
 <h5>이름 변경하기</h5>
-<input type="text" style="width:250px;height:40px" id="kname" name="kname" value="${info.kname }">
+<input type="text" style="width:250px;height:40px" value="${ info.kname }" id="kname" name="kname" >
 <br/><br/>
 <h5>전화번호 변경하기<br/>("-"를 포함해주세요)</h5>
 <input type="text" style="width:250px;height:40px" value="${info.tel }"name="tel" id="tel">
@@ -173,9 +173,9 @@ pageContext.setAttribute("info", infoVO);
 <br/><br/><br/>
 <button type="button" class="btn btn-default" style="width:250px;height:40px ; margin: 0px auto;" value="수정"  id="btn1">수정</button>
 </form>
+</c:forEach>
 <br/><br/><br/><br/><br/><br/>
 </div >
-</c:forEach>
 
 <div style = "width:450px; text-align: center; margin: 0px auto;">
 <br/><br/><br/>

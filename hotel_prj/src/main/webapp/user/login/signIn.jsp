@@ -114,14 +114,17 @@
 				
 			 function passCheck(args) {
 				   var flag=false;
+				   var regPass = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/;     // 비밀번호 정규식
 				    if($("#pass").val()!=$("#pass1").val()){
 				         alert("비밀번호가 일치하지 않습니다");
 				         $('#pass').focus();
-				         $('#pass1').val('');
+				         $('#pass1').val('');     
 				         return;
-
+			}else if(	!regPass.test($("#change_pass").val()) ){
+				alert("비밀번호는 숫자와 문자를 조합하여 8~16글자로 설정해 주세요.");
+				return;
 			}
-			}
+			}//pass
 			
 			
 		      function telCheck(args) {

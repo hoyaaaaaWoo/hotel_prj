@@ -22,9 +22,9 @@ mVO.setTel(de.encryption(mVO.getTel()));//번호
 
 
 UpdateMemDAO mDAO=new UpdateMemDAO();
-int cnt=mDAO.updateMem(mVO);//
-	
-if(cnt==1){ ;
+int cnt=mDAO.updateMem(mVO);
+
+if(cnt==1){ 
 %>
 	<script type="text/javascript">
 	location.href="correction_member.jsp"; 
