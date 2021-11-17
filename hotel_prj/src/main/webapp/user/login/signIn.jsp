@@ -120,7 +120,7 @@
 				         $('#pass').focus();
 				         $('#pass1').val('');     
 				         return;
-			}else if(	!regPass.test($("#change_pass").val()) ){
+			}else if(	!regPass.test($("#pass").val()) ){
 				alert("비밀번호는 숫자와 문자를 조합하여 8~16글자로 설정해 주세요.");
 				return;
 			}
