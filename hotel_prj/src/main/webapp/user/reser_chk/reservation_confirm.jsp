@@ -280,10 +280,10 @@ p { border: 1px solid #FF00FF}
 	//복호화
 	/* ReservationVO rVO = rsD.reservation(res_no); */
 	DataDecrypt dd=new DataDecrypt("AbcdEfgHiJkLmnOpQ");
-	rVO.setTel(dd.decryption(rVO.getTel()));
+ 	rVO.setTel(dd.decryption(rVO.getTel()));
 	rVO.setEname_fst(dd.decryption(rVO.getEname_fst()));
 	rVO.setEname_lst(dd.decryption(rVO.getEname_lst()));
-	rVO.setEmail(dd.decryption(rVO.getEmail()));
+	rVO.setEmail(dd.decryption(rVO.getEmail())); 
 	
 	pageContext.setAttribute("de", rVO);
 	

@@ -150,8 +150,9 @@ public class ReservationSelect {
 			JdbcTemplate jt = gjt.getJdbcTemplate();
 			//3. 쿼리문 수행  price가 string이에요?
 			String selectPrice = "select r.price from room r where r.room_no in"
-					+ "(select reser.room_no from reservation reser where reser.res_no=?)";//price 데이터형이 varchar2에요?
-			price = jt.queryForObject(selectPrice, new Object[] { pri/*입력되는 파라메터*/ }, Integer.class);
+					+ "(select reser.room_no from reservation reser where reser.res_no='"+ pri+"')";
+			System.out.println( selectPrice +" / " +pri );
+			price = jt.queryForObject(selectPrice,  Integer.class);
 			//4. 스프링컨테이너 닫기
 			gjt.closeAc();
 			
@@ -167,9 +168,8 @@ public class ReservationSelect {
 		String reser = "select r.r_name, reser.res_no, reser.chkin_date, reser.chkout_date, m.ename_fst, m.ename_lst, m.email, m.tel, "
 				+ "reser.adult, reser.child, reser.id " 
 				+ "from reservation reser, room r, member m "
-				+ "where reser.room_no=r.room_no and reser.id=m.id and reser.res_no=?";	
-		
-		rVO=jt.queryForObject(reser, new Object[] { res_no }, new RowMapper<ReservationVO>() {
+				+ "where reser.room_no=r.room_no and reser.id=m.id and reser.res_no='"+ res_no+"'";	
+		rVO=jt.queryForObject(reser,  new RowMapper<ReservationVO>() {
 
 			@Override
 			public ReservationVO mapRow(ResultSet rs, int rowCnt) throws SQLException {
@@ -203,7 +203,10 @@ public class ReservationSelect {
 		return rVO;
 	}//reservation
 	 
-	
+	public static void main(String[] args) {
+		ReservationSelect t=new ReservationSelect();
+		System.out.println(t.reservation("1125R01"));
+	}
 	
 }
 		
