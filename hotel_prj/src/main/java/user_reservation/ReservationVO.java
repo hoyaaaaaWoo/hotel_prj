@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class ReservationVO {
 //더 많은데 다른거랑 연결되어있을거같아서 네 맞아요 DBTable의 데이터형과도 맞겠죠? 네 
-	private int room_no, adult, child;
+	private int room_no, adult, child, price;
 	private String res_no, id, chkin_date, chkout_date, add_req, 
 				cc_agree, pi_agree, res_status, r_name, val_mm, val_yy,
-				ename_lst, ename_fst, company, tel, card_no, email;
+				ename_lst, ename_fst, company, tel, card_no, email, main_img;
 	private Date res_date;
 	
 	
@@ -16,11 +16,12 @@ public class ReservationVO {
 	}
 
 
-	public ReservationVO(int room_no, int adult, int child, String val_mm, String val_yy, String res_no, String id,
+	public ReservationVO(int room_no, int adult, int child, int price, String val_mm, String val_yy, String res_no, String id,
 			String chkin_date, String chkout_date, String add_req, String cc_agree, String pi_agree, String res_status,
-			String r_name, String ename_lst, String ename_fst, String company, String tel, String card_no, String email,
+			String r_name, String ename_lst, String ename_fst, String company, String tel, String card_no, String email,String main_img,
 			Date res_date) {
 		this.room_no = room_no;
+		this.price = price;
 		this.adult = adult;
 		this.child = child;
 		this.val_mm = val_mm;
@@ -40,6 +41,7 @@ public class ReservationVO {
 		this.tel = tel;
 		this.card_no = card_no;
 		this.email = email;
+		this.main_img = main_img;
 		this.res_date = res_date;
 	}
 
@@ -251,6 +253,25 @@ public class ReservationVO {
 
 	public void setRes_date(Date res_date) {
 		this.res_date = res_date;
+	}
+
+
+	public String getMain_img() {
+		return main_img;
+	}
+
+
+	public void setMain_img(String main_img) {
+		this.main_img = main_img;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 

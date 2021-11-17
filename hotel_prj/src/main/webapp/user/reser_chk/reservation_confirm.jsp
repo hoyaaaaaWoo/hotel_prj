@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="user_room.RoomVO"%>
 <%@page import="user_room.RoomSelect"%>
 <%@page import="kr.co.sist.util.cipher.DataDecrypt"%>
@@ -270,10 +272,40 @@ p { border: 1px solid #FF00FF}
 	
 	ReservationSelect rsD = new ReservationSelect();
 	ReservationVO rVO = rsD.reservation(res_no);
+	ReservationVO rv = rsD.datePrice(res_no);
 	int rVO2 = rsD.pay(res_no);   
 	
 	pageContext.setAttribute("rVO",rVO); //scope객체에 조회 결과 값을 넣고 아래 에서 뿌린다.
-	pageContext.setAttribute("rVO2", rVO2); 
+	pageContext.setAttribute("price", rVO2); 
+	pageContext.setAttribute("rv", rv); 
+	
+	
+	// 박 수 구하기
+	Date sdFormat = new SimpleDateFormat("yyyy.MM.dd").parse(rv.getChkin_date());
+	Date edFormat = new SimpleDateFormat("yyyy.MM.dd").parse(rv.getChkout_date());
+	long diffDays = (edFormat.getTime() - sdFormat.getTime() )/1000/(24*60*60);
+	
+	
+	int price = rv.getPrice();
+	pageContext.setAttribute("price", price);
+									
+	int tax = (int)(rv.getPrice()*0.21);
+	pageContext.setAttribute("tax", tax);
+									
+	int totalP = (int)(rv.getPrice()+tax);
+	pageContext.setAttribute("totalP", totalP);
+									
+	//박수가 곱해진 객실 가격
+	int daysPrice = price*(int)diffDays;
+	pageContext.setAttribute("daysP", daysPrice);
+					
+	//박수가 곱해진 텍스 
+	int daysTax = tax*(int)diffDays;
+	pageContext.setAttribute("daysTax", daysTax);
+									
+	//박수가 곱해진 총 가격
+	int daysTotal = (daysPrice + daysTax);
+	pageContext.setAttribute("daysTotal", daysTotal);
 	
 	
 	
@@ -288,15 +320,13 @@ p { border: 1px solid #FF00FF}
 	pageContext.setAttribute("de", rVO);
 	
 	 
-	/* 
-	 String DiffDays = request.getParameter("diffDays");
-	 String paramRoomNo = request.getParameter("room_no");
-	 int room_no = Integer.parseInt( paramRoomNo );
-	 int diffDays = Integer.parseInt( DiffDays );
-	 RoomSelect rs = new RoomSelect();
-	 RoomVO rv = rs.selectRoomInfo(room_no);  
-	 */ 
 %>
+
+
+
+
+
+				
 
 	<div class="wrap">
 	
@@ -307,48 +337,24 @@ p { border: 1px solid #FF00FF}
 		<br><br><br>	
 			<div class="chkDiv">
 				<div id="resConf">예약 정보 조회</div>
-				<%= res_no %>
-	
+				
 				<form name="resChkInfo" id="resChkInfo" action="" method="post">
 					<table class="chkTab">
 						<tr>
-							<td style="width: 500px"><img
-								src="http://localhost/hotel_prj/images/01_grand01.jpg"
+							<td style="width: 500px">
+							<img src="http://localhost/hotel_prj/roomImages/${ rVO.main_img }"
 								width="480" height="330" /><br /> <br /></td>
 
 							<td>
 								<table id="chkSubTab">
-								<%-- 
-								<%
-								int price = rv.getPrice();
-								pageContext.setAttribute("price", price);
-								
-								int tax = (int)(rv.getPrice()*0.21);
-								pageContext.setAttribute("tax", tax);
-								
-								int totalP = (int)(rv.getPrice()+tax);
-								pageContext.setAttribute("totalP", totalP);
-								
-								//박수가 곱해진 객실 가격
-								int daysPrice = price*(int)diffDays;
-								pageContext.setAttribute("daysP", daysPrice);
-				
-								//박수가 곱해진 텍스 
-								int daysTax = tax*(int)diffDays;
-								pageContext.setAttribute("daysTax", daysTax);
-								
-								//박수가 곱해진 총 가격
-								int daysTotal = (daysPrice + daysTax);
-								pageContext.setAttribute("daysTotal", daysTotal);
-								%>
-				 				--%>				
+											
 									<tr>
 										<td class="guide">객실</td>
 										<td class="guideTextP"><c:out value="${ rVO.r_name }"/></td>
 									</tr>
 									<tr>
 										<td class="guide">투숙 날짜</td>
-										<td class="guideTextP"><c:out value="${ rVO.chkin_date }"/> - <c:out value="${ rVO.chkout_date }"/> (1박)</td>
+										<td class="guideTextP"><c:out value="${ rVO.chkin_date }"/> - <c:out value="${ rVO.chkout_date }"/> (<%= diffDays %>박)</td>
 									</tr>
 									<tr>
 										<td class="guide">인원</td>
@@ -359,11 +365,11 @@ p { border: 1px solid #FF00FF}
 								<table id="chkSubTab">
 									<tr>
 										<td class="guide">객실요금</td>
-										<td class="guideTextPR"><%-- <fmt:formatNumber pattern = "#,###,###" value = "${ daysP }"/> --%> KRW</td>
+										<td class="guideTextPR"><fmt:formatNumber pattern = "#,###,###" value = "${ price }"/> KRW</td>
 									</tr>
 									<tr>
 										<td class="guide">세금 및 봉사료</td>
-										<td class="guideTextPR"><%-- <fmt:formatNumber pattern = "#,###,###" value = "${ daysTax }"/> --%> KRW</td>
+										<td class="guideTextPR"><fmt:formatNumber pattern = "#,###,###" value = "${ daysTax }"/> KRW</td>
 									</tr>
 								</table> <br /> <span class="guide">요금정책</span><br /> <span
 								class="guideText"> ㆍ 상기 요금에 세금 및 봉사료가 각 10%가 가산됩니다. (총
@@ -378,7 +384,7 @@ p { border: 1px solid #FF00FF}
 						<tr>
 							<td></td>
 							<td>총 요금</td>
-							<td><%-- <fmt:formatNumber pattern = "#,###,###" value = "${ daysTotal }"/> --%> KRW</td>
+							<td><fmt:formatNumber pattern = "#,###,###" value = "${ daysTotal }"/> KRW</td>
 						</tr>
 					</table>
 				</form>

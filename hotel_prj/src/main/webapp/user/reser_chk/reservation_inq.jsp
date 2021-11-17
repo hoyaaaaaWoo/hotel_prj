@@ -20,7 +20,7 @@
 
 	#table {width: 700px; height: 90px; border-align: center; margin: 0px auto;}
 	
-	#res_inqTr:hover {background-color: #D2D6D7; cursor: pointer;}
+	#reserTr:hover {cursor: pointer; background-color: #D2D6D7; }
 	</style>
 
 
@@ -88,14 +88,14 @@ function main(){
 	<table id="table" class="table">
 	<tbody>
 		<c:forEach var="res_inq" items="${ reserInq }">
-				<tr id="res_inqTr" onclick="location.href='http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp?res_no=${ res_inq.res_no }'">
+				<tr id="reserTr" onclick="location.href='http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp?res_no=${ res_inq.res_no }'" >
 					<td><c:out value="${ res_inq.res_no }"/></td>
 					<td>Hotel Ritz Seoul</td>
 					<td><c:out value="${ res_inq.chkin_date }"/>~<c:out value="${ res_inq.chkout_date }"/></td>
 					<td>
 					<c:choose>
-					<c:when test="${ res_status eq Y }">예약완료</c:when>
-					<c:when test="${ res_status eq N }"><span style="color:#ff0000">예약취소</span></c:when>
+					<c:when test="${ reser_status eq Y }">예약완료</c:when>
+					<c:when test="${ reser_status eq n }">취소</c:when>
 					</c:choose>
 					</td>
 				</tr>
