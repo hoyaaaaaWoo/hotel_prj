@@ -43,7 +43,7 @@ public class UpdateDAO {
 		// 2. JdbcTemplate ¾ò±â
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		// 3. Äõ¸® ½ÇÇà
-		String deleteRes = "update member set m_status='N' where id=? ";
+		String deleteRes = "update member set m_status='N', out_date = sysdate where id=? ";
 		int cnt = jt.update(deleteRes, mVO.getId());
 		// 4. Spring Container ´Ý±â
 		gjt.closeAc();
