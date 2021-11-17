@@ -1,11 +1,13 @@
 package user_login;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-
+import org.springframework.jdbc.core.RowMapper;
 
 import team3_dao.GetJdbcTemplate;
 /**
@@ -155,5 +157,33 @@ public class MemberDAO {
 		return id;
 	}
 	
-
+	/**
+	 * 회원정보 이름, 전화번호,이메일 조회
+	 * @param mVO
+	 * @return
+	 * @throws SQLException
+	 */
+	
+	public List<memberVO>selectInfo(String id) throws SQLException{
+		List<memberVO> list =null;
+		//1.Spring Container 얻기
+		GetJdbcTemplate gjt=GetJdbcTemplate.getInstance();
+		//2. JdbcTemplate 얻기
+		JdbcTemplate jt=gjt.getJdbcTemplate();
+		//3.쿼리문 수행.
+		String selectpass="select kname,tel,email from member where id=?";
+		list=	jt.query(selectpass.toString(), new Object[] {id}, new RowMapper<memberVO>() {
+			public memberVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				memberVO mVO = new memberVO();
+				mVO.setKname(rs.getString("kname"));
+				mVO.setTel(rs.getString("tel"));
+				mVO.setEmail(rs.getString("email"));
+				return mVO;
+			}
+		});
+		//4. Spring Container 닫기.
+		gjt.closeAc();
+		return list;
+	}
+	
 }//class

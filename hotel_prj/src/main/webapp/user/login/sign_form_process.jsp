@@ -104,7 +104,6 @@ mDAO.insertMember(mVO);//추가성공 예외
 
 <c:out value="${ param.kname }"/>님 <c:out value="${ param.id }"/>로
 회원 가입 되셨습니다.<br/>회원가입을 축하드립니다.<br/>
-<input type="button" value="로그인" class="btn btn-default" onclick="location.href='login.jsp'">
 </c:catch>
 <c:if test="${ not empty e }">
 ${ e  }

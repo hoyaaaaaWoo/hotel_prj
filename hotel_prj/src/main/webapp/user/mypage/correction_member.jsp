@@ -1,6 +1,10 @@
+<%@page import="user_login.Info_Decription"%>
+<%@page import="java.util.List"%>
+<%@page import="user_login.memberVO"%>
 <%@page import="user_login.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
 
@@ -19,9 +23,6 @@
      <!-- 메인 CSS -->
 	<link rel="stylesheet" type="text/css"
 	href="http://localhost/hotel_prj/main/main.css">
-	
-
-	
 	<style type = "text/css">
 
 	</style>
@@ -42,44 +43,36 @@ $(function(){
 				emailCheck($(this).val()); 	    
 			 });//focusout 
 	$("#btn").click(function(){
+		var regPass = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/;     // 비밀번호 정규식
+		var change_pass =$("#change_pass").val();
 		if(confirm("변경하시겠습니까?") == true) {
 			if( $("#pass").val() =="" || $("#change_pass").val() =="" || $("#change_pass2").val() ==""   ){
-					alert("비밀번호를 입력해주세요.");
-					return;
+					alert("비밀번호는 공백없이 입력해주세요.");
+					$("#kname").focus();
+					return;	
 			}else if( $("#change_pass").val() != $("#change_pass2").val()   ){
-							alert("변경할 비밀번호가 다릅니다 ");
-							return;
+					alert("변경할 비밀번호가 서로 일치하지 않습니다. ");
+					return;
 			}else if(  ($("#pass").val()) == ($("#change_pass").val()|| $("#change_pass2").val()) ){
-						alert("현재비밀번호와 변경할 비밀번호가 동일합니다");
+						alert("현재 비밀번호와 변경할 비밀번호가 동일합니다");
+						return;
+			}else if(	!regPass.test($("#change_pass").val()) ){
+				alert("비밀번호는 숫자와 문자를 조합하여 8~16글자로 설정해 주세요.");
 				return;
-		}	
-		
-		$("#passFrm").submit();	
+			}
 		}//end if
+		$("#passFrm").submit();	
 	})//click
+	
+	
 	////////////////////////////////////////////////////
 	$("#btn1").click(function(){
 		if(confirm("변경하시겠습니까?") == true) {
-			if(    ( ($("#kname").val() !="" && $("#tel").val()=="" && $("#email").val() =="")  || 
-					($("#kname").val() =="" && $("#tel").val()!="" && $("#email").val() =="") ||
-					($("#kname").val() =="" && $("#tel").val()=="" && $("#email").val() !="") )   ||  
-					
-					( ($("#kname").val() !="" && $("#tel").val()!="" && $("#email").val() =="") || 
-					($("#kname").val() !="" && $("#tel").val()=="" && $("#email").val() !="") || 
-					($("#kname").val() =="" && $("#tel").val()!="" && $("#email").val() !="") )    ||
-					
-					(  ($("#kname").val() !="" && $("#tel").val()!="" && $("#email").val() !=""))	){
-			    
-				
-			      
-			}else{
-				alert("변경할 값을 입력해 주세요");
-				return;
-			}
+			alert("dd");
 			$("#frm").submit();	
 		}//end if
 	})//click
-				function telCheck(args) {
+			function telCheck(args) {
 			    	   var flag=false;
 			    	    
 			    	    if (/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/.test(args)) {
@@ -91,7 +84,6 @@ $(function(){
 			    	    }
 			      }
     function emailCheck() {		
-
 
   		var email = document.getElementById("email").value;
 
@@ -108,19 +100,16 @@ $(function(){
   			return false;
 
   		}
-
   	}
-
-    $("#delBtn").click(function(){
+	$("#delBtn").click(function(){
 		if (confirm("정말 탈퇴를 하시겠습니까?") == true) {
-		}
+			alert("회원 탈퇴가 완료되었습니다. \n그동안이용해주셔서 감사합니다");
 		$("#delfrm").submit();	
+		}
 		return;
 	})//click
 	
 })//ready
-
-
 
 </script>
 </head>
@@ -129,10 +118,13 @@ $(function(){
  <jsp:useBean id="mVO" class="user_login.memberVO" scope="page"/>
 <jsp:setProperty property="*" name="mVO"/><!--  입력정보-->
 <%
-	String id=(String)session.getAttribute("id");
-	if(id==null){//세션이 존재하지 않으면 
-	response.sendRedirect("http://localhost/hotel_prj/user/login/login.jsp");
-}//end if
+String id=(String)session.getAttribute("id");
+pageContext.setAttribute("mVO", mVO.getPass());
+
+Info_Decription info = new Info_Decription();
+List<memberVO> infoVO = info.DecryptDeleteMemberData(id);
+pageContext.setAttribute("info", infoVO);
+
 %>
 <!-- NAVBAR
 ================================================== -->
@@ -152,7 +144,7 @@ $(function(){
 <br/><br/><br/>
 <h5>비밀번호 변경하기</h5>
 <form  id="passFrm" action="http://localhost/hotel_prj/user/mypage/member_pass_process.jsp" method="post">
-<input type="password" style="width:250px;height:40px" placeholder="현재 비밀번호를 입력하세요"id="pass"  name ="pass">
+<input type="password" style="width:250px;height:40px" placeholder="현재 비밀번호를 입력하세요"id="pass"  value="${mVOPass }" name ="pass">
 <br/><br/>
 <input type="password" style="width:250px;height:40px" placeholder="변경할 비밀번호를 입력하세요" id="change_pass" name="change_pass">
 <br/><br/>
@@ -162,39 +154,42 @@ $(function(){
 </form>
 <br/><br/><br/><br/><br/><br/>
 </div>
-
+<c:if test="${empty info }">
+<% response.sendRedirect("http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp"); %>
+</c:if>
 <div style = "width:450px; border-bottom:2px solid #d3d3d3; text-align: center; margin: 0px auto;">
 <br/><br/><br/>
+<c:forEach var="info" items="${info}">
 <form id="frm" action="http://localhost/hotel_prj/user/mypage/member_update_process.jsp" method="post">
 <h5>이름 변경하기</h5>
-<input type="text" style="width:250px;height:40px" id="kname" name="kname" placeholder="변경할 이름을 입력하세요">
+<input type="text" style="width:250px;height:40px" id="kname" name="kname" value="${info.kname }">
 <br/><br/>
 <h5>전화번호 변경하기<br/>("-"를 포함해주세요)</h5>
-<input type="text" style="width:250px;height:40px" placeholder="변경할 전화번호를 입력하세요." name="tel" id="tel">
+<input type="text" style="width:250px;height:40px" value="${info.tel }"name="tel" id="tel">
 <br/><br/>
 
 <h5>이메일 변경하기</h5>
-<input type="text" style="width:250px;height:40px" placeholder="변경할 이메일을 입력하세요." name="email" id="email">
+<input type="text" style="width:250px;height:40px" value="${info.email }" name="email" id="email">
 <br/><br/><br/>
 <button type="button" class="btn btn-default" style="width:250px;height:40px ; margin: 0px auto;" value="수정"  id="btn1">수정</button>
 </form>
 <br/><br/><br/><br/><br/><br/>
 </div >
+</c:forEach>
 
 <div style = "width:450px; text-align: center; margin: 0px auto;">
 <br/><br/><br/>
-<form action="http://localhost/hotel_prj/user/mypage/member_del.jsp" id="delfrm" name="delfrm">
-<button type="button" class="btn btn-default" style="width:100px;height:40px" id="delBtn" name="delBtn">회원탈퇴</button>
-<input type="hidden" id="id" name="id"/>
+<form action="member_del.jsp" id="delfrm" name="delfrm">
+<button type="button" class="btn btn-default" style="width:100px;height:40px" id="delBtn">회원탈퇴</button>
 </form>
 <br/><br/><br/>
 </div>
   <br/><br/><br/><br/><br/><br/>
 <div class="container marketing">
-<!-- FOOTER -->
-
-</div><!-- /.container -->
+ <!-- FOOTER -->
 <jsp:include page="../../main/main_footer.jsp"/>
+
+    </div><!-- /.container -->
 
 
     <!-- Bootstrap core JavaScript
