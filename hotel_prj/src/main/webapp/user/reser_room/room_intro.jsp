@@ -9,6 +9,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="Hotel Ritz Seoul"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,9 +92,8 @@ $(function(){
 	$("#roomReserBtn").click(function(){
 		location.href="http://localhost/hotel_prj/user/reser_room/room_date.jsp";
 	})//table click
-	
-}); //ready
 
+}); //ready
 </script>
 
 </head>
@@ -121,22 +121,19 @@ $(function(){
 		RoomSelect rs = new RoomSelect();
 		List<RoomVO> roomList = rs.selectRoomInfo(null, "Y"); // 활성화된 방만 조회
 		pageContext.setAttribute("roomList", roomList);
+		pageContext.setAttribute("newLineChar", "\n");
 		
 		//기타 이미지 조회
 		List<List<OtherImgVO>> imgVOList = new ArrayList<List<OtherImgVO>>();
 		List<OtherImgVO> list = null; //객실별 조회할 거 
-
-		int k = 0;
+		List<Integer> cnt = new ArrayList<Integer>(); //객실당 이미지 개수
 		for(RoomVO rVO : roomList){
 			list = new ArrayList<OtherImgVO>();
 			list = (rs.selectOtherImg(rVO.getRoomName()));
+			cnt.add(Integer.valueOf(list.size()));
 			imgVOList.add(list);
-			k++;
 		}//end for
 		pageContext.setAttribute("imgVOList", imgVOList);
-				
-		//////jiho
-		
 		%>
 		
 		<% int i =0; %>
@@ -145,60 +142,52 @@ $(function(){
 		<div class ="roomName" ><c:out value="${room.roomName}"/></div><br/>
 		<!-- Carousel
     ================================================== -->
-		<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 1000px; margin: 0px auto;">
+		<div id="myCarousel_<%=i %>" class="carousel slide" data-ride="carousel" style="width: 1000px; margin: 0px auto;">
 			
 			<!-- Indicators -->
 			<ol class="carousel-indicators">
-				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-				
-				<c:forEach var = "i" begin = "1" end = "5" step = "1">
-				<li data-target="#myCarousel" data-slide-to= "5"></li>
+				<li data-target="#myCarousel_<%=i %>" data-slide-to="0" class="active"></li>
+				<c:forEach var = "i" begin = "1" end = "<%=cnt.get(i) %>" step = "1">
+					<li data-target="#myCarousel_<%=i %>" data-slide-to= "<%=cnt.get(i) %>"></li>
 				</c:forEach>
 			</ol>
-			<!-- 메인이미지 -->
+			
+			<!-- carousel-inner -->
 			<div class="carousel-inner" role="listbox">
-			
-			
+							<!-- 메인이미지 -->
 				<div class="item active" style = "width: 1000px">
 					<img class="first-slide" 
 						src="http://localhost/hotel_prj/roomImages/${room.img}"
-						alt="First slide">
-					<div class="container">
-						<div class="carousel-caption">
-						</div>
-					</div>
+						alt="mainImg">
 				</div>
+				
 				<!-- 기타이미지 -->
 				<%int j = 0; %>				
 				<c:forEach var="eachList" items="${imgVOList}">
 				<%if(j==i){ %>
 				<c:forEach var="imgVO" items="${eachList}">
 				<div class="item" style = "width: 1000px">
-					<img class="second-slide" 
+					<img 
 						src="http://localhost/hotel_prj/roomImages/${imgVO.imgSrc}"
-						alt="Second slide">
-					<div class="container">
-						<div class="carousel-caption"></div>
-					</div>
+						alt="otherImgs">
 				</div>
 				</c:forEach>
 				<%}//end if
 					j++;%>
-				</c:forEach>
-				
-					
-			</div>
-			<a class="left carousel-control" href="#myCarousel" role="button"
-				data-slide="prev"> <span
-				class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				</c:forEach>	
+			</div> 
+			
+			<!-- carousel control -->
+			<a class="left carousel-control" href="#myCarousel_<%=i %>" role="button"
+				data-slide="prev" > <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 				<span class="sr-only">Previous</span>
-			</a> <a class="right carousel-control" href="#myCarousel" role="button"
-				data-slide="next"> <span
-				class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			</a>
+			<a class="right carousel-control" href="#myCarousel_<%=i %>" role="button"
+				data-slide="next"> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 				<span class="sr-only">Next</span>
 			</a>
 			
-		</div>
+		</div> 
 		
 		<!-- /.carousel -->
 		<br/><br/>
@@ -207,7 +196,7 @@ $(function(){
 
 		<div class = "roomBox">
 			<div class = "roomDesc">
-			<c:out value="${room.mainDesc}"/>
+			${fn:replace(room.mainDesc, newLineChar,"<br>")}
 			</div><br/><br/>
 			<table class = "roomSumm">
 			<tr>
@@ -238,7 +227,7 @@ $(function(){
 			<div class = "guideC">
 				<div class = "guideTitle"> 특별서비스 </div>
 				<div class = "guideText">
-				<c:out value="${room.specialServ}"/>
+				${fn:replace(room.specialServ, newLineChar,"<br>")}
 				</div>
 			</div><br/>
 			<hr class = "hr1"><br/>
@@ -264,16 +253,18 @@ $(function(){
 			<div class = "guideC">
 				<div class = "guideTitle"> 추가정보 </div>
 				<div class = "guideText">
-				<c:out value="${room.moreInfo}"/>
+				${fn:replace(room.moreInfo, newLineChar,"<br>")}
 				</div>
 			</div><br/>
 				
 			</div><!-- roomBox -->
 			<% i++;%>
-			</c:forEach> <!-- end for roomList -->
 			
 			<br/><br/>
-			<hr class = "hr1"><br/><br/><br/>
+			<% if( i != roomList.size()){ %>
+				<hr class = "hr1"><br/><br/><br/>
+			<%}//end if %>
+			</c:forEach> <!-- end for roomList -->
 			
 			<br/><br/><br/><br/>
 

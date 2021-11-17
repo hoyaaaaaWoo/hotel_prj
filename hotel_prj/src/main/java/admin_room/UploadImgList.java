@@ -34,26 +34,30 @@ public class UploadImgList {
 		File temp = new File("C:/Users/user/git/hotel_prj/hotel_prj/src/main/webapp/temp");
 
 		// 2. 해당 폴더의 모든 파일, 디렉토리를 얻음
-		File[] listFiles = temp.listFiles();
+		File[] listFiles = null;
+		
+		if(temp.listFiles() != null) { // 널이 아닐때 !
+			listFiles = temp.listFiles();
+		
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd a HH:mm:ss");
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd a HH:mm:ss");
+			UploadImgVO uliVO = null;
+			for (File file : listFiles) {
+				// 3. 파일에 대해서만 정보를 얻음
+				if (file.isFile()) {
+					// 4. list에 파일명 할당
+					uliVO = new UploadImgVO();
+					uliVO.setImgName(file.getName());
+					uliVO.setImgLeng((int) ((file.length()) / 1024));
+					uliVO.setLastModified(sdf.format(new Date(file.lastModified())));
+					list.add(uliVO);
+				} // end if
+			} // end for
 
-		UploadImgVO uliVO = null;
-		for (File file : listFiles) {
-			// 3. 파일에 대해서만 정보를 얻음
-			if (file.isFile()) {
-				// 4. list에 파일명 할당
-				uliVO = new UploadImgVO();
-				uliVO.setImgName(file.getName());
-				uliVO.setImgLeng((int) ((file.length()) / 1024));
-				uliVO.setLastModified(sdf.format(new Date(file.lastModified())));
-				list.add(uliVO);
-			} // end if
-		} // end for
-
-		// 등록순서대로 정렬
-		Collections.sort(list, new CompareDateAsc());
-
+			// 등록순서대로 정렬
+			Collections.sort(list, new CompareDateAsc());
+		}//end if
+		
 		return list;
 	}// searchImgList
 

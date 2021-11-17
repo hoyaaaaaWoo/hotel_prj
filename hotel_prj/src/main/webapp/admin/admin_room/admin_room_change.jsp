@@ -139,6 +139,7 @@ $(function(){
 	
 	//수정 클릭 시 
 	$("#chgBtn").click(function(){
+		
 		let roomName = $("#roomName").val();
 		let price = $("#price").val();
 		let mainDesc = $("#mainDesc").val();
@@ -195,11 +196,11 @@ $(function(){
 			alert("해당 객실은 이미 비활성화 상태입니다.");
 			return;
 		}//end if
-			var roomNum = $("#roomNum").val();
-			$("#statusRNo").val(roomNum);
-			$("#rStatus").val("N");
+		var roomNum = $("#roomNum").val();
+		$("#statusRNo").val(roomNum);
+		$("#rStatus").val("N");
 			
-			$("#statusFrm").submit();
+		$("#statusFrm").submit();
 	});//hideBtn
 	
 	//활성화 클릭 시 
@@ -275,6 +276,9 @@ $(function(){
 			return;
 		}//end if
 	})//mainFile
+	
+	
+	
 	
 	//기타 이미지 등록시 file hidden값 초기화 (temp 폴더에 중복 등록 방지)
 	//main img와 중복파일 및 파일 확장자 검증
@@ -513,8 +517,8 @@ $(window).bind("beforeunload", function(){
 		<tr>
 			<td colspan="2">
 			  <label>* 메인 설명</label><br/>
-			  <textarea id="mainDesc" name="mainDesc" rows="5" cols="90" placeholder="객실 메인 설명">
-<c:out value="${rVO.mainDesc}"/></textarea></td>
+			  <textarea id="mainDesc" name="mainDesc" rows="5" cols="90" placeholder="객실 메인 설명"><c:out value="${rVO.mainDesc}"/></textarea>
+			  </td>
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -590,8 +594,7 @@ $(window).bind("beforeunload", function(){
 		<tr>
 			<td colspan="2">
 			  <label>* 특별 서비스</label><br/>
-			  <textarea id="specialServ" name="specialServ" rows="6" cols="90" placeholder="특별 서비스">
-${rVO.specialServ}</textarea>
+			  <textarea id="specialServ" name="specialServ" rows="6" cols="90" placeholder="특별 서비스">${rVO.specialServ}</textarea>
 			</td>
 		</tr>
 		<tr>
@@ -601,30 +604,26 @@ ${rVO.specialServ}</textarea>
 			  <tr>
 			  	<th>일반</th>
 			  	<td class="subTd">
-				 <textarea name="generalAmn" id="generalAmn" rows="2" cols="80" placeholder="일반 어메니티">
-${rVO.generalAmn}</textarea>
+				 <textarea name="generalAmn" id="generalAmn" rows="2" cols="80" placeholder="일반 어메니티">${rVO.generalAmn}</textarea>
 			  	</td>
 			  </tr>
 			  <tr>
 			  	<th>욕실</th>
 			  	<td class="subTd">
-				 <textarea name="bathAmn" id="bathAmn" rows="2" cols="80" placeholder="욕실 어메니티">
-${rVO.bathAmn}</textarea>
+				 <textarea name="bathAmn" id="bathAmn" rows="2" cols="80" placeholder="욕실 어메니티">${rVO.bathAmn}</textarea>
 			  	</td>
 			  </tr>
 			  <tr>
 			  	<th>기타</th>
 			  	<td class="subTd">
-				 <textarea name="otherAmn" id="otherAmn" rows="2" cols="80" placeholder="기타 어메니티">
-${rVO.otherAmn}</textarea>
+				 <textarea name="otherAmn" id="otherAmn" rows="2" cols="80" placeholder="기타 어메니티">${rVO.otherAmn}</textarea>
 			  	</td>
 			  </tr>
 			  </table>
 		<tr>
 			<td colspan="2">
 			  <label>* 추가 정보</label><br/>
-			  <textarea id="moreInfo" name="moreInfo" rows="7" cols="90" placeholder="추가 정보">
-${rVO.moreInfo}</textarea>
+			  <textarea id="moreInfo" name="moreInfo" rows="7" cols="90" placeholder="추가 정보">${rVO.moreInfo}</textarea>
 			</td>
 		</tr>
 		</table>

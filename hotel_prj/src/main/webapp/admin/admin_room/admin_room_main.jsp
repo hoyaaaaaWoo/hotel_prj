@@ -173,9 +173,7 @@ function showRoomDetail(roomName){
 		<tr>
 			<td colspan="2">
 			  <label>* 메인 설명</label><br/>
-			  <textarea id="mainDesc" name="mainDesc" rows="5" cols="100" readonly="readonly">
-<c:out value="${rmVO.mainDesc}"/>
-			  </textarea>
+			  <textarea id="mainDesc" name="mainDesc" rows="5" cols="100" readonly="readonly"><c:out value="${rmVO.mainDesc}"/></textarea>
 			</td>
 		</tr>
 		<tr>
@@ -218,9 +216,7 @@ function showRoomDetail(roomName){
 		<tr>
 			<td colspan="2">
 			  <label>* 특별 서비스</label><br/>
-			  <textarea id="specialServ" name="specialServ" rows="6" cols="100" readonly="readonly">
-<c:out value="${rmVO.specialServ}"/>
-			  </textarea>
+			  <textarea id="specialServ" name="specialServ" rows="6" cols="100" readonly="readonly"><c:out value="${rmVO.specialServ}"/></textarea>
 			</td>
 		</tr>
 		<tr>
@@ -230,34 +226,26 @@ function showRoomDetail(roomName){
 			  <tr>
 			  	<th>일반</th>
 			  	<td class="subTd">
-				 <textarea name="generalAmn" id="generalAmn" rows="2" cols="85" readonly="readonly">
-<c:out value="${rmVO.generalAmn}"/>
-				</textarea>
+				 <textarea name="generalAmn" id="generalAmn" rows="2" cols="85" readonly="readonly"><c:out value="${rmVO.generalAmn}"/></textarea>
 			  	</td>
 			  </tr>
 			  <tr>
 			  	<th>욕실</th>
 			  	<td class="subTd">
-				 <textarea name="bathAmn" id="bathAmn" rows="2" cols="85" readonly="readonly">
-<c:out value="${rmVO.bathAmn}"/>
-				 </textarea>
+				 <textarea name="bathAmn" id="bathAmn" rows="2" cols="85" readonly="readonly"><c:out value="${rmVO.bathAmn}"/></textarea>
 			  	</td>
 			  </tr>
 			  <tr>
 			  	<th>기타</th>
 			  	<td class="subTd">
-				 <textarea name="otherAmn" id="otherAmn" rows="2" cols="85" readonly="readonly">
-<c:out value="${rmVO.otherAmn}"/>
-				 </textarea>
+				 <textarea name="otherAmn" id="otherAmn" rows="2" cols="85" readonly="readonly"><c:out value="${rmVO.otherAmn}"/></textarea>
 			  	</td>
 			  </tr>
 			  </table>
 		<tr>
 			<td colspan="2">
 			  <label>* 추가 정보</label><br/>
-			  <textarea id="moreInfo" name="moreInfo" rows="7" cols="100" readonly="readonly">
-<c:out value="${rmVO.moreInfo}"/>
-			  </textarea>
+			  <textarea id="moreInfo" name="moreInfo" rows="7" cols="100" readonly="readonly"><c:out value="${rmVO.moreInfo}"/></textarea>
 			</td>
 		</tr>
 		</table>
