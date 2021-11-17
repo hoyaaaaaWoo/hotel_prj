@@ -38,6 +38,32 @@
 	width: 120px; 
 	height: 40px
 	}
+	
+	.button {
+	border: 1px solid #E9E9E9;
+	font-weight: bold;
+	font-size: 15px;
+	background-color: #000;
+	color: #F5DF3C;
+	width: 130px;
+	height: 40px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 7px;
+}
+
+.button:hover{
+	background-color: #FCF4C0 ;
+	border: 1px solid #E9E9E9;
+	font-weight: bold;
+	font-size: 15px;
+	color: #333;
+	width: 130px;
+	height: 40px;
+	text-align: center;
+	border-radius: 7px;
+	cursor: pointer;
+}
 	</style>
 
     <!-- Bootstrap core CSS -->
@@ -118,14 +144,14 @@
   <c:when test="${not empty tempPass}">
 	임시 비밀번호는 <span id="markPW">${tempPass }</span> 입니다. <br>
 	로그인 후 마이페이지에서 비밀번호를 다시 설정해주시기 바랍니다.<br><br><br><br>
-	<input type="button" id="loginBtn" class="btn btn-default" value="로그인"/>
+	<input type="button" id="loginBtn" class="button" value="로그인"/>
   <br/><br/>
   </c:when>
   <c:otherwise>
   <br/><br/>
   유효한 회원 정보가 아닙니다.
   <br/><br/>
-	<input type="button" id="backBtn" class="btn btn-default" value="뒤로 가기"/>
+	<input type="button" id="backBtn" class="button" value="뒤로 가기"/>
   </c:otherwise>
   </c:choose>
   </div>

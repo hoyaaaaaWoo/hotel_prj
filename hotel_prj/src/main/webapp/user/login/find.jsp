@@ -17,7 +17,31 @@
 	href="http://localhost/hotel_prj/main/main.css">
     
 	<style type = "text/css">
-	
+	.button {
+	border: 1px solid #E9E9E9;
+	font-weight: bold;
+	font-size: 15px;
+	background-color: #000;
+	color: #F5DF3C;
+	width: 130px;
+	height: 40px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 7px;
+}
+
+.button:hover{
+	background-color: #FCF4C0 ;
+	border: 1px solid #E9E9E9;
+	font-weight: bold;
+	font-size: 15px;
+	color: #333;
+	width: 130px;
+	height: 40px;
+	text-align: center;
+	border-radius: 7px;
+	cursor: pointer;
+}
 	</style>
 
     <!-- Bootstrap core CSS -->
@@ -155,9 +179,8 @@
   <label>이메일</label>
   <input type="text" class="form-control" name="id_email" id="id_email" placeholder="가입시 등록한 이메일을 입력하세요" maxlength="30"/>
   
-  <br/><br/>
-  
-  <input type="button" class="btn btn-default" id="findIDBtn" value="아이디 찾기">
+  <br/><br/><br/><br/>
+  <input type="button" class="button" id="findIDBtn" value="아이디 찾기">
   
   </div>
   
@@ -192,18 +215,18 @@
   <label>이메일</label>
   <input type="text" class="form-control" name="pw_email" id="pw_email" placeholder="가입시 등록한 이메일을 입력하세요" maxlength="30">
   
-  <br/><br/>
+  <br/><br/><br/><br/>
   
-  <input type="button" class="btn  btn-default" value="비밀번호 찾기" id="findPWBtn"/>
+  <input type="button" class="button" value="비밀번호 찾기" id="findPWBtn"/>
   
-  <br><br><br><br><br>
+  <br><br><br><br><br><br/><br/><br/><br/>
   
   </div>
   
   </form>
   
 <div style="width: 1135px; text-align: center;">
-<button type="button" class="btn btn-default" style="width: 100px; height: 40px" onclick="main()">홈으로</button>
+<button type="button" class="button" style="width: 100px; height: 40px" onclick="main()">홈으로</button>
 </div>
   
   </div>
