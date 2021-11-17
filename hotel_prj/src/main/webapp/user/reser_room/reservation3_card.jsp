@@ -1,5 +1,4 @@
 
-<%@page import="uesr_member.User_Decryption"%>
 <%@page import="user_card.CardVO"%>
 <%@page import="user_card.SelectCard"%>
 <%@page import="java.text.DateFormat"%>
@@ -386,14 +385,8 @@ $(function() {
 	
 	String id = (String)session.getAttribute("id");
 	
-	
-	//사용자정보 복호화
-	User_Decryption ud = new User_Decryption();
-	MemberVO mv = ud.DecryptSelectMemInfo(id);
-	
-	//MemberSelect ms = new MemberSelect();
-	//MemberVO mv = ms.selectMemInfo(id);
-	
+	MemberSelect ms = new MemberSelect();
+	MemberVO mv = ms.selectMemInfo(id);
 	
 	// 사용자의 기본 카드 정보 확인하기
 	SelectCard sc = new SelectCard();
@@ -401,7 +394,8 @@ $(function() {
 	// 저장된 사용자의 카드 로우가 있는지 확인 -> 없으면 card_no을 0으로 반환
 	CardVO cdVO = sc.checkSavedCard(id);
 	String savedFlag = cdVO.getCard_no();
-	pageContext.setAttribute("savedFlag", savedFlag);
+	
+	pageContext.setAttribute("saveFlag", savedFlag);
 	
 	
  	 if( !savedFlag.equals("0")){
@@ -542,7 +536,7 @@ $(function() {
 						<!-- 사용자의 카드정보가 카드테이블에 저장되어 있을 때(saveFlag가 0이 아닐때), 카드정보 넣어서 보여주기  -->
 							<td class="cardTd" style="width: 300px">신용카드번호*<br /> 
 							<c:choose>
-							<c:when test = "${ saveFlag == 0 }">
+							<c:when test = "${ saveFlag eq '0' }">
 							<input type="text" name="card_no" id="card_no" class="form-control" maxlength="19"  />
 							</c:when>
 							<c:otherwise>
@@ -553,7 +547,7 @@ $(function() {
 							</td>
 							<td class="cardTd" style="width: 200px">유효기간*<br /> 
 							<c:choose>
-							<c:when test = "${ saveFlag == 0 }">
+							<c:when test = "${ saveFlag eq '0' }">
 							<input type="text" name="val_MM"  class="form-control" id="val_MM" maxlength="2" placeholder="MM" />
 							</c:when>
 							<c:otherwise>
@@ -562,7 +556,7 @@ $(function() {
 							</c:choose>
 							
 							<c:choose>
-							<c:when test = "${ saveFlag == 0 }">
+							<c:when test = "${ saveFlag eq '0' }">
 							<input type="text" name="val_YY"  class="form-control" id="val_YY" maxlength="2" placeholder="YY" />
 							</c:when>
 							<c:otherwise>
@@ -573,7 +567,7 @@ $(function() {
 							
 							<td class="cardTd">카드종류*<br /> 
 							<c:choose>
-							<c:when test = "${ saveFlag == 0 }">
+							<c:when test = "${ saveFlag eq '0' }">
 							<select name="cardCompany" id="cardCompany" class="form-control sel">
 									<option value="none">--선택--</option>
 									<option value="VISA">VISA</option>
@@ -665,7 +659,7 @@ $(function() {
 			<input type="hidden" id="Child" name="child" value = "<%= paramChild %>"/>
 			<input type="hidden" id="diffDays" name="diffDays" value = "<%=diffDays %>"/>
 			<input type="hidden" id="resNo" name="resNo" value = "<%= strResNo %>"/>
-			<input type="hidden" id="saveFlag" name="saveFlag" value = "${ saveFlag}"/>
+			<input type="hidden" id="saveFlag" name="saveFlag" value = "${saveFlag}"/>
 			<button type="button" id = "completeBtn" class="btn btn-default btn-lg">예약하기</button>
 </form>
 			

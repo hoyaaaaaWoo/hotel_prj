@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="user_room.RoomVO"%>
 <%@page import="user_room.RoomSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -133,7 +134,7 @@ p { border: 1px solid #FF00FF}
 
 
 		<!-- header/navibar import -->
-		<c:import url="main_header_nav.jsp" />
+		<c:import url="http://localhost/hotel_prj/main/main_header_nav.jsp" />
 
 		
 		<!-- Carousel
@@ -209,8 +210,7 @@ p { border: 1px solid #FF00FF}
 		<div class="container marketing"
 			style="width: 1130px; margin: 0px auto">
 			
-<jsp:useBean id="RoomVO" class = "user_room.RoomVO" scope = "page"></jsp:useBean>
-<jsp:setProperty property="*" name="RoomVO"/>
+
 			
 <%
 
@@ -221,32 +221,42 @@ pageContext.setAttribute("RoomNo", rs.selectAllRoomNo(null) );
 RoomVO rv = rs.selectRoomInfo(room_no);
  */
 %>
-			<!-- Three columns of text below the carousel -->
+			
 			<div class="row">
-			<c:forEach var = "room_no" items = "${ RoomNo }" >
+<!-- ---------------------------------------------------------------------------------- -->
+			<%-- <c:forEach var = "room_no" items = "${ RoomNo }" > --%>
+				
+				<%
+				RoomSelect rs = new RoomSelect();
+				
+				List<RoomVO> templist = rs.selectMainRoom();
+				pageContext.setAttribute("mainRooms", templist);
+				
+
+				%>
+				<c:forEach var = "mainRoom" items = "${ mainRooms }" end = "2" >
 				<div class="col-lg-4">
 					<div class="roomImg">
-						<a
-							href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#grandRoom">
-							<img
-							src="http://localhost/hotel_prj/main/main_images/01_grand01.jpg"
+						<a href="#void">
+							<img src="http://localhost/hotel_prj/roomImages/${ mainRoom.main_img }"
 							width="350" height="200">
 						</a>
 					</div>
-					<a
-						href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#grandRoom"
-						class="roomName"><h3 class="roomName">프리미어 스위트 룸</h3></a>
-					<p>프리미어 스위트 룸 간략 설명 혹은 가격</p>
+					<a href="#void" class="roomName">
+					<h3 class="roomName">${ mainRoom.r_name }</h3></a>
+					<p>룸 간략 설명 혹은 가격</p>
 					<p>
 						<a class="btn btn-default"
-							href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#grandRoom"
+							href="#void"
 							role="button">View details &raquo;</a>
 					</p>
-				</div>
+				</div><!-- col-lg-4 -->
+				
 				</c:forEach>
+				<%-- <%}//end for %>  --%>
 				
 				<br /> <br /><br /> <br />
-
+<!-- ---------------------------------------------------------------------------------------- -->
 				<div style="width: 1130px; margin: 0px auto;">
 					<hr class="featurette-divider">
 
@@ -269,7 +279,7 @@ RoomVO rv = rs.selectRoomInfo(room_no);
 									class="promTitle"><h2 class="promTitle">Long and
 											Lasting Love</h2></a>
 									<p>
-										리츠 서울 더 라운지에서 오직 둘 만의 완벽한 시간을 선물합니다.<br /> 객실 + 프로포즈 디너 + 스파
+										리츠 서울 더 라운지에서 오직 둘 만의 완벽한 시간을 선물합니다.<br /> <strong>객실 + 프로포즈 디너 + 스파
 										+ 케이크/샴페인</strong>
 									</p>
 								</td>

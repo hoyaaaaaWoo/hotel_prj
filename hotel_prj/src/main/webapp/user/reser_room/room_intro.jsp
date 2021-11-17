@@ -27,24 +27,8 @@
 <link rel="stylesheet" type="text/css"
 	href="http://localhost/hotel_prj/main/main.css">
 
-<!-- Bootstrap core CSS -->
-<!-- jQuery CDN -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
-<!-- Bootstrap CDN -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-<link href="http://localhost/hotel_prj/common/bootstrap/carousel.css"
-	rel="stylesheet">
-	
-
 <style type="text/css">
+
 .hr1 {border-bottom: 1px solid #d3d3d3; }
 
 .roomImgList {width: 720px; height: 405px;}
@@ -81,56 +65,24 @@ td { border: 1px solid #FF0000}
 tr { border: 1px solid #FF0000}
 */
 
-#remoCon {
-	position: fixed;
-	right: 45px;
-	top : 200px;
-	display: none;
-	color: #5A5A5A;
- } 
-
-#remoConTd{
-	padding:15px;
-	hegiht: 50px;
-	border:1px solid #d3d3d3;
-	font-size: 15px;
-	font-weight:bold;
-	color: #5A5A5A;
-}
-
-#subTd{
-	padding:8px;
-	width:150px;
-	hegiht: 40px;
-	border:1px solid #d3d3d3;
-	font-size: 13px;
-	font-weight:bold;
-	color: #FFFFFF;
-	text-align: center;
-	background-color: #2F2F2F; 
-}
-
-#remoConTd:hover{
-	cursor: pointer;
-	background-color: #FCF4C0
-}
-
-#targetA{
-	text-decoration : none;
-	color: #FFFFFF;
-}
-
-#eachRoom{
-	font-size: 13px;
-	color: #5A5A5A;
-}
-
-.height_fix {
-    margin-top: -100px;
-    padding-top: 100px;
-}
 </style>
 
+<!-- Bootstrap core CSS -->
+<!-- jQuery CDN -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- Bootstrap CDN -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<link href="http://localhost/hotel_prj/common/bootstrap/carousel.css"
+	rel="stylesheet">
+	
 <script type="text/javascript">
 $(function(){
 	$("#roomIntroBtn").click(function(){
@@ -141,17 +93,7 @@ $(function(){
 		location.href="http://localhost/hotel_prj/user/reser_room/room_date.jsp";
 	})//table click
 
-	//리모콘 이벤트
-	$(document).scroll(function(){
-		var con = $("#remoCon");
-		var position = $(window).scrollTop();
-
-		if(position > 400 ){ con.fadeIn(500); }
-		if(position < 400 ){ con.fadeOut(500); }
-	 });
-
 }); //ready
-
 </script>
 
 </head>
@@ -196,7 +138,7 @@ $(function(){
 		
 		<% int i =0; %>
 		<c:forEach var="room" items="${roomList}"> 
-		<span id="target<%=i+1%>" class="height_fix"></span><br/><br/>
+		<span id = "grandRoom"></span><br/><br/>
 		<div class ="roomName" ><c:out value="${room.roomName}"/></div><br/>
 		<!-- Carousel
     ================================================== -->
@@ -285,7 +227,7 @@ $(function(){
 			<div class = "guideC">
 				<div class = "guideTitle"> 특별서비스 </div>
 				<div class = "guideText">
-				• ${fn:replace(room.specialServ, newLineChar,"<br>• ")}
+				${fn:replace(room.specialServ, newLineChar,"<br>")}
 				</div>
 			</div><br/>
 			<hr class = "hr1"><br/>
@@ -311,7 +253,7 @@ $(function(){
 			<div class = "guideC">
 				<div class = "guideTitle"> 추가정보 </div>
 				<div class = "guideText">
-				• ${fn:replace(room.moreInfo, newLineChar,"<br>• ")}
+				${fn:replace(room.moreInfo, newLineChar,"<br>")}
 				</div>
 			</div><br/>
 				
@@ -327,27 +269,11 @@ $(function(){
 			<br/><br/><br/><br/>
 
 			<!-- footer import -->
-			<c:import url="http://localhost/hotel_prj/main/main_footer.jsp" />
-
-		<!-- 객실 리모콘 -->
-		<table id="remoCon">
-		<tr>
-		<td id="subTd"> 리모콘 </td>
-		</tr>
-		<c:forEach var="room" items="${roomList}">
-		<c:set var="num" value="${num+1}"/> 
-		<tr>
-		<td id="remoConTd"><a href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp?#target${num}" id="targetA">
-		<span id="eachRoom">${room.roomName}</span></a></td>
-		</tr>
-		</c:forEach>
-		<tr>
-		<td id="subTd" onclick="event.cancelBubble=true" style="cursor:pointer"> <span onclick="window.scrollTo(0,0);"> 상단으로 이동</span> </td>
-		</tr>
-		</table>
+					<c:import url="http://localhost/hotel_prj/main/main_footer.jsp" />
 
 		</div><!-- wrap -->
 		
+
 		
     <!-- ================================================== -->
 
