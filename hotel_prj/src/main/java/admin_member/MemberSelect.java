@@ -101,13 +101,12 @@ public class MemberSelect {
 	 */
 	public MemberVO selectSpecificMemberDelete(String id) throws SQLException {
 		MemberVO mVO = null;
-
 		// 1. Spring Container 얻기
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
 		// 2 JdbcTemplate 얻기
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		// 3. 쿼리 실행
-		String select = "select id,kname,out_date from member where id=?";
+		String select = "select id,kname,out_date from member where m_status='N' and id=?";
 		// interface를 anonymous inner class로 생성하여 그안에서 조회결과를 VO에 할당.
 		mVO = jt.queryForObject(select, new Object[] { id }, new RowMapper<MemberVO>() {
 			public MemberVO mapRow(ResultSet rs, int rowNum) throws SQLException {
