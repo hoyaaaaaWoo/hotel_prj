@@ -496,6 +496,7 @@ $(window).bind("beforeunload", function(){
 		<form name="roomChgFrm" id="roomChgFrm" action="http://localhost/hotel_prj/admin/admin_room/admin_room_change_process.jsp" method="get">
 		<div id="tabDiv">
 		<c:forEach var="rVO" items="${rList}">
+					
 		<input type="hidden" name="roomNum" id="roomNum" value="${rVO.roomNum}"/> <!-- 객실활성화에 사용할 값 -->
 		<table id="mainTab">
 		<tr>
