@@ -1,3 +1,4 @@
+<%@page import="uesr_member.User_Decryption"%>
 <%@page import="user_card.ModifyCard"%>
 <%@page import="user_reservation.ReservationInsert"%>
 <%@page import="user_reservation.ReservationVO"%>
@@ -143,6 +144,11 @@ $(function(){
 <body>
 
 <%
+request.setCharacterEncoding("UTF-8");
+
+
+
+
 //예약정보 파라메터 받기
 String paramSd = request.getParameter("sd");
 String paramEd = request.getParameter("ed");
@@ -180,8 +186,9 @@ RoomVO rv = rs.selectRoomInfo(room_no);
 //id로 회원정보 조회
 String id = (String)session.getAttribute("id");
 
-MemberSelect ms = new MemberSelect();
-MemberVO mv = ms.selectMemInfo(id);
+//사용자정보 복호화
+User_Decryption ud = new User_Decryption();
+MemberVO mv = ud.DecryptSelectMemInfo(id);
 
 
 //  예약 insert
@@ -202,11 +209,9 @@ ReservationInsert resInsert = new ReservationInsert();
 int cnt = resInsert.insertRes(rsVO);
 pageContext.setAttribute("cnt", cnt);
 
-
 // 카드저장을 체크한, 기존 카드정보가 없는 사용자
-if ( paramCardSave.equals("Y") && saveFlag.equals("0")){
+if ( paramCardSave.equals("Y") && !saveFlag.equals("0")){
  // 카드정보 insert
- 
 CardVO cardVO = new CardVO();
 cardVO.setCard_no(card_no);
 cardVO.setCompany(cardCompany);
@@ -214,25 +219,16 @@ cardVO.setId(id);
 cardVO.setRes_no(strResNo);
 cardVO.setVal_mm(val_MM);
 cardVO.setVal_yy(val_YY);
- 
-InsertCard icard = new InsertCard();
-icard.insertCard(cardVO);
 
- System.out.println("------카드추가-------------"+saveFlag);
+InsertCard Icard = new InsertCard();
 }//end if
 
-
 // 카드저장을 체크한, 기존 카드정보가 있는 사용자
-if ( paramCardSave.equals("Y") && !saveFlag.equals("0")){
+if ( paramCardSave.equals("Y") && saveFlag.equals("0")){
  // 카드정보 변경
  CardVO cVO = new CardVO();
- cVO.setCard_no(card_no);
- cVO.setId(id);
- System.out.println("------카드변경-------------"+cVO);
-  
  ModifyCard mc = new ModifyCard();
  pageContext.setAttribute("cardCnt", mc.updateCard(cVO));
-  
 }
 
 
@@ -250,7 +246,6 @@ if ( paramCardSave.equals("Y") && !saveFlag.equals("0")){
 		<div class = "resChk">
 			<div class = "chkDiv">
 			<div id = "resConf"> ${cnt}건의 예약이 완료되었습니다. pi : <%=paramPiAgree %> cc : <%=paramCcAgree %> <%=cardCompany %>
-			[${ cardCnt }건의 카드정보 변경]
 			<%=paramCardSave %> ${paramCardSave} ${param.room_no} ${param.addReq } ${param.card_no }  ${param.val_MM } ${param.val_YY }</div>
 			child : <%= child %>
 			<table class = "chkTab">
