@@ -2,8 +2,7 @@
 <%@page import="user_find.FindSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" info = "Hotel Ritz Seoul"%>
-    
-    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,7 +20,23 @@
 	href="http://localhost/hotel_prj/main/main.css">
     
 	<style type = "text/css">
+	#result{
+	width: 300px;
+	text-align: center; 
+	margin: 0px auto;
+	font-size:16px;
+	color : #000000;
+	}
 	
+	#markID{
+	font-weight:bold;
+	font-size:16px;
+	color : #0066B4;
+	}
+	.btn{
+	width: 120px; 
+	height: 40px
+	}
 	</style>
 	
     <!-- Bootstrap core CSS -->
@@ -41,9 +56,16 @@
     <link href="http://localhost/hotel_prj/common/bootstrap/carousel.css" rel="stylesheet">
 
 <script type="text/javascript">
-function login() {
-	location.href = "http://localhost/hotel_prj/user/login/login.jsp"
-}
+
+$(function(){
+	$("#backBtn").click(function(){
+		location.href="http://localhost/hotel_prj/user/login/find.jsp";
+	})
+	
+	$("#passBtn").click(function(){
+		location.href="http://localhost/hotel_prj/user/login/find.jsp";
+	})
+})//ready
 </script>
 
 </head>
@@ -56,53 +78,56 @@ function login() {
 	
 	<!-- Standard button -->
 
-	
-      	
    <div class="container marketing">
   <br/><br/>
   <div style="width: 300px;text-align: center; margin: 0px auto;">
   <br>
   <h2>아이디 찾기</h2>
   </div>
-  
-  <%request.setCharacterEncoding("UTF-8"); %>
-  
-  <!-- 이전 페이지에서 날아온 웹파라미터 이 페이지에서 받아서 설정하기 -->
-  <jsp:useBean id="fVO" class="user_find.FindVO"/>  
-  <!-- *써서 setter method 다 실행해서 세팅됨 -->
-  <jsp:setProperty property="*" name="fVO"/>
-  
-<%
-//파라미터로 받아오기
-   	String kname = request.getParameter("kname");
-   	String email = request.getParameter("email");
-	pageContext.setAttribute("kname", kname);
-	pageContext.setAttribute("email", email);
-   	
-	FindSelect fD = new FindSelect();
-	
-	fVO.setKname(kname);
-	fVO.setEmail(email);
-	
-	  
-%>
-  
+  <c:catch var="e">
+  <%request.setCharacterEncoding("UTF-8"); 
+  	String kname = request.getParameter("id_kname");
+  	String email = request.getParameter("id_email");
+  	
+  	if(kname ==null || email == null){
+  %>
+  <c:redirect url="find.jsp"/>
+  <%
+  	}
+  	FindSelect fs = new FindSelect();
+  	String resultId = fs.findId(kname, email);
+  	if(resultId==null){%>
+  		<script type="text/javascript">
+  		alert("잠시 후 다시 시도해주시기 바랍니다.");
+  		history.back();
+  		</script>
+  	<%}
+  	String id = resultId.substring(0,resultId.length()-2)+"**";
+  	pageContext.setAttribute("kname", kname);
+  	pageContext.setAttribute("id", id);
+  %>
   
   <br>
   <hr style="width: 500px"/>
   <br>
+  </c:catch>
   
-  <div style="width: 300px;text-align: center; margin: 0px auto;">
-	<c:out value="${ fVO.id }"/><!-- 아이디 출력 -->
+  <div id="result">
+  <c:choose>
+  <c:when test="${not empty id}">
+	  ${kname}님의 ID는 <span id="markID">${id}</span> 입니다.<br><br><br><br>
+	<input type="button" id="loginBtn" class="btn btn-default" value="로그인"/>&nbsp;
+	<input type="button" id="passBtn" class="btn btn-default" value="비밀번호 찾기"/>
   <br/><br/>
-  
-</div>
-  
-  
-  <div style="width: 1135px; text-align: center;">
-	<button type="button" class="btn btn-default"
-			style="width: 100px; height: 40px" onclick="login()">로그인</button>
-   </div>
+  </c:when>
+  <c:otherwise>
+  <br/><br/>
+  유효한 회원 정보가 아닙니다.
+  <br/><br/>
+	<input type="button" id="backBtn" class="btn btn-default" value="뒤로 가기"/>
+  </c:otherwise>
+  </c:choose>
+  </div>
   </div>
     
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
