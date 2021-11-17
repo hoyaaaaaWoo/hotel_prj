@@ -11,6 +11,7 @@ public class ReservationVO {
 	private Date res_date;
 	
 	
+	
 	public ReservationVO() {
 		
 	}
@@ -277,14 +278,13 @@ public class ReservationVO {
 
 	@Override
 	public String toString() {
-		return "ReservationVO [room_no=" + room_no + ", adult=" + adult + ", child=" + child + ", val_mm=" + val_mm
-				+ ", val_yy=" + val_yy + ", res_no=" + res_no + ", id=" + id + ", chkin_date=" + chkin_date
-				+ ", chkout_date=" + chkout_date + ", add_req=" + add_req + ", cc_agree=" + cc_agree + ", pi_agree="
-				+ pi_agree + ", res_status=" + res_status + ", r_name=" + r_name + ", ename_lst=" + ename_lst
-				+ ", ename_fst=" + ename_fst + ", company=" + company + ", tel=" + tel + ", card_no=" + card_no
-				+ ", email=" + email + ", res_date=" + res_date + "]";
+		return "ReservationVO [room_no=" + room_no + ", adult=" + adult + ", child=" + child + ", price=" + price
+				+ ", res_no=" + res_no + ", id=" + id + ", chkin_date=" + chkin_date + ", chkout_date=" + chkout_date
+				+ ", add_req=" + add_req + ", cc_agree=" + cc_agree + ", pi_agree=" + pi_agree + ", res_status="
+				+ res_status + ", r_name=" + r_name + ", val_mm=" + val_mm + ", val_yy=" + val_yy + ", ename_lst="
+				+ ename_lst + ", ename_fst=" + ename_fst + ", company=" + company + ", tel=" + tel + ", card_no="
+				+ card_no + ", email=" + email + ", main_img=" + main_img + ", res_date=" + res_date + "]";
 	}
 
-	
 	
 }

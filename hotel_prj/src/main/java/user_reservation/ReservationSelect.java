@@ -79,9 +79,10 @@ public class ReservationSelect {
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();  
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		String reser = "select r.r_name,r.main_img, reser.res_no, reser.chkin_date, reser.chkout_date, m.ename_fst, m.ename_lst, m.email, m.tel, "
-				+ "reser.adult, reser.child, reser.id,  " 
+				+ "reser.adult, reser.child, reser.id  " 
 				+ "from reservation reser, room r, member m "
 				+ "where reser.room_no=r.room_no and reser.id=m.id and reser.res_no='"+ res_no+"'";	
+		System.out.println( reser );
 		rVO=jt.queryForObject(reser,  new RowMapper<ReservationVO>() {
 
 			@Override
@@ -150,10 +151,12 @@ public class ReservationSelect {
 	
 	
 	 
+	
 	/*
 	 * public static void main(String[] args) { ReservationSelect t=new
-	 * ReservationSelect(); System.out.println(t.reservation("1125R01")); }
+	 * ReservationSelect(); System.out.println(t.reservation("20211118-001R03")); }
 	 */
+	 
 	
 	
 }

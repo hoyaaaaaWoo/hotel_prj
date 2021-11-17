@@ -51,12 +51,15 @@ $("#table tr").click(function(){
     //선택된 행에서 예약번호 얻어오기
     let resNum = td.eq(0).text();
     
-    alert(resNum);
     
-    location.href="http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp?res_no=${ res_inq.res_no }";
 })
     
 });//ready
+
+function serchReservation( res_no ){
+	$("#res_no").val( res_no );
+	$("#res_noFrm").submit();
+}
 </script>
 </head>
 <!-- NAVBAR
@@ -86,6 +89,7 @@ if(id==null){//세션이 존재하지 않으면
 <form action="reservation_confirm.jsp" id="res_noFrm" name="res_noFrm" method="post">
 <input type="hidden" name="res_no" id="res_no" />
 </form>
+<!-- 여기서 보내는거 아닌가요..? res_no에 값은 어디에서 넣어줘요? 처음에 tr에서 onclick으로 ${ res_inq.res_no }이값을 받아왔는데 스크립트에서 해서 안되는건가요.,?네 아하.. 고쳐보겠습니다.. -->
 
 <div class="wrapper">
 <jsp:include page="../../main/main_header_nav.jsp"/>	
@@ -105,16 +109,16 @@ if(id==null){//세션이 존재하지 않으면
 	<table id="table" class="table">
 	<tbody>
 		<c:forEach var="res_inq" items="${ reserInq }">
-					<tr id="reserTr">
+					<tr id="reserTr" onclick="serchReservation('${ res_inq.res_no }')">
 					<td ><c:out value="${ res_inq.res_no }"/></td>
 					<td >Hotel Ritz Seoul</td>
 					<td ><c:out value="${ res_inq.chkin_date }"/>~<c:out value="${ res_inq.chkout_date }"/></td>
-					<%-- <td >
+					<td >
 					<c:choose>
-					<c:when test="${ reserInq.res_status eq Y }">예약완료</c:when>
-					<c:when test="${ reserInq.res_status eq N }">예약취소</c:when>
+					<c:when test="${ res_inq.res_status eq 'Y' }">예약완료</c:when>
+					<c:when test="${ res_inq.res_status eq 'N' }">예약취소</c:when>
 					</c:choose>
-					</td> --%>
+					</td>
 				</tr>
 		</c:forEach>
 	</tbody>

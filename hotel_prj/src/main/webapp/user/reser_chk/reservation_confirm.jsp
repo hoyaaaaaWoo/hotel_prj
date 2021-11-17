@@ -269,7 +269,7 @@ p { border: 1px solid #FF00FF}
 	String id = (String)session.getAttribute("id"); 
 
 	//res_no파라미터로 받아오기
-	String res_no = request.getParameter("res_no");
+	String res_no = request.getParameter("res_no"); //이전페이지에서 이 번호가 넘어와야하는데 안넘어오고 있스빈다. hidden으로 해서 가져오는거 맞나요,,,?아까하면서 사라진거같아요..
 	pageContext.setAttribute("res_no",res_no);   
 	
 	ReservationSelect rsD = new ReservationSelect();
@@ -328,10 +328,6 @@ p { border: 1px solid #FF00FF}
 %>
 
 
-
-
-
-				
 
 	<div class="wrap">
 	
