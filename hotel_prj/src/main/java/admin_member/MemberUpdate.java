@@ -14,7 +14,7 @@ public class MemberUpdate {
 	 * @param kname 회원 이름
 	 * @return 삭제 성공 시 1반환
 	 */
-	public int memberFlag(String kname) {
+	public int memberFlag(String id) {
 		int cnt = 0;
 
 		// 1. Spring Container 얻기
@@ -22,8 +22,8 @@ public class MemberUpdate {
 		// 2. JdbcTemplate 얻기
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		// 3. 쿼리 실행
-		String deleteRes = "update member set 	m_status='N'	where kname=?";
-		cnt = jt.update(deleteRes, kname);
+		String deleteRes = "update member set 	m_status='N', out_date=sysdate	where id=?";
+		cnt = jt.update(deleteRes, id);
 		// 4. Spring Container 닫기
 		gjt.closeAc();
 		return cnt;

@@ -32,10 +32,10 @@
 <%
 //파라미터 받고 삭제 메소드 호출
 request.setCharacterEncoding("utf-8");
-String kname=request.getParameter("delKname");
+String id=request.getParameter("delId");
 DataEncrypt de = new DataEncrypt("AbcdEfgHiJkLmnOpQ");
 MemberUpdate mu = new MemberUpdate();
-int cnt = mu.memberFlag(de.encryption(kname));
+int cnt = mu.memberFlag(id);
  
 if(cnt ==1){
 %>
