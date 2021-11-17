@@ -35,6 +35,14 @@
     <script src="http://localhost/hotel_prj/common/bootstrap/ie-emulation-modes-warning.js"></script>
 
     <link href="http://localhost/hotel_prj/common/bootstrap/carousel.css" rel="stylesheet">
+    
+    <script type="text/javascript">
+    function main() {
+		alert("메인 페이지로 이동합니다.");
+		location.href = "http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp"
+	}
+    
+    </script>
   </head>
   
 <!-- NAVBAR
@@ -70,7 +78,7 @@
   
   <br/><br/>
   
-  <input type="submit" class="btn" value="아이디 찾기">
+  <input type="button" class="btn" value="아이디 찾기" onclick="location.href='http://localhost/hotel_prj/user/login/find_id.jsp'">
   
   </div>
   
@@ -107,7 +115,7 @@
   
   <br/><br/>
   
-  <input type="submit" class="btn" value="비밀번호 찾기">
+  <input type="button" class="btn" value="비밀번호 찾기" onclick="location.href='http://localhost/hotel_prj/user/login/find_pass.jsp'">
   
   <br><br><br><br><br>
   
@@ -115,11 +123,9 @@
   
   </form>
   
-  <form action="http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp" method="post" name="homeFrm">
-  <div style="width:150px; text-align: center; margin: 0px auto;">
-  <input type="submit" class="btn" style="width: 100px;" value="홈으로">
-  </div>
-  </form>
+<div style="width: 1135px; text-align: center;">
+<button type="button" class="btn btn-default" style="width: 100px; height: 40px" onclick="main()">홈으로</button>
+</div>
   
   </div>
   

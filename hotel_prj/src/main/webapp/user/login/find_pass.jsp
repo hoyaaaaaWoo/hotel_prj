@@ -27,11 +27,9 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	
 	<script type="text/javascript">
-	$(function () {
-		$("#loginBtn").click(function(){
-			location.href="http://localhost/hotel_prj/user/login/login.jsp";
-		})//table click
-	});
+	function login() {
+		location.href = "http://localhost/hotel_prj/user/login/login.jsp"
+	}
 	</script>
 
 	<!-- Bootstrap CDN -->
@@ -66,28 +64,42 @@
   <hr style="width: 500px"/>
   <br>
   
-  <div style="width: 300px;text-align: center; margin: 0px auto;">
+ 
   
   <%request.setCharacterEncoding("UTF-8"); %>
   
   <!-- 이전 페이지에서 날아온 웹파라미터 이 페이지에서 받아서 설정하기 -->
-  <jsp:useBean id="mVO" class="admin_member.MemberVO"/>  
+  <jsp:useBean id="fVO" class="user_find.FindVO"/>  
   <!-- *써서 setter method 다 실행해서 세팅됨 -->
-  <jsp:setProperty property="*" name="mVO"/>
+  <jsp:setProperty property="*" name="fVO"/>
   
   <%
-  FindSelect fD = new FindSelect();
-  String pass = fD.findPass(mVO);
+//파라미터로 받아오기
+ 	String id = request.getParameter("id");
+ 	String kname = request.getParameter("kname");
+ 	String email = request.getParameter("email");
+	pageContext.setAttribute("id", id);
+	pageContext.setAttribute("kname", kname);
+	pageContext.setAttribute("email", email);
+ 	
+	FindSelect fD = new FindSelect();
+	
+	fVO.setKname(id);
+	fVO.setKname(kname);
+	fVO.setEmail(email);
   %>
   
-  <input type="text" class="form-control" value=<%=pass%>>
+  <div style="width: 300px;text-align: center; margin: 0px auto;">
+  
+  <c:out value="${ fVO.pass }"/><!-- 비밀번호 출력 -->
 
   <br/><br/>
   
-  <form action="http://localhost/hotel_prj/user/login/find.jsp">
-  <input type="submit" class="button" id="loginBtn" style="width: 100px;" value="로그인">
-  </form>
   </div>
+  <div style="width: 1135px; text-align: center;">
+	<button type="button" class="btn btn-default"
+			style="width: 100px; height: 40px" onclick="login()">로그인</button>
+   </div>
   </div>
     
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
