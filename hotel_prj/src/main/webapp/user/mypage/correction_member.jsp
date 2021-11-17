@@ -39,17 +39,22 @@ $(function(){
 				emailCheck($(this).val()); 	    
 			 });//focusout 
 	$("#btn").click(function(){
+		var regPass = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/;
+		
 		if(confirm("변경하시겠습니까?") == true) {
 			if( $("#pass").val() =="" || $("#change_pass").val() =="" || $("#change_pass2").val() ==""   ){
-					alert("비밀번호를 입력해주세요.");
-					return;
+					alert("비밀번호는 공백없이 입력해주세요.");
+					return;	
 			}else if( $("#change_pass").val() != $("#change_pass2").val()   ){
-							alert("변경할 비밀번호가 다릅니다 ");
-							return;
+					alert("변경할 비밀번호가 서로 일치하지 않습니다. ");
+					return;
 			}else if(  ($("#pass").val()) == ($("#change_pass").val()|| $("#change_pass2").val()) ){
-						alert("현재비밀번호와 변경할 비밀번호가 동일합니다");
+						alert("현재 비밀번호와 변경할 비밀번호가 동일합니다");
 				return;
-		}	
+			}else if(	$("#change_pass").val() != regPass ){
+				alert("비밀번호는 숫자와 문자를 조합하여 8~16글자로 설정해 주세요.");
+				return;
+			}
 		
 		$("#passFrm").submit();	
 		}//end if
@@ -127,8 +132,8 @@ $(function(){
  <jsp:useBean id="mVO" class="user_login.memberVO" scope="page"/>
 <jsp:setProperty property="*" name="mVO"/><!--  입력정보-->
 <%
-	String id=(String)session.getAttribute("id");
-	
+String id=(String)session.getAttribute("id");
+pageContext.setAttribute("mVO", mVO.getPass());
 %>
 <!-- NAVBAR
 ================================================== -->
@@ -148,7 +153,7 @@ $(function(){
 <br/><br/><br/>
 <h5>비밀번호 변경하기</h5>
 <form  id="passFrm" action="http://localhost/hotel_prj/user/mypage/member_pass_process.jsp" method="post">
-<input type="password" style="width:250px;height:40px" placeholder="현재 비밀번호를 입력하세요"id="pass"  name ="pass">
+<input type="password" style="width:250px;height:40px" placeholder="현재 비밀번호를 입력하세요"id="pass"  value="${mVOPass }" name ="pass">
 <br/><br/>
 <input type="password" style="width:250px;height:40px" placeholder="변경할 비밀번호를 입력하세요" id="change_pass" name="change_pass">
 <br/><br/>
