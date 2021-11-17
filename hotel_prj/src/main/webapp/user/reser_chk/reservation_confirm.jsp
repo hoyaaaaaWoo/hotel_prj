@@ -1,3 +1,5 @@
+<%@page import="user_room.RoomVO"%>
+<%@page import="user_room.RoomSelect"%>
 <%@page import="kr.co.sist.util.cipher.DataDecrypt"%>
 <%@page import="user_reservation.ReservationVO"%>
 <%@page import="java.util.List"%>
@@ -196,6 +198,14 @@ p { border: 1px solid #FF00FF}
 	function print() {
 		alert("인쇄를 시작하겠습니다..");
 	}
+	
+	function cancelRes(){
+		if(confirm("예약을 취소하시겠습니까?")){
+			$("#res_status").val();
+			
+			$("#cacelFrm").submit();
+		}
+	}//cacelRes
 
 	$(function() {
 
@@ -259,20 +269,33 @@ p { border: 1px solid #FF00FF}
 	pageContext.setAttribute("res_no",res_no);   
 	
 	ReservationSelect rsD = new ReservationSelect();
-	ReservationVO rVO = rsD.reservation(id); //세션에 id를 사용하여 필요한 값을 조회하여 VO에 저장한다. 
-	int rVO2 = rsD.pay(res_no);  
+	ReservationVO rVO = rsD.reservation(res_no);
+	int rVO2 = rsD.pay(res_no);   
 	
 	pageContext.setAttribute("rVO",rVO); //scope객체에 조회 결과 값을 넣고 아래 에서 뿌린다.
-	pageContext.setAttribute("rVO2", rVO2);
+	pageContext.setAttribute("rVO2", rVO2); 
 	
 	
-	/* 
+	
 	//복호화
-	String tel = rsD.reservation();
+	ReservationVO de = rsD.reservation(res_no); 
 	DataDecrypt dd=new DataDecrypt("AbcdEfgHiJkLmnOpQ");
-	tel = dd.decryption(tel);
-	 */
+	de.setTel(dd.decryption(de.getTel()));
+	de.setEname_fst(dd.decryption(de.getEname_fst()));
+	de.setEname_lst(dd.decryption(de.getEname_lst()));
+	de.setEmail(dd.decryption(de.getEmail()));
 	
+	pageContext.setAttribute("de", de);
+	
+	 
+	
+	 String DiffDays = request.getParameter("diffDays");
+	 String paramRoomNo = request.getParameter("room_no");
+	 int room_no = Integer.parseInt( paramRoomNo );
+	 int diffDays = Integer.parseInt( DiffDays );
+	 RoomSelect rs = new RoomSelect();
+	 RoomVO rv = rs.selectRoomInfo(room_no);  
+	 
 %>
 
 	<div class="wrap">
@@ -295,7 +318,30 @@ p { border: 1px solid #FF00FF}
 
 							<td>
 								<table id="chkSubTab">
-								<!-- 지금은 데이터는 하나만 나오는 것이어서 반복하지 않습니다 -->
+								<%-- 
+								<%
+								int price = rv.getPrice();
+								pageContext.setAttribute("price", price);
+								
+								int tax = (int)(rv.getPrice()*0.21);
+								pageContext.setAttribute("tax", tax);
+								
+								int totalP = (int)(rv.getPrice()+tax);
+								pageContext.setAttribute("totalP", totalP);
+								
+								//박수가 곱해진 객실 가격
+								int daysPrice = price*(int)diffDays;
+								pageContext.setAttribute("daysP", daysPrice);
+				
+								//박수가 곱해진 텍스 
+								int daysTax = tax*(int)diffDays;
+								pageContext.setAttribute("daysTax", daysTax);
+								
+								//박수가 곱해진 총 가격
+								int daysTotal = (daysPrice + daysTax);
+								pageContext.setAttribute("daysTotal", daysTotal);
+								%>
+				 				--%>				
 									<tr>
 										<td class="guide">객실</td>
 										<td class="guideTextP"><c:out value="${ rVO.r_name }"/></td>
@@ -313,11 +359,11 @@ p { border: 1px solid #FF00FF}
 								<table id="chkSubTab">
 									<tr>
 										<td class="guide">객실요금</td>
-										<td class="guideTextPR"><fmt:formatNumber pattern = "#,###,###" value = "${ rVO2 }"/> KRW</td>
+										<td class="guideTextPR"><%-- <fmt:formatNumber pattern = "#,###,###" value = "${ daysP }"/> --%> KRW</td>
 									</tr>
 									<tr>
 										<td class="guide">세금 및 봉사료</td>
-										<td class="guideTextPR">85,470 KRW</td>
+										<td class="guideTextPR"><%-- <fmt:formatNumber pattern = "#,###,###" value = "${ daysTax }"/> --%> KRW</td>
 									</tr>
 								</table> <br /> <span class="guide">요금정책</span><br /> <span
 								class="guideText"> ㆍ 상기 요금에 세금 및 봉사료가 각 10%가 가산됩니다. (총
@@ -332,7 +378,7 @@ p { border: 1px solid #FF00FF}
 						<tr>
 							<td></td>
 							<td>총 요금</td>
-							<td><fmt:formatNumber pattern = "#,###,###" value = "${ rVO2 }"/> KRW</td>
+							<td><%-- <fmt:formatNumber pattern = "#,###,###" value = "${ daysTotal }"/> --%> KRW</td>
 						</tr>
 					</table>
 				</form>
@@ -349,29 +395,29 @@ p { border: 1px solid #FF00FF}
 						<table class="backTab">
 							<tr>
 								<td class="guide">성(영문)</td>
-								<td class="guideText"><c:out value="${ rVO.ename_lst }"/></td>
+								<td class="guideText"><c:out value="${ de.ename_lst }"/></td>
 								<td class="guide">연락처</td>
-								<td class="guideText"><c:out value="${ rVO.tel }"/></td>
+								<td class="guideText"><c:out value="${ de.tel }"/></td>
 
 							</tr>
 							<tr>
 								<td class="guide">이름(영문)</td>
-								<td class="guideText"><c:out value="${ rVO.ename_fst }"/></td>
+								<td class="guideText"><c:out value="${ de.ename_fst }"/></td>
 								<td class="guide">이메일</td>
-								<td class="guideText"><c:out value="${ rVO.email }"/></td>
+								<td class="guideText"><c:out value="${ de.email }"/></td>
 								<td></td>
 								<td><button type="button" class="btn btn-primary"
 										onclick="print()">인쇄하기</button></td>
 							</tr>
 							<tr>
 								<td class="creditcard">신용카드 종류</td>
-								<td class="creditname"><c:out value="${ rVO.company }"/></td>
+								<td class="creditname"></td>
 								<td class="creditcard">신용카드번호</td>
-								<td class="creditnum"><c:out value="${ rVO.card_no }"/></td>
+								<td class="creditnum"></td>
 							</tr>
 							<tr>
 								<td class="creditcard">유효기간</td>
-								<td class="creditday"><c:out value="${ rVO.val_mm }"/>/<c:out value="${ rVO.val_yy }"/></td>
+								<td class="creditday">00/00</td>
 								<td></td>
 								<td></td>
 							</tr>
@@ -400,10 +446,11 @@ p { border: 1px solid #FF00FF}
 					</table>
 				</div>
 				<br /> <br /> <br />
-			<form name="cancel" id="cancel" action="" method="post">
+			<form name="cancelFrm" id="cancelFrm" action="reservation_inq" method="post">
 				<div style="width: 1000px; text-align: center;">
 					<button type="button" class="btn btn-default"
-						style="width: 400px; height: 40px;" onclick="memexit()">예약취소</button>
+						style="width: 400px; height: 40px;" onclick="cancelRes()">예약취소</button>
+					<input type="hidden" name="res_status" id="res_status"/>
 				</div>
 
 			</form>

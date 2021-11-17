@@ -10,7 +10,7 @@ import team3_dao.GetJdbcTemplate;
  */
 public class ReservationUpdate {
 
-	public int reservationFlag(int res_no) {
+	public int reservationFlag(String res_no) {
 		int cnt =0;
 		
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();

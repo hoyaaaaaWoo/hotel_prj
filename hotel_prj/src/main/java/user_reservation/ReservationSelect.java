@@ -158,16 +158,16 @@ public class ReservationSelect {
 	}//pay
 	
 	 
-	public ReservationVO reservation(String id) throws DataAccessException{
+	public ReservationVO reservation(String res_no) throws DataAccessException{
 		ReservationVO rVO = null;
 		
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();  
 		JdbcTemplate jt = gjt.getJdbcTemplate();
-		String reser = "select r.r_name, reser.res_no, reser.chkin_date, reser.chkout_date, "
-				+ "reser.adult, reser.child, ci.card_no, ci.company, ci.val_mm, ci.val_yy, reser.id " 
-				+ "from reservation reser, room r, card_info ci "
-				+ "where reser.room_no=r.room_no(+) and reser.res_no=ci.res_no and reser.id=?";
-		rVO=jt.queryForObject(reser, new Object[] { id }, new RowMapper<ReservationVO>() {
+		String reser = "select r.r_name, reser.res_no, reser.chkin_date, reser.chkout_date, m.ename_fst, m.ename_lst, m.email, m.tel, "
+				+ "reser.adult, reser.child, reser.id " 
+				+ "from reservation reser, room r, member m "
+				+ "where reser.room_no=r.room_no and reser.id=m.id and reser.res_no=?";
+		rVO=jt.queryForObject(reser, new Object[] { res_no }, new RowMapper<ReservationVO>() {
 
 			@Override
 			public ReservationVO mapRow(ResultSet rs, int rowCnt) throws SQLException {
@@ -179,11 +179,16 @@ public class ReservationSelect {
 				rVO.setChkout_date(rs.getString("chkout_date"));
 				rVO.setAdult(rs.getInt("adult"));
 				rVO.setChild(rs.getInt("child"));
-				rVO.setCard_no(rs.getString("card_no"));
-				rVO.setCompany(rs.getString("company"));
-				rVO.setVal_mm(rs.getString("val_mm"));
-				rVO.setVal_yy(rs.getString("val_yy"));
+				/*
+				 * rVO.setCard_no(rs.getString("card_no"));
+				 * rVO.setCompany(rs.getString("company"));
+				 * rVO.setVal_mm(rs.getString("val_mm")); rVO.setVal_yy(rs.getString("val_yy"));
+				 */
 				rVO.setId(rs.getString("id"));
+				rVO.setEname_fst (rs.getString("ename_fst"));
+				rVO.setEname_lst (rs.getString("ename_lst"));
+				rVO.setEmail (rs.getString("email"));
+				rVO.setTel(rs.getString("tel"));
 				
 				return rVO;
 			}
@@ -192,7 +197,6 @@ public class ReservationSelect {
 		gjt.closeAc();
 		
 		return rVO;
-		
 	}//reservation
 	 
 	
