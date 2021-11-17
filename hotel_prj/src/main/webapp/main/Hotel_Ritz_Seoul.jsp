@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -134,7 +134,7 @@ p { border: 1px solid #FF00FF}
 
 
 		<!-- header/navibar import -->
-		 <jsp:include page="main_header_nav.jsp"/>
+		<c:import url="http://localhost/hotel_prj/main/main_header_nav.jsp" />
 
 		
 		<!-- Carousel
@@ -234,23 +234,25 @@ RoomVO rv = rs.selectRoomInfo(room_no);
 				
 
 				%>
-				<c:forEach var = "mainRoom" items = "${ mainRooms }" end = "2" >
+				<c:forEach var = "mainRoom" items = "${ mainRooms }" begin = "0" end = "2" >
+				<c:set var = "i" value = "${ i + 1 }" />
 				<div class="col-lg-4">
 					<div class="roomImg">
-						<a href="#void">
+						<a href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#target${i }">
 							<img src="http://localhost/hotel_prj/roomImages/${ mainRoom.main_img }"
 							width="350" height="200">
 						</a>
 					</div>
-					<a href="#void" class="roomName">
-					<h3 class="roomName">${ mainRoom.r_name }</h3></a>
+					<a href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#target${i }" class="roomName">
+					<h3 class="roomName"> ${ mainRoom.r_name }</h3></a>
 					<p>룸 간략 설명 혹은 가격</p>
 					<p>
 						<a class="btn btn-default"
-							href="#void"
+							href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#target${i }"
 							role="button">View details &raquo;</a>
 					</p>
 				</div><!-- col-lg-4 -->
+				
 				
 				</c:forEach>
 				<%-- <%}//end for %>  --%>

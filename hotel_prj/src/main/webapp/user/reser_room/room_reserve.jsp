@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.Arrays"%>
@@ -26,16 +27,32 @@
 
 <style type="text/css">
 
-.button {
+.hr1 {border-bottom: 1px solid #d3d3d3; }
+
+.button:hover {
 	border: 1px solid #E9E9E9;
 	font-weight: bold;
+	font-size: 15px;
 	background-color: #000;
 	color: #F5DF3C;
-	width: 350px;
+	width: 130px;
 	height: 40px;
 	cursor: pointer;
 	text-align: center;
 	border-radius: 7px;
+}
+
+.button{
+	background-color: #FCF4C0 ;
+	border: 1px solid #E9E9E9;
+	font-weight: bold;
+	font-size: 15px;
+	color: #333;
+	width: 130px;
+	height: 40px;
+	text-align: center;
+	border-radius: 7px;
+	cursor: pointer;
 }
 
 .roomView {
@@ -45,6 +62,66 @@
 
 #roomName {font-size: 18px; font-weight: bold; margin-bottom: 20px; margin-left: 20px}
 
+
+#roomIntroBtn:hover {
+	background-color: #FCF4C0  ;
+	color: #333;
+	cursor: pointer;
+}
+
+#roomIntroBtn {
+	border: 1px solid #E9E9E9;
+	font-size : 15px;
+	font-weight: bold;
+	background-color: #FAFAFA;
+	color: #333;
+	width: 150px;
+	height: 50px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 7px;
+}
+
+
+#roomReserBtn {
+	border: 1px solid #E9E9E9;
+	font-size : 15px;
+	font-weight: bold;
+	background-color: #FCF4C0;
+	color: #333;
+	width: 150px;
+	height: 50px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 7px;
+}
+
+
+#roomReserBtn:hover {
+	background-color: #FCF4C0;
+	color: #333;
+	cursor: pointer;
+}
+
+
+#goHome {
+	border: 1px solid #E9E9E9;
+	font-size : 17px;
+	font-weight: bold;
+	background-color: #000;
+	color: #F5DF3C;
+	width: 130px;
+	height: 40px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 7px;
+}
+
+#goHome:hover {
+	background-color: #F5dF4D;
+	color: #000000;
+	cursor: pointer;
+}
 /*
 div { border: 1px solid #FF0000}
 td { border: 1px solid #FF0000}
@@ -114,7 +191,13 @@ $(function(){
 		location.href="http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp";
 	})//click
 	
- 	
+	$("#roomIntroBtn").click(function(){
+		location.href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp";
+	})//table click
+	
+	$("#roomReserBtn").click(function(){
+		location.href="http://localhost/hotel_prj/user/reser_room/room_date.jsp";
+	})//table click
 	
 	
 }); //ready
@@ -129,33 +212,53 @@ $(function(){
 <body>
 
 <%
+	request.setCharacterEncoding("UTF-8");
 	String paramSd = request.getParameter("start_date");
 	String paramEd = request.getParameter("end_date");
 	String paramAdult = request.getParameter("adult");
 	String paramChild = request.getParameter("child");
 	String[] paramRoomNo = request.getParameterValues("rev_room_num");
 
-	
+	// 박 수 구하기
+	Date sdFormat = new SimpleDateFormat("yyyy.MM.dd").parse(paramSd);
+	Date edFormat = new SimpleDateFormat("yyyy.MM.dd").parse(paramEd);
+	long diffDays = (edFormat.getTime() - sdFormat.getTime() )/1000/(24*60*60);
+		
 %>
 
-
+<div class="wrapper">
 <jsp:include page="../../main/main_header_nav.jsp"/>
-		<br/><br/><br/>
-
-	<div style="width: 720px; margin:0px auto; text-align: center;">
- 		 <input type="button" id = "roomIntroBtn" value="객실소개" class="btn btn-default" style="width: 100px;">	
+	<br/><br/><br/><br/><br/><br/>
+		
+		<div style="width: 1130px; text-align: center; margin: 0px auto">
+ 		 <input type="button" id = "roomIntroBtn" value="객실소개"  style="width: 100px;">	
   			&nbsp;	&nbsp; 	&nbsp;
- 		 <input type="button" id = "roomReserBtn" value="객실예약" class="btn btn-default" style="width: 100px;" >
-  		</div><br/>
+ 		 <input type="button" id = "roomReserBtn" value="객실예약"  style="width: 100px;" >
+ 		 <br/><br/>
   		<hr class = "hr1">
+  		<table style = "width: 900px; margin: 0px auto">
+  		<tr style = "width: 1000px; height: 50px">
+  		<td style = "width: 50px;">
+  		<img style = "width: 30px" src = "http://localhost/hotel_prj/main/main_images/cal_icon.png"/>
+  		</td>
+  		<td style = " width: 400px; font-size: 18px; font-weight: bold">
+  		&nbsp;&nbsp;<%=paramSd %>&nbsp;-&nbsp;<%= paramEd %>&nbsp;(<%=diffDays %>박)
+  		</td>
+  		<td style = "font-size: 18px; font-weight: bold">
+  		성인&nbsp;&nbsp;<%=paramAdult %>&nbsp;&nbsp;&nbsp;&nbsp;어린이&nbsp;&nbsp;<%= paramChild %> 
+  		</td>
+  		</tr>
+  		</table>
+  		<hr class = "hr1">
+  		</div>
 		<br/><br/><br/>
 	<div id = "info">
 	
-	<strong><%=paramSd %></strong> ~ <strong><%= paramEd %></strong> /  / 성인 : <%=paramAdult %> / 어린이 : <%= paramChild %> id : <%=(String)session.getAttribute("id") %>
+
 	
 	</div>	
 		
-	<div id = "big">
+	<div id = "big" style = "width:1000px; margin: 0px auto">
 	<%
 	RoomSelect rs=new RoomSelect();
 	
@@ -180,8 +283,8 @@ $(function(){
 					style="width: 270px; height: 187px;">
 				</td>
 				<td style="height: 120px;"><br><br><br>
-				<div id = "roomName">No.<%= paramRoomNo[i] %>  ${ searchRoom.r_name }</div>
-				<input type="button" onclick = "divPlaying( '<%= viewId %>','<%= btnId %>' )" id="<%= btnId %>" value=<%= btnId %> class="btn" style="margin-left: 20px;"/>
+				<div id = "roomName">${ searchRoom.r_name }</div>
+				<input type="button" onclick = "divPlaying( '<%= viewId %>','<%= btnId %>' )" id="<%= btnId %>" value="detail" class="btn" style="margin-left: 20px;"/>
 				<hr/>
 				</td>
 			</tr>
@@ -192,8 +295,8 @@ $(function(){
 			</tr>
 			
 		</table>
-		<div id="<%=viewId %>"  style = "display: none">${ searchRoom.description }</div>
-		<input type="button" class="button" id="<%= priceId%>" style="width: 100px; float: right;" 
+		<div id="<%=viewId %>"  style = "display: none">${ searchRoom.description }</div><br/>
+		<input type="button" class="button" id="<%= priceId%>" style="float: right;" 
 			value="<fmt:formatNumber pattern = "#,###,###" value = "${ searchRoom.price }" /> KRW"
  			onclick="roomDetail('<%= Hroom %>','<%=paramSd %>','<%=paramEd %>','<%=paramAdult %>','<%=paramChild %>')">
 	</div>
@@ -208,9 +311,9 @@ $(function(){
 	}//end for %>
 
 	<br><br><br><br>
-	<hr/>
+	<hr class = "hr1">
 	
-	<form name="frm" id="hiddenFrm" action="http://localhost/hotel_prj/user/reser_room/reservation2.jsp" method = "get">
+	<form name="frm" id="hiddenFrm" action="http://localhost/hotel_prj/user/reser_room/reservation2.jsp" method = "post">
 	 <input type="hidden" id="Room_no" name = "room_no"/>
 	 <input type="hidden" id="Sd" name="sd"/>
 	 <input type="hidden" id="Ed"  name="ed"/>
@@ -223,12 +326,12 @@ $(function(){
 
 	<br /><br /><br /><br /><br />
 	<div style="width: 1000px; margin: 0px auto; text-align: center;">
-		<input type="button" id = "goHome" class="button" style="width: 100px;" value="홈으로">
+		<input type="button" id = "goHome" style="width: 100px;" value="홈으로">
 	</div>
-	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+	<br /><br /><br /><br /><br /><br /><br />
 	<!-- FOOTER -->
 	<jsp:include page="../../main/main_footer.jsp"/>
-
+</div>
 	<!--================================================== -->
 
 	<script

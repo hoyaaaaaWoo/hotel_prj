@@ -1,3 +1,4 @@
+<%@page import="uesr_member.User_Decryption"%>
 <%@page import="user_card.ModifyCard"%>
 <%@page import="user_reservation.ReservationInsert"%>
 <%@page import="user_reservation.ReservationVO"%>
@@ -59,6 +60,24 @@
 .backTab {width: 900px; height: 100px; margin: 0px auto; table-layout: fixed;}
 
 
+#goHomeBtn {
+	border: 1px solid #E9E9E9;
+	font-size : 17px;
+	font-weight: bold;
+	background-color: #000;
+	color: #F5DF3C;
+	width: 130px;
+	height: 40px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 7px;
+}
+
+#goHomeBtn:hover {
+	background-color: #F5dF4D;
+	color: #000000;
+	cursor: pointer;
+}
 
 /*
 div { border: 1px solid #0000FF}
@@ -143,6 +162,7 @@ $(function(){
 <body>
 
 <%
+request.setCharacterEncoding("UTF-8");
 //예약정보 파라메터 받기
 String paramSd = request.getParameter("sd");
 String paramEd = request.getParameter("ed");
@@ -180,8 +200,11 @@ RoomVO rv = rs.selectRoomInfo(room_no);
 //id로 회원정보 조회
 String id = (String)session.getAttribute("id");
 
-MemberSelect ms = new MemberSelect();
-MemberVO mv = ms.selectMemInfo(id);
+
+//사용자정보 복호화
+User_Decryption ud = new User_Decryption();
+MemberVO mv = ud.DecryptSelectMemInfo(id);
+
 
 
 //  예약 insert
@@ -201,6 +224,7 @@ rsVO.setPi_agree(paramPiAgree);
 ReservationInsert resInsert = new ReservationInsert();
 int cnt = resInsert.insertRes(rsVO);
 pageContext.setAttribute("cnt", cnt);
+
 
 
 // 카드저장을 체크한, 기존 카드정보가 없는 사용자
@@ -241,7 +265,7 @@ if ( paramCardSave.equals("Y") && !saveFlag.equals("0")){
 %>
 	<div class="wrapper">
 		<!-- header/navibar import -->
-		<c:import url="http://localhost/hotel_prj/main/main_header_nav.jsp" />
+		<jsp:include page="../../main/main_header_nav.jsp"/>
 		<br/><br/><br/><br/><br/>
 		
 		
@@ -249,10 +273,9 @@ if ( paramCardSave.equals("Y") && !saveFlag.equals("0")){
 
 		<div class = "resChk">
 			<div class = "chkDiv">
-			<div id = "resConf"> ${cnt}건의 예약이 완료되었습니다. pi : <%=paramPiAgree %> cc : <%=paramCcAgree %> <%=cardCompany %>
-			[${ cardCnt }건의 카드정보 변경]
-			<%=paramCardSave %> ${paramCardSave} ${param.room_no} ${param.addReq } ${param.card_no }  ${param.val_MM } ${param.val_YY }</div>
-			child : <%= child %>
+			<div id = "resConf">
+			예약이 완료되었습니다. 예약번호 : <%= strResNo%>
+			</div>
 			<table class = "chkTab">
 			<tr >
 				<td style = "width: 500px">
@@ -263,7 +286,7 @@ if ( paramCardSave.equals("Y") && !saveFlag.equals("0")){
 				<table id = "chkSubTab">
 				<tr>
 					<td class = "guide">객실 </td>
-					<td class = "guideTextP">no_${ param.room_no }<%= rv.getR_name()%></td>
+					<td class = "guideTextP">no_${ param.room_no }&nbsp; <%= rv.getR_name()%></td>
 				</tr>
 				<tr>
 					<td class = "guide">투숙 날짜</td>
@@ -340,15 +363,15 @@ if ( paramCardSave.equals("Y") && !saveFlag.equals("0")){
 				
 			</tr>
 			<tr>
-			</tr>
 				<td class = "guide">이름(영문)</td>
 				<td class = "guideText"><%= mv.getEname_fst() %></td>
 				<td class = "guide">이메일</td>
 				<td class = "guideText"><%= mv.getEmail() %></td>
+			</tr>
 			</table>
 			</div>
 			</div><!-- guideDiv --><br/>
-			<button type="button" id = "goHomeBtn" class="btn btn-default btn-lg">메인으로</button><br/><br/><br/><br/>
+			<button type="button" id = "goHomeBtn" >메인으로</button><br/><br/><br/><br/>
 			
 			
 			<div id="map" style="width:1000px; height:500px;"></div>
@@ -368,8 +391,7 @@ if ( paramCardSave.equals("Y") && !saveFlag.equals("0")){
 
 
 			<!-- footer import -->
-					<c:import url="http://localhost/hotel_prj/main/main_footer.jsp" />
-
+	<jsp:include page="../../main/main_footer.jsp"/>
 		</div><!-- wrap -->
 		
 

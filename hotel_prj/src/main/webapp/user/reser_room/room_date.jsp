@@ -45,10 +45,52 @@
 	cursor: pointer;
 }
 
+
+#roomIntroBtn:hover {
+	background-color: #FCF4C0  ;
+	color: #333;
+	cursor: pointer;
+}
+
+#roomIntroBtn {
+	border: 1px solid #E9E9E9;
+	font-size : 15px;
+	font-weight: bold;
+	background-color: #FAFAFA;
+	color: #333;
+	width: 150px;
+	height: 50px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 7px;
+}
+
+
+#roomReserBtn {
+	border: 1px solid #E9E9E9;
+	font-size : 15px;
+	font-weight: bold;
+	background-color: #FCF4C0;
+	color: #333;
+	width: 150px;
+	height: 50px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 7px;
+}
+
+
+#roomReserBtn:hover {
+	background-color: #FCF4C0;
+	color: #333;
+	cursor: pointer;
+}
+
+/*
 div { border: 1px solid #FF0000}
 td { border: 1px solid #FFFF00}
 tr { border: 1px solid #FFFF00}
-
+*/
 </style>
 
 <!-- Bootstrap core CSS -->
@@ -134,7 +176,7 @@ $(function(){
 		
 		 $.ajax({
 			 url:"ajax_room_date.jsp",
-			 type:"get",
+			 type:"post",
 			 data:queryString,
 			 dataType:"json",
 			 error:function(xhr){
@@ -161,9 +203,7 @@ $(function(){
 				});//each
 				
 				location.href="room_reserve.jsp?"+param;
-			
-				//$("#dateFrm").submit(output);
-				
+		
 			 }//success
 			 
 		 });//end ajax
@@ -194,15 +234,15 @@ $(function(){
 pageContext.setAttribute("userId", userId);
 %>
 
-		<c:import url="http://localhost/hotel_prj/main/main_header_nav.jsp" />
+	<jsp:include page="../../main/main_header_nav.jsp"/>
 	<div class="wrapper" style = "text-align: center">
 		<!-- header/navibar import -->
 		<br/><br/><br/><br/><br/><br/>
 		
 		<div style="width: 1130px; text-align: center; margin: 0px auto">
- 		 <input type="button" id = "roomIntroBtn" value="객실소개" class="btn btn-default" style="width: 100px;">	
+ 		 <input type="button" id = "roomIntroBtn" value="객실소개"  style="width: 100px;">	
   			&nbsp;	&nbsp; 	&nbsp;
- 		 <input type="button" id = "roomReserBtn" value="객실예약" class="btn btn-default" style="width: 100px;" >
+ 		 <input type="button" id = "roomReserBtn" value="객실예약"  style="width: 100px;" >
  		 <br/><br/>
   		<hr class = "hr1">
   		</div><br/>
@@ -223,24 +263,23 @@ pageContext.setAttribute("userId", userId);
 		원하시는 날짜와 인원을 선택해주세요. <br/>
 		</c:if>
 		
-		저희 리츠호텔의 수용 가능한 최대 인원은 성인 4인입니다.<br/>
-		어린이가 포함된 예약은 성인 1인 동반 필수입니다.  
 		</div><br/><br/>
 		
 		<table style = " margin: 0px auto">
 		<tr >
-			<td  style = "width: 350px;">
-			<label>성인 인원수</label>
+			<td  style = "width: 120px; height: 30px; font-size: 18px; font-weight: bold">
+			성인
 			</td>
-			<td  style = "width: 350px;">
-			<label>어린이 인원수</label>
+			<td  style = "width: 120px;  font-size: 17px; font-weight: bold">
+			<input type = "number" id = "adult" name = "adult" min = "1" max = "4"/>
 			</td>
-		<tr>
-			<td>
-		<input type = "number" id = "adult" name = "adult" min = "1" max = "4"/>
+			<td style = "width: 100px; ">
 			</td>
-			<td>
-		<input type = "number" id = "child" name = "child" min = "0" max = "3"/>
+			<td  style = "width: 120px;  font-size: 18px; font-weight: bold">
+			어린이
+			</td>
+			<td  style = "width: 140px;  font-size: 17px; font-weight: bold">
+			<input type = "number" id = "child" name = "child" min = "0" max = "3"/>
 			</td>
 		</tr>
 		
@@ -254,24 +293,24 @@ pageContext.setAttribute("userId", userId);
 		
 		<table style=" margin: 0px auto" >
 		<tr >
-			<td style = "width: 300px">
-			<label>체크인 날짜</label><br/> 
+			<td style = "width: 300px; height: 60px;  font-size: 16px; font-weight: bold">
+			체크인<br/> 
 			<span class="Zebra_DatePicker_Icon_Wrapper"
 				style=" width: 300px;"> <input
 				id="datepicker-range-start" type="text" class="form-control"
 				data-zdp_readonly_element="false"
-				style="position: relative; float: none; inset: auto; margin: 0px;"></span>
+				style="position: relative; float: none; inset: auto; margin: 0px; margin-top: 10px"></span>
 			</td>
 			
 			<td style = "width: 80px"></td>
 			
-			<td  style = "width: 300px">
-			<label>체크아웃 날짜</label><br/>
+			<td  style = "width: 300px; height: 60px;  font-size: 16px; font-weight: bold">
+			체크아웃<br/>
 			<span class="Zebra_DatePicker_Icon_Wrapper"
 				style=" width: 300px;"> <input
 				id="datepicker-range-end" type="text" class="form-control"
 				data-zdp_readonly_element="false"
-				style="position: relative; float: none; inset: auto; margin: 0px; "></span>
+				style="position: relative; float: none; inset: auto; margin: 0px;  margin-top: 10px "></span>
 			</td>
 
 			</tr>
@@ -286,14 +325,14 @@ pageContext.setAttribute("userId", userId);
 
 
 
-	</div>
-	<!-- wrapper -->
+	
 
+	</div><!-- wrapper -->
 	<br />
 	<br />
 
 	<!-- footer import -->
-	<c:import url="http://localhost/hotel_prj/main/main_footer.jsp" />
+	<jsp:include page="../../main/main_footer.jsp"/>
 
 
 

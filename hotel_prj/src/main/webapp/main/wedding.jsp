@@ -107,7 +107,7 @@ p { border: 1px solid #FF00FF}
 <body>
 	<div class="wrapper">
 		<!-- header/navibar import -->
-		<jsp:include page="main_header_nav.jsp"/>
+		<c:import url="http://localhost/hotel_prj/main/main_header_nav.jsp" />
 
 		<!-- ================================================== -->
 

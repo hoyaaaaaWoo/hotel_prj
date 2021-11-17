@@ -1,4 +1,5 @@
 
+<%@page import="uesr_member.User_Decryption"%>
 <%@page import="user_card.CardVO"%>
 <%@page import="user_card.SelectCard"%>
 <%@page import="java.text.DateFormat"%>
@@ -232,12 +233,33 @@ details>p {
 }
 
 
+
+#completeBtn {
+	border: 1px solid #E9E9E9;
+	font-size : 17px;
+	font-weight: bold;
+	background-color: #000;
+	color: #F5DF3C;
+	width: 130px;
+	height: 40px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 7px;
+}
+
+#completeBtn:hover {
+	background-color: #F5dF4D;
+	color: #000000;
+	cursor: pointer;
+}
+
+/*
 div { border: 1px solid #0000FF}
 td { border: 1px solid #FF0000}
 tr { border: 1px solid #FF0000}
 span { border: 1px solid #FF00FF}
 p { border: 1px solid #FF00FF}
-
+*/
 </style>
 
 <!-- Bootstrap core CSS -->
@@ -354,6 +376,8 @@ $(function() {
 
 
 <%
+	request.setCharacterEncoding("UTF-8");
+	
 	String paramSd = request.getParameter("sd");
 
 	String paramEd = request.getParameter("ed");
@@ -385,9 +409,11 @@ $(function() {
 	
 	String id = (String)session.getAttribute("id");
 	
-	MemberSelect ms = new MemberSelect();
-	MemberVO mv = ms.selectMemInfo(id);
+	//사용자정보 복호화
+	User_Decryption ud = new User_Decryption();
+	MemberVO mv = ud.DecryptSelectMemInfo(id);
 	
+		
 	// 사용자의 기본 카드 정보 확인하기
 	SelectCard sc = new SelectCard();
 	
@@ -414,9 +440,10 @@ $(function() {
 %>
 	<div class="wrapper" style="width: 1130px">
 		<!-- header/navibar import -->
-		<c:import url="http://localhost/hotel_prj/main/main_header_nav.jsp" />
+		<jsp:include page="../../main/main_header_nav.jsp"/>
 		<br />
 		<br />
+		<br /><br />
 		<br />
 
 		<!--================================================== -->
@@ -523,7 +550,7 @@ $(function() {
 			<br />
 		
  
-			<form name="FFrm" action="http://localhost/hotel_prj/user/reser_room/reservation_complete.jsp" id="FFrm" method="get">
+			<form name="FFrm" action="http://localhost/hotel_prj/user/reser_room/reservation_complete.jsp" id="FFrm" method="post">
  					<div class="guideDiv">
 					<div class="guideTitle">신용카드 정보</div>
 					<p class="guideText" style="float: left">신용카드 정보는 게런티/위약금 결제를
@@ -537,38 +564,51 @@ $(function() {
 							<td class="cardTd" style="width: 300px">신용카드번호*<br /> 
 							<c:choose>
 							<c:when test = "${ saveFlag eq '0' }">
-							<input type="text" name="card_no" id="card_no" class="form-control" maxlength="19"  />
+							<input type="text" name="card_no" id="card_no" class="form-control" maxlength="19" style = "margin-top: 10px" />
 							</c:when>
 							<c:otherwise>
-							<input type="text" name="card_no" id="card_no" class="form-control" maxlength="19" value = "${savedCard_no }" />
+							<input type="text" name="card_no" id="card_no" class="form-control" maxlength="19" style = "margin-top: 10px" value = "${savedCard_no }" />
 							</c:otherwise>
 							</c:choose>
-							
+							</td>
+							<td style = "width:35px">
 							</td>
 							<td class="cardTd" style="width: 200px">유효기간*<br /> 
-							<c:choose>
-							<c:when test = "${ saveFlag eq '0' }">
-							<input type="text" name="val_MM"  class="form-control" id="val_MM" maxlength="2" placeholder="MM" />
-							</c:when>
-							<c:otherwise>
-							<input type="text" name="val_MM"  class="form-control" id="val_MM" maxlength="2"  value = "${savedMM }" />
-							</c:otherwise>
-							</c:choose>
+							<table>
+							<tr>
+								<td>
+									<c:choose>
+									<c:when test = "${ saveFlag eq '0' }">
+									<input type="text" name="val_MM"  class="form-control" id="val_MM" maxlength="2" placeholder="MM" style = "margin-top: 10px" />
+									</c:when>
+									<c:otherwise>
+									<input type="text" name="val_MM"  class="form-control" id="val_MM" maxlength="2"  value = "${savedMM }" style = "margin-top: 10px" />
+									</c:otherwise>
+									</c:choose>
+								</td>
+								<td style = "width:15px">
+								</td>
+								<td>
+									<c:choose>
+									<c:when test = "${ saveFlag eq '0' }">
+									<input type="text" name="val_YY"  class="form-control" id="val_YY" maxlength="2" placeholder="YY" style = "margin-top: 10px" />
+									</c:when>
+									<c:otherwise>
+									<input type="text" name="val_YY"  class="form-control" id="val_YY" maxlength="2"  value = "${savedYY }" style = "margin-top: 10px" />
+									</c:otherwise>
+									</c:choose>
+								</td>
+							</tr>
+							</table>
 							
-							<c:choose>
-							<c:when test = "${ saveFlag eq '0' }">
-							<input type="text" name="val_YY"  class="form-control" id="val_YY" maxlength="2" placeholder="YY" />
-							</c:when>
-							<c:otherwise>
-							<input type="text" name="val_YY"  class="form-control" id="val_YY" maxlength="2"  value = "${savedYY }" />
-							</c:otherwise>
-							</c:choose>
+							
+							
 							</td>
 							
 							<td class="cardTd">카드종류*<br /> 
 							<c:choose>
 							<c:when test = "${ saveFlag eq '0' }">
-							<select name="cardCompany" id="cardCompany" class="form-control sel">
+							<select name="cardCompany" id="cardCompany" class="form-control sel" style = "width:200px; margin-top: 10px">
 									<option value="none">--선택--</option>
 									<option value="VISA">VISA</option>
 									<option value="MasterCard">MasterCard</option>
@@ -595,10 +635,10 @@ $(function() {
 					<label style = "float: left; "><div id="cardSave">
 						<input type = "hidden"  id = "saveYN" name = "saveYN"/>
 						<input type="checkbox" name="CHECK_YN" id = "CHECK_YN" style = "float: left; font-size: 20px" /> 
-						<p>입력한 신용카드 정보 저장</p>
+						<p>&nbsp;입력한 신용카드 정보 저장</p>
 					</div></label>
-					<p style="padding-left: 10px; width:800px">입력하신
-						신용카드 정보를 저장해 두시면 향후 예약 시 편리하게 이용하실 수 있습니다. </p>
+					<p style="padding-left: 10px; width:800px">
+					입력하신 신용카드 정보를 저장해 두시면 향후 예약 시 편리하게 이용하실 수 있습니다. </p>
 
 					<br />
 
@@ -660,7 +700,7 @@ $(function() {
 			<input type="hidden" id="diffDays" name="diffDays" value = "<%=diffDays %>"/>
 			<input type="hidden" id="resNo" name="resNo" value = "<%= strResNo %>"/>
 			<input type="hidden" id="saveFlag" name="saveFlag" value = "${saveFlag}"/>
-			<button type="button" id = "completeBtn" class="btn btn-default btn-lg">예약하기</button>
+			<button type="button" id = "completeBtn">예약하기</button>
 </form>
 			
 		</div>
@@ -668,15 +708,13 @@ $(function() {
 		<br /> <br />
 
 	</div>
+	</div><!-- wrap -->
 		<!-- footer import -->
-					<c:import url="http://localhost/hotel_prj/main/main_footer.jsp" />
+	<jsp:include page="../../main/main_footer.jsp"/>
 
-
-	<!-- wrap -->
 	<!-- ================================================== -->
 
 	<script
 		src="http://localhost/hotel_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
-	</div>
 </body>
 </html>

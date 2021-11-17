@@ -71,6 +71,64 @@
 .chkPaperLeft {color: #333; font-size: 15px; font-weight: bold; text-align: left; float: left}
 .chkPaperRight {color: #333; font-size: 15px; font-weight: bold; text-align: left;  float: right}
 
+#roomIntroBtn:hover {
+	background-color: #FCF4C0  ;
+	color: #333;
+	cursor: pointer;
+}
+
+#roomIntroBtn {
+	border: 1px solid #E9E9E9;
+	font-size : 15px;
+	font-weight: bold;
+	background-color: #FAFAFA;
+	color: #333;
+	width: 150px;
+	height: 50px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 7px;
+}
+
+
+#roomReserBtn {
+	border: 1px solid #E9E9E9;
+	font-size : 15px;
+	font-weight: bold;
+	background-color: #FCF4C0;
+	color: #333;
+	width: 150px;
+	height: 50px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 7px;
+}
+
+
+#roomReserBtn:hover {
+	background-color: #FCF4C0;
+	color: #333;
+	cursor: pointer;
+}
+
+#resBtn {
+	border: 1px solid #E9E9E9;
+	font-size : 17px;
+	font-weight: bold;
+	background-color: #000;
+	color: #F5DF3C;
+	width: 130px;
+	height: 40px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 7px;
+}
+
+#resBtn:hover {
+	background-color: #F5dF4D;
+	color: #000000;
+	cursor: pointer;
+}
 /*
 div { border: 1px solid #FF0000}
 td { border: 1px solid #FF0000}
@@ -119,7 +177,7 @@ $(function(){
 
 
 <%
-	request.setCharacterEncoding("utf-8");
+	request.setCharacterEncoding("UTF-8");
 
 
 	String paramSd = request.getParameter("sd");
@@ -152,13 +210,33 @@ $(function(){
 
 	<div class="wrapper">
 		<!-- header/navibar import -->
-		<c:import url="http://localhost/hotel_prj/main/main_header_nav.jsp" />
-		<br/><br/><br/><br/>
+		<jsp:include page="../../main/main_header_nav.jsp"/>
+		<br/><br/><br/><br/><br/><br/>
 		
+		<div style="width: 1130px; text-align: center; margin: 0px auto">
+ 		 <input type="button" id = "roomIntroBtn" value="객실소개"  style="width: 100px;">	
+  			&nbsp;	&nbsp; 	&nbsp;
+ 		 <input type="button" id = "roomReserBtn" value="객실예약"  style="width: 100px;" >
+ 		 <br/><br/>
+  		<hr class = "hr1">
+  		<table style = "width: 900px; margin: 0px auto">
+  		<tr style = "width: 1000px; height: 50px">
+  		<td style = "width: 50px;">
+  		<img style = "width: 30px" src = "http://localhost/hotel_prj/main/main_images/cal_icon.png"/>
+  		</td>
+  		<td style = " width: 400px; font-size: 18px; font-weight: bold">
+  		&nbsp;&nbsp;<%=paramSd %>&nbsp;-&nbsp;<%= paramEd %>&nbsp;(<%=diffDays %>박)
+  		</td>
+  		<td style = "font-size: 18px; font-weight: bold">
+  		성인&nbsp;&nbsp;<%=paramAdult %>&nbsp;&nbsp;&nbsp;&nbsp;어린이&nbsp;&nbsp;<%= paramChild %> 
+  		</td>
+  		</tr>
+  		</table>
+  		<hr class = "hr1">
+  		</div>
 		
-		<%-- <div class ="roomName"><%= rv.getR_name()%></div><br/ --%>>
-		<div><%=paramSd %>/<%=paramEd %> / <%=diffDays %>박/<%=paramAdult %>/<%=paramChild %>/<%= paramRoomNo%>///id:<%=(String)session.getAttribute("id") %></div>
-		<div class ="roomName">${param.room_no}<%= rv.getR_name()%></div><br/>
+		<br/><br/>
+		<div class ="roomName"><%= rv.getR_name()%></div><br/>
 		
 
 		<!-- Carousel
@@ -274,7 +352,7 @@ $(function(){
 			</div><br/>
 			<hr class = "hr1"><br/>
 			
-			<form name = "frmRes" method = "get" id = "frmRes" action = "http://localhost/hotel_prj/user/reser_room/reservation3_card.jsp">
+			<form name = "frmRes" method = "post" id = "frmRes" action = "http://localhost/hotel_prj/user/reser_room/reservation3_card.jsp">
 				<input type="hidden" name="room_no" id="room_no" value = "${param.room_no}"/>
 				 <input type="hidden" id="Sd" name="sd" value = "<%=paramSd %>"/>
 				 <input type="hidden" id="Ed"  name="ed" value = "<%=paramEd %>"/>
@@ -289,7 +367,7 @@ $(function(){
 			<table id = "confirmTab">
 				<tr>
 				<td>
-				<p id = "checkRname">객실 no_${ param.room_no }<%= rv.getR_name()%></p>
+				<p id = "checkRname">객실 no_${ param.room_no }&nbsp;&nbsp;<%= rv.getR_name()%></p>
 				<p id = "checkAdult">투숙인원 : 성인 <%=paramAdult %>명, 어린이 <%=paramChild %>명</p>
 				<br/><br/><br/>
 				<p id = "checkRname">추가요청</p>
@@ -336,7 +414,7 @@ $(function(){
 			</div>
 			</div><br/>
 			<hr class = "hr1"><br/>
-			 <button type="submit" id = "resBtn" class="btn btn-default btn-lg">예약하기</button>
+			 <button type="submit" id = "resBtn">예약하기</button>
 			</form>
 			 			
 			</div><!-- roomBox -->
@@ -344,9 +422,8 @@ $(function(){
 			<br/><br/>
 
 			<!-- footer import -->
-					<c:import url="http://localhost/hotel_prj/main/main_footer.jsp" />
-
-		</div><!-- wrap -->
+		<jsp:include page="../../main/main_footer.jsp"/>
+		</div><!-- wrapper -->
 		
 
 		

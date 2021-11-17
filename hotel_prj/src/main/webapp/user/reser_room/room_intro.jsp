@@ -129,6 +129,52 @@ tr { border: 1px solid #FF0000}
     margin-top: -100px;
     padding-top: 100px;
 }
+
+
+#roomReserBtn:hover {
+	background-color: #FCF4C0  ;
+	color: #333;
+	cursor: pointer;
+}
+
+#roomReserBtn {
+	border: 1px solid #E9E9E9;
+	font-size : 15px;
+	font-weight: bold;
+	background-color: #FAFAFA;
+	color: #333;
+	width: 150px;
+	height: 50px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 7px;
+}
+
+
+#roomIntroBtn {
+	border: 1px solid #E9E9E9;
+	font-size : 15px;
+	font-weight: bold;
+	background-color: #FCF4C0;
+	color: #333;
+	width: 150px;
+	height: 50px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 7px;
+}
+
+
+#roomIntroBtn:hover {
+	background-color: #FCF4C0;
+	color: #333;
+	cursor: pointer;
+}
+/*
+div { border: 1px solid #FF0000}
+td { border: 1px solid #FFFF00}
+tr { border: 1px solid #FFFF00}
+*/
 </style>
 
 <script type="text/javascript">
@@ -166,9 +212,9 @@ $(function(){
 		<br/><br/><br/><br/><br/><br/>
 		
 		<div style="width: 1130px; text-align: center; margin: 0px auto">
- 		 <input type="button" id = "roomIntroBtn" value="객실소개" class="btn btn-default" style="width: 100px;">	
+ 		 <input type="button" id = "roomIntroBtn" value="객실소개"  style="width: 100px;">	
   			&nbsp;	&nbsp; 	&nbsp;
- 		 <input type="button" id = "roomReserBtn" value="객실예약" class="btn btn-default" style="width: 100px;" >
+ 		 <input type="button" id = "roomReserBtn" value="객실예약"  style="width: 100px;" ><br/><br/>
   		<hr class = "hr1">
   		</div>
   		<br/><br/><br/><br/>
