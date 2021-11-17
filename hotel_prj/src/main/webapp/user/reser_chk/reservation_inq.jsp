@@ -16,12 +16,6 @@
     <link rel="icon" href="../../favicon.ico">
 
     <title>Hotel_Ritz_Seoul</title>
-	<style type = "text/css">
-
-	#table {width: 700px; height: 90px; border-align: center; margin: 0px auto;}
-	
-	#reserTr:hover {cursor: pointer; background-color: #D2D6D7;}
-	</style>
 
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -34,6 +28,41 @@
 <link rel="stylesheet" type="text/css"
 	href="http://localhost/hotel_prj/main/main.css">
 
+	<style type = "text/css">
+
+	#table {width:100%; border-align: center; margin: 0px auto; }
+	#reserTd{vertical-align: middle; height: 50px;}
+	
+	#reserTr:hover {cursor: pointer; background-color: #D2D6D7;}
+	
+	.button {
+	border: 1px solid #E9E9E9;
+	font-weight: bold;
+	font-size: 15px;
+	background-color: #000;
+	color: #F5DF3C;
+	width: 130px;
+	height: 40px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 7px;
+}
+
+.button:hover{
+	background-color: #FCF4C0 ;
+	border: 1px solid #E9E9E9;
+	font-weight: bold;
+	font-size: 15px;
+	color: #333;
+	width: 130px;
+	height: 40px;
+	text-align: center;
+	border-radius: 7px;
+	cursor: pointer;
+}
+	
+	
+	</style>
 
 <script type="text/javascript">
 function main(){
@@ -41,7 +70,7 @@ function main(){
 	location.href="http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp"
 }
 
-
+/* 
 $(function(){
 $("#table tr").click(function(){
     //현재 선택된 tr과 td
@@ -53,13 +82,14 @@ $("#table tr").click(function(){
     
     
 })
-    
+     
 });//ready
+     */
 
-function serchReservation( res_no ){
+function searchReservation( res_no ){
 	$("#res_no").val( res_no );
 	$("#res_noFrm").submit();
-}
+} 
 </script>
 </head>
 <!-- NAVBAR
@@ -67,9 +97,10 @@ function serchReservation( res_no ){
   <body>
 <%
 String id = (String)session.getAttribute("id");
-if(id==null){//세션이 존재하지 않으면 
+
+if(id == null){//세션이 존재하지 않으면 
 		response.sendRedirect("../login/login.jsp");
-	}//end if
+}//end if
 
   request.setCharacterEncoding("UTF-8");
 %>
@@ -81,15 +112,13 @@ if(id==null){//세션이 존재하지 않으면
   
 <%
 	ReservationSelect rsD = new ReservationSelect();
-	List<ReservationVO> list = rsD.reserInq(id);
-	pageContext.setAttribute("reserInq", list);
-	
+	List<ReservationVO> rv = rsD.reserInq(id);
+	pageContext.setAttribute("reserInq", rv);
 
 %>
 <form action="reservation_confirm.jsp" id="res_noFrm" name="res_noFrm" method="post">
 <input type="hidden" name="res_no" id="res_no" />
 </form>
-<!-- 여기서 보내는거 아닌가요..? res_no에 값은 어디에서 넣어줘요? 처음에 tr에서 onclick으로 ${ res_inq.res_no }이값을 받아왔는데 스크립트에서 해서 안되는건가요.,?네 아하.. 고쳐보겠습니다.. -->
 
 <div class="wrapper">
 <jsp:include page="../../main/main_header_nav.jsp"/>	
@@ -102,31 +131,44 @@ if(id==null){//세션이 존재하지 않으면
 <h2>예약조회</h2>
 </div>
 <br/><br/>
-<div  style = "width:600px; text-align: center; margin:0px auto;">
-<c:if test="${ empty reserInq }">
+<div  style = "width:1000px; margin:0px auto;">
+
+<c:choose>
+<c:when test="${ empty reserInq }">
 예약이 존재하지 않습니다.
-</c:if>
+</c:when> 
+<c:when test="${ not empty reserInq }">
 	<table id="table" class="table">
+	<thead>
+	<tr>
+		<th>예약번호</th>
+		<th>객실이름</th>
+		<th>투숙날짜</th>
+		<th>예약상태</th>
+	</tr>
+	</thead>
 	<tbody>
 		<c:forEach var="res_inq" items="${ reserInq }">
-					<tr id="reserTr" onclick="serchReservation('${ res_inq.res_no }')">
-					<td ><c:out value="${ res_inq.res_no }"/></td>
-					<td >Hotel Ritz Seoul</td>
-					<td ><c:out value="${ res_inq.chkin_date }"/>~<c:out value="${ res_inq.chkout_date }"/></td>
-					<td >
-					<c:choose>
-					<c:when test="${ res_inq.res_status eq 'Y' }">예약완료</c:when>
-					<c:when test="${ res_inq.res_status eq 'N' }">예약취소</c:when>
-					</c:choose>
-					</td>
-				</tr>
+			<tr id="reserTr" onclick="searchReservation('${ res_inq.res_no }')">
+				<td id="reserTd"><c:out value="${ res_inq.res_no }"/></td>
+				<td id="reserTd"><c:out value="${ res_inq.r_name }"/></td>
+				<td id="reserTd"><c:out value="${ res_inq.chkin_date }"/>~<c:out value="${ res_inq.chkout_date }"/></td>
+				<td id="reserTd">
+				<c:choose>
+				<c:when test="${ res_inq.res_status eq 'Y' }">예약완료</c:when>
+				<c:when test="${ res_inq.res_status eq 'N' }"><span style="color: #D29C78; font-weight: bold;">예약취소</span></c:when>
+				</c:choose>
+				</td>
+			</tr>
 		</c:forEach>
 	</tbody>
 	</table>
+</c:when>
+</c:choose>
 </div>
 <br/><br/><br/>
 <div style = "width:450px; text-align: center; margin:0px auto;">
-<button type="button" class="btn btn-default" name="reservation_inq" onclick="main()">홈으로</button>
+<button type="button" class="button" name="reservation_inq" onclick="main()">홈으로</button>
 </div>
 
 

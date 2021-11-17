@@ -157,6 +157,32 @@
 	table-layout: fixed;
 }
 
+.button {
+	border: 1px solid #E9E9E9;
+	font-weight: bold;
+	font-size: 15px;
+	background-color: #000;
+	color: #F5DF3C;
+	width: 130px;
+	height: 40px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 7px;
+}
+
+.button:hover{
+	background-color: #FCF4C0 ;
+	border: 1px solid #E9E9E9;
+	font-weight: bold;
+	font-size: 15px;
+	color: #333;
+	width: 130px;
+	height: 40px;
+	text-align: center;
+	border-radius: 7px;
+	cursor: pointer;
+}
+
 /*div { border: 1px solid #0000FF}
 td { border: 1px solid #FF0000}
 tr { border: 1px solid #FF0000}
@@ -184,7 +210,7 @@ p { border: 1px solid #FF00FF}
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=028b69a64e72ad065bfc4b7086e48ae3"></script>
 <script type="text/javascript">
-	function memexit() {
+	/* function memexit() {
 		let result = confirm('예약을 취소하시겠습니까?');
 		if (result) {
 			alert("예약이 취소되었습니다");
@@ -192,7 +218,7 @@ p { border: 1px solid #FF00FF}
 		} else {
 			
 		}
-	}
+	} */
 
 	function main() {
 		alert("메인 페이지로 이동합니다.");
@@ -206,7 +232,8 @@ p { border: 1px solid #FF00FF}
 		
 		if(confirm("예약을 취소하시겠습니까?")){
 			$("#res_status").val("N");
-			alert($("#res_status").val());
+			alert("예약이 취소되었습니다.");
+			location.href = "http://localhost/hotel_prj/user/reser_chk/reservation_inq.jsp"
 			$("#cacelFrm").submit();
 		}
 	}//cancelRes
@@ -269,17 +296,19 @@ p { border: 1px solid #FF00FF}
 	String id = (String)session.getAttribute("id"); 
 
 	//res_no파라미터로 받아오기
-	String res_no = request.getParameter("res_no"); //이전페이지에서 이 번호가 넘어와야하는데 안넘어오고 있스빈다. hidden으로 해서 가져오는거 맞나요,,,?아까하면서 사라진거같아요..
+	String res_no = request.getParameter("res_no"); 
 	pageContext.setAttribute("res_no",res_no);   
 	
 	ReservationSelect rsD = new ReservationSelect();
 	ReservationVO rVO = rsD.reservation(res_no);
 	ReservationVO rv = rsD.datePrice(res_no);
+	List<ReservationVO> list = rsD.reserInq(id);
 	int rVO2 = rsD.pay(res_no);   
 	
 	pageContext.setAttribute("rVO",rVO); //scope객체에 조회 결과 값을 넣고 아래 에서 뿌린다.
 	pageContext.setAttribute("price", rVO2); 
 	pageContext.setAttribute("rv", rv); 
+	pageContext.setAttribute("list", list); 
 	
 	ReservationUpdate ruD = new ReservationUpdate();
 	int cancel = ruD.reservationFlag(res_no);
@@ -453,14 +482,32 @@ p { border: 1px solid #FF00FF}
 					</table>
 				</div>
 				<br /> <br /> <br />
-			<form name="cancelFrm" id="cancelFrm" action="" method="post">
+				<form name="cancelFrm" id="cancelFrm" action="" method="post">
+				<div style="width: 1000px; text-align: center;">
+					<button type="button" class="button"
+						style="width: 400px; height: 40px;" onclick="cancelRes()">예약취소</button>
+					<input type="hidden" name="res_status" id="res_status" />
+				</div>
+				</form>
+		<%-- <c:choose>
+		
+		<c:when test="${ list.res_status eq 'Y' }">
 				<div style="width: 1000px; text-align: center;">
 					<button type="button" class="btn btn-default"
 						style="width: 400px; height: 40px;" onclick="cancelRes()">예약취소</button>
 					<input type="hidden" name="res_status" id="res_status" />
 				</div>
+		</c:when>
+		
+		<c:when test="${ list.res_status eq 'N' }">
+				<div style="width: 1000px; text-align: center;">
+					<h3>예약이 취소되었습니다</h3>
+				</div>
+		</c:when>
+		
+		</c:choose> --%>
+		
 
-			</form>
 
 			<br /> <br />
 			<div id="map" style="width: 1000px; height: 350px; magin: 0px auto; "></div>
@@ -468,7 +515,7 @@ p { border: 1px solid #FF00FF}
 
 			<br /> <br />
 			<div style="width: 1000px; text-align: center;"><!--  -->
-				<button type="button" class="btn btn-default"
+				<button type="button" class="button"
 					style="width: 100px; height: 40px" onclick="main()">홈으로</button>
 			</div>
 			
