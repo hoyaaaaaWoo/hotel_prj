@@ -205,7 +205,7 @@ p { border: 1px solid #FF00FF}
 			
 			$("#cacelFrm").submit();
 		}
-	}//cacelRes
+	}//cancelRes
 
 	$(function() {
 
@@ -278,24 +278,24 @@ p { border: 1px solid #FF00FF}
 	
 	
 	//복호화
-	ReservationVO de = rsD.reservation(res_no); 
+	/* ReservationVO rVO = rsD.reservation(res_no); */
 	DataDecrypt dd=new DataDecrypt("AbcdEfgHiJkLmnOpQ");
-	de.setTel(dd.decryption(de.getTel()));
-	de.setEname_fst(dd.decryption(de.getEname_fst()));
-	de.setEname_lst(dd.decryption(de.getEname_lst()));
-	de.setEmail(dd.decryption(de.getEmail()));
+	rVO.setTel(dd.decryption(rVO.getTel()));
+	rVO.setEname_fst(dd.decryption(rVO.getEname_fst()));
+	rVO.setEname_lst(dd.decryption(rVO.getEname_lst()));
+	rVO.setEmail(dd.decryption(rVO.getEmail()));
 	
-	pageContext.setAttribute("de", de);
+	pageContext.setAttribute("de", rVO);
 	
 	 
-	
+	/* 
 	 String DiffDays = request.getParameter("diffDays");
 	 String paramRoomNo = request.getParameter("room_no");
 	 int room_no = Integer.parseInt( paramRoomNo );
 	 int diffDays = Integer.parseInt( DiffDays );
 	 RoomSelect rs = new RoomSelect();
 	 RoomVO rv = rs.selectRoomInfo(room_no);  
-	 
+	 */ 
 %>
 
 	<div class="wrap">
@@ -450,7 +450,7 @@ p { border: 1px solid #FF00FF}
 				<div style="width: 1000px; text-align: center;">
 					<button type="button" class="btn btn-default"
 						style="width: 400px; height: 40px;" onclick="cancelRes()">예약취소</button>
-					<input type="hidden" name="res_status" id="res_status"/>
+					<input type="hidden" name="res_status" id="res_status" />
 				</div>
 
 			</form>

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -166,7 +167,8 @@ public class ReservationSelect {
 		String reser = "select r.r_name, reser.res_no, reser.chkin_date, reser.chkout_date, m.ename_fst, m.ename_lst, m.email, m.tel, "
 				+ "reser.adult, reser.child, reser.id " 
 				+ "from reservation reser, room r, member m "
-				+ "where reser.room_no=r.room_no and reser.id=m.id and reser.res_no=?";
+				+ "where reser.room_no=r.room_no and reser.id=m.id and reser.res_no=?";	
+		
 		rVO=jt.queryForObject(reser, new Object[] { res_no }, new RowMapper<ReservationVO>() {
 
 			@Override
@@ -192,8 +194,10 @@ public class ReservationSelect {
 				
 				return rVO;
 			}
-			
+		
 		});
+		
+		
 		gjt.closeAc();
 		
 		return rVO;

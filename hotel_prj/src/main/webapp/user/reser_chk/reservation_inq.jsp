@@ -20,7 +20,7 @@
 
 	#table {width: 700px; height: 90px; border-align: center; margin: 0px auto;}
 	
-	tr:hover {background-color: #D2D6D7; cursor: pointer;}
+	#res_inqTr:hover {background-color: #D2D6D7; cursor: pointer;}
 	</style>
 
 
@@ -88,7 +88,7 @@ function main(){
 	<table id="table" class="table">
 	<tbody>
 		<c:forEach var="res_inq" items="${ reserInq }">
-				<tr onclick="location.href='http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp?res_no=${ res_inq.res_no }'">
+				<tr id="res_inqTr" onclick="location.href='http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp?res_no=${ res_inq.res_no }'">
 					<td><c:out value="${ res_inq.res_no }"/></td>
 					<td>Hotel Ritz Seoul</td>
 					<td><c:out value="${ res_inq.chkin_date }"/>~<c:out value="${ res_inq.chkout_date }"/></td>
