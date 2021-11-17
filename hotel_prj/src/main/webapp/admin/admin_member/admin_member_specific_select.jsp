@@ -98,6 +98,11 @@ position: absolute; top: 80px; left: 1000px;
 position: absolute; top: 80px; left: 1200px;
 }
 
+#roomList{
+   width:100%;
+   padding-left:20px;
+   border-bottom: 1px solid #454D55;
+}
 </style>
 
 
@@ -130,13 +135,19 @@ $(function(){
 		
 		<div id="container">
 			<div id="naviBar2">
-				<span id="mainMenu" onclick="location.href='http://localhost/hotel_prj/admin/admin_member/admin_member_specific_select.jsp'">특정회원조회</span>
+				<span id="mainMenu" onclick="location.href='http://localhost/hotel_prj/admin/admin_member/admin_member_select.jsp'">회원조회</span> &nbsp; 
+				<span id="mainMenu" style="text-decoration: none" onclick="location.href='http://localhost/hotel_prj/admin/admin_member/admin_member_delete.jsp'">탈퇴회원</span>
 				<form name="frm_search" action="http://localhost/hotel_prj/admin/admin_member/admin_member_specific_select.jsp" method="post">
 				<input type="text" name="search" placeholder="ID조회" id="id_search" class="form-control" maxlength="10"/>
 				<input type="submit" value="검색" name="search" class="btn btn-default" id="search" />
-				</form>		
+				</form>	
+			<div id="roomList"> 
+				<br/>
+				<br/>
+				<br/>
 			</div>
-
+			</div>
+			
 			<table class="table table-bordered" id="table">
 			
 				<tr>
