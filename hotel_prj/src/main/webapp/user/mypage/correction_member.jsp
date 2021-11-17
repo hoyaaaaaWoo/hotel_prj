@@ -39,8 +39,8 @@ $(function(){
 				emailCheck($(this).val()); 	    
 			 });//focusout 
 	$("#btn").click(function(){
-		var regPass = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/;
-		
+		var regPass = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/;     // 비밀번호 정규식
+		var change_pass =$("#change_pass").val();
 		if(confirm("변경하시겠습니까?") == true) {
 			if( $("#pass").val() =="" || $("#change_pass").val() =="" || $("#change_pass2").val() ==""   ){
 					alert("비밀번호는 공백없이 입력해주세요.");
@@ -51,8 +51,11 @@ $(function(){
 			}else if(  ($("#pass").val()) == ($("#change_pass").val()|| $("#change_pass2").val()) ){
 						alert("현재 비밀번호와 변경할 비밀번호가 동일합니다");
 				return;
-			}else if(	$("#change_pass").val() != regPass ){
+			}else if(	!regPass.test($("#change_pass").val()) ){
 				alert("비밀번호는 숫자와 문자를 조합하여 8~16글자로 설정해 주세요.");
+				return;
+			}else if( change_pass.search(/\s/) != -1   ){
+				alert("비밀번호는 공백 없이 입력해주세요.");
 				return;
 			}
 		

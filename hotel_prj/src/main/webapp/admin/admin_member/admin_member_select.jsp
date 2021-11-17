@@ -97,6 +97,11 @@ position: absolute; top: 80px; left: 1000px;
 position: absolute; top: 80px; left: 1200px;
 }
 
+#roomList{
+   width:100%;
+   padding-left:20px;
+   border-bottom: 1px solid #454D55;
+}
 </style>
 
 
@@ -148,7 +153,12 @@ pageContext.setAttribute("memberData", list);
 				<form name="frm_search" action="http://localhost/hotel_prj/admin/admin_member/admin_member_specific_select.jsp" method="post">
 				<input type="text" name="search" placeholder="ID조회" id="id_search" class="form-control" maxlength="10"/>
 				<input type="submit" value="검색" name="search" class="btn btn-default" id="search" />
-				</form>				
+				</form>	
+				<div id="roomList"> 
+				<br/>
+				<br/>
+				<br/>
+				</div>			
 			</div>
 			<table class="table table-bordered"  id="table">
 				<tr>
