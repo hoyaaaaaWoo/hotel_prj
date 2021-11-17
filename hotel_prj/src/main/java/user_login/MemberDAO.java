@@ -83,9 +83,9 @@ public class MemberDAO {
 		//2. JdbcTemplate 얻기
 		JdbcTemplate jt=gjt.getJdbcTemplate();
 		//3.쿼리문 수행.
-		String insertMember="insert into member(id,email,pass,ename_fst,ename_lst,kname,birth_year,tel,req_agree,opt_agree)values(?,?,?,?,?,?,?,?,?,?)";
+		String insertMember="insert into member(id,email,pass,ename_fst,ename_lst,kname,birth_year,tel,req_agree,opt_agree,m_status)values(?,?,?,?,?,?,?,?,?,?,?)";
 		jt.update(insertMember,mVO.getId(),mVO.getEmail(),mVO.getPass(),mVO.getEname_fst(),mVO.getEname_lst(),mVO.getKname(),mVO.getBirth_year()
-				,mVO.getTel(),mVO.getReq_agree(),mVO.getOpt_agree());
+				,mVO.getTel(),mVO.getReq_agree(),mVO.getOpt_agree(),mVO.getM_status());
 		//4.스프링 컨테이너 닫기.
 		gjt.closeAc();
 	}//insertMember
@@ -103,7 +103,7 @@ public class MemberDAO {
 		//2. JdbcTemplate 얻기
 		JdbcTemplate jt=gjt.getJdbcTemplate();
 		//3.쿼리문 수행.
-		String selectId="select kname from member where id=? and pass=?";
+		String selectId="select kname from member where id=? and pass=? and m_status='Y'";
 		kname=
 			jt.queryForObject(selectId, new Object[] {mVO.getId(),mVO.getPass()},String.class );
 		//4. Spring Container 닫기.

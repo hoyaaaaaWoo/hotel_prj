@@ -57,7 +57,9 @@ function home(){
 <jsp:setProperty property="*" name="mVO"/><!--  입력정보-->
 <%
 	String id=(String)session.getAttribute("id");
-	
+if(id==null){//세션이 존재하지 않으면 
+	response.sendRedirect("http://localhost/hotel_prj/user/login/login.jsp");
+}//end if
 %>
 
 <!-- NAVBAR

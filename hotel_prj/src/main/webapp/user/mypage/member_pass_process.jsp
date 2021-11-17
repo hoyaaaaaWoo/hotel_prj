@@ -23,7 +23,7 @@ mVO.setChange_pass(DataEncrypt.messageDigest("SHA-512", mVO.getChange_pass()));
 
 UpdateDAO mDAO=new UpdateDAO();
 int cnt=mDAO.updatePass(mVO);//
-	
+
 if(cnt==1){ ;//아이디와 비밀번호가 맞으면 이름이 나옵니다.
 %>
 	<script type="text/javascript">

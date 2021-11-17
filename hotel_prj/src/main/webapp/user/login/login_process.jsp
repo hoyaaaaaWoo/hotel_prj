@@ -89,16 +89,20 @@ kname=dd.decryption(kname);
 session.setAttribute("kname", kname);
 session.setAttribute("pass", pass);
 session.setAttribute("id", id); 
-		System.out.println("아이디 설정 "+ session.getAttribute("id"));
 
 %>
-<!-- <script type="text/javascript">
-	location.href="http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp";
-	</script> -->
 </c:catch>
-
+<br/><br/>
+<c:choose>
+<c:when test="${ kname ne null }">
+<h4><c:out value="${ param.id }"/>(으)로 로그인 하셨습니다.</h4><br/>
+</c:when>
+<c:otherwise>
+탈퇴한 회원입니다.
+</c:otherwise>
+</c:choose>
 <c:if test="${ not empty e }">
-아이디나 비밀번호를 확인해 주세요.
+아이디 또는 비밀번호를 확인해 주세요.
 <br/><br/><br/>
 <input type="button"  value="로그인" class="btn btn-default" onclick="location.href='login.jsp'">
 </c:if>

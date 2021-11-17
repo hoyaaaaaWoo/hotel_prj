@@ -24,7 +24,7 @@ mVO.setTel(de.encryption(mVO.getTel()));//번호
 UpdateMemDAO mDAO=new UpdateMemDAO();
 int cnt=mDAO.updateMem(mVO);//
 	
-if(cnt==1){ ;//아이디와 비밀번호가 맞으면 이름이 나옵니다.
+if(cnt==1){ ;
 %>
 	<script type="text/javascript">
 	location.href="correction_member.jsp"; 

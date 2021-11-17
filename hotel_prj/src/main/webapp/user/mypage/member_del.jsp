@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@page import="user_login.UpdateDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -24,22 +25,29 @@
 </script>
 </head>
 <body>
-<jsp:useBean id="mVO" class="user_login.memberVO" scope="page"/><!-- 아이디 비밀번호 새로운 비번을 저장할 수 있는 VO  -->
-<jsp:setProperty property="*" name="mVO"/><!--  입력정보-->
 
 <%
+request.setCharacterEncoding("UTF-8");
 String id=(String)session.getAttribute("id");
+String m_status = request.getParameter("m_status");
+
+%>
+
+<jsp:useBean id="mVO" class="user_login.memberVO" scope="page"/>
+<jsp:setProperty property="*" name="mVO"/><!--  입력정보-->
+<%
 mVO.setId(id);
+mVO.setM_status(mVO.getM_status()); 
+mVO.setOut_date(mVO.getOut_date());
 
-
-UpdateDAO ud = new UpdateDAO();
-int cnt = ud.delmember(mVO);
-
+UpdateDAO uDAO = new UpdateDAO();
+int cnt = uDAO.delmember(mVO);
 
 if(cnt ==1){
+session.invalidate();
 %>
 <script type="text/javascript">
-alert("회원이 정상적으로 삭제되었습니다.");
+alert("회원 탈퇴가 완료되었습니다. \n그동안이용해주셔서 감사합니다");
 location.href="http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp";
 </script>	
 <%}else{%>

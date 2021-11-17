@@ -64,8 +64,8 @@
 	
 	
 	<!-- Standard button -->
-
-
+	
+	
 	
       	<br/><br/><br/><br/><br/>
     <div class="container">	
@@ -77,7 +77,7 @@
     <table style="margin: 0px auto;">
     	<tr>
     		<td style="padding: 5px"><input type="text" placeholder="아이디를 입력하세요" name="id" id="id" class="form-control"> </td>
-    		<td rowspan="2"><input type="submit"  class="btn btn-default" style="width:90px; height:40px;" value="로그인"  id="btn" ></td>
+    		<td rowspan="2"><input type="button"  class="btn btn-default" style="width:90px; height:40px;" value="로그인"  id="btn" ></td>
     	</tr>
     	<tr>
     		<td style="padding: 5px"><input type="password" placeholder="비밀번호를 입력하세요"  name="pass" id="pass" class="form-control"> </td>
@@ -89,6 +89,7 @@
     	</tr>
     </table>
     </form>
+    
     </div>
     
     

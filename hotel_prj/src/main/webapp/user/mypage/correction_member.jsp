@@ -19,6 +19,9 @@
      <!-- 메인 CSS -->
 	<link rel="stylesheet" type="text/css"
 	href="http://localhost/hotel_prj/main/main.css">
+	
+
+	
 	<style type = "text/css">
 
 	</style>
@@ -39,25 +42,17 @@ $(function(){
 				emailCheck($(this).val()); 	    
 			 });//focusout 
 	$("#btn").click(function(){
-		var regPass = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/;     // 비밀번호 정규식
-		var change_pass =$("#change_pass").val();
 		if(confirm("변경하시겠습니까?") == true) {
 			if( $("#pass").val() =="" || $("#change_pass").val() =="" || $("#change_pass2").val() ==""   ){
-					alert("비밀번호는 공백없이 입력해주세요.");
-					return;	
-			}else if( $("#change_pass").val() != $("#change_pass2").val()   ){
-					alert("변경할 비밀번호가 서로 일치하지 않습니다. ");
+					alert("비밀번호를 입력해주세요.");
 					return;
+			}else if( $("#change_pass").val() != $("#change_pass2").val()   ){
+							alert("변경할 비밀번호가 다릅니다 ");
+							return;
 			}else if(  ($("#pass").val()) == ($("#change_pass").val()|| $("#change_pass2").val()) ){
-						alert("현재 비밀번호와 변경할 비밀번호가 동일합니다");
+						alert("현재비밀번호와 변경할 비밀번호가 동일합니다");
 				return;
-			}else if(	!regPass.test($("#change_pass").val()) ){
-				alert("비밀번호는 숫자와 문자를 조합하여 8~16글자로 설정해 주세요.");
-				return;
-			}else if( change_pass.search(/\s/) != -1   ){
-				alert("비밀번호는 공백 없이 입력해주세요.");
-				return;
-			}
+		}	
 		
 		$("#passFrm").submit();	
 		}//end if
@@ -116,9 +111,8 @@ $(function(){
 
   	}
 
-	$("#delBtn").click(function(){
+    $("#delBtn").click(function(){
 		if (confirm("정말 탈퇴를 하시겠습니까?") == true) {
-			alert("회원 탈퇴가 완료되었습니다. \n그동안이용해주셔서 감사합니다");
 		}
 		$("#delfrm").submit();	
 		return;
@@ -135,8 +129,10 @@ $(function(){
  <jsp:useBean id="mVO" class="user_login.memberVO" scope="page"/>
 <jsp:setProperty property="*" name="mVO"/><!--  입력정보-->
 <%
-String id=(String)session.getAttribute("id");
-pageContext.setAttribute("mVO", mVO.getPass());
+	String id=(String)session.getAttribute("id");
+	if(id==null){//세션이 존재하지 않으면 
+	response.sendRedirect("http://localhost/hotel_prj/user/login/login.jsp");
+}//end if
 %>
 <!-- NAVBAR
 ================================================== -->
@@ -156,7 +152,7 @@ pageContext.setAttribute("mVO", mVO.getPass());
 <br/><br/><br/>
 <h5>비밀번호 변경하기</h5>
 <form  id="passFrm" action="http://localhost/hotel_prj/user/mypage/member_pass_process.jsp" method="post">
-<input type="password" style="width:250px;height:40px" placeholder="현재 비밀번호를 입력하세요"id="pass"  value="${mVOPass }" name ="pass">
+<input type="password" style="width:250px;height:40px" placeholder="현재 비밀번호를 입력하세요"id="pass"  name ="pass">
 <br/><br/>
 <input type="password" style="width:250px;height:40px" placeholder="변경할 비밀번호를 입력하세요" id="change_pass" name="change_pass">
 <br/><br/>
@@ -187,17 +183,18 @@ pageContext.setAttribute("mVO", mVO.getPass());
 
 <div style = "width:450px; text-align: center; margin: 0px auto;">
 <br/><br/><br/>
-<form action="member_del.jsp" id="delfrm" name="delfrm">
-<button type="button" class="btn btn-default" style="width:100px;height:40px" id="delBtn">회원탈퇴</button>
+<form action="http://localhost/hotel_prj/user/mypage/member_del.jsp" id="delfrm" name="delfrm">
+<button type="button" class="btn btn-default" style="width:100px;height:40px" id="delBtn" name="delBtn">회원탈퇴</button>
+<input type="hidden" id="id" name="id"/>
 </form>
 <br/><br/><br/>
 </div>
   <br/><br/><br/><br/><br/><br/>
 <div class="container marketing">
- <!-- FOOTER -->
-<jsp:include page="../../main/main_footer.jsp"/>
+<!-- FOOTER -->
 
-    </div><!-- /.container -->
+</div><!-- /.container -->
+<jsp:include page="../../main/main_footer.jsp"/>
 
 
     <!-- Bootstrap core JavaScript
