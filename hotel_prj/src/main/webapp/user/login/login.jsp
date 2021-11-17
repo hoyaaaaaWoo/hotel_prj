@@ -18,7 +18,7 @@
 	<style type = "text/css">
 	/* 		div {margin: 0px auto; width: 1130px;} */
 	</style>
-
+	
     <!-- Bootstrap core CSS -->
 	<!-- jQuery CDN -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -56,7 +56,7 @@
   </script>
   
   </head>
-  
+
 <!-- NAVBAR
 ================================================== -->
 	<jsp:include page="../../main/main_header_nav.jsp"/>

@@ -127,6 +127,18 @@
 			}//pass
 			
 			
+/* 		      function enamefCheck(args) {
+		    	   var flag=false;
+		    	    
+		    	    if (/^[a-zA-Z]+$/) {
+		    	        flag= true;
+		    	    }
+		    	    if(flag==false){
+		    	       alert("영문을 확인해 주세요");
+		    	       $("#ename_fst").val('');
+		    	    }
+		      }//enamefCheck */
+		      
 		      function telCheck(args) {
 		    	   var flag=false;
 		    	    
@@ -137,7 +149,7 @@
 		    	       alert("전화번호를 확인해 주세요");
 		    	       $("#tel").val('');
 		    	    }
-		      }
+		      }//telCheck
 		      
 		      function birthCheck(args) {
 		    	   var flag=false;
@@ -248,7 +260,7 @@
 	<br/><br/><br/><br/><br/>
 	<!-- 아이디 만들기 -->
 	<div class= "container" style=" margin:0px auto;">
-	<table style="height: 800px; width: 800px;">
+	<table style="height: 800px; width: 800px;margin:0px auto; ">
 	<tr>
 	<td style="font-weight: bold">아이디</td>
 	</tr>
@@ -264,14 +276,14 @@
 	<td><input type="button" value="중복확인" id="dupEmail"> </td>
 	</tr>
 	<tr>
-	<td style="font-weight: bold">비밀번호</td>
+	<td style="font-weight: bold">비밀번호 <span style="font-size: 11px;color: #000000">&nbsp;※숫자와 문자를 조합하여 8~16글자로 설정해 주세요.</span></td>
 	</tr>
 	<tr>
-	<td style="padding: 5px;"><input type="text" class="form-control" name="pass" id="pass" placeholder="비밀번호를 입력하세요"> </td>
-	<td style="padding: 5px;"><input type="text" class="form-control"  name="pass1" id="pass1" placeholder="한번 더 입력하세요"> </td>
+	<td style="padding: 5px;"><input type="password" class="form-control" name="pass" id="pass" placeholder="비밀번호를 입력하세요"> </td>
+	<td style="padding: 5px;"><input type="password" class="form-control"  name="pass1" id="pass1" placeholder="한번 더 입력하세요"> </td>
 	</tr>
 	<tr>
-	<td style="font-weight: bold">영문이름 <span style="font-size: 10px;">※여권상의 이름을 입력하세요</span></td>
+	<td style="font-weight: bold">영문이름 <span style="font-size: 11px;color: #000000">&nbsp;※여권상의 이름을 입력하세요</span></td>
 	</tr>
 	<tr>
 	<td style="padding: 5px;"><input type="text" class="form-control" name="ename_lst" id="ename_lst" placeholder="영문 성을 입력하세요"> </td>
@@ -284,13 +296,13 @@
 	<td style="padding: 5px;"><input type="text" class="form-control"  name="kname" id="kname" placeholder="성명(한글)"> </td>
 	</tr>
 	<tr>
-	<td style="font-weight: bold">생년월일  ("."를 입력해주세요)</td>
+	<td style="font-weight: bold">생년월일<span style="font-size: 11px;color: #000000">&nbsp;(" . "를 입력해주세요)</span></td>
 	</tr>
 	<tr>
 	<td style="padding: 5px;"><input type="text" class="form-control" name="birth_year" id="birth_year" placeholder="YYYY.MM.DD"> </td>
 	</tr>
 	<tr>
-	<td style="font-weight: bold">연락처  ("-"를 입력해주세요)</td>
+	<td style="font-weight: bold">연락처<span style="font-size: 11px;color: #000000">&nbsp;(" - "를 입력해주세요)</span></td>
 	</tr>
 	<tr>
 	<td style="padding: 5px;"><input type="text" class="form-control" name="tel" id="tel" placeholder="000-0000-0000"> </td>

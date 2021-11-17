@@ -11,13 +11,14 @@
 		<span id="logo"
 			onclick="location.href = 'http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp'">
 			<strong>Hotel Ritz Seoul</strong>
+		</span> 
 			<% 
 			String id=(String)session.getAttribute("id");
 					if( id == null){
 			%>
-		</span> <span> <a href="http://localhost/hotel_prj/user/login/login.jsp" id="linkLogin">로그인</a></span>
+		<span> <a href="http://localhost/hotel_prj/user/login/login.jsp" id="linkLogin">로그인</a></span>
 			<% }else{ %>
-		 <span> <a href="http://localhost/hotel_prj/user/login/logout.jsp" id="linkLogin">로그아웃</a></span>
+		 <span><a href="http://localhost/hotel_prj/user/login/logout.jsp" id="linkLogin">로그아웃</a></span>
 			<% }//end if %>
 		 <span> <a href="http://localhost/hotel_prj/user/reser_chk/reservation_inq.jsp" id="linkResView">예약조회</a>
 		</span> <span> <a href="http://localhost/hotel_prj/user/mypage/Mypage.jsp" id="linkMyPage">마이페이지</a></span>
