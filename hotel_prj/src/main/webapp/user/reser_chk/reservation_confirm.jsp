@@ -1,3 +1,4 @@
+<%@page import="user_reservation.ReservationUpdate"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="user_room.RoomVO"%>
@@ -202,9 +203,10 @@ p { border: 1px solid #FF00FF}
 	}
 	
 	function cancelRes(){
+		
 		if(confirm("예약을 취소하시겠습니까?")){
-			$("#res_status").val();
-			
+			$("#res_status").val("N");
+			alert($("#res_status").val());
 			$("#cacelFrm").submit();
 		}
 	}//cancelRes
@@ -278,6 +280,9 @@ p { border: 1px solid #FF00FF}
 	pageContext.setAttribute("rVO",rVO); //scope객체에 조회 결과 값을 넣고 아래 에서 뿌린다.
 	pageContext.setAttribute("price", rVO2); 
 	pageContext.setAttribute("rv", rv); 
+	
+	ReservationUpdate ruD = new ReservationUpdate();
+	int cancel = ruD.reservationFlag(res_no);
 	
 	
 	// 박 수 구하기
@@ -452,7 +457,7 @@ p { border: 1px solid #FF00FF}
 					</table>
 				</div>
 				<br /> <br /> <br />
-			<form name="cancelFrm" id="cancelFrm" action="reservation_inq" method="post">
+			<form name="cancelFrm" id="cancelFrm" action="" method="post">
 				<div style="width: 1000px; text-align: center;">
 					<button type="button" class="btn btn-default"
 						style="width: 400px; height: 40px;" onclick="cancelRes()">예약취소</button>

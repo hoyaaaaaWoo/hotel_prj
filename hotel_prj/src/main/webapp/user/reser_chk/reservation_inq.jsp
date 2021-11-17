@@ -20,9 +20,8 @@
 
 	#table {width: 700px; height: 90px; border-align: center; margin: 0px auto;}
 	
-	#reserTr:hover {cursor: pointer; background-color: #D2D6D7; }
+	#reserTr:hover {cursor: pointer; background-color: #D2D6D7;}
 	</style>
-
 
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -35,26 +34,42 @@
 <link rel="stylesheet" type="text/css"
 	href="http://localhost/hotel_prj/main/main.css">
 
-<%
-String id = (String)session.getAttribute("id");
-if(id==null){//세션이 존재하지 않으면 
-		response.sendRedirect("../login/login.jsp");
-	}//end if
-%>
 
 <script type="text/javascript">
 function main(){
 	alert("메인 페이지로 이동합니다.");
 	location.href="http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp"
 }
-	
 
+
+$(function(){
+$("#table tr").click(function(){
+    //현재 선택된 tr과 td
+    let tr = $(this);
+    let td = tr.children();
+
+    //선택된 행에서 예약번호 얻어오기
+    let resNum = td.eq(0).text();
+    
+    alert(resNum);
+    
+    location.href="http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp?res_no=${ res_inq.res_no }";
+})
+    
+});//ready
 </script>
 </head>
 <!-- NAVBAR
 ================================================== -->
   <body>
-  <%request.setCharacterEncoding("UTF-8"); %>
+<%
+String id = (String)session.getAttribute("id");
+if(id==null){//세션이 존재하지 않으면 
+		response.sendRedirect("../login/login.jsp");
+	}//end if
+
+  request.setCharacterEncoding("UTF-8");
+%>
   
   <!-- 이전 페이지에서 날아온 웹파라미터 이 페이지에서 받아서 설정하기 -->
   <jsp:useBean id="rVO" class="user_reservation.ReservationVO"/>  
@@ -65,6 +80,8 @@ function main(){
 	ReservationSelect rsD = new ReservationSelect();
 	List<ReservationVO> list = rsD.reserInq(id);
 	pageContext.setAttribute("reserInq", list);
+	
+
 %>
 <form action="reservation_confirm.jsp" id="res_noFrm" name="res_noFrm" method="post">
 <input type="hidden" name="res_no" id="res_no" />
@@ -88,16 +105,16 @@ function main(){
 	<table id="table" class="table">
 	<tbody>
 		<c:forEach var="res_inq" items="${ reserInq }">
-				<tr id="reserTr" onclick="location.href='http://localhost/hotel_prj/user/reser_chk/reservation_confirm.jsp?res_no=${ res_inq.res_no }'" >
-					<td><c:out value="${ res_inq.res_no }"/></td>
-					<td>Hotel Ritz Seoul</td>
-					<td><c:out value="${ res_inq.chkin_date }"/>~<c:out value="${ res_inq.chkout_date }"/></td>
-					<td>
+					<tr id="reserTr">
+					<td ><c:out value="${ res_inq.res_no }"/></td>
+					<td >Hotel Ritz Seoul</td>
+					<td ><c:out value="${ res_inq.chkin_date }"/>~<c:out value="${ res_inq.chkout_date }"/></td>
+					<%-- <td >
 					<c:choose>
-					<c:when test="${ reser_status eq Y }">예약완료</c:when>
-					<c:when test="${ reser_status eq n }">취소</c:when>
+					<c:when test="${ reserInq.res_status eq Y }">예약완료</c:when>
+					<c:when test="${ reserInq.res_status eq N }">예약취소</c:when>
 					</c:choose>
-					</td>
+					</td> --%>
 				</tr>
 		</c:forEach>
 	</tbody>

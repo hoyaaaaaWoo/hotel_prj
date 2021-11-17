@@ -22,7 +22,7 @@ public class ReservationSelect {
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		//3. Äõ¸®¹® ¼öÇà
 		StringBuilder chkInq = new StringBuilder();
-		chkInq.append("	select res_no, chkin_date, chkout_date	")
+		chkInq.append("	select res_no, chkin_date, chkout_date, res_status	")
 		.append("	from reservation	")
 		.append("	where id=?	");	
 		
@@ -40,6 +40,7 @@ public class ReservationSelect {
 			rVO.setRes_no(rs.getString("res_no"));
 			rVO.setChkin_date(rs.getString("chkin_date"));
 			rVO.setChkout_date(rs.getString("chkout_date"));
+			rVO.setRes_status(rs.getString("res_status"));
 			
 			return rVO;
 		}
@@ -78,7 +79,7 @@ public class ReservationSelect {
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();  
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		String reser = "select r.r_name,r.main_img, reser.res_no, reser.chkin_date, reser.chkout_date, m.ename_fst, m.ename_lst, m.email, m.tel, "
-				+ "reser.adult, reser.child, reser.id " 
+				+ "reser.adult, reser.child, reser.id,  " 
 				+ "from reservation reser, room r, member m "
 				+ "where reser.room_no=r.room_no and reser.id=m.id and reser.res_no='"+ res_no+"'";	
 		rVO=jt.queryForObject(reser,  new RowMapper<ReservationVO>() {
@@ -104,6 +105,7 @@ public class ReservationSelect {
 				rVO.setEname_lst (rs.getString("ename_lst"));
 				rVO.setEmail (rs.getString("email"));
 				rVO.setTel(rs.getString("tel"));
+				
 				
 				return rVO;
 			}

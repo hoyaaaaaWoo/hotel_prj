@@ -27,7 +27,7 @@
 			<table id="navTab">
 				<tr>
 					<td class="navTd" 
-						onclick="location.href = 'http://localhost/hotel_prj/user/reser_room/room_date.jspㄴㄴㄴ'">객실 예약</td>
+						onclick="location.href = 'http://localhost/hotel_prj/user/reser_room/room_date.jsp'">객실 예약</td>
 					<td class="navTd"
 						onclick="location.href = 'http://localhost/hotel_prj/main/dining.jsp'">다이닝
 						예약</td>
