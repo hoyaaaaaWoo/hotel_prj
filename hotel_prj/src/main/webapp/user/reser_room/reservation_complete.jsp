@@ -147,9 +147,11 @@ infowindow.open(map, marker);
 
 <script type="text/javascript">
 $(function(){
+	
+
 	$("#goHomeBtn").click(function(){
 		location.href="http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp";
-	})//table click
+	})//click
 	
 }); //ready
 
@@ -371,7 +373,7 @@ if ( paramCardSave.equals("Y") && !saveFlag.equals("0")){
 			</table>
 			</div>
 			</div><!-- guideDiv --><br/>
-			<button type="button" id = "goHomeBtn" >메인으로</button><br/><br/><br/><br/>
+			<input type="button" id = "goHomeBtn" value = "메인으로" ></button><br/><br/><br/><br/>
 			
 			
 			<div id="map" style="width:1000px; height:500px;"></div>
