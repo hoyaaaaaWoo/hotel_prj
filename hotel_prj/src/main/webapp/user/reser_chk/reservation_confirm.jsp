@@ -229,12 +229,7 @@ p { border: 1px solid #FF00FF}
 
 	$(function() {
 		
-		 
-
-		/* 	$("#cancel").click(function() { 
-		 }//click
-		
-		 */var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
 			center : new kakao.maps.LatLng(37.51271451389996,
 					127.10252419812018), // 지도의 중심좌표
@@ -301,6 +296,13 @@ p { border: 1px solid #FF00FF}
 	List<ReservationVO> list = rsD.reserInq(id);
 	int rVO2 = rsD.pay(res_no);   
 	
+	//마스킹
+	String card_no = rsD.card(res_no);
+	String card = card_no.substring(0, 5)+"****-****-****";
+	
+	pageContext.setAttribute("card_no", card);
+	
+	
 	//scope객체에 조회 결과 값을 넣고 아래 에서 뿌린다.
 	pageContext.setAttribute("rVO",rVO); 
 	pageContext.setAttribute("price", rVO2); 
@@ -348,7 +350,6 @@ p { border: 1px solid #FF00FF}
 	
 	pageContext.setAttribute("de", rVO);
 	
-	 
 %>
 
 
@@ -444,7 +445,7 @@ p { border: 1px solid #FF00FF}
 								<td class="creditcard">신용카드 종류</td>
 								<td class="creditname"><c:out value="${ rVO.company }"/></td>
 								<td class="creditcard">신용카드번호</td>
-								<td class="creditnum"><c:out value="${ rVO.card_no }"/></td>
+								<td class="creditnum"><c:out value="${ card_no }"/></td>
 							</tr>
 
 						</table>
@@ -472,30 +473,24 @@ p { border: 1px solid #FF00FF}
 				</div>
 				<br /> <br /> <br />
 				<form name="cancelFrm" id="cancelFrm" action="update_process.jsp" method="post">
+				<c:choose>
+		<c:when test="${ rVO.res_status eq 'Y' }">
 				<div style="width: 1000px; text-align: center;">
 					<button type="button" class="button" id="cancelBtn"
 						style="width: 400px; height: 40px;" onclick="cancelRes()">예약취소</button>
 					<input type="hidden" name="res_no" value="${ res_no }" />
 					<input type="hidden" name="res_status" id="res_status" />
 				</div>
-				</form>
-		<%-- <c:choose>
-		
-		<c:when test="${ list.res_status eq 'Y' }">
-				<div style="width: 1000px; text-align: center;">
-					<button type="button" class="btn btn-default"
-						style="width: 400px; height: 40px;" onclick="cancelRes()">예약취소</button>
-					<input type="hidden" name="res_status" id="res_status" />
-				</div>
 		</c:when>
 		
-		<c:when test="${ list.res_status eq 'N' }">
+		<c:when test="${ rVO.res_status eq 'N' }">
 				<div style="width: 1000px; text-align: center;">
 					<h3>예약이 취소되었습니다</h3>
 				</div>
 		</c:when>
 		
-		</c:choose> --%>
+		</c:choose>
+				</form>
 		
 
 

@@ -3,7 +3,6 @@ package user_reservation;
 import java.util.Date;
 
 public class ReservationVO {
-//더 많은데 다른거랑 연결되어있을거같아서 네 맞아요 DBTable의 데이터형과도 맞겠죠? 네 
 	private int room_no, adult, child, price;
 	private String res_no, id, chkin_date, chkout_date, add_req, 
 				cc_agree, pi_agree, res_status, r_name, val_mm, val_yy,

@@ -12,6 +12,7 @@ import team3_dao.GetJdbcTemplate;
 
 public class ReservationSelect {
 	
+	
 	public List<ReservationVO> reserInq(String id) throws SQLException {
 		List<ReservationVO> list = null;
 		
@@ -79,10 +80,9 @@ public class ReservationSelect {
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();  
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		String reser = "select r.r_name,r.main_img, reser.res_no, reser.chkin_date, reser.chkout_date, m.ename_fst, m.ename_lst, m.email, m.tel, "
-				+ "reser.adult, reser.child, reser.id, reser.card_no, reser.company  " 
+				+ "reser.adult, reser.child, reser.id, reser.card_no, reser.company, reser.res_status  " 
 				+ "from reservation reser, room r, member m "
 				+ "where reser.room_no=r.room_no and reser.id=m.id and reser.res_no='"+ res_no+"'";	
-		//System.out.println( reser );
 		rVO=jt.queryForObject(reser,  new RowMapper<ReservationVO>() {
 
 			@Override
@@ -105,6 +105,7 @@ public class ReservationSelect {
 				rVO.setEname_lst (rs.getString("ename_lst"));
 				rVO.setEmail (rs.getString("email"));
 				rVO.setTel(rs.getString("tel"));
+				rVO.setRes_status(rs.getString("res_status"));
 				
 				
 				return rVO;
@@ -132,7 +133,6 @@ public class ReservationSelect {
 			@Override
 			public ReservationVO mapRow(ResultSet rs, int rowCnt) throws SQLException {
 				ReservationVO rv=new ReservationVO();
-				//조회된 결과를 rVO에  setter method를 사용해서 넣습니다.		
 				rv.setChkin_date(rs.getString("chkin_date"));
 				rv.setChkout_date(rs.getString("chkout_date"));
 				rv.setPrice(rs.getInt("price"));
@@ -148,13 +148,21 @@ public class ReservationSelect {
 		
 	}
 	
-	
+	public String card(String res_no) throws DataAccessException{
+		String card_no = "";
+		
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		
+		String selectStatus = "select card_no from reservation where res_no=?";
+		card_no = jt.queryForObject(selectStatus, new Object[] {res_no}, String.class);
+		
+		gjt.closeAc();
+		
+		return card_no;
+	}
 	 
 	
-	/*
-	 * public static void main(String[] args) { ReservationSelect t=new
-	 * ReservationSelect(); System.out.println(t.reservation("20211118-001R03")); }
-	 */
 	 
 	
 	
