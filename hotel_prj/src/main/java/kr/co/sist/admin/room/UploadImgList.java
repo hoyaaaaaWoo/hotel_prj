@@ -168,6 +168,14 @@ public class UploadImgList {
 		File tempFolder = new File("C:/Users/user/git/hotel_prj/hotel_prj/src/main/webapp/temp");
 		// 복사할 폴더
 		File imgFolder = new File("C:/Users/user/git/hotel_prj/hotel_prj/src/main/webapp/roomImages");
+		
+		if(!tempFolder.exists()) {
+			tempFolder.mkdirs();
+		}
+		if(!imgFolder.exists()) {
+			imgFolder.mkdirs();
+		}
+		
 		// 원 폴더의 파일수만큼 파일 배열 생성
 		File[] fileList = tempFolder.listFiles();
 

@@ -474,7 +474,7 @@ $(window).bind("beforeunload", function(){
 			 	<td class="subTd">
 			 	 <select name="guestNum" id="guestNum" class="form-control sel">
 			  		<option value="none">--인원수 선택--</option>
-			  		<c:forEach var="num" begin="1" end="10" step="1"> 
+			  		<c:forEach var="num" begin="1" end="4" step="1"> 
 			  		<option value="${num}"><c:out value="${num}명"/></option>
 			  		</c:forEach>
 				 </select>
