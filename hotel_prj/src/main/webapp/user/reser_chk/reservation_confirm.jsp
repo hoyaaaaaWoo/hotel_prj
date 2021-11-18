@@ -26,7 +26,7 @@
 
 <!-- 메인 CSS -->
 <link rel="stylesheet" type="text/css"
-	href="http://localhost/hotel_prj/main/main.css">
+	href="http://211.63.89.141/main/main.css">
 
 <style type="text/css">
 .hr1 {
@@ -216,7 +216,7 @@
 
 	function main() {
 		alert("메인 페이지로 이동합니다.");
-		location.href = "http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp"
+		location.href = "http://211.63.89.141/main/Hotel_Ritz_Seoul.jsp"
 	}
 	function print() {
 		alert("인쇄를 시작하겠습니다..");
@@ -368,7 +368,7 @@ request.setCharacterEncoding("UTF-8");
 					<table class="chkTab">
 						<tr>
 							<td style="width: 500px">
-							<img src="http://localhost/hotel_prj/roomImages/${ rVO.main_img }"
+							<img src="http://211.63.89.141/roomImages/${ rVO.main_img }"
 								width="480" height="330" /><br /> <br /></td>
 
 							<td>

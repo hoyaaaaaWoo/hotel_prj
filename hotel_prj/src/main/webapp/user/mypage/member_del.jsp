@@ -47,12 +47,12 @@ session.invalidate();
 %>
 <script type="text/javascript">
 alert("회원 탈퇴가 완료되었습니다. \n그동안이용해주셔서 감사합니다");
-location.href="http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp";
+location.href="http://211.63.89.141/main/Hotel_Ritz_Seoul.jsp";
 </script>	
 <%}else{%>
 <script type="text/javascript">
 	alert("죄송합니다. 잠시 후 다시 시도해주십시오.");
-	location.href="http://localhost/hotel_prj/user/mypage/correction_member.jsp";
+	location.href="http://211.63.89.141/user/mypage/correction_member.jsp";
 </script>
 <%}%>
 </body>

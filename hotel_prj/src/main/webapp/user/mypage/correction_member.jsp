@@ -22,7 +22,7 @@
     <title>Hotel_Ritz_Seoul</title>
      <!-- 메인 CSS -->
 	<link rel="stylesheet" type="text/css"
-	href="http://localhost/hotel_prj/main/main.css">
+	href="http://211.63.89.141/main/main.css">
 	<style type = "text/css">
 
 	</style>
@@ -143,7 +143,7 @@ pageContext.setAttribute("info", infoVO);
 <div style = "width:450px; border-bottom:2px solid #d3d3d3; text-align: center; margin: 0px auto;">
 <br/><br/><br/>
 <h5>비밀번호 변경하기</h5>
-<form  id="passFrm" action="http://localhost/hotel_prj/user/mypage/member_pass_process.jsp" method="post">
+<form  id="passFrm" action="http://211.63.89.141/user/mypage/member_pass_process.jsp" method="post">
 <input type="password" style="width:250px;height:40px" placeholder="현재 비밀번호를 입력하세요"id="pass"  name ="pass">
 <br/><br/>
 <input type="password" style="width:250px;height:40px" placeholder="변경할 비밀번호를 입력하세요" id="change_pass" name="change_pass">
@@ -155,12 +155,12 @@ pageContext.setAttribute("info", infoVO);
 <br/><br/><br/><br/><br/><br/>
 </div>
 <c:if test="${empty info }">
-<% response.sendRedirect("http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp"); %>
+<% response.sendRedirect("http://211.63.89.141/main/Hotel_Ritz_Seoul.jsp"); %>
 </c:if>
 <div style = "width:450px; border-bottom:2px solid #d3d3d3; text-align: center; margin: 0px auto;">
 <br/><br/><br/>
 <c:forEach var="info" items="${info}">
-<form id="frm" action="http://localhost/hotel_prj/user/mypage/member_update_process.jsp" method="get">
+<form id="frm" action="http://211.63.89.141/user/mypage/member_update_process.jsp" method="get">
 <h5>이름 변경하기</h5>
 <input type="text" style="width:250px;height:40px" value="${ info.kname }" id="kname" name="kname" >
 <br/><br/>
@@ -196,6 +196,6 @@ pageContext.setAttribute("info", infoVO);
     ================================================== -->
     
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="http://localhost/hotel_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
+    <script src="http://211.63.89.141/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>

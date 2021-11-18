@@ -13,7 +13,7 @@
 
     <!-- 메인 CSS -->
 	<link rel="stylesheet" type="text/css"
-	href="http://localhost/hotel_prj/main/main.css">
+	href="http://211.63.89.141/main/main.css">
      <title>Hotel_Ritz_Seoul</title>
 	<style type = "text/css">
 	/* 		div {margin: 0px auto; width: 1130px;} */
@@ -29,11 +29,11 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	
-    <script src="http://localhost/hotel_prj/common/bootstrap/holder.js"></script>
+    <script src="http://211.63.89.141/common/bootstrap/holder.js"></script>
 
-    <script src="http://localhost/hotel_prj/common/bootstrap/ie-emulation-modes-warning.js"></script>
+    <script src="http://211.63.89.141/common/bootstrap/ie-emulation-modes-warning.js"></script>
 
-    <link href="http://localhost/hotel_prj/common/bootstrap/carousel.css" rel="stylesheet">
+    <link href="http://211.63.89.141/common/bootstrap/carousel.css" rel="stylesheet">
     <script type="text/javascript">
   $(function() {
 		$("#btn").click(function() {
@@ -84,8 +84,8 @@
     	</tr>
     	<tr >
     	
-    		<td><a href="http://localhost/hotel_prj/user/login/signIn.jsp" style="color: #C0C0C0">&nbsp;&nbsp;회원가입&nbsp;&nbsp;</a>
-    		<a href="http://localhost/hotel_prj/user/login/find.jsp" style="color: #C0C0C0">아이디/비밀번호 찾기</a></td>
+    		<td><a href="http://211.63.89.141/user/login/signIn.jsp" style="color: #C0C0C0">&nbsp;&nbsp;회원가입&nbsp;&nbsp;</a>
+    		<a href="http://211.63.89.141/user/login/find.jsp" style="color: #C0C0C0">아이디/비밀번호 찾기</a></td>
     	</tr>
     </table>
     </form>
@@ -100,7 +100,7 @@
     ================================================== -->
     
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="http://localhost/hotel_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
+    <script src="http://211.63.89.141/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
     <script>
 
    		

@@ -25,7 +25,7 @@
 
 <!-- 메인 CSS -->
 <link rel="stylesheet" type="text/css"
-	href="http://localhost/hotel_prj/main/main.css">
+	href="http://211.63.89.141/main/main.css">
 
 <!-- Bootstrap core CSS -->
 <!-- jQuery CDN -->
@@ -40,7 +40,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-<link href="http://localhost/hotel_prj/common/bootstrap/carousel.css"
+<link href="http://211.63.89.141/common/bootstrap/carousel.css"
 	rel="stylesheet">
 	
 
@@ -180,11 +180,11 @@ tr { border: 1px solid #FFFF00}
 <script type="text/javascript">
 $(function(){
 	$("#roomIntroBtn").click(function(){
-		location.href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp";
+		location.href="http://211.63.89.141/user/reser_room/room_intro.jsp";
 	})//table click
 	
 	$("#roomReserBtn").click(function(){
-		location.href="http://localhost/hotel_prj/user/reser_room/room_date.jsp";
+		location.href="http://211.63.89.141/user/reser_room/room_date.jsp";
 	})//table click
 
 	//리모콘 이벤트
@@ -207,7 +207,7 @@ $(function(){
 <body>
 	<div class="wrapper">
 		<!-- header/navibar import -->
-		<c:import url="http://localhost/hotel_prj/main/main_header_nav.jsp" />
+		<c:import url="http://211.63.89.141/main/main_header_nav.jsp" />
 		
 		<br/><br/><br/><br/><br/><br/>
 		
@@ -261,7 +261,7 @@ $(function(){
 							<!-- 메인이미지 -->
 				<div class="item active" style = "width: 1000px">
 					<img class="first-slide" 
-						src="http://localhost/hotel_prj/roomImages/${room.img}"
+						src="http://211.63.89.141/roomImages/${room.img}"
 						alt="mainImg">
 				</div>
 				
@@ -272,7 +272,7 @@ $(function(){
 				<c:forEach var="imgVO" items="${eachList}">
 				<div class="item" style = "width: 1000px">
 					<img 
-						src="http://localhost/hotel_prj/roomImages/${imgVO.imgSrc}"
+						src="http://211.63.89.141/roomImages/${imgVO.imgSrc}"
 						alt="otherImgs">
 				</div>
 				</c:forEach>
@@ -373,7 +373,7 @@ $(function(){
 			<br/><br/><br/><br/>
 
 			<!-- footer import -->
-			<c:import url="http://localhost/hotel_prj/main/main_footer.jsp" />
+			<c:import url="http://211.63.89.141/main/main_footer.jsp" />
 
 		<!-- 객실 리모콘 -->
 		<table id="remoCon">
@@ -383,7 +383,7 @@ $(function(){
 		<c:forEach var="room" items="${roomList}">
 		<c:set var="num" value="${num+1}"/> 
 		<tr>
-		<td id="remoConTd"><a href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp?#target${num}" id="targetA">
+		<td id="remoConTd"><a href="http://211.63.89.141/user/reser_room/room_intro.jsp?#target${num}" id="targetA">
 		<span id="eachRoom">${room.roomName}</span></a></td>
 		</tr>
 		</c:forEach>
