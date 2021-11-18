@@ -1,17 +1,17 @@
-<%@page import="admin_room.RoomModify"%>
-<%@page import="admin_room.UploadImgList"%>
-<%@page import="admin_room.RoomInsert"%>
-<%@page import="admin_room.RoomVO"%>
-<%@page import="admin_room.RoomSelect"%>
-<%@page import="admin_reservation.ReserveSelect"%>
+<%@page import="kr.co.sist.admin.room.RoomModify"%>
+<%@page import="kr.co.sist.admin.room.UploadImgList"%>
+<%@page import="kr.co.sist.admin.room.RoomInsert"%>
+<%@page import="kr.co.sist.admin.room.RoomVO"%>
+<%@page import="kr.co.sist.admin.room.RoomSelect"%>
+<%@page import="kr.co.sist.admin.reservation.ReserveSelect"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
-<%@page import="admin_member.MemberVO"%>
+<%@page import="kr.co.sist.admin.member.MemberVO"%>
 <%@page import="java.util.List"%>
-<%@page import="admin_member.MemberSelect"%>
-<%@page import="admin_reservation.ReserveUpdateVO"%>
+<%@page import="kr.co.sist.admin.member.MemberSelect"%>
+<%@page import="kr.co.sist.admin.reservation.ReserveUpdateVO"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="admin_reservation.ReserveModify"%>
+<%@page import="kr.co.sist.admin.reservation.ReserveModify"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" 
     info="객실 정보 수정 프로세스"%>
@@ -35,7 +35,7 @@
 </c:if>
  
 <!-- 웹 파라미터 받기 -->
-<jsp:useBean id="roomVO" class="admin_room.RoomVO" scope="page"/>
+<jsp:useBean id="roomVO" class="kr.co.sist.admin.room.RoomVO" scope="page"/>
 <jsp:setProperty property="*" name="roomVO"/>
 <%
 //가격 세팅

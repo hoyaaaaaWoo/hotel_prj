@@ -2,10 +2,10 @@
 <%@page import="user_imagesTab.ImagesVO"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="user_imagesTab.ImageCount"%>
-<%@page import="admin_room.OtherImgVO"%>
-<%@page import="admin_room.RoomVO"%>
+<%@page import="kr.co.sist.admin.room.OtherImgVO"%>
+<%@page import="kr.co.sist.admin.room.RoomVO"%>
 <%@page import="java.util.List"%>
-<%@page import="admin_room.RoomSelect"%>
+<%@page import="kr.co.sist.admin.room.RoomSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="Hotel Ritz Seoul"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>

@@ -10,7 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import admin_member.MemberVO;
+import kr.co.sist.admin.member.MemberVO;
 import kr.co.sist.util.cipher.DataEncrypt;
 import team3_dao.GetJdbcTemplate;
 import user_reservation.ReservationVO;

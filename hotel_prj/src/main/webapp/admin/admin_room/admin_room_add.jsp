@@ -1,4 +1,4 @@
-<%@page import="admin_room.UploadImgList"%>
+<%@page import="kr.co.sist.admin.room.UploadImgList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="객실 - 객실 / 객실 추가"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>

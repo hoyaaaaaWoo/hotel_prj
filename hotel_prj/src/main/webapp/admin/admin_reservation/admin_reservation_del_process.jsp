@@ -1,4 +1,4 @@
-<%@page import="admin_reservation.ReserveModify"%>
+<%@page import="kr.co.sist.admin.reservation.ReserveModify"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" info="예약 건 삭제"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>

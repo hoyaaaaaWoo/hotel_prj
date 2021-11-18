@@ -1,8 +1,8 @@
 <%@page import="org.json.simple.JSONObject"%>
 <%@page import="org.json.simple.JSONArray"%>
-<%@page import="admin_room.UploadImgVO"%>
+<%@page import="kr.co.sist.admin.room.UploadImgVO"%>
 <%@page import="java.util.List"%>
-<%@page import="admin_room.UploadImgList"%>
+<%@page import="kr.co.sist.admin.room.UploadImgList"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.multipart.FileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>

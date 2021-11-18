@@ -1,10 +1,10 @@
-<%@page import="admin_member.Admin_Decription"%>
+<%@page import="kr.co.sist.admin.member.Admin_Decription"%>
 <%@page import="user_login.MemberDAO"%>
 <%@page import="kr.co.sist.util.cipher.DataDecrypt"%>
-<%@page import="admin_member.MemberUpdate"%>
-<%@page import="admin_member.MemberVO"%>
+<%@page import="kr.co.sist.admin.member.MemberUpdate"%>
+<%@page import="kr.co.sist.admin.member.MemberVO"%>
 <%@page import="java.util.List"%>
-<%@page import="admin_member.MemberSelect"%>
+<%@page import="kr.co.sist.admin.member.MemberSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	info="회원조회"
@@ -131,7 +131,7 @@ $(".delBtn").click(function(){
 </script>
 </head>
 <body>
-<jsp:useBean id="ev" class="admin_member.MemberVO" scope="page"/>
+<jsp:useBean id="ev" class="kr.co.sist.admin.member.MemberVO" scope="page"/>
 <jsp:setProperty property="*" name="ev"/>
 <c:catch var="e">
 <%

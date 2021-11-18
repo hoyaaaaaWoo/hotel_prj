@@ -1,9 +1,9 @@
-<%@page import="admin_room.UploadImgList"%>
+<%@page import="kr.co.sist.admin.room.UploadImgList"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="admin_room.RoomVO"%>
+<%@page import="kr.co.sist.admin.room.RoomVO"%>
 <%@page import="java.util.List"%>
-<%@page import="admin_room.RoomSelect"%>
-<%@page import="admin_room.RoomSelect.selectRoomInfo"%>
+<%@page import="kr.co.sist.admin.room.RoomSelect"%>
+<%@page import="kr.co.sist.admin.room.RoomSelect.selectRoomInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="객실 - 객실 / 객실 수정"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>

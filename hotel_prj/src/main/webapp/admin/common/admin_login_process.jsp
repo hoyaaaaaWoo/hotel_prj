@@ -1,4 +1,4 @@
-<%@page import="admin_member.MemberSelect"%>
+<%@page import="kr.co.sist.admin.member.MemberSelect"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"

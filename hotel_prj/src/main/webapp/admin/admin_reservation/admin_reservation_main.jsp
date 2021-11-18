@@ -1,4 +1,4 @@
-<%@page import="admin_reservation.ReserveSelect"%>
+<%@page import="kr.co.sist.admin.reservation.ReserveSelect"%>
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="예약관리 메인"%>
@@ -188,7 +188,7 @@ $(function(){
 		 </form>
 		 
 		 <!-- 날짜 선택 or 오늘의 예약으로 넘어왔을 때 웹파라미터 처리 -->
-		 <jsp:useBean id="date" class="admin_reservation.ReserveDateVO" scope="page"/>
+		 <jsp:useBean id="date" class="kr.co.sist.admin.reservation.ReserveDateVO" scope="page"/>
 		 <jsp:setProperty property="*" name="date"/>
 		 
 		 <%

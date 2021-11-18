@@ -1,12 +1,12 @@
-<%@page import="admin_reservation.ReserveSelect"%>
+<%@page import="kr.co.sist.admin.reservation.ReserveSelect"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
-<%@page import="admin_member.MemberVO"%>
+<%@page import="kr.co.sist.admin.member.MemberVO"%>
 <%@page import="java.util.List"%>
-<%@page import="admin_member.MemberSelect"%>
-<%@page import="admin_reservation.ReserveUpdateVO"%>
+<%@page import="kr.co.sist.admin.member.MemberSelect"%>
+<%@page import="kr.co.sist.admin.reservation.ReserveUpdateVO"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="admin_reservation.ReserveModify"%>
+<%@page import="kr.co.sist.admin.reservation.ReserveModify"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" info="예약 건 수정"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -23,14 +23,16 @@
 
 </head>
 <body>
-<% request.setCharacterEncoding("UTF-8"); %>
+<%
+request.setCharacterEncoding("UTF-8");
+%>
 <!-- 파라미터 없는 루트로 들어왔을 때 redirect -->
 <c:if test="${empty param.inYear}">
 	<c:redirect url="http://localhost/hotel_prj/admin/admin_reservation/admin_reservation_main.jsp"/>
 </c:if>
 
 <!-- 웹 파라미터 받기 -->
-<jsp:useBean id="ruVO" class="admin_reservation.ReserveUpdateVO" scope="page"/>
+<jsp:useBean id="ruVO" class="kr.co.sist.admin.reservation.ReserveUpdateVO" scope="page"/>
 <jsp:setProperty property="*" name="ruVO"/>
 <jsp:setProperty property="chkInDate" name="ruVO" value="${ruVO.inYear}.${ruVO.inMonth}.${ruVO.inDay}"/>
 <jsp:setProperty property="chkOutDate" name="ruVO" value="${ruVO.outYear}.${ruVO.outMonth}.${ruVO.outDay}"/>

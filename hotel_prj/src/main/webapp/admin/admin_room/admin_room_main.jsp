@@ -1,8 +1,8 @@
-<%@page import="admin_room.UploadImgList"%>
-<%@page import="admin_room.RoomVO"%>
-<%@page import="admin_room.OtherImgVO"%>
+<%@page import="kr.co.sist.admin.room.UploadImgList"%>
+<%@page import="kr.co.sist.admin.room.RoomVO"%>
+<%@page import="kr.co.sist.admin.room.OtherImgVO"%>
 <%@page import="java.util.List"%>
-<%@page import="admin_room.RoomSelect"%>
+<%@page import="kr.co.sist.admin.room.RoomSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="객실관리 메인"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>

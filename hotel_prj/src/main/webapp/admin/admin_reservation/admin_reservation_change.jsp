@@ -1,12 +1,12 @@
-<%@page import="admin_room.RoomSelect"%>
-<%@page import="admin_reservation.ReserveSelect"%>
+<%@page import="kr.co.sist.admin.room.RoomSelect"%>
+<%@page import="kr.co.sist.admin.reservation.ReserveSelect"%>
 <%@page import="java.util.List"%>
-<%@page import="admin_member.MemberSelect"%>
-<%@page import="admin_member.MemberVO"%>
+<%@page import="kr.co.sist.admin.member.MemberSelect"%>
+<%@page import="kr.co.sist.admin.member.MemberVO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
-<%@page import="admin_reservation.ReserveUpdateVO"%>
-<%@page import="admin_reservation.ReserveModify"%>
+<%@page import="kr.co.sist.admin.reservation.ReserveUpdateVO"%>
+<%@page import="kr.co.sist.admin.reservation.ReserveModify"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="예약관리 - 변경페이지"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>

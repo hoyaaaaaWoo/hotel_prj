@@ -1,4 +1,4 @@
-<%@page import="admin_member.Admin_Decription"%>
+<%@page import="kr.co.sist.admin.member.Admin_Decription"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="user_imagesTab.ImageCount"%>

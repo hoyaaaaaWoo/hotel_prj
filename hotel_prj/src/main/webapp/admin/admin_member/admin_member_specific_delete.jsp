@@ -1,9 +1,9 @@
 <%@page import="kr.co.sist.util.cipher.DataEncrypt"%>
-<%@page import="admin_member.Admin_Decription"%>
-<%@page import="admin_member.MemberVO"%>
+<%@page import="kr.co.sist.admin.member.Admin_Decription"%>
+<%@page import="kr.co.sist.admin.member.MemberVO"%>
 <%@page import="java.util.List"%>
-<%@page import="admin_member.MemberSelect"%>
-<%@page import="admin_member.MemberDelete"%>
+<%@page import="kr.co.sist.admin.member.MemberSelect"%>
+<%@page import="kr.co.sist.admin.member.MemberDelete"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	info="특정 탈퇴회원 조회"
