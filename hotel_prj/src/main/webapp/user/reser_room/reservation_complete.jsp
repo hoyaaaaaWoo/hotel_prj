@@ -37,7 +37,7 @@
 .hr1 {border-bottom: 1px solid #d3d3d3; }
 
 #resConf {width: 1000px; height: 60px; font-size: 20px; font-weight: bold}
-.resChk { width: 1000px; height: 1200px; color: #5A5A5A; margin: 0px auto; text-align: center;}
+.resChk { width: 1000px; height: 1800px; color: #5A5A5A; margin: 0px auto; text-align: center;}
 
 .chkDiv {width: 1000px; color: #5A5A5A; margin: 0px auto; text-align: center; }
 .chkTab {width: 1000px; height: 450px; color: #5A5A5A; text-align: left; margin: 0px auto; table-layout: fixed;
@@ -107,14 +107,12 @@ p { border: 1px solid #FF00FF}
 	rel="stylesheet">
 	
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4770be2574c85940d843f0c412764fd2"></script>
 
 
 <!-- daum map -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4770be2574c85940d843f0c412764fd2"></script>
 
 <script>
-
 $(function(){
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
@@ -148,17 +146,13 @@ var infowindow = new kakao.maps.InfoWindow({
 infowindow.open(map, marker); 
 
 });//end ready
-
-
 </script>
 
 <script type="text/javascript">
 $(function(){
-	
-
 	$("#goHomeBtn").click(function(){
 		location.href="http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp";
-	})//click
+	})//table click
 	
 }); //ready
 
@@ -228,6 +222,8 @@ rsVO.setChkout_date(paramEd);
 rsVO.setAdd_req(addReq);
 rsVO.setCc_agree(paramCcAgree);
 rsVO.setPi_agree(paramPiAgree);
+rsVO.setCard_no(card_no);
+rsVO.setCompany(cardCompany);
 
 // 예약 insert
 ReservationInsert resInsert = new ReservationInsert();
@@ -380,14 +376,14 @@ if ( paramCardSave.equals("Y") && !saveFlag.equals("0")){
 			</table>
 			</div>
 			</div><!-- guideDiv --><br/>
-			<input type="button" id = "goHomeBtn" value = "메인으로" ></button><br/>
+			<button type="button" id = "goHomeBtn" >메인으로</button><br/><br/><br/><br/>
+			
+			
+			<div id="map" style="width:1000px; height:500px;"></div>
+			
+			
 			</div><!-- resChk -->
-			
-			
-			<div id="map" style="width:1000px; height:500px; margin: 0px auto"></div>
-			<br/><br/><br/><br/><br/><br/>
-			
-			
+			<br/><br/>
 			<%-- 
 			<form name = "hiddenCard" action = "http://localhost/hotel_prj/user/reser_room/card_process.jsp" id = "hiddenCard" method = "get" >
 				<input type="hidden" id="card_no" name="card_no" value = "<%= card_no %>"/>
