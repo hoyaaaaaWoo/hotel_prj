@@ -133,7 +133,7 @@ function sendEmail(email){
 <c:if test="${ not empty param.email }">
 <!--  email라는 파라메터가 존재하면 입력된 이메일를 사용하여 DBTable에
 	이메일이 존재하는지 조회.-->
-<div>
+<div><br/>
 <%
 	//입력된 email를 받는다.
 	String email=request.getParameter("email");
