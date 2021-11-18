@@ -162,14 +162,14 @@ pageContext.setAttribute("info", infoVO);
 <c:forEach var="info" items="${info}">
 <form id="frm" action="http://localhost/hotel_prj/user/mypage/member_update_process.jsp" method="get">
 <h5>이름 변경하기</h5>
-<input type="text" style="width:250px;height:40px" placeholder="${ info.kname }" id="kname" name="kname" >
+<input type="text" style="width:250px;height:40px" value="${ info.kname }" id="kname" name="kname" >
 <br/><br/>
 <h5>전화번호 변경하기<br/>("-"를 포함해주세요)</h5>
-<input type="text" style="width:250px;height:40px" placeholder="${info.tel }"name="tel" id="tel">
+<input type="text" style="width:250px;height:40px" value="${info.tel }"name="tel" id="tel">
 <br/><br/>
 
 <h5>이메일 변경하기</h5>
-<input type="text" style="width:250px;height:40px" placeholder="${info.email }" name="email" id="email">
+<input type="text" style="width:250px;height:40px" value="${info.email }" name="email" id="email">
 <br/><br/><br/>
 <button type="button" class="btn btn-default" style="width:250px;height:40px ; margin: 0px auto;" value="수정"  id="btn1">수정</button>
 </form>
