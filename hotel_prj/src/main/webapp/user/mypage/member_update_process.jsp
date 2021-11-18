@@ -1,11 +1,11 @@
-<%@page import="user_login.UpdateMemDAO"%>
+<%@page import="kr.co.sist.user.login.UpdateMemDAO"%>
 <%@page import="kr.co.sist.util.cipher.DataEncrypt"%>
-<%@page import="user_login.UpdateDAO"%>
+<%@page import="kr.co.sist.user.login.UpdateDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
     
- <jsp:useBean id="mVO" class="user_login.MemberChgVO" scope="page"/><!-- 아이디 비밀번호 새로운 비번을 저장할 수 있는 VO  -->
+ <jsp:useBean id="mVO" class="kr.co.sist.user.login.MemberChgVO" scope="page"/><!-- 아이디 비밀번호 새로운 비번을 저장할 수 있는 VO  -->
 <jsp:setProperty property="*" name="mVO"/><!--  입력정보-->
 
 <%

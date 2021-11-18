@@ -1,18 +1,20 @@
 <%@page import="org.springframework.dao.DataAccessException"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="kr.co.sist.util.cipher.DataEncrypt"%>
-<%@page import="user_login.memberVO"%>
-<%@page import="user_login.MemberDAO"%>
+<%@page import="kr.co.sist.user.login.memberVO"%>
+<%@page import="kr.co.sist.user.login.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 
- <jsp:useBean id="loginVO" class="user_login.memberVO" scope="page"/>
+ <jsp:useBean id="loginVO" class="kr.co.sist.user.login.memberVO" scope="page"/>
 <jsp:setProperty property="*" name="loginVO"/><!--  입력정보-->
-  <%request.setCharacterEncoding("UTF-8"); %>
+  <%
+  request.setCharacterEncoding("UTF-8");
+  %>
   
   <!-- 이전 페이지에서 날아온 웹파라미터 이 페이지에서 받아서 설정하기 -->
-  <jsp:useBean id="mVO" class="user_login.memberVO"/>  
+  <jsp:useBean id="mVO" class="kr.co.sist.user.login.memberVO"/>  
   <!-- *써서 setter method 다 실행해서 세팅됨 -->
   <jsp:setProperty property="*" name="mVO"/>
   

@@ -1,7 +1,7 @@
-<%@page import="user_login.Info_Decription"%>
+<%@page import="kr.co.sist.user.login.Info_Decription"%>
 <%@page import="java.util.List"%>
-<%@page import="user_login.memberVO"%>
-<%@page import="user_login.MemberDAO"%>
+<%@page import="kr.co.sist.user.login.memberVO"%>
+<%@page import="kr.co.sist.user.login.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -115,7 +115,7 @@ $(function(){
 </head>
 
 
- <jsp:useBean id="mVO" class="user_login.memberVO" scope="page"/>
+ <jsp:useBean id="mVO" class="kr.co.sist.user.login.memberVO" scope="page"/>
 <jsp:setProperty property="*" name="mVO"/><!--  입력정보-->
 <%
 String id=(String)session.getAttribute("id");

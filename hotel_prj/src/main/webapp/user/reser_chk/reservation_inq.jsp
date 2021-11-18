@@ -1,6 +1,6 @@
-<%@page import="user_reservation.ReservationVO"%>
+<%@page import="kr.co.sist.user.reservation.ReservationVO"%>
 <%@page import="java.util.List"%>
-<%@page import="user_reservation.ReservationSelect"%>
+<%@page import="kr.co.sist.user.reservation.ReservationSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -106,7 +106,7 @@ if(id == null){
 %>
   
   <!-- 이전 페이지에서 날아온 웹파라미터 이 페이지에서 받아서 설정하기 -->
-  <jsp:useBean id="rVO" class="user_reservation.ReservationVO"/>  
+  <jsp:useBean id="rVO" class="kr.co.sist.user.reservation.ReservationVO"/>  
   <!-- *써서 setter method 다 실행해서 세팅됨 -->
   <jsp:setProperty property="*" name="rVO"/>
   

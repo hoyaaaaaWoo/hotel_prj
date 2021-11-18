@@ -1,15 +1,15 @@
-<%@page import="uesr_member.User_Decryption"%>
-<%@page import="user_card.ModifyCard"%>
-<%@page import="user_reservation.ReservationInsert"%>
-<%@page import="user_reservation.ReservationVO"%>
-<%@page import="user_card.CardVO"%>
-<%@page import="user_card.InsertCard"%>
-<%@page import="uesr_member.MemberVO"%>
-<%@page import="uesr_member.MemberSelect"%>
+<%@page import="kr.co.sist.user.member.User_Decryption"%>
+<%@page import="kr.co.sist.user.card.ModifyCard"%>
+<%@page import="kr.co.sist.user.reservation.ReservationInsert"%>
+<%@page import="kr.co.sist.user.reservation.ReservationVO"%>
+<%@page import="kr.co.sist.user.card.CardVO"%>
+<%@page import="kr.co.sist.user.card.InsertCard"%>
+<%@page import="kr.co.sist.user.member.MemberVO"%>
+<%@page import="kr.co.sist.user.member.MemberSelect"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
-<%@page import="user_room.RoomVO"%>
-<%@page import="user_room.RoomSelect"%>
+<%@page import="kr.co.sist.uesr.room.RoomVO"%>
+<%@page import="kr.co.sist.uesr.room.RoomSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="Hotel Ritz Seoul"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>    

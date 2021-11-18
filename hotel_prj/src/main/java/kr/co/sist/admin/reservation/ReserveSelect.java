@@ -10,8 +10,8 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import kr.co.sist.dao.GetJdbcTemplate;
 import kr.co.sist.util.cipher.DataDecrypt;
-import team3_dao.GetJdbcTemplate;
 
 /**
  * 예약 조회를 수행하는 클래스

@@ -1,5 +1,5 @@
-<%@page import="user_find.FindVO"%>
-<%@page import="user_find.FindSelect"%>
+<%@page import="kr.co.sist.user.find.FindVO"%>
+<%@page import="kr.co.sist.user.find.FindSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" info = "Hotel Ritz Seoul"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>

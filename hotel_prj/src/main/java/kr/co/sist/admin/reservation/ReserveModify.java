@@ -3,7 +3,7 @@ package kr.co.sist.admin.reservation;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import team3_dao.GetJdbcTemplate;
+import kr.co.sist.dao.GetJdbcTemplate;
 
 /**
  * 특정 예약의 삭제/수정을 작업을 하는 클래스

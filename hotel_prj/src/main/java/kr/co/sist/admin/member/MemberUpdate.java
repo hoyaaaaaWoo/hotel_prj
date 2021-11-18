@@ -2,7 +2,7 @@ package kr.co.sist.admin.member;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import team3_dao.GetJdbcTemplate;
+import kr.co.sist.dao.GetJdbcTemplate;
 
 public class MemberUpdate {
 

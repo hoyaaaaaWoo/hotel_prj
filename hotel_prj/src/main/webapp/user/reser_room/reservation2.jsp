@@ -1,9 +1,9 @@
 <%@page import="kr.co.sist.admin.member.Admin_Decription"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
-<%@page import="user_imagesTab.ImageCount"%>
-<%@page import="user_room.RoomVO"%>
-<%@page import="user_room.RoomSelect"%>
+<%@page import="kr.co.sist.user.images.ImageCount"%>
+<%@page import="kr.co.sist.uesr.room.RoomVO"%>
+<%@page import="kr.co.sist.uesr.room.RoomSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="Hotel Ritz Seoul"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>   

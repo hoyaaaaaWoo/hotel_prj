@@ -1,4 +1,4 @@
-<%@page import="user_login.MemberDAO"%>
+<%@page import="kr.co.sist.user.login.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     info="아이디 중복확인"

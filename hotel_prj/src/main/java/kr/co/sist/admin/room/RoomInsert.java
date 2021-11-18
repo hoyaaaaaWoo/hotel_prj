@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import team3_dao.GetJdbcTemplate;
+import kr.co.sist.dao.GetJdbcTemplate;
 
 /**
  * 객실 추가 시 사용되는 클래스<br>

@@ -1,5 +1,5 @@
 <%@page import="kr.co.sist.admin.member.Admin_Decription"%>
-<%@page import="user_login.MemberDAO"%>
+<%@page import="kr.co.sist.user.login.MemberDAO"%>
 <%@page import="kr.co.sist.util.cipher.DataDecrypt"%>
 <%@page import="kr.co.sist.admin.member.MemberUpdate"%>
 <%@page import="kr.co.sist.admin.member.MemberVO"%>

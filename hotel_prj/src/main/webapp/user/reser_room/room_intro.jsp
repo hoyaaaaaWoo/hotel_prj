@@ -1,7 +1,7 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="user_imagesTab.ImagesVO"%>
+<%@page import="kr.co.sist.user.images.ImagesVO"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
-<%@page import="user_imagesTab.ImageCount"%>
+<%@page import="kr.co.sist.user.images.ImageCount"%>
 <%@page import="kr.co.sist.admin.room.OtherImgVO"%>
 <%@page import="kr.co.sist.admin.room.RoomVO"%>
 <%@page import="java.util.List"%>

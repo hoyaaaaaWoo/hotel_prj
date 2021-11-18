@@ -1,6 +1,6 @@
-<%@page import="user_login.memberVO"%>
+<%@page import="kr.co.sist.user.login.memberVO"%>
 <%@page import="kr.co.sist.util.cipher.DataEncrypt"%>
-<%@page import="user_login.MemberDAO"%>
+<%@page import="kr.co.sist.user.login.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     info="회원가입 처리"
@@ -74,7 +74,7 @@ String req_agree = request.getParameter("req_agree");
 String opt_agree = request.getParameter("opt_agree");
 String m_status = request.getParameter("m_status");
 %>
- <jsp:useBean id="mVO" class="user_login.memberVO" scope="page"/>
+ <jsp:useBean id="mVO" class="kr.co.sist.user.login.memberVO" scope="page"/>
 <jsp:setProperty property="*" name="mVO"/><!--  입력정보-->
 <c:catch var="e">
   

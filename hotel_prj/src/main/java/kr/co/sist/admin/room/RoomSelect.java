@@ -11,7 +11,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import team3_dao.GetJdbcTemplate;
+import kr.co.sist.dao.GetJdbcTemplate;
 
 /**
  * 객실에 대한 정보를 조회하는 class

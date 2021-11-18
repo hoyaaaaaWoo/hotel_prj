@@ -11,7 +11,7 @@ import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import team3_dao.GetJdbcTemplate;
+import kr.co.sist.dao.GetJdbcTemplate;
 
 public class MemberSelect {
 

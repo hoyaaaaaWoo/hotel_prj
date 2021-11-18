@@ -53,7 +53,7 @@ function home(){
 
 </script>
 </head>
- <jsp:useBean id="mVO" class="user_login.memberVO" scope="page"/>
+ <jsp:useBean id="mVO" class="kr.co.sist.user.login.memberVO" scope="page"/>
 <jsp:setProperty property="*" name="mVO"/><!--  입력정보-->
 <%
 	String id=(String)session.getAttribute("id");

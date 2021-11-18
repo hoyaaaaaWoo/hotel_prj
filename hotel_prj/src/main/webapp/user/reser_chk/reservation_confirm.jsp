@@ -1,12 +1,12 @@
-<%@page import="user_reservation.ReservationUpdate"%>
+<%@page import="kr.co.sist.user.reservation.ReservationUpdate"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
-<%@page import="user_room.RoomVO"%>
-<%@page import="user_room.RoomSelect"%>
+<%@page import="kr.co.sist.uesr.room.RoomVO"%>
+<%@page import="kr.co.sist.uesr.room.RoomSelect"%>
 <%@page import="kr.co.sist.util.cipher.DataDecrypt"%>
-<%@page import="user_reservation.ReservationVO"%>
+<%@page import="kr.co.sist.user.reservation.ReservationVO"%>
 <%@page import="java.util.List"%>
-<%@page import="user_reservation.ReservationSelect"%>
+<%@page import="kr.co.sist.user.reservation.ReservationSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info="Hotel Ritz Seoul"%>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -275,10 +275,12 @@ p { border: 1px solid #FF00FF}
 <body>
 <input type="hidden" value="${ res_no }"/>
 
-<%request.setCharacterEncoding("UTF-8"); %>
+<%
+request.setCharacterEncoding("UTF-8");
+%>
 
  <!-- 이전 페이지에서 날아온 웹파라미터 이 페이지에서 받아서 설정하기 -->
-  <jsp:useBean id="resVO" class="user_reservation.ReservationVO"/>  
+  <jsp:useBean id="resVO" class="kr.co.sist.user.reservation.ReservationVO"/>  
   <!-- *써서 setter method 다 실행해서 세팅됨 -->
   <jsp:setProperty property="*" name="resVO"/>
   

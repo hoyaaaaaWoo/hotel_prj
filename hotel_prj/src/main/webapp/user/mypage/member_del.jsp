@@ -1,5 +1,5 @@
 <%@page import="java.util.Date"%>
-<%@page import="user_login.UpdateDAO"%>
+<%@page import="kr.co.sist.user.login.UpdateDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -30,10 +30,9 @@
 request.setCharacterEncoding("UTF-8");
 String id=(String)session.getAttribute("id");
 String m_status = request.getParameter("m_status");
-
 %>
 
-<jsp:useBean id="mVO" class="user_login.memberVO" scope="page"/>
+<jsp:useBean id="mVO" class="kr.co.sist.user.login.memberVO" scope="page"/>
 <jsp:setProperty property="*" name="mVO"/><!--  입력정보-->
 <%
 mVO.setId(id);

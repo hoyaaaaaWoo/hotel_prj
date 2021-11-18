@@ -1,6 +1,6 @@
 <%@page import="org.springframework.dao.DataAccessException"%>
 <%@page import="kr.co.sist.util.cipher.DataDecrypt"%>
-<%@page import="user_login.MemberDAO"%>
+<%@page import="kr.co.sist.user.login.MemberDAO"%>
 <%@page import="kr.co.sist.util.cipher.DataEncrypt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -47,7 +47,7 @@
 <!-- NAVBAR
 ================================================== -->
   <body>
- <jsp:useBean id="loginVO" class="user_login.memberVO" scope="page"/>
+ <jsp:useBean id="loginVO" class="kr.co.sist.user.login.memberVO" scope="page"/>
 <jsp:setProperty property="*" name="loginVO"/><!--  입력정보-->
 <%
 request.setCharacterEncoding("UTF-8");

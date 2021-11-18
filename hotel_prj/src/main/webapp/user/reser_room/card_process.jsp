@@ -1,7 +1,7 @@
-<%@page import="uesr_member.MemberVO"%>
-<%@page import="uesr_member.MemberSelect"%>
-<%@page import="user_room.RoomVO"%>
-<%@page import="user_room.RoomSelect"%>
+<%@page import="kr.co.sist.user.member.MemberVO"%>
+<%@page import="kr.co.sist.user.member.MemberSelect"%>
+<%@page import="kr.co.sist.uesr.room.RoomVO"%>
+<%@page import="kr.co.sist.uesr.room.RoomSelect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     info = "카드정보"%>

@@ -1,9 +1,11 @@
 <%@page import="org.springframework.dao.DataAccessException"%>
-<%@page import="user_reservation.ReservationUpdate"%>
+<%@page import="kr.co.sist.user.reservation.ReservationUpdate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% request.setCharacterEncoding("UTF-8"); %>
-<jsp:useBean id="rVO" class="user_reservation.ReservationVO" scope="page"/>
+<%
+request.setCharacterEncoding("UTF-8");
+%>
+<jsp:useBean id="rVO" class="kr.co.sist.user.reservation.ReservationVO" scope="page"/>
 <jsp:setProperty name="rVO" property="*"/>
 <script type="text/javascript">    
 <%
