@@ -15,8 +15,9 @@
 			</span>
 </div>
 </div>
-<div style="height: 50px; background-color: #000000; margin:0px auto;">
-<h2 style="color:#F5DF4D;text-align: center; ">아이디 중복확인</h2>
+<div style="height: 50px; background-color: #000000; margin:0px auto; font-size: 20px; font-weight: bold;
+	color: #F5DF4D; text-align: center; padding-top: 12px; margin-top: 10px ">
+아이디 중복확인
 </div>
 <meta charset="UTF-8">
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,6 +26,25 @@
 <link rel="stylesheet" type="text/css" href="http://localhost/hotel_prj/common/css/main_v20211012.css" />   
 <style type="text/css">
 
+#btn {
+	border: 1px solid #E9E9E9;
+	font-size : 12px;
+	font-weight: bold;
+	background-color: #FAFAFA;
+	color: #333;
+	width: 80px;
+	height: 30px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 7px;
+}
+
+
+#btn:hover {
+	background-color: #FCF4C0;
+	color: #333;
+	cursor: pointer;
+}
 </style>
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -84,7 +104,7 @@ function sendId(id){
 
 <!--  id라는 파라메터가 존재하면 입력된 아이디를 사용하여 DBTable에
 	아이디가 존재하는지 조회.-->
-<div>
+<div><br/>
 <%
 	//입력된 id를 받는다.
 	String id=request.getParameter("id");

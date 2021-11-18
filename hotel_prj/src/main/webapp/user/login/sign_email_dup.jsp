@@ -15,8 +15,9 @@
 			</span>
 </div>
 </div>
-<div style="height: 50px; background-color: #000000; text-align: center; margin:0px auto;;">
-<h2 style="color:#F5DF4D;vertical-align: middle;">Email 중복확인</h2>
+<div style="height: 50px; background-color: #000000; margin:0px auto; font-size: 20px; font-weight: bold;
+	color: #F5DF4D; text-align: center; padding-top: 12px; margin-top: 10px ">
+이메일 중복확인
 </div>
 
 <meta charset="UTF-8">
@@ -26,6 +27,25 @@
 <link rel="stylesheet" type="text/css" href="http://localhost/hotel_prj/common/css/main_v20211012.css" />   
 <style type="text/css">
 
+#btn {
+	border: 1px solid #E9E9E9;
+	font-size : 12px;
+	font-weight: bold;
+	background-color: #FAFAFA;
+	color: #333;
+	width: 80px;
+	height: 30px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 7px;
+}
+
+
+#btn:hover {
+	background-color: #FCF4C0;
+	color: #333;
+	cursor: pointer;
+}
 </style>
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
