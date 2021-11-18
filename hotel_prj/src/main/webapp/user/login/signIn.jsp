@@ -126,6 +126,16 @@
 			}
 			}//pass
 			
+			 function enameCheck(args) {
+				   var flag=false;
+				   var regEname =/^[a-zA-Z]+$/;     // 영문이름 정규식
+				    if(!regEname.test($("#ename_fst").val()) ){
+				         alert("영문이 일치하지 않습니다");
+				         $('#ename_fst').focus();
+				         $('#ename_fst').val('');     
+				         return;
+			}
+			}//pass
 			
 /* 		      function enamefCheck(args) {
 		    	   var flag=false;

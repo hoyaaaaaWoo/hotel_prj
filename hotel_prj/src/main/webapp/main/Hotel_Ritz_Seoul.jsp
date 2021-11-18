@@ -134,7 +134,7 @@ p { border: 1px solid #FF00FF}
 
 
 		<!-- header/navibar import -->
-		<c:import url="http://localhost/hotel_prj/main/main_header_nav.jsp" />
+		<jsp:include page="main_header_nav.jsp"/>
 
 		
 		<!-- Carousel

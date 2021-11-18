@@ -94,15 +94,17 @@ session.setAttribute("id", id);
 </c:catch>
 <br/><br/>
 <c:choose>
-<c:when test="${ kname ne null }">
+<c:when test="${ kname ne null }"><h4>안녕하세요</h4><br/>
 <h4><c:out value="${ param.id }"/>(으)로 로그인 하셨습니다.</h4><br/>
 </c:when>
-<c:otherwise>
+<c:when test="${kname eq null }">아이디/비밀번호를 다시 확인해주세요
+</c:when>
+<c:when test="${ kname ne null && m_status eq 'N'}">
 탈퇴한 회원입니다.
-</c:otherwise>
+</c:when>
 </c:choose>
 <c:if test="${ not empty e }">
-아이디 또는 비밀번호를 확인해 주세요.
+죄송합니다. 잠시 후에 다시 시도해주시기 바랍니다.
 <br/><br/><br/>
 <input type="button"  value="로그인" class="btn btn-default" onclick="location.href='login.jsp'">
 </c:if>
