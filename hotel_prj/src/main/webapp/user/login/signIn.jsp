@@ -134,7 +134,7 @@
 			}
 			}//pass
 			
-			 function enamefCheck(args) {
+			 function enamefCheck() {
 				   var flag=false;
 				   var regEname =/^[a-zA-Z]+$/;     // 영문이름 정규식
 				    if(!regEname.test($("#ename_fst").val()) ){
@@ -145,7 +145,7 @@
 			}
 			}//enamefCheck
 			
-			 function enamelCheck(args) {
+			 function enamelCheck() {
 				   var flag=false;
 				   var regEname =/^[a-zA-Z]+$/;     // 영문이름 정규식
 				    if(!regEname.test($("#ename_lst").val()) ){
