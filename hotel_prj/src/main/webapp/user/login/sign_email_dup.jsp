@@ -7,6 +7,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+<div class="navbar-wrapper">
+<div style="height: 60px; background-color: #FFFFFF">
+<div style="height: 20px;  background-color: #FFFFFF"></div>
+	<span id="logo">
+			<h3><strong>Hotel Ritz Seoul</strong></h3>
+			</span>
+</div>
+</div>
+<div style="height: 50px; background-color: #000000; text-align: center; margin:0px auto;;">
+<h2 style="color:#F5DF4D;vertical-align: middle;">Email 중복확인</h2>
+</div>
+
 <meta charset="UTF-8">
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,6 +33,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+
 
 <script type="text/javascript">
 $(function(){
@@ -80,11 +94,13 @@ function sendEmail(email){
 	self.close();
 }
 
+
 </script>
 </head>
 <body>
-<form action="sign_email_dup.jsp" method="get" id="frm" >
-<h2>Email 중복확인</h2>
+
+<form action="sign_email_dup.jsp" method="get" id="frm" style="text-align: center; margin:0px auto;" >
+<br/><br/>
 <label>이메일</label>
 <!--  웹 브라우저에 키 입력이 가능한 Form Control이 하나만 제공된다면
 자바스크립트 코드를 정의하지 않아도 엔터를 쳤을 때 back-end로 전송된다.
