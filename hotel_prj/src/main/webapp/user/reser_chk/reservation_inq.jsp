@@ -99,7 +99,7 @@ function searchReservation( res_no ){
 String id = (String)session.getAttribute("id"); 
 
 if(id == null){
-		System.out.println("-rev_inq-----------"+id);
+		/* System.out.println("-rev_inq-----------"+id); */
 		response.sendRedirect("../login/login.jsp"); 
 		return;
 }//end if

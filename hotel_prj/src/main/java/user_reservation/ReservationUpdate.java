@@ -1,5 +1,6 @@
 package user_reservation;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import team3_dao.GetJdbcTemplate;
@@ -10,14 +11,14 @@ import team3_dao.GetJdbcTemplate;
  */
 public class ReservationUpdate {
 
-	public int reservationFlag(String res_no) {
+	public int reservationFlag(ReservationVO rVO) throws DataAccessException{
 		int cnt =0;
 		
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		
 		String deleteRes =  "update reservation set res_status='N' where res_no=?";
-		cnt=jt.update(deleteRes,res_no);
+		cnt=jt.update(deleteRes,rVO.getRes_no());
 		gjt.closeAc();
 		
 		return cnt;

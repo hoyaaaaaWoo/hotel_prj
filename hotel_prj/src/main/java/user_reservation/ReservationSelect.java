@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -80,10 +79,10 @@ public class ReservationSelect {
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();  
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		String reser = "select r.r_name,r.main_img, reser.res_no, reser.chkin_date, reser.chkout_date, m.ename_fst, m.ename_lst, m.email, m.tel, "
-				+ "reser.adult, reser.child, reser.id  " 
+				+ "reser.adult, reser.child, reser.id, reser.card_no, reser.company  " 
 				+ "from reservation reser, room r, member m "
 				+ "where reser.room_no=r.room_no and reser.id=m.id and reser.res_no='"+ res_no+"'";	
-		System.out.println( reser );
+		//System.out.println( reser );
 		rVO=jt.queryForObject(reser,  new RowMapper<ReservationVO>() {
 
 			@Override
@@ -97,11 +96,10 @@ public class ReservationSelect {
 				rVO.setChkout_date(rs.getString("chkout_date"));
 				rVO.setAdult(rs.getInt("adult"));
 				rVO.setChild(rs.getInt("child"));
-				/*
-				 * rVO.setCard_no(rs.getString("card_no"));
-				 * rVO.setCompany(rs.getString("company"));
-				 * rVO.setVal_mm(rs.getString("val_mm")); rVO.setVal_yy(rs.getString("val_yy"));
-				 */
+				
+				rVO.setCard_no(rs.getString("card_no"));
+				rVO.setCompany(rs.getString("company"));
+				 
 				rVO.setId(rs.getString("id"));
 				rVO.setEname_fst (rs.getString("ename_fst"));
 				rVO.setEname_lst (rs.getString("ename_lst"));

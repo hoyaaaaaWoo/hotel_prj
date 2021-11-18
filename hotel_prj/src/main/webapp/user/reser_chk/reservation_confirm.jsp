@@ -210,15 +210,6 @@ p { border: 1px solid #FF00FF}
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=028b69a64e72ad065bfc4b7086e48ae3"></script>
 <script type="text/javascript">
-	/* function memexit() {
-		let result = confirm('예약을 취소하시겠습니까?');
-		if (result) {
-			alert("예약이 취소되었습니다");
-			location.href = "http://localhost/hotel_prj/user/reser_chk/reservation_inq.jsp"
-		} else {
-			
-		}
-	} */
 
 	function main() {
 		alert("메인 페이지로 이동합니다.");
@@ -231,14 +222,14 @@ p { border: 1px solid #FF00FF}
 	function cancelRes(){
 		
 		if(confirm("예약을 취소하시겠습니까?")){
-			$("#res_status").val("N");
-			alert("예약이 취소되었습니다.");
-			location.href = "http://localhost/hotel_prj/user/reser_chk/reservation_inq.jsp"
-			$("#cacelFrm").submit();
+			$("#cancelFrm").submit();
 		}
 	}//cancelRes
+	
 
 	$(function() {
+		
+		 
 
 		/* 	$("#cancel").click(function() { 
 		 }//click
@@ -279,6 +270,11 @@ p { border: 1px solid #FF00FF}
 		infowindow.open(map, marker);
 
 	});//ready
+	
+	function confirmCenter(msg) {
+	      let flag = confirm(msg);
+	      return flag;
+	   }//confirmCenter
 </script>
 </head>
 <body>
@@ -305,7 +301,8 @@ p { border: 1px solid #FF00FF}
 	List<ReservationVO> list = rsD.reserInq(id);
 	int rVO2 = rsD.pay(res_no);   
 	
-	pageContext.setAttribute("rVO",rVO); //scope객체에 조회 결과 값을 넣고 아래 에서 뿌린다.
+	//scope객체에 조회 결과 값을 넣고 아래 에서 뿌린다.
+	pageContext.setAttribute("rVO",rVO); 
 	pageContext.setAttribute("price", rVO2); 
 	pageContext.setAttribute("rv", rv); 
 	pageContext.setAttribute("list", list); 
@@ -445,15 +442,9 @@ p { border: 1px solid #FF00FF}
 							</tr>
 							<tr>
 								<td class="creditcard">신용카드 종류</td>
-								<td class="creditname"></td>
+								<td class="creditname"><c:out value="${ rVO.company }"/></td>
 								<td class="creditcard">신용카드번호</td>
-								<td class="creditnum"></td>
-							</tr>
-							<tr>
-								<td class="creditcard">유효기간</td>
-								<td class="creditday">00/00</td>
-								<td></td>
-								<td></td>
+								<td class="creditnum"><c:out value="${ rVO.card_no }"/></td>
 							</tr>
 
 						</table>
@@ -480,10 +471,11 @@ p { border: 1px solid #FF00FF}
 					</table>
 				</div>
 				<br /> <br /> <br />
-				<form name="cancelFrm" id="cancelFrm" action="" method="post">
+				<form name="cancelFrm" id="cancelFrm" action="update_process.jsp" method="post">
 				<div style="width: 1000px; text-align: center;">
-					<button type="button" class="button"
+					<button type="button" class="button" id="cancelBtn"
 						style="width: 400px; height: 40px;" onclick="cancelRes()">예약취소</button>
+					<input type="hidden" name="res_no" value="${ res_no }" />
 					<input type="hidden" name="res_status" id="res_status" />
 				</div>
 				</form>
@@ -512,7 +504,7 @@ p { border: 1px solid #FF00FF}
 
 
 			<br /> <br />
-			<div style="width: 1000px; text-align: center;"><!--  -->
+			<div style="width: 1000px; text-align: center;">
 				<button type="button" class="button"
 					style="width: 100px; height: 40px" onclick="main()">홈으로</button>
 			</div>
