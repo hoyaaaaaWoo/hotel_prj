@@ -56,10 +56,8 @@ if(list.size()!=0){ // 객실 이름 중복 체크
 	history.back();
 </script>
 <% return;}
-System.out.println("여기까지성공");
 RoomInsert ri = new RoomInsert();
 if(ri.insertProcess(roomVO)){
-System.out.println("객실추가도성공");
 %>
 <script type="text/javascript">
 	alert("객실이 정상적으로 추가되었습니다.");
