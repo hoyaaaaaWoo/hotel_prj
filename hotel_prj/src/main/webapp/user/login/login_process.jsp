@@ -1,3 +1,4 @@
+<%@page import="org.springframework.dao.DataAccessException"%>
 <%@page import="kr.co.sist.util.cipher.DataDecrypt"%>
 <%@page import="user_login.MemberDAO"%>
 <%@page import="kr.co.sist.util.cipher.DataEncrypt"%>
@@ -42,31 +43,12 @@
 
     <link href="http://localhost/hotel_prj/common/bootstrap/carousel.css" rel="stylesheet">
   </head>
-  
+
 <!-- NAVBAR
 ================================================== -->
   <body>
-		 <jsp:include page="../../main/main_header_nav.jsp"/>
- <div class="wrapper" >
- 
-	
-	<br/><br/><br/>
-	<div class="container marketing">
-  <br/><br/>
-  <div style="width: 300px;text-align: center; margin:0px auto;">
-  <br>
-  <h2>로그인</h2>
-  </div>
-  <hr style="width: 500px"/>
-  <div style="width: 300px;text-align: center;margin:0px auto;">
-  
  <jsp:useBean id="loginVO" class="user_login.memberVO" scope="page"/>
 <jsp:setProperty property="*" name="loginVO"/><!--  입력정보-->
-
-<c:catch var="e">
-<script type="text/javascript">
-
-</script>
 <%
 request.setCharacterEncoding("UTF-8");
 String id = request.getParameter("id");
@@ -78,6 +60,8 @@ loginVO.setPass(DataEncrypt.messageDigest("SHA-512", loginVO.getPass()));
 
 //로그인 수행
 MemberDAO mDAO=new MemberDAO();
+boolean flag=false;
+try{
 String kname=mDAO.selectLogin(loginVO);
 
 //이름을 복호화한다.
@@ -88,26 +72,40 @@ kname=dd.decryption(kname);
 //=>비연결성인 웹에서 로그인 정보를 모든 페이지에서 사용하기 위해
 session.setAttribute("kname", kname);
 session.setAttribute("pass", pass);
-session.setAttribute("id", id); 
-
+session.setAttribute("id", id);
+flag=true;
+}catch(DataAccessException dae){
+}
+pageContext.setAttribute("loginFlag", flag);
 %>
-</c:catch>
+		 <jsp:include page="../../main/main_header_nav.jsp"/>
+ <div class="wrapper" >
+ 
+	<br/><br/><br/>
+	<div class="container marketing">
+  <br/><br/>
+  <div style="width: 300px;text-align: center; margin:0px auto;">
+  <br>
+  <h2>로그인</h2>
+  </div>
+  <hr style="width: 500px"/>
+  <div style="width: 300px;text-align: center;margin:0px auto;">
+  
+
+<script type="text/javascript">
+
+</script>
 <br/><br/>
 <c:choose>
-<c:when test="${ kname ne null }"><h4>안녕하세요</h4><br/>
+<c:when  test="${ loginFlag }"><h4>안녕하세요</h4><br/>
 <h4><c:out value="${ param.id }"/>(으)로 로그인 하셨습니다.</h4><br/>
 </c:when>
-<c:when test="${kname eq null }">아이디/비밀번호를 다시 확인해주세요
-</c:when>
-<c:when test="${ kname ne null && m_status eq 'N'}">
-탈퇴한 회원입니다.
-</c:when>
-</c:choose>
-<c:if test="${ not empty e }">
-죄송합니다. 잠시 후에 다시 시도해주시기 바랍니다.
+<c:otherwise>
+아이디/비밀번호를 다시 확인해주세요
 <br/><br/><br/>
 <input type="button"  value="로그인" class="btn btn-default" onclick="location.href='login.jsp'">
-</c:if>
+</c:otherwise>
+</c:choose>
 </div>
 
 
@@ -116,6 +114,7 @@ session.setAttribute("id", id);
   <br/><br/>
  <div style="width:150px; text-align: center;margin:0px auto;">
   <input type="button" class="btn btn-default" style="width: 100px;" value="홈으로" onclick="location.href='http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp'">
+
   </div>
 </div>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

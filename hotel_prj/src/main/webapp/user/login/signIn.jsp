@@ -50,6 +50,15 @@
 			$("#birth_year").focusout(function(){
 				 birthCheck($(this).val()); 
 			 });//focusout    
+			$("#ename_fst").focusout(function(){
+				 enamefCheck($(this).val()); 
+			 });//focusout    
+			$("#ename_lst").focusout(function(){
+				 enamelCheck($(this).val()); 
+			 });//focusout    
+			$("#kname").focusout(function(){
+				 knameCheck($(this).val()); 
+			 });//focusout    
 			 
 			 
 			$("#btn").click(function(){
@@ -100,8 +109,7 @@
 		 	if($("#sms").is(":checked") && $("#chkEmail").is(":checked") ){
 		 		opt_agree="A";
 		 	}
-		 	//alert(opt_agree )
-		 	//설정된 opt_agree 값을 hiidden 에 넣을 것. back-end에서 값 받을 것.
+
 		 	$("#opt_agree").val(opt_agree);
 		 	
 		 	
@@ -126,28 +134,40 @@
 			}
 			}//pass
 			
-			 function enameCheck(args) {
+			 function enamefCheck(args) {
 				   var flag=false;
 				   var regEname =/^[a-zA-Z]+$/;     // 영문이름 정규식
 				    if(!regEname.test($("#ename_fst").val()) ){
-				         alert("영문이 일치하지 않습니다");
-				         $('#ename_fst').focus();
+				         alert("영문으로 입력해주세요");				        
 				         $('#ename_fst').val('');     
 				         return;
+				         
 			}
-			}//pass
+			}//enamefCheck
 			
-/* 		      function enamefCheck(args) {
-		    	   var flag=false;
-		    	    
-		    	    if (/^[a-zA-Z]+$/) {
-		    	        flag= true;
-		    	    }
-		    	    if(flag==false){
-		    	       alert("영문을 확인해 주세요");
-		    	       $("#ename_fst").val('');
-		    	    }
-		      }//enamefCheck */
+			 function enamelCheck(args) {
+				   var flag=false;
+				   var regEname =/^[a-zA-Z]+$/;     // 영문이름 정규식
+				    if(!regEname.test($("#ename_lst").val()) ){
+				         alert("영문으로 입력해주세요");
+				         $('#ename_lst').val('');     
+				         return;
+				  
+			}
+			}//enamelCheck
+			
+			 function knameCheck(args) {
+				   var flag=false;
+				   var regEname =/^[가-힣]+$/;     // 한글이름 정규식
+				    if(!regEname.test($("#kname").val()) ){
+				         alert("한글로 입력해주세요");
+				         $('#kname').val('');     
+				         return;
+				  
+			}
+			}//enamelCheck
+			
+
 		      
 		      function telCheck(args) {
 		    	   var flag=false;
