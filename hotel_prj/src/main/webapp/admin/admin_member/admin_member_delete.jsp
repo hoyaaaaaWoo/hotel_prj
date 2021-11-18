@@ -142,15 +142,16 @@ tr:hover td {
 			</div>
 			
 			<table class="table table-bordered" id="table">
-				<c:if test="${ not empty memberData }">
-					<tr>
-						<td colspan="3">회원정보가 존재하지 않습니다.</td>
-					</tr>
-				</c:if>
 				<tr>
 					<th>아이디</th>
 					<th>이름</th>
 					<th>탈퇴일자</th>
+				</tr>
+				<c:if test="${  empty memberData }">
+					<tr>
+						<td colspan="3">회원정보가 존재하지 않습니다.</td>
+					</tr>
+				</c:if>
 					<c:forEach var="member" items="${memberData}">
 						<tr>
 							<td><c:out value="${member.id }" /></td>
