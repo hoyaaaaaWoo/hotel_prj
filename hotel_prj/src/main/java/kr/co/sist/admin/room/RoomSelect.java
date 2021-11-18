@@ -182,7 +182,7 @@ public class RoomSelect {
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 
-		String selectMaxNo = "select max(room_no) from room where r_status='Y'";
+		String selectMaxNo = "select max(room_no) from room";
 		try {
 		num = jt.queryForObject(selectMaxNo, Integer.class);
 		}catch (EmptyResultDataAccessException erdae) {
@@ -190,7 +190,6 @@ public class RoomSelect {
 		}//end catch
 		return num;
 	}//selectMaxRoomNo
-	
 	
 	/**
 	 * 객실 수정 시, 중복 이름을 조회하는 일
