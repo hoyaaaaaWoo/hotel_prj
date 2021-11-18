@@ -310,8 +310,6 @@ p { border: 1px solid #FF00FF}
 	pageContext.setAttribute("rv", rv); 
 	pageContext.setAttribute("list", list); 
 	
-	ReservationUpdate ruD = new ReservationUpdate();
-	int cancel = ruD.reservationFlag(res_no);
 	
 	
 	// 박 수 구하기
