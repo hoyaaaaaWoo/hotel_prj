@@ -28,7 +28,7 @@ location.href="http://localhost/hotel_prj/admin/common/admin_main.jsp";
 </c:catch>
 <c:if test="${ not empty e }">
 <script type="text/javascript">
-alert("아이디와 비밀번호 확인");
+alert("아이디와 비밀번호를 확인해주세요.");
 location.href="http://localhost/hotel_prj/admin/common/admin_login.jsp";
 </script>
 </c:if>
