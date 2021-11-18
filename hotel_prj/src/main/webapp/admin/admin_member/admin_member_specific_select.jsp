@@ -115,9 +115,9 @@ $(function(){
 		let tr = delBtn.parent().parent(); 
 		let td = tr.children();
 		//예약번호 얻기
-		let kname = td.eq(1).text();
-		if(confirm("["+kname+"] 회원을 삭제하시겠습니까?")){
-			$("#delKname").val(kname);
+		let id = td.eq(0).text();
+		if(confirm("["+id+"] 회원을 삭제하시겠습니까?")){
+			$("#delId").val(id);
 			$("#delFrm").submit();
 		}else{
 			alert("회원 삭제를 취소합니다.");
@@ -191,7 +191,7 @@ $(function(){
 		
 		<!-- 삭제버튼 클릭시 hidden값 설정 및 페이지 이동 -->
 		 <form name="delFrm" id="delFrm" action="http://localhost/hotel_prj/admin/admin_member/admin_member_del_process.jsp" method="post">
-		 	<input type="hidden" name="delKname" id="delKname"/>
+		 	<input type="hidden" name="delId" id="delId"/>
 		 </form>
 		
 		
