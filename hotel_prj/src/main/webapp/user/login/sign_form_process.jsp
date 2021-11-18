@@ -106,7 +106,6 @@ mDAO.insertMember(mVO);//추가성공 예외
 회원 가입 되셨습니다.<br/>회원가입을 축하드립니다.<br/>
 </c:catch>
 <c:if test="${ not empty e }">
-${ e  }
 죄송합니다. 회원정보가 입력되지 않았습니다.
 잠시 후 다시 시도해주세요.
 </c:if>
