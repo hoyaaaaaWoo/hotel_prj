@@ -142,7 +142,7 @@ tr:hover td {
 			</div>
 			
 			<table class="table table-bordered" id="table">
-				<c:if test="${ empty memberData }">
+				<c:if test="${ not empty memberData }">
 					<tr>
 						<td colspan="3">회원정보가 존재하지 않습니다.</td>
 					</tr>
