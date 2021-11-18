@@ -247,12 +247,12 @@ RoomVO rv = rs.selectRoomInfo(room_no);
 						</a>
 					</div>
 					<a href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#target${i }" class="roomName">
-					<h3 class="roomName"> ${ mainRoom.r_name }</h3></a>
-					<p>룸 간략 설명 혹은 가격</p>
+					<h3 class="roomName" > ${ mainRoom.r_name }</h3></a>
+					
 					<p>
 						<a class="btn btn-default"
 							href="http://localhost/hotel_prj/user/reser_room/room_intro.jsp#target${i }"
-							role="button">View details &raquo;</a>
+							role="button" style = "margin-top: 10px ">View details &raquo;</a>
 					</p>
 				</div><!-- col-lg-4 -->
 				
