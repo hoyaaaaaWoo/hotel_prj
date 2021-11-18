@@ -14,7 +14,7 @@
     <!-- 메인 CSS -->
 	<link rel="stylesheet" type="text/css"
 	href="http://localhost/hotel_prj/main/main.css">
-    
+     <title>Hotel_Ritz_Seoul</title>
 	<style type = "text/css">
 	/* 		div {margin: 0px auto; width: 1130px;} */
 	</style>
