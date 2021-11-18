@@ -56,9 +56,10 @@ if(list.size()!=0){ // 객실 이름 중복 체크
 	history.back();
 </script>
 <% return;}
-
+System.out.println("여기까지성공");
 RoomInsert ri = new RoomInsert();
 if(ri.insertProcess(roomVO)){
+System.out.println("객실추가도성공");
 %>
 <script type="text/javascript">
 	alert("객실이 정상적으로 추가되었습니다.");
@@ -74,6 +75,7 @@ if(ri.insertProcess(roomVO)){
 </c:catch>
 
 <c:if test="${not empty e}">
+	${e}
 	<strong>죄송합니다. 객실 추가 작업 중 문제가 발생했습니다.</strong><br/>
 	<strong>잠시 후 다시 시도해주세요.</strong><br/>
 	<a href="http://localhost/hotel_prj/admin/admin_room/admin_room_add.jsp">뒤로 가기</a>
