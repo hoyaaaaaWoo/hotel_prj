@@ -37,7 +37,7 @@
 .hr1 {border-bottom: 1px solid #d3d3d3; }
 
 #resConf {width: 1000px; height: 60px; font-size: 20px; font-weight: bold}
-.resChk { width: 1000px; height: 1800px; color: #5A5A5A; margin: 0px auto; text-align: center;}
+.resChk { width: 1000px; height: 1200px; color: #5A5A5A; margin: 0px auto; text-align: center;}
 
 .chkDiv {width: 1000px; color: #5A5A5A; margin: 0px auto; text-align: center; }
 .chkTab {width: 1000px; height: 450px; color: #5A5A5A; text-align: left; margin: 0px auto; table-layout: fixed;
@@ -108,9 +108,14 @@ p { border: 1px solid #FF00FF}
 	
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4770be2574c85940d843f0c412764fd2"></script>
-<script>
-$(function(){
 
+
+<!-- daum map -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4770be2574c85940d843f0c412764fd2"></script>
+
+<script>
+
+$(function(){
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
         center: new kakao.maps.LatLng(37.51271451389996, 127.10252419812018), // 지도의 중심좌표
@@ -130,7 +135,7 @@ var marker = new kakao.maps.Marker({
 // 마커가 지도 위에 표시되도록 설정합니다
 marker.setMap(map);
 
-var  // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+var iwContent = '<div style="padding:5px;"><strong>Hotel Ritz Seoul</strong> <br><a href="https://map.kakao.com/link/map/Hotel Ritz Seoul,37.51271451389996, 127.10252419812018" style="color:#333" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hotel Ritz Seoul,37.51271451389996, 127.10252419812018" style="color:#333" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
     iwPosition = new kakao.maps.LatLng(37.51271451389996, 127.10252419812018); //인포윈도우 표시 위치입니다
 
 // 인포윈도우를 생성합니다
@@ -141,8 +146,10 @@ var infowindow = new kakao.maps.InfoWindow({
   
 // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
 infowindow.open(map, marker); 
-	
-}); //ready
+
+});//end ready
+
+
 </script>
 
 <script type="text/javascript">
@@ -373,14 +380,14 @@ if ( paramCardSave.equals("Y") && !saveFlag.equals("0")){
 			</table>
 			</div>
 			</div><!-- guideDiv --><br/>
-			<input type="button" id = "goHomeBtn" value = "메인으로" ></button><br/><br/><br/><br/>
-			
-			
-			<div id="map" style="width:1000px; height:500px;"></div>
-			
-			
+			<input type="button" id = "goHomeBtn" value = "메인으로" ></button><br/>
 			</div><!-- resChk -->
-			<br/><br/>
+			
+			
+			<div id="map" style="width:1000px; height:500px; margin: 0px auto"></div>
+			<br/><br/><br/><br/><br/><br/>
+			
+			
 			<%-- 
 			<form name = "hiddenCard" action = "http://localhost/hotel_prj/user/reser_room/card_process.jsp" id = "hiddenCard" method = "get" >
 				<input type="hidden" id="card_no" name="card_no" value = "<%= card_no %>"/>
