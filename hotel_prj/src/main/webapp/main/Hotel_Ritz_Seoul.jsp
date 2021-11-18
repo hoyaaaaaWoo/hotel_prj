@@ -101,13 +101,13 @@
 .hr1 {
 	border-bottom: 1px solid #d3d3d3;
 }
-/*
+
 div { border: 1px solid #0000FF}
 td { border: 1px solid #FF0000}
 tr { border: 1px solid #FF0000}
 span { border: 1px solid #FF00FF}
 p { border: 1px solid #FF00FF}
-*/
+
 </style>
 
 <!-- Bootstrap core CSS -->
@@ -158,8 +158,11 @@ p { border: 1px solid #FF00FF}
 						<!-- style="min-width: 1600px; height: 800px; margin: 0px auto;" -->
 					<div class="container">
 						<div class="carousel-caption">
-							<h1>3조의 리츠호텔~</h1>
-							<p>호텔메인 설명 어쩌구~!~!~!~!~$$$</p>
+							<h1><strong>Hotel Ritz Seoul</strong></h1>
+							<p style = "font-size: 15px; text-shadow: 2px 2px 2px #333">국내 최고층 건물인 리츠타워 76~101층에 위치한 리츠 서울은 한국의 아름다움을 현대적인 감각으로 풀어낸 객실 (235실) 에서
+							 <br/>서울의 파노라믹한 스카이 라인과
+							환상적인 야경을 조망할 수 있으며 일몰과 일출을 한 자리에서 감상할 수 있는 국내 유일의 호텔입니다.<br/>
+								리츠 서울은 '럭셔리를 넘어, 시비스를 넘어, 기대를 넘어, 상상하는 모든 것 그 이상의 가치를 제공'합니다.</p>
 						</div>
 					</div>
 				</div>

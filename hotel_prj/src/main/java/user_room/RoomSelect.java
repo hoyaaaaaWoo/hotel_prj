@@ -61,7 +61,7 @@ public class RoomSelect {
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		
 		// 3. Äõ¸®½ÇÇà
-		String selectMainRoom = "select room_no, r_name, main_img from room";
+		String selectMainRoom = "select room_no, r_name, main_img from room where r_status = 'Y'  order by room_no asc";
 		rList = jt.query(selectMainRoom, new RowMapper<RoomVO>() {
 
 			@Override
