@@ -79,11 +79,11 @@
 					return;
 			}//end if
 				if($("#ename_fst").val()==""){
-					alert("이름 필수 입력");
+					alert("영어이름 필수 입력");
 					return;
 			}//end if
 				if($("#ename_lst").val()==""){
-					alert("비밀번호 필수 입력");
+					alert("영어이름 필수 입력");
 					return;
 			}//end if
 				if($("#kname").val()==""){
