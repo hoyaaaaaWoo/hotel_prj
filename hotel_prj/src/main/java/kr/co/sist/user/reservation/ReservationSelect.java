@@ -80,7 +80,7 @@ public class ReservationSelect {
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();  
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		String reser = "select r.r_name,r.main_img, reser.res_no, reser.chkin_date, reser.chkout_date, m.ename_fst, m.ename_lst, m.email, m.tel, "
-				+ "reser.adult, reser.child, reser.id, reser.card_no, reser.company, reser.res_status  " 
+				+ "reser.adult, reser.child, reser.id, reser.card_no, reser.company, reser.res_status, reser.add_req  " 
 				+ "from reservation reser, room r, member m "
 				+ "where reser.room_no=r.room_no and reser.id=m.id and reser.res_no='"+ res_no+"'";	
 		rVO=jt.queryForObject(reser,  new RowMapper<ReservationVO>() {
@@ -106,6 +106,7 @@ public class ReservationSelect {
 				rVO.setEmail (rs.getString("email"));
 				rVO.setTel(rs.getString("tel"));
 				rVO.setRes_status(rs.getString("res_status"));
+				rVO.setAdd_req(rs.getString("add_req"));
 				
 				
 				return rVO;

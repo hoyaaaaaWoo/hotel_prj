@@ -143,6 +143,13 @@
 	text-align: left;
 }
 
+.addBack {
+	width: 1000px;
+	height: 150px;
+	background-color: #FAFAFA;
+	padding: 50px
+}
+
 .back {
 	width: 1000px;
 	height: 200px;
@@ -207,8 +214,10 @@ p { border: 1px solid #FF00FF}
 <link href="http://localhost/jsp_prj/common/bootstrap/carousel.css"
 	rel="stylesheet">
 
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=028b69a64e72ad065bfc4b7086e48ae3"></script>
+
+<!-- daum map -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4770be2574c85940d843f0c412764fd2"></script>
+
 <script type="text/javascript">
 
 	function main() {
@@ -227,44 +236,39 @@ p { border: 1px solid #FF00FF}
 	}//cancelRes
 	
 
-	$(function() {
-		
-		 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-		mapOption = {
-			center : new kakao.maps.LatLng(37.51271451389996,
-					127.10252419812018), // 지도의 중심좌표
-			level : 3
-		// 지도의 확대 레벨
-		};
+	$(function(){
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = { 
+	        center: new kakao.maps.LatLng(37.51271451389996, 127.10252419812018), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };
 
-		var map = new kakao.maps.Map(mapContainer, mapOption);
+	var map = new kakao.maps.Map(mapContainer, mapOption);
 
-		// 마커가 표시될 위치입니다 
-		var markerPosition = new kakao.maps.LatLng(37.51271451389996,
-				127.10252419812018);
+	// 마커가 표시될 위치입니다 
+	var markerPosition  = new kakao.maps.LatLng(37.51271451389996, 127.10252419812018); 
 
-		// 마커를 생성합니다
-		var marker = new kakao.maps.Marker({
-			position : markerPosition
-		});
+	// 마커를 생성합니다
+	var marker = new kakao.maps.Marker({
+	    position: markerPosition
+	});
 
-		// 마커가 지도 위에 표시되도록 설정합니다
-		marker.setMap(map);
+	// 마커가 지도 위에 표시되도록 설정합니다
+	marker.setMap(map);
 
-		var iwContent = // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-		iwPosition = new kakao.maps.LatLng(37.51271451389996,
-				127.10252419812018); //인포윈도우 표시 위치입니다
+	var iwContent = '<div style="padding:5px;"><strong>Hotel Ritz Seoul</strong> <br><a href="https://map.kakao.com/link/map/Hotel Ritz Seoul,37.51271451389996, 127.10252419812018" style="color:#333" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hotel Ritz Seoul,37.51271451389996, 127.10252419812018" style="color:#333" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+	    iwPosition = new kakao.maps.LatLng(37.51271451389996, 127.10252419812018); //인포윈도우 표시 위치입니다
 
-		// 인포윈도우를 생성합니다
-		var infowindow = new kakao.maps.InfoWindow({
-			position : iwPosition,
-			content : iwContent
-		});
+	// 인포윈도우를 생성합니다
+	var infowindow = new kakao.maps.InfoWindow({
+	    position : iwPosition, 
+	    content : iwContent 
+	});
+	  
+	// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+	infowindow.open(map, marker); 
 
-		// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-		infowindow.open(map, marker);
-
-	});//ready
+	});//end ready
 	
 	function confirmCenter(msg) {
 	      let flag = confirm(msg);
@@ -451,17 +455,21 @@ request.setCharacterEncoding("UTF-8");
 							</tr>
 
 						</table>
-						<table>
-							<tr>
-								<td></td>
-							</tr>
-						</table>
 					</form>
 
 				</div>
+						<br><br><br><br>
+						<div class="guideTitle">추가요청 사항</div>
+						<div class="addBack">
+						<table>
+							<tr>
+								<td style="font-size: 17px;"><c:out value="${ rVO.add_req }"/></td>
+							</tr>
+						</table>
+						</div>
 			</div>
 			<!-- guideDiv -->
-			<br /> <br /> <br />
+			<br /> <br /> <br /><br /> <br /> <br /><br /> <br /> <br /><br /> <br /> <br /><br /> <br /> <br /><br /> <br /> <br />
 
 
 				<div>
@@ -500,7 +508,7 @@ request.setCharacterEncoding("UTF-8");
 			<div id="map" style="width: 1000px; height: 350px; magin: 0px auto; "></div>
 
 
-			<br /> <br />
+			<br /> <br /> <br /> <br />
 			<div style="width: 1000px; text-align: center;">
 				<button type="button" class="button"
 					style="width: 100px; height: 40px" onclick="main()">홈으로</button>
@@ -510,7 +518,7 @@ request.setCharacterEncoding("UTF-8");
 
 		</div>
 		<!-- resChk -->
-		<br /> <br /><br /> <br /><br /> <br /><br /> <br />
+		<br /> <br /><br /> <br /><br /> <br /><br /> <br /><br /> <br /><br /> <br /> <br /> <br /> <br /> <br /> <br /><br /> <br /><br /> <br /><br /> <br />
 
 		<!-- FOOTER -->
 		<jsp:include page="../../main/main_footer.jsp" />
