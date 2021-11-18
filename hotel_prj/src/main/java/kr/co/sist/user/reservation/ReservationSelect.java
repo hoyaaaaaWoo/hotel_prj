@@ -16,11 +16,9 @@ public class ReservationSelect {
 	public List<ReservationVO> reserInq(String id) throws SQLException {
 		List<ReservationVO> list = null;
 		
-		//1. 스프링 컨테이너 생성
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();  
-		//2. JdbcTemplate 얻기
 		JdbcTemplate jt = gjt.getJdbcTemplate();
-		//3. 쿼리문 수행
+
 		StringBuilder chkInq = new StringBuilder();
 		chkInq.append("	select reser.res_no, reser.chkin_date, reser.chkout_date, reser.res_status, r.r_name	")
 		.append("	from reservation reser, room r	")
@@ -28,12 +26,12 @@ public class ReservationSelect {
 		
 		list=jt.query(chkInq.toString(), new Object[] { id },new chkInq());
 		
-		//4. 스프링컨테이너 닫기
 		gjt.closeAc();
 		
 		return list;
 		
 	}//reserInq
+	
 	public class chkInq implements RowMapper<ReservationVO>{
 		public ReservationVO mapRow(ResultSet rs, int rowCnt) throws SQLException {
 			ReservationVO rVO= new ReservationVO();
@@ -58,16 +56,14 @@ public class ReservationSelect {
 	public int pay(String pri) throws DataAccessException {
 			Integer price=null;
 			
-			//1. 스프링 컨테이너 생성
 			GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();  
-			//2. JdbcTemplate 얻기
 			JdbcTemplate jt = gjt.getJdbcTemplate();
-			//3. 쿼리문 수행 
+
 			String selectPrice = "select r.price from room r where r.room_no in"
 					+ "(select reser.room_no from reservation reser where reser.res_no='"+ pri+"')";
-			System.out.println( selectPrice +" / " +pri );
+
 			price = jt.queryForObject(selectPrice,  Integer.class);
-			//4. 스프링컨테이너 닫기
+
 			gjt.closeAc();
 			
 			return price.intValue();		
@@ -88,7 +84,6 @@ public class ReservationSelect {
 			@Override
 			public ReservationVO mapRow(ResultSet rs, int rowCnt) throws SQLException {
 				ReservationVO rVO=new ReservationVO();
-				//조회된 결과를 rVO에  setter method를 사용해서 넣습니다.		
 				rVO.setR_name(rs.getString("r_name"));
 				rVO.setMain_img(rs.getString("main_img"));
 				rVO.setRes_no(rs.getString("res_no"));
@@ -96,10 +91,8 @@ public class ReservationSelect {
 				rVO.setChkout_date(rs.getString("chkout_date"));
 				rVO.setAdult(rs.getInt("adult"));
 				rVO.setChild(rs.getInt("child"));
-				
 				rVO.setCard_no(rs.getString("card_no"));
 				rVO.setCompany(rs.getString("company"));
-				 
 				rVO.setId(rs.getString("id"));
 				rVO.setEname_fst (rs.getString("ename_fst"));
 				rVO.setEname_lst (rs.getString("ename_lst"));

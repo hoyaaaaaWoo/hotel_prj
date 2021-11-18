@@ -109,12 +109,6 @@
     			return;
     		}//end if
     		
-    		/* //id check
-    		var idRegExp = /^[a-zA-z0-9]{4,14}$/; //아이디 유효성 검사
-      		if (!idRegExp.test(pw_id)) {
-            	alert("아이디는 한글을 입력할 수 없습니다.");
-            	return;
-            } */
 
     		//한글입력 check
             var regexp = /[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;

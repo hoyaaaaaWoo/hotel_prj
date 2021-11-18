@@ -70,21 +70,6 @@ function main(){
 	location.href="http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp"
 }
 
-/* 
-$(function(){
-$("#table tr").click(function(){
-    //현재 선택된 tr과 td
-    let tr = $(this);
-    let td = tr.children();
-
-    //선택된 행에서 예약번호 얻어오기
-    let resNum = td.eq(0).text();
-    
-    
-})
-      
-});//ready
-     */
 
 function searchReservation( res_no ){
 	$("#res_no").val( res_no );

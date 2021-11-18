@@ -190,12 +190,6 @@
 	cursor: pointer;
 }
 
-/*div { border: 1px solid #0000FF}
-td { border: 1px solid #FF0000}
-tr { border: 1px solid #FF0000}
-span { border: 1px solid #FF00FF}
-p { border: 1px solid #FF00FF}
-*/
 </style>
 
 <!-- Bootstrap core CSS -->
@@ -274,6 +268,7 @@ p { border: 1px solid #FF00FF}
 	      let flag = confirm(msg);
 	      return flag;
 	   }//confirmCenter
+	   
 </script>
 </head>
 <body>
@@ -347,7 +342,6 @@ request.setCharacterEncoding("UTF-8");
 	
 	
 	//복호화
-	/* ReservationVO rVO = rsD.reservation(res_no); */
 	DataDecrypt dd=new DataDecrypt("AbcdEfgHiJkLmnOpQ");
  	rVO.setTel(dd.decryption(rVO.getTel()));
 	rVO.setEname_fst(dd.decryption(rVO.getEname_fst()));
