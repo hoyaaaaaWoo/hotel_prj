@@ -82,7 +82,7 @@ $("#table tr").click(function(){
     
     
 })
-     
+      
 });//ready
      */
 
@@ -96,12 +96,13 @@ function searchReservation( res_no ){
 ================================================== -->
   <body>
 <%
-String id = (String)session.getAttribute("id");
+String id = (String)session.getAttribute("id"); 
 
-if(id == null){//세션이 존재하지 않으면 
-		response.sendRedirect("../login/login.jsp");
+if(id == null){
+		System.out.println("-rev_inq-----------"+id);
+		response.sendRedirect("../login/login.jsp"); 
+		return;
 }//end if
-
   request.setCharacterEncoding("UTF-8");
 %>
   

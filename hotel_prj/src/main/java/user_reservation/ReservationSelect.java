@@ -26,7 +26,7 @@ public class ReservationSelect {
 		.append("	from reservation reser, room r	")
 		.append("	where reser.room_no=r.room_no(+) and reser.id=?	");	
 		
-		list=jt.query(chkInq.toString(),new chkInq(), new Object[] { id });
+		list=jt.query(chkInq.toString(), new Object[] { id },new chkInq());
 		
 		//4. 스프링컨테이너 닫기
 		gjt.closeAc();
