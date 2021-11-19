@@ -233,18 +233,21 @@ $(function(){
 	
 	//기타 이미지 등록시 file hidden값 초기화 (temp 폴더에 중복 등록 방지)
 	//main img와 중복파일 및 파일 확장자 검증
-	//let upFlag=false;
+	let upFlag=false;
 	$("#otherFile").change(function(){
 		$("#fileName").val("");
-		/* if(!upFlag){
+/*
+		 if(!upFlag){
+
 		setTimeout(this, 1000);
 		upFlag=true;
 		}else{
 		upFlag=false;
 			
-		} */
+		} 
+*/
 		var selectedFileName=this.files[0].name;
-		/* var imgList = document.getElementById("imgTable");
+		 var imgList = document.getElementById("imgTable");
 		var flag = false;
 		
 		for (var i = 1; i < imgList.rows.length; i++) {
@@ -262,7 +265,7 @@ $(function(){
 			resetFileTag();
 			return;
 		}//end if
-	 */	
+	 	
 		//기타 이미지 확장자가 안 맞으면 return;
 		var flag = expCheck(selectedFileName);
 		if(!flag){
