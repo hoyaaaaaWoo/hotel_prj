@@ -86,7 +86,8 @@ public class UploadImgList {
 
 		// 전체 파일 리스트 조회 후 main 포함되어있거나 같은 이름으로 저장되어있는 파일이 있다면 삭제 후 rename 처리
 		File[] listFiles = temp.listFiles();
-		System.out.println(listFiles.length);
+		
+		System.out.println(temp.getAbsolutePath()+" --------------------- "+ temp.exists() );
 		for (File file : listFiles) {
 			if (file.isFile() && file.getName().contains("_main")) {
 				File delFile = new File(temp + "/" + file.getName());
