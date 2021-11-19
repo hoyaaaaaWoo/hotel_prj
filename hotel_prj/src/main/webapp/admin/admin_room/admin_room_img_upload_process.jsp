@@ -19,7 +19,7 @@ if (request.getContentType() == null) {
 }//end if
 
 	//temp폴더에 파일 업로드
-	File uploadPath = new File("C:/Users/user/git/hotel_prj/hotel_prj/src/main/webapp/temp");
+	File uploadPath = new File("e:/hotel_prj/temp");
 
 	if(!uploadPath.exists()){ // 경로에 업로드 폴더가 없으면 생성
 		uploadPath.mkdirs();
@@ -31,12 +31,13 @@ if (request.getContentType() == null) {
 	
 	UploadImgList uil = new UploadImgList();
 	
+	
 	//main이미지로 등록되었으면 파일명 변경하여 저장
 	String fileName = mr.getParameter("fileName");
 	if(!(fileName.equals(""))){
 		uil.markMainImg(fileName);
 	}//end if
-		
+
 	//temp 파일에 있는 이미지 리스트 조회하여 JSONObject로 Return 
 	List<UploadImgVO> imgList = uil.searchImgList();
 	JSONObject imgJson = new JSONObject();

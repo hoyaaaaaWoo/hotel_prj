@@ -233,12 +233,20 @@ $(function(){
 	
 	//기타 이미지 등록시 file hidden값 초기화 (temp 폴더에 중복 등록 방지)
 	//main img와 중복파일 및 파일 확장자 검증
+	//let upFlag=false;
 	$("#otherFile").change(function(){
 		$("#fileName").val("");
-		
+		/* if(!upFlag){
+		setTimeout(this, 1000);
+		upFlag=true;
+		}else{
+		upFlag=false;
+			
+		} */
 		var selectedFileName=this.files[0].name;
-		var imgList = document.getElementById("imgTable");
+		/* var imgList = document.getElementById("imgTable");
 		var flag = false;
+		
 		for (var i = 1; i < imgList.rows.length; i++) {
 			//테이블의 파일명 추출해서 main 체크
 			var imgName = imgList.rows[i].cells[1].innerText;
@@ -254,7 +262,7 @@ $(function(){
 			resetFileTag();
 			return;
 		}//end if
-		
+	 */	
 		//기타 이미지 확장자가 안 맞으면 return;
 		var flag = expCheck(selectedFileName);
 		if(!flag){
@@ -325,6 +333,7 @@ function addImg(){
 			dataType:"json",
 			contentType:false,
 			processData:false,
+			async:false,
 			error: function(xhr){
 				console.log(xhr.status + " / " + xhr.statusText)
 			},
