@@ -3,5 +3,5 @@
 
 <%
 session.invalidate();
-response.sendRedirect("http://211.63.89.141/admin/common/admin_logout_view.jsp");
+response.sendRedirect("http://localhost/hotel_prj/admin/common/admin_logout_view.jsp");
 %>

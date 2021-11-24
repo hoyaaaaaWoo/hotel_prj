@@ -29,7 +29,7 @@
 //세션을 사용하면 에러가발생.)
 session.invalidate();
 //페이지를 메인으로 이동한다.
-response.sendRedirect("http://211.63.89.141/main/Hotel_Ritz_Seoul.jsp");
+response.sendRedirect("http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp");
 %>
 </body>
 </html>

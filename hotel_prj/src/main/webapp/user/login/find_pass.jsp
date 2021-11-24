@@ -17,7 +17,7 @@
     <title>Hotel_Ritz_Seoul</title>
     <!-- 메인 CSS -->
 	<link rel="stylesheet" type="text/css"
-	href="http://211.63.89.141/main/main.css">
+	href="http://localhost/hotel_prj/main/main.css">
     
 	<style type = "text/css">
 	#result{
@@ -73,10 +73,10 @@
 	<script type="text/javascript">
 	$(function(){
 		$("#loginBtn").click(function(){
-			location.href="http://211.63.89.141/user/login/login.jsp";
+			location.href="http://localhost/hotel_prj/user/login/login.jsp";
 		})
 		$("#backBtn").click(function(){
-			location.href="http://211.63.89.141/user/login/find.jsp";
+			location.href="http://localhost/hotel_prj/user/login/find.jsp";
 		})
 		
 	})//ready
@@ -88,11 +88,11 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	
-    <script src="http://211.63.89.141/common/bootstrap/holder.js"></script>
+    <script src="http://localhost/hotel_prj/common/bootstrap/holder.js"></script>
 
-    <script src="http://211.63.89.141/common/bootstrap/ie-emulation-modes-warning.js"></script>
+    <script src="http://localhost/hotel_prj/common/bootstrap/ie-emulation-modes-warning.js"></script>
 
-    <link href="http://211.63.89.141/common/bootstrap/carousel.css" rel="stylesheet">
+    <link href="http://localhost/hotel_prj/common/bootstrap/carousel.css" rel="stylesheet">
   </head>
   
 <!-- NAVBAR
