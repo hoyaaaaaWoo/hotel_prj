@@ -650,7 +650,7 @@ $(window).bind("beforeunload", function(){
 		}//end if
 		
 		//temp로 이미지 옮기기
-		uil.moveImgtoTemp(imgList);
+		uil.moveImgtoTemp(imgList); 
 		pageContext.setAttribute("imgList", imgList);
 		%>
 		

@@ -31,7 +31,7 @@ public class UploadImgList {
 		List<UploadImgVO> list = new ArrayList<UploadImgVO>();
 
 		// 1. 파일 리스트를 가져올 파일 생성
-		File temp = new File("e:/hotel_prj/temp");
+		File temp = new File("/usr/local/www/hotel_prj/temp");
 
 		// 2. 해당 폴더의 모든 파일, 디렉토리를 얻음
 		File[] listFiles = null;
@@ -78,11 +78,11 @@ public class UploadImgList {
 	 */
 	public void markMainImg(String fileName) {
 
-		File selectedImgPath = new File("e:/hotel_prj/temp/" + fileName);
-		File mainImgPath = new File("e:/hotel_prj/temp/"
+		File selectedImgPath = new File("/usr/local/www/hotel_prj/temp/" + fileName);
+		File mainImgPath = new File("/usr/local/www/hotel_prj/temp/"
 				+ fileName.substring(0, fileName.indexOf(".")) + "_main" + fileName.substring(fileName.indexOf(".")));
 
-		File temp = new File("e:/hotel_prj/temp");
+		File temp = new File("/usr/local/www/hotel_prj/temp");
 
 		// 전체 파일 리스트 조회 후 main 포함되어있거나 같은 이름으로 저장되어있는 파일이 있다면 삭제 후 rename 처리
 		File[] listFiles = temp.listFiles();
@@ -102,7 +102,7 @@ public class UploadImgList {
 	 * temp 폴더의 모든 이미지 삭제
 	 */
 	public void removeAllImg() {
-		File temp = new File("e:/hotel_prj/temp");
+		File temp = new File("/usr/local/www/hotel_prj/temp");
 
 		if (temp.exists()) {
 			File[] listFiles = temp.listFiles();
@@ -120,7 +120,7 @@ public class UploadImgList {
 	 */
 	public void removeSelectedImg(String fileName) {
 
-		File temp = new File("e:/hotel_prj/temp");
+		File temp = new File("/usr/local/www/hotel_prj/temp");
 
 		if (temp.exists()) {
 			File[] listFiles = temp.listFiles();
@@ -165,9 +165,9 @@ public class UploadImgList {
 	 */
 	public void moveRoomImg() throws IOException {
 		// 원 폴더
-		File tempFolder = new File("e:/hotel_prj/temp");
+		File tempFolder = new File("/usr/local/www/hotel_prj/temp");
 		// 복사할 폴더
-		File imgFolder = new File("e:/hotel_prj/roomImages");
+		File imgFolder = new File("/usr/local/www/hotel_prj/roomImages");
 		
 		if(!tempFolder.exists()) {
 			tempFolder.mkdirs();
@@ -214,9 +214,9 @@ public class UploadImgList {
 	 */
 	public void moveImgtoTemp(List<String> list) throws IOException {
 		// 원 폴더
-		File imgFolder = new File("e:/hotel_prj/roomImages");
+		File imgFolder = new File("/usr/local/www/hotel_prj/roomImages");
 		// 복사할 폴더
-		File tempFolder = new File("e:/hotel_prj/temp");
+		File tempFolder = new File("/usr/local/www/hotel_prj/temp");
 		
 		FileInputStream fis = null;
 		FileOutputStream fos = null;
@@ -257,7 +257,7 @@ public class UploadImgList {
 	public void removeOriginalImg(String[] imgList, String newMainImg, String rName) throws SQLException {
 		//roomImages에서 지울 이미지 리스트
 		List<String> delImgList = new ArrayList<String>();
-		File original = new File("e:/hotel_prj/roomImages");
+		File original = new File("/usr/local/www/hotel_prj/roomImages");
 		
 		RoomSelect rs = new RoomSelect();
 		//수정 완료 후 기타 이미지
