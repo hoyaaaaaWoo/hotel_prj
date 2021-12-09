@@ -21,11 +21,10 @@ public class RoomInsert {
 	 * temp 폴더의 이미지를 roomImages 폴더로 이동<br>
 	 * @param roomVO
 	 * @return
-	 * @throws SQLException
 	 * @throws DataAccessException
-	 * @throws IOException 
+	 * @throws IOException
 	 */
-	public boolean insertProcess(RoomVO roomVO) throws DataAccessException, SQLException, IOException {
+	public boolean insertProcess(RoomVO roomVO) throws DataAccessException, IOException {
 		boolean totalFlag = false;
 		
 		boolean flag1 = insertRoom(roomVO);
@@ -41,14 +40,14 @@ public class RoomInsert {
 		return totalFlag;
 	}// insertProcess
 
+	
 	/**
 	 * 객실 정보를 insert
 	 * @param roomVO
 	 * @return
 	 * @throws DataAccessException
-	 * @throws SQLException
 	 */
-	public boolean insertRoom(RoomVO roomVO) throws DataAccessException, SQLException {
+	public boolean insertRoom(RoomVO roomVO) throws DataAccessException {
 		boolean flag = false;
 
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
@@ -56,7 +55,7 @@ public class RoomInsert {
 
 		// room insert
 		RoomSelect rs = new RoomSelect();
-		int maxRoomNo = rs.selectMaxRoomNo();
+		int lastRoomNo = rs.selectLastRoomNo();
 
 		StringBuilder insertRoom = new StringBuilder();
 
@@ -65,7 +64,7 @@ public class RoomInsert {
 				.append("more_info, main_img, input_date, r_status)	").append("	values	(")
 				.append("?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,sysdate,'Y'").append(")");
 
-		int cnt = jt.update(insertRoom.toString(), maxRoomNo + 1, roomVO.getRoomName(), roomVO.getMainDesc(),
+		int cnt = jt.update(insertRoom.toString(), lastRoomNo + 1, roomVO.getRoomName(), roomVO.getMainDesc(),
 				roomVO.getPrice(), roomVO.getType(), roomVO.getGuestNum(), roomVO.getRoomSize(), roomVO.getChkIn(),
 				roomVO.getChkOut(), roomVO.getView(), roomVO.getSpecialServ(), roomVO.getGeneralAmn(),
 				roomVO.getBathAmn(), roomVO.getOtherAmn(), roomVO.getMoreInfo(), roomVO.getImg());
@@ -84,9 +83,9 @@ public class RoomInsert {
 	 * 기타 이미지 존재 시, 이미지 테이블에 추가 insert
 	 * @param roomVO
 	 * @return
-	 * @throws SQLException
+	 * @throws DataAccessException
 	 */
-	public boolean insertImg(RoomVO roomVO) throws SQLException {
+	public boolean insertImg(RoomVO roomVO) throws DataAccessException {
 		boolean flag = false;
 
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();

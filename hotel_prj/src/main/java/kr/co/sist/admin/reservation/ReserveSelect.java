@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -15,25 +16,23 @@ import kr.co.sist.util.cipher.DataDecrypt;
 
 /**
  * 예약 조회를 수행하는 클래스
- * 
  * @author user
  */
 public class ReserveSelect {
 
 	/**
-	 * 예약관리 페이지에서 보여질 예약 조회<br>
+	 * 예약 조회<br>
 	 * 최근 예약일자부터 내림차순으로 조회
-	 * 
+	 * @param date
 	 * @return
+	 * @throws DataAccessException
 	 */
-	public List<ReserveSelectVO> selectRes(ReserveDateVO date) throws SQLException {
+	public List<ReserveSelectVO> selectRes(ReserveDateVO date) throws DataAccessException {
 		List<ReserveSelectVO> rsList = null;
 
-		// 1. Spring Container 얻기
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
-		// 2. JdbcTemplate 얻기
 		JdbcTemplate jt = gjt.getJdbcTemplate();
-		// 3. 쿼리 실행
+		
 		StringBuilder select = new StringBuilder();
 		select.append(
 				"select	rs.res_status, to_char(rs.res_date, 'yyyy.mm.dd HH24:MI') res_date, rs.res_no, m.kname,")
@@ -50,14 +49,14 @@ public class ReserveSelect {
 
 		select.append("		order by  res_date desc");
 		rsList = jt.query(select.toString(), new selectRes());
-		// 4. Spring Container닫기
+
 		gjt.closeAc();
+		
 		return rsList;
 	}// selectRes
 
 	/**
-	 * /* selectRes에서 조회된 예약 정보를 담을 inner class
-	 * 
+	 * selectRes에서 조회된 예약 정보를 담을 inner class
 	 * @author user
 	 */
 	public class selectRes implements RowMapper<ReserveSelectVO> {
@@ -74,13 +73,10 @@ public class ReserveSelect {
 				rsVO.setrName(rs.getString("r_name"));
 				rsVO.setResStauts(rs.getString("res_status"));
 			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (NoSuchAlgorithmException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (GeneralSecurityException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return rsVO;
@@ -89,19 +85,17 @@ public class ReserveSelect {
 	}// selectRes
 
 	/**
-	 * 선택 예약건 수정 전 기존 정보를 조회하는 method
-	 * 
+	 * 특정예약조회
 	 * @param resNum
 	 * @return
+	 * @throws DataAccessException
 	 */
-	public ReserveUpdateVO selectRes(String resNum) throws SQLException {
+	public ReserveUpdateVO selectRes(String resNum) throws DataAccessException {
 		ReserveUpdateVO ruVO = null;
 
-		// 1. Spring Container 얻기
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
-		// 2. JdbcTemplate 얻기
 		JdbcTemplate jt = gjt.getJdbcTemplate();
-		// 3. 쿼리 실행
+
 		StringBuilder select = new StringBuilder();
 		select.append("select rs.res_no, m.kname, rs.chkin_date, rs.chkout_date,")
 				.append("		rs.adult, nvl(rs.child,0) child,").append("		r.r_name, rs.add_req		")
@@ -125,10 +119,8 @@ public class ReserveSelect {
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				} catch (NoSuchAlgorithmException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (GeneralSecurityException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				return ruVO;
@@ -143,7 +135,6 @@ public class ReserveSelect {
 		ruVO.setOutMonth(ruVO.getChkOutDate().substring(5, 7));
 		ruVO.setOutDay(ruVO.getChkOutDate().substring(8, 10));
 
-		// 4. Spring Container닫기
 		gjt.closeAc();
 
 		return ruVO;
@@ -151,40 +142,38 @@ public class ReserveSelect {
 
 	/**
 	 * 예약수정 프로세스에서 사용할 최대 객실인원 수
-	 * 
+	 * @param rName
 	 * @return
+	 * @throws DataAccessException
 	 */
-	public int selectMaxGuest(String rName) throws SQLException {
+	public int selectMaxGuest(String rName) throws DataAccessException {
 		int maxGuest = 0;
 
-		// 1. Spring Container 얻기
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
-		// 2. JdbcTemplate 얻기
 		JdbcTemplate jt = gjt.getJdbcTemplate();
-		// 3. 쿼리 실행
+
 		String select = "select max_Guest from room where r_name=?";
 		maxGuest = jt.queryForObject(select, new Object[] { rName }, Integer.class);
-		// 4. Spring Container닫기
+
 		gjt.closeAc();
 
 		return maxGuest;
-	}// selectAllRName
+	}//selectMaxGuest
 
 
 	/**
 	 * 예약수정 프로세스에서 사용할 체크인/아웃 일자 유효 체크<br>
 	 * 기존 예약건과 일자가 겹치는 경우를 조회 <br>
-	 * 
-	 * @return 겹치는 예약건의 예약넘버를 담은 list
+	 * @param ruVO
+	 * @return
+	 * @throws DataAccessException
 	 */
-	public List<String> selectStayDateRange(ReserveUpdateVO ruVO) throws SQLException {
+	public List<String> selectStayDateRange(ReserveUpdateVO ruVO) throws DataAccessException {
 		List<String> list = null;
 
-		// 1. Spring Container 얻기
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
-		// 2. JdbcTemplate 얻기
 		JdbcTemplate jt = gjt.getJdbcTemplate();
-		// 3. 쿼리 실행
+
 		StringBuilder select = new StringBuilder();
 		select.append("	select res_no	").append("	from   reservation	")
 				.append("	where  room_no= (select room_no from room where r_name= ?)	")
@@ -194,12 +183,11 @@ public class ReserveSelect {
 
 		list = jt.query(select.toString(), new Object[] { ruVO.getrName(), ruVO.getChkInDate(), ruVO.getChkInDate(),
 				ruVO.getChkOutDate(), ruVO.getResNo() }, new SelectResNo());
-		// 4. Spring Container닫기
+
 		gjt.closeAc();
 
 		return list;
-
-	}// selectAllRName
+	}// selectStayDateRange
 
 	public class SelectResNo implements RowMapper<String> {
 		@Override

@@ -489,7 +489,7 @@ $(window).bind("beforeunload", function(){
 		<%
 		String rName = request.getParameter("selectedRName");
 		RoomSelect rs = new RoomSelect();
-		List<RoomVO> rList = rs.selectRoomInfo(rName, null);
+		List<RoomVO> rList = rs.selectRoomInfo(rName);
 		pageContext.setAttribute("rList", rList);
 		%>
 		
