@@ -30,10 +30,18 @@
 
 	<style type = "text/css">
 
+.hr1 {border-bottom: 1px solid #d3d3d3;}
+
+.searchTitle {
+	color: #333;
+	font-weight: bold;
+	font-size: 30px
+}	
+
 	#table {width:100%; border-align: center; margin: 0px auto; }
 	#reserTd{vertical-align: middle; height: 50px;}
 	
-	#reserTr:hover {cursor: pointer; background-color: #D2D6D7;}
+	#reserTr:hover {cursor: pointer; background-color: #FCF4C0;}
 	
 	.button {
 	border: 1px solid #E9E9E9;
@@ -109,12 +117,12 @@ if(id == null){
 <jsp:include page="../../main/main_header_nav.jsp"/>	
 
 <div style="margin:0px auto;">
-<h4>&nbsp;&nbsp;홈 / 마이페이지</h4>
 </div>
 <br/><br/><br/>
-<div style = "width:800px; text-align: center; margin:0px auto;">
-<h2>예약조회</h2>
-</div>
+<div style="text-align: center">
+		<p class="searchTitle">예약조회</p><br/>
+ <hr class="hr1">
+	</div>
 <br/><br/>
 <div  style = "width:1000px; margin:0px auto;">
 

@@ -5,7 +5,7 @@
 
 
 <div class="navbar-wrapper"
-	style="width: 100%; margin: 0px auto; position: fixed;">
+	style="width: 100%; margin: 0px auto; position: fixed; z-index: 999">
 	<div style="height: 60px; background-color: #FFFFFF">
 	<div style="height: 20px;  background-color: #FFFFFF"></div>
 		<span id="logo"

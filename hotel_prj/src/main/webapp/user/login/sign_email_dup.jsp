@@ -144,18 +144,18 @@ function sendEmail(email){
 	pageContext.setAttribute("resultEmail", resultEmail);
 %>
 <span style="color: #0D569F; font-weight: bold; ">
-입력하신<c:out value="${ param.email }"/>
+입력하신 &nbsp;<c:out value="${ param.email }"/>
 </span>은
 <c:choose>
 <c:when test="${ empty resultEmail }">
 <span style="color: #0D569F; font-weight: bold; ">
-사용가능합니다.
+사용 가능합니다.
 </span>
 <a href="javascript:sendEmail('${ param.email }')">[사용]</a>
 </c:when>
 <c:otherwise>
 <span style="color: #D75043; font-weight: bold; ">
-이미 사용중입니다.
+이미 사용 중입니다.
 </span>
 </c:otherwise>
 </c:choose>

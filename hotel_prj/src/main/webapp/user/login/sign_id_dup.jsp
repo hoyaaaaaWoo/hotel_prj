@@ -115,18 +115,18 @@ function sendId(id){
 	pageContext.setAttribute("resultId", resultId);
 %>
 <span style="color: #0D569F; font-weight: bold; ">
-입력하신<c:out value="${ param.id }"/>
+입력하신&nbsp;<c:out value="${ param.id }"/>
 </span>는
 <c:choose>
 <c:when test="${ empty resultId }">
 <span style="color: #0D569F; font-weight: bold; ">
-사용가능합니다.
+사용 가능합니다.
 </span>
 <a href="javascript:sendId('${ param.id }')">[사용]</a>
 </c:when>
 <c:otherwise>
 <span style="color: #D75043; font-weight: bold; ">
-이미 사용중입니다.
+이미 사용 중입니다.
 </span>
 </c:otherwise>
 </c:choose>

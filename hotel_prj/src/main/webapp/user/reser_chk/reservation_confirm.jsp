@@ -123,10 +123,11 @@
 .total {
 	width: 1000px;
 	height: 70px;
-	font-size: 20px;
+	font-size: 16px;
 	font-weight: bold;
 	color: #333;
 	table-layout: fixed;
+	padding: 5px;
 }
 
 .guideDiv {
@@ -468,11 +469,12 @@ request.setCharacterEncoding("UTF-8");
 
 				<div>
 					<table class="total">
-						<td>상기 홈페이지 요금은 정상가에서 할인된 금액으로 중복할인은 불가능합니다. 예약 취소 및 변경은 체크인
-							하루전 18:00(한국시간)까지 가능합니다. 예약하신 일자에 체크인 되지 않거나 또는 위의 지정 시간 이후에 예약을
-							취소 했을 경우에는 예약 사항에 대해 노·쇼(No show)처리 되며, 이에따른 위약금으로 예약 첫날에 해당하는 1박
-							객실 요금이 청구되오니 유의하시기 바랍니다. 일부 프로모션 특가상품은 별도의 취소 규정이 적용되며, 취소 첫날 1박
-							요금의 100%가 위약금으로 부과 됩니다.</td>
+						<td>
+						● 상기 홈페이지 요금은 정상가에서 할인된 금액으로 중복 할인은 불가능합니다. <br />
+						● 예약 취소 및 변경은 체크인 하루 전 18:00(한국시간)까지 가능합니다. <br />
+						● 예약하신 일자에 체크인 되지 않거나 또는 위의 지정 시간 이후에 예약을 취소했을 경우에는 예약 사항에 대해 노·쇼(No show)처리되며, 이에 따른 위약금으로 예약 첫날에 해당하는 1박
+							객실 요금이 청구되오니 유의하시기 바랍니다. <br />
+						● 일부 프로모션 특가 상품은 별도의 취소 규정이 적용되며, 취소 첫날 1박 요금의 100%가 위약금으로 부과됩니다.<br /></td>
 					</table>
 				</div>
 				<br /> <br /> <br />
@@ -499,7 +501,7 @@ request.setCharacterEncoding("UTF-8");
 
 
 			<br /> <br />
-			<div id="map" style="width: 1000px; height: 350px; magin: 0px auto; "></div>
+			<div id="map" style="width: 1000px; height: 500px; magin: 0px auto; "></div>
 
 
 			<br /> <br /> <br /> <br />
