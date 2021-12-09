@@ -21,14 +21,12 @@ public class ReserveModify {
 	public int deleteRes(String resNum) throws DataAccessException {
 		int cnt = 0;
 
-		// 1. Spring Container 얻기
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
-		// 2. JdbcTemplate 얻기
 		JdbcTemplate jt = gjt.getJdbcTemplate();
-		// 3. 쿼리 실행
+
 		String deleteRes = "update reservation 	set res_status='N'	where res_no=?";
 		cnt = jt.update(deleteRes, resNum);
-		// 4. Spring Container 닫기
+
 		gjt.closeAc();
 
 		return cnt;
@@ -36,9 +34,9 @@ public class ReserveModify {
 
 	/**
 	 * 특정 예약건 수정 요청대로 update하는 method
-	 * 
-	 * @param resNum 선택된 에약번호
-	 * @return update 성공 시 1반환
+	 * @param ruVO
+	 * @return
+	 * @throws DataAccessException
 	 */
 	public int updateRes(ReserveUpdateVO ruVO) throws DataAccessException {
 		int cnt = 0;
@@ -56,7 +54,7 @@ public class ReserveModify {
 
 		cnt = jt.update(sb.toString(), ruVO.getChkInDate(), ruVO.getChkOutDate(), ruVO.getAdult(),
 				ruVO.getChild(), ruVO.getrName(), ruVO.getAddReq(), ruVO.getResNo());
-		// 4. Spring Container 닫기
+
 		gjt.closeAc();
 
 		return cnt;
