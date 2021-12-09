@@ -48,8 +48,8 @@ public class ReserveModify {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("update reservation		")
-				.append("	set 	chkin_date = to_char(to_date(?),'yyyy.mm.dd'),")
-				.append("		chkout_date = to_char(to_date(?),'yyyy.mm.dd'),")
+				.append("	set 	chkin_date = to_char(to_date(?,'yyyy.mm.dd')),")
+				.append("		chkout_date = to_char(to_date(?,'yyyy.mm.dd')),")
 				.append("		adult = ?, child = ?,")
 				.append("		room_no = (select room_no from room where r_name=?),")
 				.append("       add_req = ?	 , res_date=sysdate	").append("where  res_no=?	");
