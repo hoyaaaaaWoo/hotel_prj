@@ -188,8 +188,8 @@ public class ReserveSelect {
 		StringBuilder select = new StringBuilder();
 		select.append("	select res_no	").append("	from   reservation	")
 				.append("	where  room_no= (select room_no from room where r_name= ?)	")
-				.append("	 and ((to_date( ? ) between to_date(chkin_date) and (to_date(chkout_date)-1)) or	")
-				.append("	 (to_date(chkin_date) between to_date( ? ) and to_date( ? )-1))	")
+				.append("	 and ((to_date(?,'yyyy.mm.dd') between to_date(chkin_date,'yyyy.mm.dd') and (to_date(chkout_date,'yyyy.mm.dd')-1)) or	")
+				.append("	 (to_date(chkin_date,'yyyy.mm.dd') between to_date(?,'yyyy.mm.dd') and to_date(?,'yyyy.mm.dd')-1))	")
 				.append("	 and res_no != ? 	and res_status = 'Y'");
 
 		list = jt.query(select.toString(), new Object[] { ruVO.getrName(), ruVO.getChkInDate(), ruVO.getChkInDate(),
