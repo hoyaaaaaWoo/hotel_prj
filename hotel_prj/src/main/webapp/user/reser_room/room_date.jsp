@@ -202,7 +202,7 @@ $(function(){
 				//요기서 디자인하기
 				});//each
 				
-				location.href="room_reserve.jsp?"+param;
+				location.href="http://team3.aws.sist.co.kr/user/reser_room/room_reserve.jsp?"+param;
 		
 			 }//success
 			 
