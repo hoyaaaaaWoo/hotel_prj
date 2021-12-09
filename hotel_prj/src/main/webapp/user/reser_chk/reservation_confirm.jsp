@@ -26,7 +26,7 @@
 
 <!-- 메인 CSS -->
 <link rel="stylesheet" type="text/css"
-	href="http://localhost/hotel_prj/main/main.css">
+	href="http://team3.aws.sist.co.kr/main/main.css">
 
 <style type="text/css">
 .hr1 {
@@ -205,7 +205,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-<link href="http://localhost/jsp_prj/common/bootstrap/carousel.css"
+<link href="http://team3.aws.sist.co.kr/jsp_prj/common/bootstrap/carousel.css"
 	rel="stylesheet">
 
 
@@ -216,7 +216,7 @@
 
 	function main() {
 		alert("메인 페이지로 이동합니다.");
-		location.href = "http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp"
+		location.href = "http://team3.aws.sist.co.kr/main/Hotel_Ritz_Seoul.jsp"
 	}
 	function print() {
 		alert("인쇄를 시작하겠습니다..");
@@ -368,7 +368,7 @@ request.setCharacterEncoding("UTF-8");
 					<table class="chkTab">
 						<tr>
 							<td style="width: 500px">
-							<img src="http://localhost/hotel_prj/roomImages/${ rVO.main_img }"
+							<img src="http://team3.aws.sist.co.kr/roomImages/${ rVO.main_img }"
 								width="480" height="330" /><br /> <br /></td>
 
 							<td>
@@ -526,7 +526,7 @@ request.setCharacterEncoding("UTF-8");
 	<!-- ================================================== -->
 
 	<script
-		src="http://localhost/jsp_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
+		src="http://team3.aws.sist.co.kr/jsp_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
 	</div>
 </body>
 </html>

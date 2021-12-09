@@ -26,7 +26,7 @@
 
 <!-- 메인 CSS -->
 <link rel="stylesheet" type="text/css"
-	href="http://localhost/hotel_prj/main/main.css">
+	href="http://team3.aws.sist.co.kr/main/main.css">
 
 	<style type = "text/css">
 
@@ -67,7 +67,7 @@
 <script type="text/javascript">
 function main(){
 	alert("메인 페이지로 이동합니다.");
-	location.href="http://localhost/hotel_prj/main/Hotel_Ritz_Seoul.jsp"
+	location.href="http://team3.aws.sist.co.kr/main/Hotel_Ritz_Seoul.jsp"
 }
 
 
@@ -169,6 +169,6 @@ if(id == null){
     ================================================== -->
     
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="http://localhost/hotel_prj/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
+    <script src="http://team3.aws.sist.co.kr/common/bootstrap/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>

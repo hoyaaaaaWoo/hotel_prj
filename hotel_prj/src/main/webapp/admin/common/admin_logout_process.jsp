@@ -3,5 +3,5 @@
 
 <%
 session.invalidate();
-response.sendRedirect("http://localhost/hotel_prj/admin/common/admin_logout_view.jsp");
+response.sendRedirect("http://team3.aws.sist.co.kr/admin/common/admin_logout_view.jsp");
 %>
