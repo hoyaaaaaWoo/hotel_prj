@@ -83,6 +83,7 @@ if(cnt == 1){
 </c:catch>
 
 <c:if test="${not empty e}">
+${e}
 	<strong>죄송합니다. 삭제 작업 중 문제가 발생했습니다.</strong><br/>
 	<strong>잠시 후 다시 시도해주세요.</strong><br/>
 	<a href="http://team3.aws.sist.co.kr/admin/admin_reservation/admin_reservation_main.jsp">뒤로 가기</a>

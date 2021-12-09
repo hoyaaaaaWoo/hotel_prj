@@ -119,7 +119,7 @@ function showRoomDetail(roomName){
 		<div id="roomList"> 
 		<% 
 		RoomSelect room = new RoomSelect();
-		pageContext.setAttribute("roomList", room.selectRoomInfo(null));
+		pageContext.setAttribute("roomList", room.selectRoomInfo(null,null));
 		%>
 				
 		<table id="roomTab">
@@ -149,7 +149,7 @@ function showRoomDetail(roomName){
 		<c:if test="${ not empty param.rName }">
 		<%
 		String rName = request.getParameter("rName");
-		pageContext.setAttribute("rmVO", room.selectRoomInfo(rName));
+		pageContext.setAttribute("rmVO", room.selectRoomInfo(rName,null));
 		%>
 		<div id="viewRoom">
 		<form name ="chgFrm" id ="chgFrm"  action="http://team3.aws.sist.co.kr/admin/admin_room/admin_room_change.jsp" method="post">

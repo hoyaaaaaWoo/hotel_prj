@@ -14,13 +14,18 @@ import java.util.List;
 
 /**
  * 객실추가/변경에서 - 이미지 추가에서 사용할 클래스
+ * 
  * @author user
+ */
+/**
+ * @author user
+ *
  */
 public class UploadImgList {
 
 	/**
 	 * temp 파일에 존재하는 이미지 목록 조회
-	 * @return
+	 * @return List<UploadImgVO>
 	 */
 	public List<UploadImgVO> searchImgList() {
 		List<UploadImgVO> list = new ArrayList<UploadImgVO>();
@@ -58,19 +63,18 @@ public class UploadImgList {
 
 	/**
 	 * List<UploadImgVO>에서 등록순서대로 정렬하는 inner Class
+	 * 
 	 * @author user
 	 */
 	public class CompareDateAsc implements Comparator<UploadImgVO> {
 		@Override
 		public int compare(UploadImgVO o1, UploadImgVO o2) {
 			return o1.getLastModified().compareTo(o2.getLastModified());
-		}// compare
-	}// CompareDateAsc
+		}
+	}// class
 
-	
 	/**
 	 * 메인이미지 등록시 파일명을 mainImg로 변경하여 저장하는 method
-	 * @param fileName
 	 */
 	public void markMainImg(String fileName) {
 
@@ -111,10 +115,8 @@ public class UploadImgList {
 		} // end if
 	}// removeAllImg
 
-	
 	/**
 	 * temp 폴더의 특정 이미지만 삭제
-	 * @param fileName
 	 */
 	public void removeSelectedImg(String fileName) {
 
@@ -122,9 +124,7 @@ public class UploadImgList {
 
 		if (temp.exists()) {
 			File[] listFiles = temp.listFiles();
-			
-			if (listFiles.length != 0) { //temp에 파일이 존재한다면 진행
-				
+			if (listFiles.length != 0) {
 				for (int i = 0; i < listFiles.length; i++) {
 					// 삭제하려는 파일과 동일한 이름이 있다면 삭제
 					if (listFiles[i].getName().equals(fileName)) {
@@ -133,7 +133,6 @@ public class UploadImgList {
 						break;
 					} // end if
 				} // end for
-		
 			} // end if
 		} // end if
 	}// removeSelectedImg
@@ -143,7 +142,6 @@ public class UploadImgList {
 	 * 객실 추가/수정 시 기타 이미지가 있으면 파일명의 배열을 전달하는 method
 	 * @return
 	 */
-	
 	public String[] searchOtherImg() {
 		List<UploadImgVO> list = searchImgList();
 		// 조회된 list size 만큼 배열 생성
@@ -161,7 +159,6 @@ public class UploadImgList {
 		return otherImgList;
 	}// searchOtherImg
 
-	
 	/**
 	 * 객실추가 성공 시 temp에 있는 사진들을 roomImages폴더로 이동
 	 * @throws IOException

@@ -7,7 +7,7 @@ package kr.co.sist.admin.reservation;
 public class ReserveSelectVO {
 
 	private String resNo, kName, stayDate, rName, resStauts, resDate;
-	private int guest;
+	private int Guest;
 
 	public ReserveSelectVO() {
 	}
@@ -20,7 +20,7 @@ public class ReserveSelectVO {
 		this.rName = rName;
 		this.resStauts = resStauts;
 		this.resDate = resDate;
-		this.guest = guest;
+		Guest = guest;
 	}
 
 	public String getResNo() {
@@ -64,11 +64,11 @@ public class ReserveSelectVO {
 	}
 
 	public int getGuest() {
-		return this.guest;
+		return Guest;
 	}
 
 	public void setGuest(int guest) {
-		this.guest = guest;
+		Guest = guest;
 	}
 
 	public String getResDate() {
