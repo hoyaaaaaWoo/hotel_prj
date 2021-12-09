@@ -175,7 +175,7 @@ $(function(){
 		 let queryString = "start_date="+sd+"&end_date="+ed+"&adult="+adult+"&child="+child;
 		
 		 $.ajax({
-			 url:"ajax_room_date.jsp",
+			 url:"http://team3.aws.sist.co.kr/user/reser_room/ajax_room_date.jsp",
 			 type:"post",
 			 data:queryString,
 			 dataType:"json",
