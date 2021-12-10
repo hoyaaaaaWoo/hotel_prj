@@ -42,7 +42,7 @@
 
 .resChk {
 	width: 1000px;
-	height: 1800px;
+	height: 1900px;
 	color: #5A5A5A;
 	margin: 0px auto;
 	text-align: center;
@@ -120,10 +120,21 @@
 	font-weight: bold
 }
 
-.total {
+.notice {
 	width: 1000px;
 	height: 70px;
 	font-size: 16px;
+	font-weight: bold;
+	color: #333;
+	table-layout: fixed;
+	padding: 5px;
+	text-align: left;
+}
+
+.total {
+	width: 1000px;
+	height: 70px;
+	font-size: 20px;
 	font-weight: bold;
 	color: #333;
 	table-layout: fixed;
@@ -146,7 +157,7 @@
 
 .addBack {
 	width: 1000px;
-	height: 150px;
+	height: 100px;
 	background-color: #FAFAFA;
 	padding: 50px
 }
@@ -464,11 +475,11 @@ request.setCharacterEncoding("UTF-8");
 						</div>
 			</div>
 			<!-- guideDiv -->
-			<br /> <br /> <br /><br /> <br /> <br /><br /> <br /> <br /><br /> <br /> <br /><br /> <br /> <br /><br /> <br /> <br />
+			 <br /><br /> <br /> <br /><br /> <br /> <br /><br /> <br /> <br /><br /> <br /> <br />
 
 
 				<div>
-					<table class="total">
+					<table class="notice">
 						<td>
 						● 상기 홈페이지 요금은 정상가에서 할인된 금액으로 중복 할인은 불가능합니다. <br />
 						● 예약 취소 및 변경은 체크인 하루 전 18:00(한국시간)까지 가능합니다. <br />

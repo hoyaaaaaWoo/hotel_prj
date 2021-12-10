@@ -200,6 +200,7 @@ pageContext.setAttribute("info", infoVO);
 <br/>
 </div>
 <br/><br/><br/>
+<div class = "container">	
 <div style="text-align: center">
 		<p class="MyTitle">마이페이지</p><br/>
  <hr class="hr1">
@@ -250,11 +251,11 @@ pageContext.setAttribute("info", infoVO);
 </form>
 <br/><br/><br/>
 </div>
+</div>
   <br/><br/><br/><br/><br/><br/>
-<div class="container marketing">
+
  <!-- FOOTER -->
 
-    </div><!-- /.container -->
 
 <jsp:include page="../../main/main_footer.jsp"/>
 

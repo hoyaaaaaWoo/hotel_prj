@@ -70,13 +70,13 @@
 	text-align: center;
 	border-radius: 7px;
 }
-
+/*
 div { border: 1px solid #0000FF}
 td { border: 1px solid #FF0000}
 tr { border: 1px solid #FF0000}
 span { border: 1px solid #FF00FF}
 p { border: 1px solid #FF00FF}
-
+*/
 
 	</style>
 

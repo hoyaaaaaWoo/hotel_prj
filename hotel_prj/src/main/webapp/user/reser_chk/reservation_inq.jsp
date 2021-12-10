@@ -116,9 +116,8 @@ if(id == null){
 <div class="wrapper">
 <jsp:include page="../../main/main_header_nav.jsp"/>	
 
-<div style="margin:0px auto;">
-</div>
 <br/><br/><br/>
+<div class = "container">	
 <div style="text-align: center">
 		<p class="searchTitle">예약조회</p><br/>
  <hr class="hr1">
@@ -166,10 +165,9 @@ if(id == null){
 
 
   <br/><br/><br/><br/><br/><br/>
-<div class="container marketing">
+</div>
  <!-- FOOTER -->
-	
-    </div><!-- /.container -->
+
 	<jsp:include page="../../main/main_footer.jsp"/>
 
 </div>
