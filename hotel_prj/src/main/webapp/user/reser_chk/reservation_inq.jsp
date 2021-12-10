@@ -43,7 +43,7 @@
 	
 	#reserTr:hover {cursor: pointer; background-color: #FCF4C0;}
 	
-	.button {
+.button {
 	border: 1px solid #E9E9E9;
 	font-weight: bold;
 	font-size: 15px;
@@ -57,16 +57,16 @@
 }
 
 .button:hover{
-	background-color: #FCF4C0 ;
+	background-color: #F5dF4D;
+	color: #000000;
+	cursor: pointer;
 	border: 1px solid #E9E9E9;
 	font-weight: bold;
 	font-size: 15px;
-	color: #333;
 	width: 130px;
 	height: 40px;
 	text-align: center;
 	border-radius: 7px;
-	cursor: pointer;
 }
 	
 	
